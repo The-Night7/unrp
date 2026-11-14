@@ -1,0 +1,28 @@
+{
+  "type": "palladium:compound",
+  "layers": [
+    {
+      "type": "geckolib:default",
+      "model": {
+        "normal": "unrp:geo/blademaster_great.geo.json",
+        "slim": "unrp:geo/blademaster_great.geo.json"
+      },
+      "texture": {
+        "base": "unrp:textures/models/blademaster_greatsword.png"
+      },
+      "render_type": "glow",
+      "first_person_conditions": false,
+      "tint": {
+        "type": "unrp:owner_aura"
+      },
+      "bones": {
+        "head": "head7",
+        "body": "body7",
+        "right_arm": "right_arm7",
+        "left_arm": "left_arm7",
+        "right_leg": "right_leg7",
+        "left_leg": "left_leg7"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "objectives": [
+    "unrp.hud_mode",
+    "unrp.aura_pct",
+    "unrp.aura",
+    "unrp.aura_max",
+    "unrp.mastery",
+    "unrp.level_cap",
+    "unrp.beyond"
+  ]
+}

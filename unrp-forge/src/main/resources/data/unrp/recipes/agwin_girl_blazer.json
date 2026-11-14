@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P P",
+    "PAP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:red_wool"
+    },
+    "A": {
+      "item": "minecraft:pink_wool"
+    }
+  },
+  "result": {
+    "item": "unrp:agwin_girl_blazer",
+    "count": 1
+  }
+}

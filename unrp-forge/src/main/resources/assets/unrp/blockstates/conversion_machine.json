@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "unrp:block/conversion_machine"
+    },
+    "facing=south": {
+      "model": "unrp:block/conversion_machine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "unrp:block/conversion_machine",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "unrp:block/conversion_machine",
+      "y": 90
+    }
+  }
+}

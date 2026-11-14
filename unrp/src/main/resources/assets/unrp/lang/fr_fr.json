@@ -1,0 +1,20 @@
+{
+  "key.unrp.use": "Utiliser le pouvoir",
+  "key.categories.unrp": "Unordinary RP",
+  "power.unrp.speed": "Vitesse",
+  "power.unrp.stone_skin": "Peau de pierre",
+  "power.unrp.healing": "Soin",
+  "power.unrp.explosion": "Explosion",
+  "unrp.power.none": "Aucun",
+  "unrp.msg.no_power": "Tu n'as pas de pouvoir.",
+  "unrp.msg.cooldown": "Recharge : %s s",
+  "unrp.msg.no_aura": "Pas assez d'aura (%s requis)",
+  "unrp.cmd.info": "%1$s | Pouvoir : %2$s | Aura %3$s/%4$s | PUI %5$s VIT %6$s RUS %7$s REC %8$s DEF %9$s",
+  "unrp.cmd.power_list": "Pouvoirs : %s",
+  "unrp.cmd.power_set": "%s a maintenant le pouvoir %s",
+  "unrp.cmd.power_clear": "%s a perdu son pouvoir",
+  "unrp.cmd.aura_set": "%s : aura %s/%s",
+  "unrp.cmd.stat_set": "%s : %s = %s",
+  "unrp.cmd.unknown_power": "Pouvoir inconnu : %s",
+  "unrp.cmd.unknown_stat": "Stat inconnue : %s"
+}

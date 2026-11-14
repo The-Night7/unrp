@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "unrp:syringe_blood"
+    },
+    "title": {
+      "text": "Synthetic Dawn",
+      "color": "#B9A8E8"
+    },
+    "description": {
+      "text": "Bind your first synthetic passive"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "unlock": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "unrp:awakening"
+}

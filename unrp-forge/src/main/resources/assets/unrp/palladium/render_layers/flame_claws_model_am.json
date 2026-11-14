@@ -1,0 +1,24 @@
+{
+    "type": "palladium:compound",
+    "layers": [
+        {
+            "type": "geckolib:default",
+            "model": {
+                "normal": "unrp:geo/fire_claws.geo.json",
+                "slim": "unrp:geo/fire_claws.geo.json"
+            },
+            "texture": {
+                "base": "unrp:textures/models/aura_fire_claws.png"
+            },
+            "render_type": "glow",
+            "bones": {
+                "head": "head7",
+                "body": "body7",
+                "right_arm": "right_arm7",
+                "left_arm": "left_arm7",
+                "right_leg": "right_leg7",
+                "left_leg": "left_leg7"
+            }
+        }
+    ]
+}

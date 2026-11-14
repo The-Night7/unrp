@@ -1,0 +1,9 @@
+{
+  "sound_type": "minecraft:glass",
+  "destroy_time": 3600000,
+  "explosion_resistance": 3600000,
+  "render_type": "translucent",
+  "no_occlusion": true,
+  "register_item": false,
+  "map_color": "minecraft:color_yellow"
+}

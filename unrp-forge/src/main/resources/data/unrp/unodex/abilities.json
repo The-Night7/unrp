@@ -1,0 +1,2686 @@
+{
+ "abilities": [
+  {
+   "id": "non_specifiee",
+   "name": "Non spécifiée",
+   "aliases": [
+    "Non Spécifiée"
+   ],
+   "type": "unknown",
+   "nature": "attack",
+   "description": "Unknown ability, boosted by the Ability Amplifiers supplied by Brims; glows with a red aura when active.",
+   "users": [
+    "adrion",
+    "agent_rowden",
+    "alden",
+    "alden_s_friend",
+    "amora",
+    "aria",
+    "aurielle",
+    "beatrice",
+    "brennet",
+    "broven",
+    "dylan",
+    "ella",
+    "flint",
+    "fyora",
+    "grayson",
+    "holden",
+    "julian",
+    "julien",
+    "kelley",
+    "kurt",
+    "leon",
+    "lucan",
+    "marisol",
+    "miranda",
+    "neil",
+    "otis",
+    "quinton",
+    "roland",
+    "sable",
+    "simon",
+    "stacey",
+    "tech",
+    "zander",
+    "zeena"
+   ],
+   "level_min": 3.7,
+   "level_max": 4.8,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "aura_deity",
+   "name": "Aura Deity",
+   "aliases": [],
+   "type": "meta",
+   "nature": null,
+   "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve. Au niveau God Tier, il peut garder 4 capacités et rappeler à volonté toutes celles qu'il a déjà copiées.",
+   "users": [
+    "arlequin",
+    "telemachus"
+   ],
+   "level_min": 1.6,
+   "level_max": 6.2,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "blade",
+   "name": "Blade",
+   "aliases": [],
+   "type": "creation",
+   "nature": "attack",
+   "description": "Lame : capacité de création de lame (aucun détail supplémentaire sur la fiche).",
+   "users": [
+    "kaira"
+   ],
+   "level_min": 1.8,
+   "level_max": 2.1,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "claws",
+   "name": "Claws",
+   "aliases": [],
+   "type": "creation",
+   "nature": "attack",
+   "description": "Claws : fait apparaître des griffes sur ses doigts (stade actuel, 1.0-1.9). Évolution : gantelets qui remontent jusqu'aux avant-bras en plus des griffes (2.0-3.4), puis Armure Draconique complète avec des ailes rétractables pour voler s'il le souhaite (3.5-4.9).",
+   "users": [
+    "issei"
+   ],
+   "level_min": 1.5,
+   "level_max": 1.6,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "illumination",
+   "name": "Illumination",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "support",
+   "description": "Illumination: generates a bright, white light from her hands. Very limited combat use, but can disorient people by shining the light in their eyes.",
+   "users": [
+    "evie"
+   ],
+   "level_min": 1.5,
+   "level_max": 1.5,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "knuckles",
+   "name": "Knuckles",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": null,
+   "description": "Knuckles : augmente sa force en renforçant ses muscles pour mieux projeter sa puissance physique.",
+   "users": [
+    "louis"
+   ],
+   "level_min": 1.5,
+   "level_max": 1.7,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "needles",
+   "name": "Needles",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Needles: shoots thin needles of energy out of his hands that can cut and scratch opponents. The needles are the same colour as his hands and eyes.",
+   "users": [
+    "lin"
+   ],
+   "level_min": 1.8,
+   "level_max": 1.8,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "scanner",
+   "name": "Scanner",
+   "aliases": [],
+   "type": "detection",
+   "nature": "strategist",
+   "description": "Ramlethal projette son aura vert jade pour analyser instantanément la structure interne et énergétique d'une personne.",
+   "users": [
+    "ramlethal"
+   ],
+   "level_min": 1.4,
+   "level_max": 1.6,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "tir_concentre",
+   "name": "Tir concentré",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Tir concentré : concentre son aura en un point pour tirer une boule d'énergie, à son niveau aussi petite et forte qu'une balle de baseball, avec une portée d'une dizaine de mètres. Il ne peut enchaîner que 2 tirs avant de devoir récupérer.",
+   "users": [
+    "hecate"
+   ],
+   "level_min": 1.2,
+   "level_max": 1.4,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "troll",
+   "name": "Troll",
+   "aliases": [],
+   "type": "manipulation",
+   "nature": "support",
+   "description": "Troll is a very effective ability that lets the user masterfully manipulate the plot.",
+   "users": [
+    "uru_chan"
+   ],
+   "level_min": 1.2,
+   "level_max": 1.2,
+   "wave": 1,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "unknown_augmentation_ability",
+   "name": "Unknown Augmentation Ability",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Unnamed augmentation ability strong enough to break down doors and crush someone's neck.",
+   "users": [
+    "gianna",
+    "ian",
+    "jett",
+    "mardin"
+   ],
+   "level_min": 2.1,
+   "level_max": 2.1,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "ability_gauging",
+   "name": "Ability Gauging",
+   "aliases": [],
+   "type": "detection",
+   "nature": "strategist",
+   "description": "Ability Gauging: gauges the power levels of others via touch. Readings are accurate but not precise, rounded to the nearest whole number (e.g. 3.6 read as 4.0, 5.4 read as 5).",
+   "users": [
+    "ability_gauger"
+   ],
+   "level_min": 2.0,
+   "level_max": 2.0,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "arcane_shot",
+   "name": "Arcane Shot",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Arcane Shot: long-range projectile ability that shoots a beam of energy from her hands, similar to Lazor.",
+   "users": [
+    "brea"
+   ],
+   "level_min": 3.2,
+   "level_max": 3.2,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "archer",
+   "name": "Archer",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Archer: long-range projectile ability used for sniping, able to hit erratically moving targets from long distances.",
+   "users": [
+    "raddix"
+   ],
+   "level_min": 2.8,
+   "level_max": 4.2,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "barrage",
+   "name": "Barrage",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "agility",
+   "description": "Barrage: unleashes a fast flurry of punches that is notably hard to block.",
+   "users": [
+    "kiara"
+   ],
+   "level_min": 2.7,
+   "level_max": 2.7,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "catalyst_ray",
+   "name": "Catalyst ray",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Catalyst Ray: projectile generation ability, a form of ray functionally similar to Lazor.",
+   "users": [
+    "oliver"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "catch_up",
+   "name": "Catch Up",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "agility",
+   "description": "Catch Up: closes the distance between him and his opponent at a fast pace, very similar to Speed.",
+   "users": [
+    "heinz"
+   ],
+   "level_min": 2.7,
+   "level_max": 2.7,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "charge",
+   "name": "Charge",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "agility",
+   "description": "Charge: appears to be a strength and speed enhancement ability.",
+   "users": [
+    "merin"
+   ],
+   "level_min": 3.4,
+   "level_max": 3.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "charge_shot",
+   "name": "Charge Shot",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Charge Shot: with focus, fires a wide beam from one palm. It is not inescapable and can be blocked.",
+   "users": [
+    "wyatt"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "clairvoyance",
+   "name": "Clairvoyance",
+   "aliases": [],
+   "type": "mental",
+   "nature": "support",
+   "description": "Clairvoyance: sees visions of the future. It cannot be willfully activated and triggers at random times, mostly involving people she interacts with daily.",
+   "users": [
+    "claire"
+   ],
+   "level_min": 2.3,
+   "level_max": 2.3,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "clobber",
+   "name": "Clobber",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Clobber: brutally strikes an opponent, inflicting great physical damage. Her arms glow blue when used.",
+   "users": [
+    "yuline"
+   ],
+   "level_min": 2.8,
+   "level_max": 2.8,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "contact_shred",
+   "name": "Contact Shred",
+   "aliases": [],
+   "type": "unknown",
+   "nature": "attack",
+   "description": "Contact Shred: inflicts shredding injuries by touching the body part he wants to injure, discharging his aura into it, then letting go. Less effective against significantly stronger opponents.",
+   "users": [
+    "charlie"
+   ],
+   "level_min": 2.8,
+   "level_max": 4.2,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "detection_de_mensonge",
+   "name": "Detection de Mensonge",
+   "aliases": [],
+   "type": "unknown",
+   "nature": null,
+   "description": null,
+   "users": [
+    "talia"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "dizzy_punch",
+   "name": "Dizzy Punch",
+   "aliases": [],
+   "type": "status",
+   "nature": "support",
+   "description": "Dizzy Punch: inflicts dizziness on opponents after punching them. Not very strong physically, unlike most augmentation abilities.",
+   "users": [
+    "clio"
+   ],
+   "level_min": 2.6,
+   "level_max": 2.6,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "flash_forward",
+   "name": "Flash Forward",
+   "aliases": [],
+   "type": "mental",
+   "nature": "support",
+   "description": "Flash Forward: sees a few seconds into the future, letting her make the best immediate decision.",
+   "users": [
+    "juni"
+   ],
+   "level_min": 2.5,
+   "level_max": 2.5,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "fortify",
+   "name": "Fortify",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Fortify: increases her strength, defense and speed. Once boosted, strong enough to rip a chunk out of the road and hurl it.",
+   "users": [
+    "alana"
+   ],
+   "level_min": 2.7,
+   "level_max": 4.1,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "ground_pound",
+   "name": "Ground Pound",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Ground Pound: performs a powerful slamming attack on the ground.",
+   "users": [
+    "rex"
+   ],
+   "level_min": 2.6,
+   "level_max": 2.6,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "hair_growth",
+   "name": "Hair Growth",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "agility",
+   "description": "Hair Growth: controls her hair as extra appendages and makes it grow longer for added range.",
+   "users": [
+    "keesh"
+   ],
+   "level_min": 2.6,
+   "level_max": 2.6,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "hand_blade",
+   "name": "Hand Blade",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Hand Blade: transforms her hand into a long sharp blade, much like Demon Claw.",
+   "users": [
+    "emerson"
+   ],
+   "level_min": 2.6,
+   "level_max": 2.6,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "heat_palm",
+   "name": "Heat Palm",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Heat Palm: heats up his palms to burn things, strong enough to painfully burn human flesh. He appears to be resistant to his own ability.",
+   "users": [
+    "hower"
+   ],
+   "level_min": 2.1,
+   "level_max": 2.1,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "heavy_hitter",
+   "name": "Heavy-Hitter",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Heavy-hitter: deals powerful blows to injure foes, much like Strength or Strong Punch.",
+   "users": [
+    "keith"
+   ],
+   "level_min": 2.8,
+   "level_max": 2.8,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "impact",
+   "name": "Impact",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Impact: makes her arms glow with a lavender light and likely increases her attack.",
+   "users": [
+    "melody"
+   ],
+   "level_min": 3.1,
+   "level_max": 3.1,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "lazor",
+   "name": "Lazor",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Lazor: charges and shoots a lime-green laser beam strong enough to damage a wall or leave a bloody wound on an opponent.",
+   "users": [
+    "krolik"
+   ],
+   "level_min": 2.5,
+   "level_max": 2.5,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "lie_detection",
+   "name": "Lie Detection",
+   "aliases": [],
+   "type": "mental",
+   "nature": "support",
+   "description": "Not explicitly stated; probably some kind of Lie Detection ability.",
+   "users": [
+    "nadia"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "missiles",
+   "name": "Missiles",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Missiles: shoots long-ranged, explosive projectiles out of his hands.",
+   "users": [
+    "rouker"
+   ],
+   "level_min": 2.2,
+   "level_max": 2.2,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "phantom_fist",
+   "name": "Phantom Fist",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Phantom Fist: punches objects from a great distance without physical contact, much like Phantom Push.",
+   "users": [
+    "weim"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "phantom_push",
+   "name": "Phantom Push",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Phantom Push: emits hand-shaped projectiles that push opponents away.",
+   "users": [
+    "kalum"
+   ],
+   "level_min": 2.8,
+   "level_max": 2.8,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "possession",
+   "name": "Possession",
+   "aliases": [],
+   "type": "mental",
+   "nature": "strategist",
+   "description": "Possession : possède le corps de n'importe qui ayant un niveau de capacité plus faible que le sien, et peut alors utiliser la capacité du corps possédé (avec une maîtrise limitée).",
+   "users": [
+    "leonie"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.5,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "quick_strike",
+   "name": "Quick Strike",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Quick Strike: attacks more rapidly than the average person.",
+   "users": [
+    "bryce"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "regeneration",
+   "name": "Regeneration",
+   "aliases": [],
+   "type": "curative",
+   "nature": "support",
+   "description": "Regeneration: fast-acting healing potent enough to regenerate broken bones, letting him re-enter a fight within seconds. Also seems to slightly increase defense and power.",
+   "users": [
+    "tanner"
+   ],
+   "level_min": 3.1,
+   "level_max": 3.1,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "repulsion",
+   "name": "Repulsion",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Repulsion: uses kinetic energy to violently repel foes at close range.",
+   "users": [
+    "misa"
+   ],
+   "level_min": 3.2,
+   "level_max": 3.2,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "rock_arm",
+   "name": "Rock Arm",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "defense",
+   "description": "Rock Arm: turns his arms into hardened stone.",
+   "users": [
+    "bimel"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "sanity_control_bal",
+   "name": "Sanity Control (Bal)",
+   "aliases": [],
+   "type": "status",
+   "nature": "support",
+   "description": "Sanity Control (Bal) : influence l'équilibre psychophysique des individus via leur aura, soit pour soigner (régulation de la guérison), soit pour blesser dans un rayon de 5 m (blessures internes, douleurs amplifiées, réouverture de plaies récentes).",
+   "users": [
+    "beta"
+   ],
+   "level_min": 3.1,
+   "level_max": 3.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "sanity_control_heal",
+   "name": "Sanity Control (Heal)",
+   "aliases": [],
+   "type": "status",
+   "nature": "support",
+   "description": "Sanity Control (Heal) - personnalité calme : régule les processus de guérison via l'aura pour soigner. Soigne sans problème les petites blessures et réduit les saignements, mais les grosses blessures demandent beaucoup de temps sans garantie de réussite.",
+   "users": [
+    "beta"
+   ],
+   "level_min": 3.1,
+   "level_max": 3.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "sanity_control_hurt",
+   "name": "Sanity Control (Hurt)",
+   "aliases": [],
+   "type": "status",
+   "nature": "attack",
+   "description": "Sanity Control (Hurt) - personnalité agressive : perturbe l'équilibre psychophysique via l'aura pour blesser dans un rayon de 5 m. Provoque douleurs et blessures internes (déchirures musculaires...), amplifie les douleurs existantes et peut rouvrir des blessures récentes.",
+   "users": [
+    "beta"
+   ],
+   "level_min": 3.1,
+   "level_max": 3.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "shockwave",
+   "name": "Shockwave",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Shockwave: shoots powerful waves of force, usable as projectiles or to propel himself to evade.",
+   "users": [
+    "waldo"
+   ],
+   "level_min": 2.8,
+   "level_max": 4.2,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "speed",
+   "name": "Speed",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "agility",
+   "description": "Speed: moves faster than the eye can perceive, giving the element of surprise, stronger attacks and easier evasion. Surrounds her body in an aura (red at debut, later her signature yellow).",
+   "users": [
+    "wenqi"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "stone_skin",
+   "name": "Stone Skin",
+   "aliases": [],
+   "type": "transformation",
+   "nature": "defense",
+   "description": "Stone Skin: hardens his skin at will, making him stronger and more durable. Also grants a considerable speed boost and increased weight.",
+   "users": [
+    "gavin"
+   ],
+   "level_min": 2.8,
+   "level_max": 2.8,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "strength",
+   "name": "Strength",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Strength: increases her physical strength; her strikes can make opponents cough up blood.",
+   "users": [
+    "illena"
+   ],
+   "level_min": 2.7,
+   "level_max": 2.7,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "strong_kick",
+   "name": "Strong Kick",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Strong Kick: physically enhances the bottom of his leg, letting him deal massive damage with his kicks.",
+   "users": [
+    "skrev"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "strong_punch",
+   "name": "Strong Punch",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Strong Punch: punches hard enough to leave a hole in a wall without damaging his own fists. When activated, his hand and eyes glow green.",
+   "users": [
+    "crail"
+   ],
+   "level_min": 2.4,
+   "level_max": 2.4,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "tremor",
+   "name": "Tremor",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Tremor: creates localized earthquakes beneath his feet and controls their magnitude at will, strong enough to crack the ground and shake nearby buildings. Has some directional control over the tremors.",
+   "users": [
+    "lance"
+   ],
+   "level_min": 3.2,
+   "level_max": 3.2,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "vigor",
+   "name": "Vigor",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Vigor: seemingly grants enhanced strength.",
+   "users": [
+    "sherri"
+   ],
+   "level_min": 2.9,
+   "level_max": 2.9,
+   "wave": 2,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "ghost",
+   "name": "Ghost",
+   "aliases": [],
+   "type": "quantum",
+   "nature": null,
+   "description": "La capacité d'Hizo, nommée Spectre, repose sur une altération extrême de la fréquence vibratoire moléculaire de son corps. Lorsqu'il l'active, il devient totalement intangible et insensible à toute agression physique, qu'il s'agisse de coups, de balles ou de flammes. Cependant, cet état s'accompagne d'une rupture sensorielle totale : coupé des photons, des ondes sonores et de l'air, il ne peut plus voir, entendre, respirer ni subir la gravité, ce qui limite son utilisation à un maximum de cinq minutes pour éviter l'évanouissement. Enfin, cette intangibilité se double d'une application offensive et cinétique redoutable, puisque désactiver son pouvoir à l'intérieur d'un obstacle solide provoque une décompression brutale qui le propulse à une vitesse fulgurante à travers le champ de bataille.",
+   "users": [
+    "hizo",
+    "void"
+   ],
+   "level_min": 4.8,
+   "level_max": 4.9,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "healing",
+   "name": "Healing",
+   "aliases": [],
+   "type": "curative",
+   "nature": "support",
+   "description": "Healing: one of the most powerful healers ever seen, able to fully restore several seriously injured people at once within seconds. Converted ability – Spectral Claw.",
+   "users": [
+    "elaine",
+    "theo"
+   ],
+   "level_min": 3.5,
+   "level_max": 4.0,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "lightning",
+   "name": "Lightning",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Lightning: generates and manipulates electricity. Can also detect electrical currents and run fast enough to catch up to a motorcycle.",
+   "users": [
+    "mama_lightning",
+    "remi"
+   ],
+   "level_min": 5.4,
+   "level_max": 5.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "telepathy",
+   "name": "Telepathy",
+   "aliases": [],
+   "type": "mental",
+   "nature": "strategist",
+   "description": "Unnamed telepathy ability: links his voice with a person he touches to speak telepathically with them from a certain distance.",
+   "users": [
+    "communicator",
+    "julia"
+   ],
+   "level_min": 4.4,
+   "level_max": 4.5,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "arachnid",
+   "name": "Arachnid",
+   "aliases": [],
+   "type": "creation",
+   "nature": "defense",
+   "description": "Arachnid: sprouts gigantic spider-like legs from her back for offense or defense; shown using at least eight.",
+   "users": [
+    "rein"
+   ],
+   "level_min": 4.9,
+   "level_max": 5.1,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "armor_suit",
+   "name": "Armor Suit",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "defense",
+   "description": "Armor Suit: augments his torso with a metallic substance (unclear if it extends to his legs).",
+   "users": [
+    "kree"
+   ],
+   "level_min": 4.4,
+   "level_max": 4.4,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "conjure_disks",
+   "name": "Conjure: Disks",
+   "aliases": [],
+   "type": "creation",
+   "nature": "defense",
+   "description": "Conjure: Disks: creates and manipulates large flying disks that move quickly and can attack, defend and serve as hoverboards. They stay effective even when cracked. Under amplifiers he could generate 5 at once.",
+   "users": [
+    "lennon"
+   ],
+   "level_min": 3.5,
+   "level_max": 5.3,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "crescent_slash",
+   "name": "Crescent Slash",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Crescent Slash: fires blue moon-shaped projectiles from his hands, sharp enough to cut human flesh.",
+   "users": [
+    "zirian"
+   ],
+   "level_min": 3.7,
+   "level_max": 3.7,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "crimson_thread",
+   "name": "Crimson Thread",
+   "aliases": [],
+   "type": "creation",
+   "nature": null,
+   "description": "Crimson Thread : crée des fils rouges très tranchants qui lui servent à emprisonner les autres. Passif : quand il y a de la tension autour de lui, de fins filaments très fragiles apparaissent et se cassent à la moindre pression.",
+   "users": [
+    "soren"
+   ],
+   "level_min": 4.8,
+   "level_max": 4.9,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "demon_blade",
+   "name": "Demon Blade",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Demon Blade: extrudes blades from each of her arms.",
+   "users": [
+    "skylar"
+   ],
+   "level_min": 4.2,
+   "level_max": 4.2,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "demon_claw",
+   "name": "Demon Claw",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Demon Claw: transforms her hands into monstrous razor-sharp claws that can cut, stab and wound opponents.",
+   "users": [
+    "meili"
+   ],
+   "level_min": 3.8,
+   "level_max": 3.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "energy_beam",
+   "name": "Energy Beam",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Energy Discharge (formerly Energy Beam): discharges red energy from his hands that is more kinetic than thermal, punching holes rather than burning. Fires continuous precise laser beams, powerful energy volleys or a hybrid with strong propulsive power; propels himself to boost speed and evasion; throws small explosive bursts; long enough range to snipe without scopes. Later shoots concentrated beams from eight fingers and repels objects with an energy pulse. Passive: accelerated healing.",
+   "users": [
+    "blyke"
+   ],
+   "level_min": 4.5,
+   "level_max": 4.5,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "explosion",
+   "name": "Explosion",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Explosion: creates powerful explosions capable of knocking people off their feet.",
+   "users": [
+    "abel"
+   ],
+   "level_min": 3.6,
+   "level_max": 3.6,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "fleetstep",
+   "name": "Fleetstep",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "agility",
+   "description": "Fleetstep: substantially increases her speed and quickness, enhancing her melee combat.",
+   "users": [
+    "leena"
+   ],
+   "level_min": 3.8,
+   "level_max": 3.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "graviton",
+   "name": "Graviton",
+   "aliases": [],
+   "type": "quantum",
+   "nature": null,
+   "description": "Graviton : manipule la gravité locale dans une zone restreinte (portée d'environ 8 m, souvent une seule cible). Peut alourdir un adversaire pour le ralentir, réduire sa propre gravité pour esquiver ou bondir, créer des champs gravitationnels pour déséquilibrer une cible ou dévier un projectile léger, et s'ancrer pour gagner en stabilité. Nécessite une ligne de vue claire et une forte concentration : un usage prolongé provoque vertiges voire effondrement physique.",
+   "users": [
+    "power"
+   ],
+   "level_min": 4.8,
+   "level_max": 4.9,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "grenadier",
+   "name": "Grenadier",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Grenadier: charges a destructive ball of condensed energy in her hand (magenta, likely her signature colour).",
+   "users": [
+    "levani"
+   ],
+   "level_min": 3.6,
+   "level_max": 3.6,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "heal_link",
+   "name": "Heal Link",
+   "aliases": [],
+   "type": "curative",
+   "nature": "support",
+   "description": "Heal Link: emits a rope-like aura that heals anybody it touches.",
+   "users": [
+    "myles"
+   ],
+   "level_min": 3.8,
+   "level_max": 3.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "hunter",
+   "name": "Hunter",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Predator: grants a wide range of tracking and capture abilities, including targeting, x-ray vision, telescopic vision, enhanced speed, and strength strong enough to stop a semi-truck or send people through a solid wall.",
+   "users": [
+    "isen"
+   ],
+   "level_min": 4.4,
+   "level_max": 4.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "invisibility",
+   "name": "Invisibility",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "agility",
+   "description": "Invisibility: makes himself invisible to the human eye, and can make others invisible by touching them or imbuing them with his aura.",
+   "users": [
+    "terrence"
+   ],
+   "level_min": 4.4,
+   "level_max": 4.4,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "iron_knuckle",
+   "name": "Iron Knuckle",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Iron Knuckle: increases his physical strength and durability, enhancing his melee combat.",
+   "users": [
+    "jace"
+   ],
+   "level_min": 3.8,
+   "level_max": 3.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "liquids_manipulation",
+   "name": "Liquids Manipulation",
+   "aliases": [],
+   "type": "quantum",
+   "nature": null,
+   "description": "Manipulation des liquides. Elle peut manipuler les liquides autour d’elle, le plus évident étant l’eau. Elle ne peut cependant rien manifester d'elle-même, et est obligée d’utiliser un liquide à sa portée (jusque dans un rayon de 30m autour d’elle, rayon d’action qui pourra augmenter avec son niveau). De fait, elle a toujours sur elle une bouteille d’eau en cas d’urgence. A son niveau actuel elle ne peut manipuler que des liquides visibles à son œil (elle pourra prétendre manipuler des liquides plus subtils ou cachés uniquement à des niveaux supérieurs).",
+   "users": [
+    "laura"
+   ],
+   "level_min": 3.5,
+   "level_max": 3.6,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "nightmare",
+   "name": "Nightmare",
+   "aliases": [],
+   "type": "mental",
+   "nature": "defense",
+   "description": "Nightmare: intimidates people and, at full throttle, traps them in make-believe worlds of pure horror.",
+   "users": [
+    "darren"
+   ],
+   "level_min": 4.2,
+   "level_max": 4.2,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "phase_shift_def",
+   "name": "Phase Shift (Def)",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "defense",
+   "description": "Phase Shift: shifts his stats between two forms. Offensive Form: sacrifices defense and recovery for higher power and speed. Defensive Form: turns his skin blue and raises defense and recovery (similar to Stone Skin) at the cost of power and speed. Has other forms not yet shown.",
+   "users": [
+    "zeke"
+   ],
+   "level_min": 4.2,
+   "level_max": 4.2,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "phase_shift_off",
+   "name": "Phase Shift (Off)",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Phase Shift: shifts his stats between two forms. Offensive Form: sacrifices defense and recovery for higher power and speed. Defensive Form: turns his skin blue and raises defense and recovery (similar to Stone Skin) at the cost of power and speed. Has other forms not yet shown.",
+   "users": [
+    "zeke"
+   ],
+   "level_min": 4.2,
+   "level_max": 4.2,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "pride",
+   "name": "Pride",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Orgueil (Pride Manifestation) : se nourrit de sa fierté et de sa confiance en soi, plus son ego est stimulé (défi, combat, provocation) plus sa puissance augmente. Son aura exerce une pression psychique et physique sur ses adversaires et renforce son Power, sa Speed et sa Recovery. Il ne peut maintenir l'Orgueil absolu que 2 tours avant que sa vitalité chute, et plus il laisse son orgueil dominer, plus il perd le contrôle émotionnel. Passif (Refus de soumission) : plus il subit de dégâts ou de pression, plus sa résistance augmente ; impossible de le forcer à se soumettre (douleur, illusions, effets mentaux).",
+   "users": [
+    "lucian"
+   ],
+   "level_min": 4.6,
+   "level_max": 4.7,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "royal_guard",
+   "name": "Royal Guard",
+   "aliases": [],
+   "type": "creation",
+   "nature": "defense",
+   "description": "Royal Guard: dons a crimson suit of armor that greatly increases his durability and boosts his strength and speed.",
+   "users": [
+    "valorian"
+   ],
+   "level_min": 4.6,
+   "level_max": 4.6,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "shadow_eclipse",
+   "name": "Shadow Eclipse",
+   "aliases": [],
+   "type": "quantum",
+   "nature": null,
+   "description": "Shadow Eclipse : utilise l'ombre pour cacher sa présence ou créer des illusions dans l'obscurité. Se déplace d'ombre en ombre (ombres immobiles ou très larges, rayon d'environ 10 m) et crée de petits objets inanimés à partir de ses ombres. Passif (Ombres Sentinelles, lvl 5.0) : perçoit inconsciemment les émotions et intentions des gens proches à travers leurs ombres, qui se déforment selon leur état émotionnel.",
+   "users": [
+    "rin"
+   ],
+   "level_min": 4.9,
+   "level_max": 5.0,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "shadow_flame",
+   "name": "Shadow Flame",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Shadow Flame: charges up and throws up to two energy flames at a time.",
+   "users": [
+    "ezra"
+   ],
+   "level_min": 3.8,
+   "level_max": 3.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "super_strength",
+   "name": "Super Strength",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Super Strength: greatly damages anything hit by his fists and lets him hurl objects at great speed.",
+   "users": [
+    "gou"
+   ],
+   "level_min": 4.0,
+   "level_max": 4.2,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "superhuman",
+   "name": "Superhuman",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Superhuman: boosts his power, speed, defense and recovery to superhuman levels.",
+   "users": [
+    "payton"
+   ],
+   "level_min": 3.6,
+   "level_max": 3.6,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "teleportation",
+   "name": "Teleportation",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "agility",
+   "description": "Teleportation: teleports from one place to another, bringing up to 2 people he is touching. Costs energy depending on distance and number of people; overexertion could prove fatal.",
+   "users": [
+    "kayden"
+   ],
+   "level_min": 3.8,
+   "level_max": 3.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "whirlwind",
+   "name": "Whirlwind",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "agility",
+   "description": "Whirlwind: generates spinning funnels of wind from his hands to send opponents flying.",
+   "users": [
+    "ventus"
+   ],
+   "level_min": 3.8,
+   "level_max": 3.8,
+   "wave": 3,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "alchimie",
+   "name": "Alchimie+",
+   "aliases": [
+    "Alchimie"
+   ],
+   "type": "quantum",
+   "nature": null,
+   "description": "Adrien peut modifier et transformer la matière en utilisant son aura. Il doit cependant disposer d'une matière de base pour effectuer ses transformations. Il peut notamment transformer ou combiner différents matériaux afin de créer des armes, des protections ou modifier son environnement. Plus la transformation est complexe, plus elle consomme d'aura.",
+   "users": [
+    "ablaze",
+    "adrien"
+   ],
+   "level_min": 5.5,
+   "level_max": 5.5,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "cancellation",
+   "name": "Cancellation",
+   "aliases": [],
+   "type": "creation",
+   "nature": null,
+   "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+   "users": [
+    "kaito",
+    "le_pinceau"
+   ],
+   "level_min": 5.8,
+   "level_max": 5.8,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "azure_storm",
+   "name": "Azure Storm",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Azure Storm: creates and manipulates powerful winds, including a tornado around herself to keep opponents away and a concentrated wall of wind to knock them back. Converted Ability – Flame Claw: turns her fingernails into flaming claws, greatly boosting power and speed in melee. Fire Tornado: combines both to create a large tornado of fire.",
+   "users": [
+    "corinne"
+   ],
+   "level_min": 5.8,
+   "level_max": 5.8,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "bodybuilder",
+   "name": "Bodybuilder",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Bodybuilder (unconfirmed name): basic augmentation ability that greatly enhances his muscle mass and physical strength.",
+   "users": [
+    "marcus"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "conjure_vines",
+   "name": "Conjure: Vines",
+   "aliases": [],
+   "type": "creation",
+   "nature": "attack",
+   "description": "Conjure: Vines: creates and manipulates vines of energy to tie up foes or turn them into long dagger-like projectiles that pierce.",
+   "users": [
+    "cecile"
+   ],
+   "level_min": 5.2,
+   "level_max": 5.3,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "dark_blades",
+   "name": "Dark Blades",
+   "aliases": [],
+   "type": "creation",
+   "nature": null,
+   "description": "Dark Blades : matérialise plusieurs lames sombres (12 maximum simultanément). Passif (affinité nocturne) : plus l'obscurité est grande, plus ses sens s'améliorent (dans l'ordre : vue, goût, odorat, toucher, ouïe) ; il voit dans le noir.",
+   "users": [
+    "kael"
+   ],
+   "level_min": 5.2,
+   "level_max": 5.3,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "demolition",
+   "name": "Demolition",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Demolition: destroys things in his path at both short and long range.",
+   "users": [
+    "verte"
+   ],
+   "level_min": 5.8,
+   "level_max": 5.8,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "duplication",
+   "name": "Duplication",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Duplication: creates and manipulates clones of herself (at least 3) that replicate her appearance and ability; also augmented with strength and speed. Converted Ability – Spectral Claw: transforms one arm into a monstrous, enlarged, purple, slime-covered state with immense strength, usable by her clones too.",
+   "users": [
+    "candice"
+   ],
+   "level_min": 5.6,
+   "level_max": 5.6,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "energy_conduit",
+   "name": "Energy Conduit",
+   "aliases": [],
+   "type": "curative",
+   "nature": "support",
+   "description": "Energy Conduit: restrains opponents, heals injuries, transfers energy between another person and herself, and can exorcise certain foreign auras. Offers little combat boost.",
+   "users": [
+    "amelia"
+   ],
+   "level_min": 5.8,
+   "level_max": 5.8,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "energy_discharge",
+   "name": "Energy Discharge",
+   "aliases": [],
+   "type": "emission",
+   "nature": "attack",
+   "description": "Energy Discharge (formerly Energy Beam): discharges red energy from his hands that is more kinetic than thermal, punching holes rather than burning. Fires continuous precise laser beams, powerful energy volleys or a hybrid with strong propulsive power; propels himself to boost speed and evasion; throws small explosive bursts; long enough range to snipe without scopes. Later shoots concentrated beams from eight fingers and repels objects with an energy pulse. Passive: accelerated healing.",
+   "users": [
+    "blyke"
+   ],
+   "level_min": 5.0,
+   "level_max": 5.1,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "faucheuse_fantome",
+   "name": "Faucheuse Fantome",
+   "aliases": [],
+   "type": "emission",
+   "nature": null,
+   "description": "Faucheur Fantomatique : crée une faux fantôme qu'il peut rendre tangible ou intangible, rendant ses coups difficiles à parer ou à prévoir. Une cible touchée avec sa capacité active reçoit une marque hantée qui déstabilise sa capacité (plus difficile à contrôler ou moins efficace). Passif : attributs fantomatiques sans activation (rapidité accrue, présence plus discrète).",
+   "users": [
+    "mitsu"
+   ],
+   "level_min": 5.3,
+   "level_max": 5.4,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "god_s_mind",
+   "name": "God's Mind",
+   "aliases": [],
+   "type": "mental",
+   "nature": null,
+   "description": "God's Mind : se connecte à l'esprit d'un adversaire visible pour le lire et le manipuler, sans contrôle absolu (la cible peut toujours penser et bouger). Techniques : pression mentale, lecture des pensées et de la mémoire (6 mois max), liaison de pensées, partage de connaissances, trouble des 5 sens, isolation mentale (bloque les capacités), hallucinations ciblées (Imaginary control), émotions implantées (Parasite), suggestions inconscientes (Graveur de Dogme), altération de souvenirs (Gaslighting), Memory break, Double Exposure (partage de sa douleur) et Pantin (prise de contrôle du corps quelques tours). Passif (lvl 5.0) : immunité totale aux capacités mentales.",
+   "users": [
+    "lucina"
+   ],
+   "level_min": 5.2,
+   "level_max": 5.3,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "icicle",
+   "name": "Icicle",
+   "aliases": [],
+   "type": "quantum",
+   "nature": null,
+   "description": "Icicle : crée de la glace et la contrôle, mais seulement celle qu'elle a créée. Passif : sent la glace et le froid dans un rayon de 15 m.",
+   "users": [
+    "ice"
+   ],
+   "level_min": 5.5,
+   "level_max": 5.6,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "imprison",
+   "name": "Imprison",
+   "aliases": [],
+   "type": "creation",
+   "nature": "defense",
+   "description": "Imprison: conjures a cage within the target to trap them; so far only high-tiers have broken free.",
+   "users": [
+    "colt"
+   ],
+   "level_min": 5.6,
+   "level_max": 5.6,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "lightining",
+   "name": "Lightining",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Lightning: generates electricity; likely can detect electrical circuitry and run at high speeds with the ability active; powerful enough to pierce Arlo's Barrier.",
+   "users": [
+    "rei"
+   ],
+   "level_min": 5.8,
+   "level_max": 5.8,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "memory_recall",
+   "name": "Memory Recall",
+   "aliases": [],
+   "type": "mental",
+   "nature": "defense",
+   "description": "Memory Recall: forcibly makes others relive certain memories; effective even on people of much higher level. A rare ability.",
+   "users": [
+    "keon"
+   ],
+   "level_min": 5.2,
+   "level_max": 5.2,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "portals",
+   "name": "Portals",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "agility",
+   "description": "Portals: creates portals to pass through like teleportation, either horizontally to come up through the ground or vertically to run through them. Converted ability – Spectral Claw: transforms one of his arms into a monstrous, purple, slime-covered limb of immense strength. Confirmed high-tier.",
+   "users": [
+    "korin"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "predator",
+   "name": "Predator",
+   "aliases": [],
+   "type": "predator",
+   "nature": "attack",
+   "description": "Predator: grants a wide range of tracking and capture abilities, including targeting, x-ray vision, telescopic vision, enhanced speed, and strength strong enough to stop a semi-truck or send people through a solid wall.",
+   "users": [
+    "isen"
+   ],
+   "level_min": 5.3,
+   "level_max": 5.3,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "protector",
+   "name": "Protector",
+   "aliases": [],
+   "type": "creation",
+   "nature": "defense",
+   "description": "Protector: creates a force field to defend against attacks, similar to Barrier.",
+   "users": [
+    "brielle"
+   ],
+   "level_min": 5.8,
+   "level_max": 5.8,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "psy_blast",
+   "name": "Psy-Blast",
+   "aliases": [],
+   "type": "mental",
+   "nature": "attack",
+   "description": "Psy-Blast: channels aura through the hands to fire powerful blasts of psychic energy (fingers on temple to concentrate, palm to release), with considerable but limited range. Converted Ability – Flame Claw: turns his fingernails into flaming claws, greatly boosting power and speed in melee.",
+   "users": [
+    "seamus"
+   ],
+   "level_min": 5.7,
+   "level_max": 5.7,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "psychopomp",
+   "name": "Psychopomp",
+   "aliases": [],
+   "type": "mental",
+   "nature": "attack",
+   "description": "Psychopomp (speculative name): makes his hand flare up with his signature-coloured aura, increasing his strength enough to easily perforate his victims.",
+   "users": [
+    "jude"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "spectral_claw",
+   "name": "Spectral Claw",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Spectral Claw: likely creates two ethereal claws capable of lifting a person off the ground, crushing and slashing; also grants enhanced speed to extend the claws' reach.",
+   "users": [
+    "melvin"
+   ],
+   "level_min": 5.0,
+   "level_max": 5.0,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "umbral_shift",
+   "name": "Umbral Shift",
+   "aliases": [],
+   "type": "unknown",
+   "nature": "agility",
+   "description": "Umbral Shift: melts into the ground, travels within it and reforms to surprise opponents.",
+   "users": [
+    "jaxson"
+   ],
+   "level_min": 5.6,
+   "level_max": 5.6,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "wrist_spike",
+   "name": "Wrist Spike",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": "attack",
+   "description": "Wrist Spike (unconfirmed name): augmentation ability that makes spikes protrude from his wrists.",
+   "users": [
+    "magnus"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 4,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "barrier",
+   "name": "Barrier",
+   "aliases": [
+    "Barrier+"
+   ],
+   "type": "creation",
+   "nature": "defense",
+   "description": "Barrier: creates defensive barriers used as force fields and traps; they reflect attacks back onto attackers, are mostly unbreakable, and he can walk through them. He is hurt if a barrier breaks. Can throw or push incomplete barriers to damage opponents, and purge Mental ability effects from inside the barrier or from targets (barrier gains a hexagon pattern).",
+   "users": [
+    "arlo",
+    "valerie",
+    "volcan"
+   ],
+   "level_min": 6.3,
+   "level_max": 7.5,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "time_manipulation",
+   "name": "Time Manipulation",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "agility",
+   "description": "Time Manipulation: freezes or slows down time, moves in a time-frozen environment, and reverses time in a localized area to some extent. Frozen targets may or may not be aware depending on what she does; anything under her control turns grey, and pink gears can appear around her arm when rewinding.",
+   "users": [
+    "leilah",
+    "narisa",
+    "seraphina"
+   ],
+   "level_min": 6.6,
+   "level_max": 8.0,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "botanist",
+   "name": "Botanist+",
+   "aliases": [
+    "Botanist"
+   ],
+   "type": "creation",
+   "nature": "defense",
+   "description": "Botanist: manifests plant growth to painfully ensnare opponents; hard to damage at his level. Converted Abilities – Flame Claw: flaming claws that slash and burn; Lightning: emits electricity for lethal blows (weaker than Remi's); Regeneration: implied.",
+   "users": [
+    "brims",
+    "byron"
+   ],
+   "level_min": 6.0,
+   "level_max": 6.0,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "channel_master",
+   "name": "Channel Master",
+   "aliases": [],
+   "type": "detection",
+   "nature": "strategist",
+   "description": "Channel Master (presumed): copies abilities, more advanced than John's Aura Manipulation, and keeps access to copied abilities after powering down. Copied: X-Ray Vision (sees objects and people through solid matter); Landscaping (moves earth, possibly a generalized telekinesis).",
+   "users": [
+    "cameron",
+    "jane"
+   ],
+   "level_min": 9.1,
+   "level_max": 9.1,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "debt",
+   "name": "Debt",
+   "aliases": [],
+   "type": "status",
+   "nature": "defense",
+   "description": "Isaure transforme les coups qu’elle reçoit en dettes. Le coup d’un adversaire est mis en suspens dans son aura, grossit avec des intérêts, puis elle le lui rend en entier au contact.",
+   "users": [
+    "arlequin",
+    "isaure"
+   ],
+   "level_min": 6.7,
+   "level_max": 6.8,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "hypnosis",
+   "name": "Hypnosis",
+   "aliases": [
+    "Hypnosis+"
+   ],
+   "type": "mental",
+   "nature": "support",
+   "description": "Hypnosis: commands people to follow her orders without taking control of their body. Converted Abilities – Flame Claw: flaming claws that slash and burn; Lightning: emits electricity for lethal blows; Regeneration: fully recovers from critical injuries.",
+   "users": [
+    "farrah",
+    "fury"
+   ],
+   "level_min": 6.5,
+   "level_max": 6.5,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "life_steal",
+   "name": "Life Steal",
+   "aliases": [],
+   "type": "curative",
+   "nature": null,
+   "description": "La capacité de Morgane lui permet de se soigner en frappant une personne, elle peut aussi stoquer de l'énergie curative pour soigner une plus grosse blessure d'un coup ou créer des ondes de choc qui blesseront plusieurs personnes et pourront soigner ses alliés dans une zone proche d'elle",
+   "users": [
+    "morgane",
+    "vitalis"
+   ],
+   "level_min": 6.3,
+   "level_max": 6.3,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "aura_manipulation",
+   "name": "Aura Manipulation",
+   "aliases": [],
+   "type": "detection",
+   "nature": "strategist",
+   "description": "Aura Manipulation: copies abilities (even from higher levels, to a lesser degree), combines them for devastating results, detects and senses aura intensities, and amplifies copied abilities. Since recovering, can do basic enhancements without a copied ability.",
+   "users": [
+    "john"
+   ],
+   "level_min": 7.5,
+   "level_max": 7.6,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "blademaster",
+   "name": "Blademaster",
+   "aliases": [],
+   "type": "creation",
+   "nature": "attack",
+   "description": "Blademaster: conjures multiple energy blades of varying lengths (at least ten at a time): long ones for melee, short ones as throwing knives. Can fuse two katanas into a greatsword for more damage. Appears to have a quick-attack.",
+   "users": [
+    "kuyo"
+   ],
+   "level_min": 6.3,
+   "level_max": 6.3,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "command",
+   "name": "Command",
+   "aliases": [],
+   "type": "mental",
+   "nature": "defense",
+   "description": "Command: brainwashing that forces targets to do what he says in a trance-like state.",
+   "users": [
+    "orrin"
+   ],
+   "level_min": 8.6,
+   "level_max": 8.6,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "death_fire",
+   "name": "Death Fire",
+   "aliases": [],
+   "type": "quantum",
+   "nature": null,
+   "description": "Le pouvoir s’organise de la façon suivante : Il peut générer des flammes bleues, dans sa main où dans un cercle qui a un rayon de 25m de diamètre autour de lui, pouvant faire une attaque de zone, la particularité de ses flammes est qu'elles brûlent le métal, et inflige une douleur extrême tant qu’une capacité de guérison de haut tier n'est pas utilisé sur le blessure, une autre subtilité, est que la douleur causé par cette brûlure, se trouve être en réalité, une prévention du corps de la victime, car une fois toucher par les flammes, la personne brûler, va cuire de l’intérieur à partir de l'endroit la brûlure. Température flamme : 1300 degrés celsius . Portée maximale Lancée de flamme : 50M (à voir avec évolution du tier)",
+   "users": [
+    "keito"
+   ],
+   "level_min": 8.8,
+   "level_max": 8.8,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "digital_hive",
+   "name": "Digital Hive",
+   "aliases": [],
+   "type": "creation",
+   "nature": null,
+   "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+   "users": [
+    "kaito"
+   ],
+   "level_min": 7.0,
+   "level_max": 7.1,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "hydrofreeze",
+   "name": "Hydrofreeze",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "defense",
+   "description": "Hydrofreeze: creates and manipulates water (e.g. trapping targets in a bubble to drown them), shapeshifts into water to travel through pipes, and freezes water into ice to restrain foes or form icicle weapons. Converted Ability – Spectral Claw: transforms one arm into a monstrous, enlarged, purple, slime-covered state with immense strength.",
+   "users": [
+    "liam"
+   ],
+   "level_min": 6.2,
+   "level_max": 6.2,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "minefield",
+   "name": "Minefield",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Minefield: turns a large area around himself into a battlefield where he can detonate the ground at will; also has sensory and gauging properties and enhances his physical strength.",
+   "users": [
+    "keene"
+   ],
+   "level_min": 6.8,
+   "level_max": 6.8,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "mistdream",
+   "name": "Mistdream",
+   "aliases": [],
+   "type": "mental",
+   "nature": null,
+   "description": "MistDream : contrôle une zone d'environ 3 m de rayon autour d'elle. Elle y crée des illusions réalistes (elles doivent avoir un fondement réel : rien qu'elle n'ait jamais vu) et y ralentit le temps, par exemple pour ralentir des projectiles, sans en réduire la force. Passif : sent les personnes et objets qui entrent dans sa zone ou en sortent.",
+   "users": [
+    "joahness"
+   ],
+   "level_min": 6.1,
+   "level_max": 6.2,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "modes_atk",
+   "name": "Modes (Atk)",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": null,
+   "description": "Modes - Offensif : peau teintée et veines lumineuses. Frappes à impact augmenté et vitesse de déplacement accrue, idéal pour interrompre l'adversaire ou punir une ouverture. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "users": [
+    "marc"
+   ],
+   "level_min": 8.6,
+   "level_max": 8.6,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "modes_bal",
+   "name": "Modes (Bal)",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": null,
+   "description": "Modes - Équilibré : aura stable et uniforme autour du corps. Adaptation rapide et consommation d'énergie réduite, l'état par défaut pour temporiser et analyser. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "users": [
+    "marc"
+   ],
+   "level_min": 8.6,
+   "level_max": 8.6,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "modes_def",
+   "name": "Modes (Def)",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": null,
+   "description": "Modes - Défensif : peau cristallisée de sa teinte signature. Absorbe une grande partie de l'énergie cinétique et accélère sa régénération ; sert de tampon entre deux états extrêmes pour éviter la perte de conscience. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "users": [
+    "marc"
+   ],
+   "level_min": 8.6,
+   "level_max": 8.6,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "modes_dst",
+   "name": "Modes (Dst)",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": null,
+   "description": "Modes - Destructeur : peau craquelée laissant voir l'énergie à l'intérieur. Frappes dévastatrices avec onde de choc radiale à l'impact ; forme dangereuse, souvent utilisée atténuée pour disperser des cibles. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "users": [
+    "marc"
+   ],
+   "level_min": 8.6,
+   "level_max": 8.6,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "modes_spd",
+   "name": "Modes (Spd)",
+   "aliases": [],
+   "type": "enhancement",
+   "nature": null,
+   "description": "Modes - Vélocité : corps entouré de traînées lumineuses. Perception du temps accélérée et déplacements quasi instantanés sur de courtes distances. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "users": [
+    "marc"
+   ],
+   "level_min": 8.6,
+   "level_max": 8.6,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "paralysis",
+   "name": "Paralysis",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "support",
+   "description": "Paralysis: immobilizes up to 4 high-tier targets, even higher-level ones, with a glare. Converted Ability – Regeneration: heals his injuries at an accelerated rate, though some (e.g. to his eye) may be beyond it.",
+   "users": [
+    "tarik"
+   ],
+   "level_min": 6.2,
+   "level_max": 6.2,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "particles",
+   "name": "Particles",
+   "aliases": [],
+   "type": "creation",
+   "nature": "attack",
+   "description": "Particles: creates and controls swarms of energy particles, forming weapons and hands to attack.",
+   "users": [
+    "kassandra"
+   ],
+   "level_min": 6.8,
+   "level_max": 6.8,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "sensory_control",
+   "name": "Sensory Control",
+   "aliases": [],
+   "type": "status",
+   "nature": "defense",
+   "description": "Sensory Control: takes away someone's senses, trapping them in a dark haze, and manipulates their sense of pain (amplifying or nullifying it).",
+   "users": [
+    "sylvia"
+   ],
+   "level_min": 7.3,
+   "level_max": 7.3,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "telekinesis",
+   "name": "Telekinesis",
+   "aliases": [],
+   "type": "quantum",
+   "nature": "attack",
+   "description": "Telekinesis: flings or restrains people with his mind; strong enough to stop John's Rampage.",
+   "users": [
+    "vaughn"
+   ],
+   "level_min": 7.8,
+   "level_max": 7.8,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "vitalize",
+   "name": "Vitalize",
+   "aliases": [],
+   "type": "curative",
+   "nature": "support",
+   "description": "Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",
+   "users": [
+    "ronan"
+   ],
+   "level_min": 6.1,
+   "level_max": 6.1,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "white_hole",
+   "name": "White Hole",
+   "aliases": [],
+   "type": "emission",
+   "nature": null,
+   "description": "White Hole : matérialise deux sphères d'énergie blanche qui repoussent tout autour d'elles (2 m tant qu'elle les tient en main). Lancées, elles explosent au contact d'une surface et propulsent tout dans un rayon de 10 m. Rien ne peut s'en approcher, sauf avec une Speed ou un Power supérieur à sa Defense (12). Elle peut courber la lumière pour se rendre partiellement invisible, ce qui marche aussi contre les cibles intangibles. En concentrant deux sphères l'une contre l'autre, elle crée une onde de choc spatiale deux fois plus large : lumière aveuglante, bruit qui peut rompre les tympans et impact comme un mur à haute vitesse (fractures possibles, sans tuer).",
+   "users": [
+    "irene"
+   ],
+   "level_min": 7.4,
+   "level_max": 7.4,
+   "wave": 5,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "medium",
+   "name": "Medium",
+   "aliases": [],
+   "type": "mental",
+   "nature": "support",
+   "description": "Medium: mental-based ability that lets her read past events; the further back the event, the longer it takes.",
+   "users": [
+    "scarlette"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 6,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "unknown",
+   "name": "Unknown",
+   "aliases": [],
+   "type": "unknown",
+   "nature": null,
+   "description": "Unnamed ability that grants a heightened sense of smell.",
+   "users": [
+    "soren"
+   ],
+   "level_min": null,
+   "level_max": null,
+   "wave": 6,
+   "impl": {
+    "status": "todo",
+    "palladium_power": null,
+    "notes": null
+   }
+  },
+  {
+   "id": "covenant",
+   "name": "Covenant",
+   "aliases": [],
+   "type": "origin",
+   "nature": null,
+   "description": "Origin VII-I. Le Souverain écrit des lois ; son Tribunal lie quiconque y entre, et chaque infraction est prélevée sur-le-champ en Gage. Voir docs/PLAN_COVENANT.md.",
+   "users": [],
+   "level_min": 1.0,
+   "level_max": 10.0,
+   "wave": 0,
+   "impl": {
+    "status": "done",
+    "palladium_power": null,
+    "notes": "capacité originale"
+   }
+  }
+ ]
+}

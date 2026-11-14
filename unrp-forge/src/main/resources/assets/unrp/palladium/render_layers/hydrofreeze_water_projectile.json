@@ -1,0 +1,9 @@
+{
+  "model_type": "palladium:basic",
+  "model_layer": "unrp:hydrofreeze_water_projectile",
+  "texture": "unrp:textures/models/water_bullet.png",
+  "render_type": "cutout",
+  "tint": {
+    "type": "unrp:owner_aura"
+  }
+}

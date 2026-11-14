@@ -1,0 +1,74 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "unrp:item/armament_iron"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "unrp:item/armament_oak"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "unrp:item/armament_stone"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "unrp:item/armament_iron"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "unrp:item/armament_gold"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 5
+      },
+      "model": "unrp:item/armament_diamond"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 6
+      },
+      "model": "unrp:item/armament_netherite"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 7
+      },
+      "model": "unrp:item/armament_burst"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 8
+      },
+      "model": "unrp:item/armament_sear"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 9
+      },
+      "model": "unrp:item/armament_fang"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 10
+      },
+      "model": "unrp:item/armament_warp"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 11
+      },
+      "model": "unrp:item/armament_rot"
+    }
+  ]
+}

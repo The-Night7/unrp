@@ -1,0 +1,4514 @@
+{
+ "characters": [
+  {
+   "id": "ablaze",
+   "name": "Ablaze",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "ember",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.5,
+   "ability_id": "alchimie",
+   "stats": {
+    "power": 7.5,
+    "defense": 4.0,
+    "recovery": 3.0,
+    "trick": 9.0,
+    "speed": 6.5
+   },
+   "sex": "H",
+   "height_cm": 183,
+   "color": "#ffd700",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1gPF-rW8nZ39wzODpDmCRE6eDqNFh3N8rtQqgESbsXsI/edit?tab=t.0",
+   "image": "https://lh3.googleusercontent.com/d/1Ohgp7DIt1p1dYe9Sj39A_VDHXGS1jMxm",
+   "snapshots": [
+    {
+     "level": 5.5,
+     "tier": "high",
+     "ability": "Alchimie+",
+     "ability_id": "alchimie",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 7.5,
+      "defense": 4.0,
+      "recovery": 3.0,
+      "trick": 9.0,
+      "speed": 6.5
+     },
+     "rate": 109.09,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Adrien peut modifier et transformer la matière en utilisant son aura. Il doit cependant disposer d'une matière de base pour effectuer ses transformations. Il peut notamment transformer ou combiner différents matériaux afin de créer des armes, des protections ou modifier son environnement. Plus la transformation est complexe, plus elle consomme d'aura.",
+     "reference": "https://docs.google.com/document/d/1gPF-rW8nZ39wzODpDmCRE6eDqNFh3N8rtQqgESbsXsI/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1dw55Gl8ooZprvOaAQh40yPsOTe1Uzc-Z",
+     "image": "https://lh3.googleusercontent.com/d/1Ohgp7DIt1p1dYe9Sj39A_VDHXGS1jMxm",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "adrien",
+   "name": "Adrien",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [
+      "alumni"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.5,
+   "ability_id": "alchimie",
+   "stats": {
+    "power": 7.0,
+    "defense": 4.0,
+    "recovery": 3.0,
+    "trick": 9.0,
+    "speed": 3.0
+   },
+   "sex": "H",
+   "height_cm": 183,
+   "color": "#242424",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1gPF-rW8nZ39wzODpDmCRE6eDqNFh3N8rtQqgESbsXsI/edit?tab=t.0",
+   "image": "https://lh3.googleusercontent.com/d/1ZRfxRFV9CW2G3AUfhCsFd01tpAEt4x_v",
+   "snapshots": [
+    {
+     "level": 5.5,
+     "tier": "high",
+     "ability": "Alchimie",
+     "ability_id": "alchimie",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 7.0,
+      "defense": 4.0,
+      "recovery": 3.0,
+      "trick": 9.0,
+      "speed": 3.0
+     },
+     "rate": 94.55,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Adrien peut modifier et transformer la matière en utilisant son aura. Il doit cependant disposer d'une matière de base pour effectuer ses transformations. Il peut notamment transformer ou combiner différents matériaux afin de créer des armes, des protections ou modifier son environnement. Plus la transformation est complexe, plus elle consomme d'aura.",
+     "reference": "https://docs.google.com/document/d/1gPF-rW8nZ39wzODpDmCRE6eDqNFh3N8rtQqgESbsXsI/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1vuuTCogPVkAi1Bymj2MnlnZV7-LgJzLP",
+     "image": "https://lh3.googleusercontent.com/d/1ZRfxRFV9CW2G3AUfhCsFd01tpAEt4x_v",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "arlequin",
+   "name": "Arlequin",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "vigilante",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 6.7,
+   "ability_id": "debt",
+   "stats": {
+    "power": 6.0,
+    "defense": 10.0,
+    "recovery": 3.0,
+    "trick": 6.0,
+    "speed": 5.0
+   },
+   "sex": "F",
+   "height_cm": 170,
+   "color": "#1a1a1e",
+   "status": null,
+   "charges": [],
+   "reference": "https://isaure-lazare.vercel.app/",
+   "image": "https://cdn.tupperbox.app/pfp/484850911622070284/dg8EB-E7Elp31OOl.webp",
+   "snapshots": [
+    {
+     "level": 6.0,
+     "tier": "god",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 7.0,
+      "defense": 2.0,
+      "recovery": 5.0,
+      "trick": 15.0,
+      "speed": 6.0
+     },
+     "rate": 116.67,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 7.0,
+      "speed": null
+     },
+     "description": "Copy Sanity Control Ampli standard Reco",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1908Yx_tn4io9-yGV0Iq_DxQxPUMcwSav",
+     "image": "https://cdn.tupperbox.app/pfp/484850911622070284/dg8EB-E7Elp31OOl.webp",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.1,
+     "tier": "god",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 8.3,
+      "defense": 9.4,
+      "recovery": 2.3,
+      "trick": 14.7,
+      "speed": 4.2
+     },
+     "rate": 127.54,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 9.0,
+      "speed": null
+     },
+     "description": "Copy Shockwave et Hardening",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1ZOCweJPxnRA4vKHEDyOuK8NnzYQGiUaZ",
+     "image": "https://cdn.tupperbox.app/pfp/484850911622070284/dg8EB-E7Elp31OOl.webp",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.2,
+     "tier": "god",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 15.0,
+      "speed": 1.0
+     },
+     "rate": 61.29,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve. Au niveau God Tier, il peut garder 4 capacités et rappeler à volonté toutes celles qu'il a déjà copiées.",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1xF1tKfa31aadXO2XbnEOT0eazqP5BqDq",
+     "image": "https://cdn.tupperbox.app/pfp/484850911622070284/dg8EB-E7Elp31OOl.webp",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.7,
+     "tier": "god",
+     "ability": "Debt",
+     "ability_id": "debt",
+     "type": "meta",
+     "nature": "defense",
+     "stats": {
+      "power": 6.0,
+      "defense": 10.0,
+      "recovery": 3.0,
+      "trick": 6.0,
+      "speed": 5.0
+     },
+     "rate": 89.55,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Isaure transforme les coups qu’elle reçoit en dettes. Le coup d’un adversaire est mis en suspens dans son aura, grossit avec des intérêts, puis elle le lui rend en entier au contact.",
+     "reference": "https://isaure-lazare.vercel.app/",
+     "graph": null,
+     "image": "https://cdn.tupperbox.app/pfp/484850911622070284/dg8EB-E7Elp31OOl.webp",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "arlo",
+   "name": "Arlo",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 6.6,
+   "ability_id": "barrier",
+   "stats": {
+    "power": 7.0,
+    "defense": 10.0,
+    "recovery": 3.0,
+    "trick": 7.0,
+    "speed": 2.0
+   },
+   "sex": "H",
+   "height_cm": 190,
+   "color": "#d7ee2b",
+   "status": null,
+   "charges": [],
+   "reference": "https://unordinary.fandom.com/wiki/Arlo",
+   "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ52sDRox9iEd3oNWqj4cAEmuOi72iz4-IM87673F35b4pI_Q",
+   "snapshots": [
+    {
+     "level": 6.3,
+     "tier": "god",
+     "ability": "Barrier",
+     "ability_id": "barrier",
+     "type": "creation",
+     "nature": "defense",
+     "stats": {
+      "power": 6.0,
+      "defense": 9.0,
+      "recovery": 2.0,
+      "trick": 5.0,
+      "speed": 1.0
+     },
+     "rate": 73.02,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Barrier: creates defensive barriers used as force fields and traps; they reflect attacks back onto attackers, are mostly unbreakable, and he can walk through them. He is hurt if a barrier breaks. Can throw or push incomplete barriers to damage opponents, and purge Mental ability effects from inside the barrier or from targets (barrier gains a hexagon pattern).",
+     "reference": "https://unordinary.fandom.com/wiki/Arlo",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/9/9e/Arlo_Stats.jpg/revision/latest",
+     "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ52sDRox9iEd3oNWqj4cAEmuOi72iz4-IM87673F35b4pI_Q",
+     "source": "unodex"
+    },
+    {
+     "level": 6.3,
+     "tier": "god",
+     "ability": "Barrier",
+     "ability_id": "barrier",
+     "type": "creation",
+     "nature": "defense",
+     "stats": {
+      "power": 6.0,
+      "defense": 9.0,
+      "recovery": 2.0,
+      "trick": 5.0,
+      "speed": 1.0
+     },
+     "rate": 73.02,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Barrier: creates defensive barriers used as force fields and traps; they reflect attacks back onto attackers, are mostly unbreakable, and he can walk through them. He is hurt if a barrier breaks. Can throw or push incomplete barriers to damage opponents, and purge Mental ability effects from inside the barrier or from targets (barrier gains a hexagon pattern).",
+     "reference": "https://unordinary.fandom.com/wiki/Arlo",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/9/9e/Arlo_Stats.jpg/revision/latest",
+     "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ52sDRox9iEd3oNWqj4cAEmuOi72iz4-IM87673F35b4pI_Q",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.5,
+     "tier": "god",
+     "ability": "Barrier",
+     "ability_id": "barrier",
+     "type": "creation",
+     "nature": "defense",
+     "stats": {
+      "power": 7.0,
+      "defense": 9.0,
+      "recovery": 3.0,
+      "trick": 6.0,
+      "speed": 2.0
+     },
+     "rate": 83.08,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Barrier: creates defensive barriers used as force fields and traps; they reflect attacks back onto attackers, are mostly unbreakable, and he can walk through them. He is hurt if a barrier breaks. Can throw or push incomplete barriers to damage opponents, and purge Mental ability effects from inside the barrier or from targets (barrier gains a hexagon pattern).",
+     "reference": "https://unordinary.fandom.com/wiki/Arlo",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/4/4a/Arlo_Stats_02.png/revision/latest",
+     "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ52sDRox9iEd3oNWqj4cAEmuOi72iz4-IM87673F35b4pI_Q",
+     "source": "unodex"
+    },
+    {
+     "level": 6.6,
+     "tier": "god",
+     "ability": "Barrier",
+     "ability_id": "barrier",
+     "type": "creation",
+     "nature": "defense",
+     "stats": {
+      "power": 7.0,
+      "defense": 10.0,
+      "recovery": 3.0,
+      "trick": 7.0,
+      "speed": 2.0
+     },
+     "rate": 87.88,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Barrier: creates defensive barriers used as force fields and traps; they reflect attacks back onto attackers, are mostly unbreakable, and he can walk through them. He is hurt if a barrier breaks. Can throw or push incomplete barriers to damage opponents, and purge Mental ability effects from inside the barrier or from targets (barrier gains a hexagon pattern).",
+     "reference": "https://unordinary.fandom.com/wiki/Arlo",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/a/a7/Arlo_Stats_03.png/revision/latest",
+     "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ52sDRox9iEd3oNWqj4cAEmuOi72iz4-IM87673F35b4pI_Q",
+     "source": "unodex"
+    }
+   ]
+  },
+  {
+   "id": "beta",
+   "name": "Beta",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [
+      "healer"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "mid",
+   "level": 3.4,
+   "ability_id": "sanity_control_heal",
+   "stats": {
+    "power": 2.0,
+    "defense": 3.0,
+    "recovery": 4.0,
+    "trick": 3.0,
+    "speed": 3.0
+   },
+   "sex": "F",
+   "height_cm": 162,
+   "color": "#8fc7b8",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+   "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+   "snapshots": [
+    {
+     "level": 3.1,
+     "tier": "mid",
+     "ability": "Sanity Control (Heal)",
+     "ability_id": "sanity_control_heal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 2.0,
+      "defense": 3.0,
+      "recovery": 4.0,
+      "trick": 3.0,
+      "speed": 3.0
+     },
+     "rate": 96.77,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Heal) - personnalité calme : régule les processus de guérison via l'aura pour soigner. Soigne sans problème les petites blessures et réduit les saignements, mais les grosses blessures demandent beaucoup de temps sans garantie de réussite.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1M-eazDVn4Ep0saTjyCODNguN_lXnbfgi",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.1,
+     "tier": "mid",
+     "ability": "Sanity Control (Hurt)",
+     "ability_id": "sanity_control_hurt",
+     "type": "status",
+     "nature": "attack",
+     "stats": {
+      "power": 4.0,
+      "defense": 2.0,
+      "recovery": 2.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 96.77,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Hurt) - personnalité agressive : perturbe l'équilibre psychophysique via l'aura pour blesser dans un rayon de 5 m. Provoque douleurs et blessures internes (déchirures musculaires...), amplifie les douleurs existantes et peut rouvrir des blessures récentes.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1ZFiX9HUXlLZxn_9mppY9olmYWq1g2vsg",
+     "image": "https://static.wikia.nocookie.net/inazuma-eleven-go-chrono-stone/images/f/fa/Beta_in_her_%27violent_mode%27.jpg/revision/latest/scale-to-width-down/1162?cb=20130311100353",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.1,
+     "tier": "mid",
+     "ability": "Sanity Control (Bal)",
+     "ability_id": "sanity_control_bal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 103.23,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Bal) : influence l'équilibre psychophysique des individus via leur aura, soit pour soigner (régulation de la guérison), soit pour blesser dans un rayon de 5 m (blessures internes, douleurs amplifiées, réouverture de plaies récentes).",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1VSmLtPf4CJnL7gmPFVwqdv0_WYUpiOq2",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.2,
+     "tier": "mid",
+     "ability": "Sanity Control (Heal)",
+     "ability_id": "sanity_control_heal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 2.0,
+      "defense": 3.0,
+      "recovery": 4.0,
+      "trick": 3.0,
+      "speed": 3.0
+     },
+     "rate": 93.75,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Heal) - personnalité calme : régule les processus de guérison via l'aura pour soigner. Soigne sans problème les petites blessures et réduit les saignements, mais les grosses blessures demandent beaucoup de temps sans garantie de réussite.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/13rkwkRCHs3d8cx_wWWg-UGLvhn7QINBZ",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.2,
+     "tier": "mid",
+     "ability": "Sanity Control (Hurt)",
+     "ability_id": "sanity_control_hurt",
+     "type": "status",
+     "nature": "attack",
+     "stats": {
+      "power": 4.0,
+      "defense": 2.0,
+      "recovery": 2.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 93.75,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Hurt) - personnalité agressive : perturbe l'équilibre psychophysique via l'aura pour blesser dans un rayon de 5 m. Provoque douleurs et blessures internes (déchirures musculaires...), amplifie les douleurs existantes et peut rouvrir des blessures récentes.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1AGiiZxrre8fQs6P3peiz_cHebkcFTUBh",
+     "image": "https://static.wikia.nocookie.net/inazuma-eleven-go-chrono-stone/images/f/fa/Beta_in_her_%27violent_mode%27.jpg/revision/latest/scale-to-width-down/1162?cb=20130311100353",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.2,
+     "tier": "mid",
+     "ability": "Sanity Control (Bal)",
+     "ability_id": "sanity_control_bal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Bal) : influence l'équilibre psychophysique des individus via leur aura, soit pour soigner (régulation de la guérison), soit pour blesser dans un rayon de 5 m (blessures internes, douleurs amplifiées, réouverture de plaies récentes).",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1d_MaajhFgfsZYAt1fNlMvxuO5dpPtV1W",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.3,
+     "tier": "mid",
+     "ability": "Sanity Control (Heal)",
+     "ability_id": "sanity_control_heal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 2.0,
+      "defense": 3.0,
+      "recovery": 4.0,
+      "trick": 3.0,
+      "speed": 3.0
+     },
+     "rate": 90.91,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Heal) - personnalité calme : régule les processus de guérison via l'aura pour soigner. Soigne sans problème les petites blessures et réduit les saignements, mais les grosses blessures demandent beaucoup de temps sans garantie de réussite.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/12cHotVKhYrY1XCnzeju-haxdTWVsBgT2",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.3,
+     "tier": "mid",
+     "ability": "Sanity Control (Hurt)",
+     "ability_id": "sanity_control_hurt",
+     "type": "status",
+     "nature": "attack",
+     "stats": {
+      "power": 4.0,
+      "defense": 2.0,
+      "recovery": 2.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 90.91,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Hurt) - personnalité agressive : perturbe l'équilibre psychophysique via l'aura pour blesser dans un rayon de 5 m. Provoque douleurs et blessures internes (déchirures musculaires...), amplifie les douleurs existantes et peut rouvrir des blessures récentes.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1ptgxWk7Brk5mMJpNa1DL01LN6jDJ4G3V",
+     "image": "https://static.wikia.nocookie.net/inazuma-eleven-go-chrono-stone/images/f/fa/Beta_in_her_%27violent_mode%27.jpg/revision/latest/scale-to-width-down/1162?cb=20130311100353",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.3,
+     "tier": "mid",
+     "ability": "Sanity Control (Bal)",
+     "ability_id": "sanity_control_bal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 96.97,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Bal) : influence l'équilibre psychophysique des individus via leur aura, soit pour soigner (régulation de la guérison), soit pour blesser dans un rayon de 5 m (blessures internes, douleurs amplifiées, réouverture de plaies récentes).",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/19P7QrUsyz7VtNXeQboBVOdmiBRR2rA3y",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.4,
+     "tier": "mid",
+     "ability": "Sanity Control (Heal)",
+     "ability_id": "sanity_control_heal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 2.0,
+      "defense": 3.0,
+      "recovery": 4.0,
+      "trick": 3.0,
+      "speed": 3.0
+     },
+     "rate": 88.24,
+     "bonuses": {
+      "power": 1.0,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Heal) - personnalité calme : régule les processus de guérison via l'aura pour soigner. Soigne sans problème les petites blessures et réduit les saignements, mais les grosses blessures demandent beaucoup de temps sans garantie de réussite.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1JSP0mloISTgpTcrfQYwzjnQkiT7TdZIa",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.4,
+     "tier": "mid",
+     "ability": "Sanity Control (Hurt)",
+     "ability_id": "sanity_control_hurt",
+     "type": "status",
+     "nature": "attack",
+     "stats": {
+      "power": 4.0,
+      "defense": 2.0,
+      "recovery": 2.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 88.24,
+     "bonuses": {
+      "power": 1.0,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Hurt) - personnalité agressive : perturbe l'équilibre psychophysique via l'aura pour blesser dans un rayon de 5 m. Provoque douleurs et blessures internes (déchirures musculaires...), amplifie les douleurs existantes et peut rouvrir des blessures récentes.",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1LxTGtnvCWP-a9c57wusa7FQrGb5nAaui",
+     "image": "https://static.wikia.nocookie.net/inazuma-eleven-go-chrono-stone/images/f/fa/Beta_in_her_%27violent_mode%27.jpg/revision/latest/scale-to-width-down/1162?cb=20130311100353",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.4,
+     "tier": "mid",
+     "ability": "Sanity Control (Bal)",
+     "ability_id": "sanity_control_bal",
+     "type": "status",
+     "nature": "support",
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 3.0,
+      "speed": 4.0
+     },
+     "rate": 94.12,
+     "bonuses": {
+      "power": 1.0,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Sanity Control (Bal) : influence l'équilibre psychophysique des individus via leur aura, soit pour soigner (régulation de la guérison), soit pour blesser dans un rayon de 5 m (blessures internes, douleurs amplifiées, réouverture de plaies récentes).",
+     "reference": "https://docs.google.com/document/d/1lH5-XMqGgYgcNM1Qyq2O22JhzxeK3YAO3RrBzN0HufE/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/12RfKwDV2ViPUyBu46fwK5ngMI6AO7ctY",
+     "image": "https://lh3.googleusercontent.com/d/1CK9NYGDmXvPt-gPVEF3M-IZKhimHcsVe",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "blyke",
+   "name": "Blyke",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [
+      "king"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.1,
+   "ability_id": "energy_discharge",
+   "stats": {
+    "power": 8.0,
+    "defense": 4.0,
+    "recovery": 5.0,
+    "trick": 5.0,
+    "speed": 4.0
+   },
+   "sex": "H",
+   "height_cm": 178,
+   "color": "#c0263a",
+   "status": null,
+   "charges": [
+    "vigilantism",
+    "illegal substance distribution"
+   ],
+   "reference": "https://unordinary.fandom.com/wiki/Blyke",
+   "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ7pFKQD4K9V49R_6jis4BFXcDcIJnqW_8oZb-FFGZmhlb3qw",
+   "snapshots": [
+    {
+     "level": 4.5,
+     "tier": "elite",
+     "ability": "Energy Beam",
+     "ability_id": "energy_beam",
+     "type": "emission",
+     "nature": "attack",
+     "stats": {
+      "power": 8.0,
+      "defense": 3.0,
+      "recovery": 2.0,
+      "trick": 3.0,
+      "speed": 3.0
+     },
+     "rate": 84.44,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Energy Discharge (formerly Energy Beam): discharges red energy from his hands that is more kinetic than thermal, punching holes rather than burning. Fires continuous precise laser beams, powerful energy volleys or a hybrid with strong propulsive power; propels himself to boost speed and evasion; throws small explosive bursts; long enough range to snipe without scopes. Later shoots concentrated beams from eight fingers and repels objects with an energy pulse. Passive: accelerated healing.",
+     "reference": "https://unordinary.fandom.com/wiki/Blyke",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/f/f6/Blyke_Stats.png/revision/latest",
+     "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ7pFKQD4K9V49R_6jis4BFXcDcIJnqW_8oZb-FFGZmhlb3qw",
+     "source": "unodex"
+    },
+    {
+     "level": 5.0,
+     "tier": "high",
+     "ability": "Energy Discharge",
+     "ability_id": "energy_discharge",
+     "type": "emission",
+     "nature": "attack",
+     "stats": {
+      "power": 8.0,
+      "defense": 4.0,
+      "recovery": 4.0,
+      "trick": 5.0,
+      "speed": 4.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Energy Discharge (formerly Energy Beam): discharges red energy from his hands that is more kinetic than thermal, punching holes rather than burning. Fires continuous precise laser beams, powerful energy volleys or a hybrid with strong propulsive power; propels himself to boost speed and evasion; throws small explosive bursts; long enough range to snipe without scopes. Later shoots concentrated beams from eight fingers and repels objects with an energy pulse. Passive: accelerated healing.",
+     "reference": "https://unordinary.fandom.com/wiki/Blyke",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/6/6c/Blyke_Stats_02.png/revision/latest",
+     "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ7pFKQD4K9V49R_6jis4BFXcDcIJnqW_8oZb-FFGZmhlb3qw",
+     "source": "unodex"
+    },
+    {
+     "level": 5.0,
+     "tier": "high",
+     "ability": "Energy Discharge",
+     "ability_id": "energy_discharge",
+     "type": "emission",
+     "nature": "attack",
+     "stats": {
+      "power": 8.0,
+      "defense": 4.0,
+      "recovery": 4.0,
+      "trick": 5.0,
+      "speed": 4.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Energy Discharge (formerly Energy Beam): discharges red energy from his hands that is more kinetic than thermal, punching holes rather than burning. Fires continuous precise laser beams, powerful energy volleys or a hybrid with strong propulsive power; propels himself to boost speed and evasion; throws small explosive bursts; long enough range to snipe without scopes. Later shoots concentrated beams from eight fingers and repels objects with an energy pulse. Passive: accelerated healing.",
+     "reference": "https://unordinary.fandom.com/wiki/Blyke",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/6/6c/Blyke_Stats_02.png/revision/latest",
+     "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ7pFKQD4K9V49R_6jis4BFXcDcIJnqW_8oZb-FFGZmhlb3qw",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.1,
+     "tier": "high",
+     "ability": "Energy Discharge",
+     "ability_id": "energy_discharge",
+     "type": "emission",
+     "nature": "attack",
+     "stats": {
+      "power": 8.0,
+      "defense": 4.0,
+      "recovery": 5.0,
+      "trick": 5.0,
+      "speed": 4.0
+     },
+     "rate": 101.96,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Energy Discharge (formerly Energy Beam): discharges red energy from his hands that is more kinetic than thermal, punching holes rather than burning. Fires continuous precise laser beams, powerful energy volleys or a hybrid with strong propulsive power; propels himself to boost speed and evasion; throws small explosive bursts; long enough range to snipe without scopes. Later shoots concentrated beams from eight fingers and repels objects with an energy pulse. Passive: accelerated healing.",
+     "reference": "https://unordinary.fandom.com/wiki/Blyke",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/6/62/Blyke_Stats_03.png/revision/latest",
+     "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ7pFKQD4K9V49R_6jis4BFXcDcIJnqW_8oZb-FFGZmhlb3qw",
+     "source": "unodex"
+    }
+   ]
+  },
+  {
+   "id": "hecate",
+   "name": "Hécate",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "low",
+   "level": 1.4,
+   "ability_id": "tir_concentre",
+   "stats": {
+    "power": 2.0,
+    "defense": 1.0,
+    "recovery": 1.0,
+    "trick": 1.0,
+    "speed": 1.0
+   },
+   "sex": "H",
+   "height_cm": 169,
+   "color": "#1c1c1c",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/18hgvXKR-ueko0l8QfepzwJb7wU-k6NZfNsCrPYlA_Ps/edit?tab=t.0",
+   "image": "https://lh3.googleusercontent.com/d/1WS77bbfGOV1VRbICHU2qGBIa86yKi7sk",
+   "snapshots": [
+    {
+     "level": 1.2,
+     "tier": "low",
+     "ability": "Tir concentré",
+     "ability_id": "tir_concentre",
+     "type": "emission",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Tir concentré : concentre son aura en un point pour tirer une boule d'énergie, à son niveau aussi petite et forte qu'une balle de baseball, avec une portée d'une dizaine de mètres. Il ne peut enchaîner que 2 tirs avant de devoir récupérer.",
+     "reference": "https://docs.google.com/document/d/18hgvXKR-ueko0l8QfepzwJb7wU-k6NZfNsCrPYlA_Ps/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1-NaIunGQA8kjbYQ_k_707PeL1j1UTiVZ",
+     "image": "https://lh3.googleusercontent.com/d/1WS77bbfGOV1VRbICHU2qGBIa86yKi7sk",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 1.4,
+     "tier": "low",
+     "ability": "Tir concentré",
+     "ability_id": "tir_concentre",
+     "type": "emission",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 85.71,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Tir concentré : concentre son aura en un point pour tirer une boule d'énergie, à son niveau aussi petite et forte qu'une balle de baseball, avec une portée d'une dizaine de mètres. Il ne peut enchaîner que 2 tirs avant de devoir récupérer.",
+     "reference": "https://docs.google.com/document/d/18hgvXKR-ueko0l8QfepzwJb7wU-k6NZfNsCrPYlA_Ps/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1t_KcSasBXvp2ypkm1XVTN2Fma_ZScty4",
+     "image": "https://lh3.googleusercontent.com/d/1WS77bbfGOV1VRbICHU2qGBIa86yKi7sk",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "hizo",
+   "name": "Hizo",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [
+      "king"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 4.9,
+   "ability_id": "ghost",
+   "stats": {
+    "power": 3.0,
+    "defense": 3.0,
+    "recovery": 5.0,
+    "trick": 7.0,
+    "speed": 6.0
+   },
+   "sex": "H",
+   "height_cm": 185,
+   "color": "#598b52",
+   "status": null,
+   "charges": [
+    "vigilantism"
+   ],
+   "reference": "https://docs.google.com/document/d/1NfbaffOxFh9Fiv8q2vHpSmHP2mLkAhzYQKfXWAJrxf4/edit?usp=sharing",
+   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc-r7wyQpRdxUwQXRv44x732uhBbwfp4nvTNXkhTWvR1qKASe_zSfb7xLBdB33Tg1WOnGd2bmV_HkqHdrzII8D1gtxuYTd0xKT0PQPoIQy7A&s=10",
+   "snapshots": [
+    {
+     "level": 1.0,
+     "tier": "cripple",
+     "ability": "N/A",
+     "ability_id": null,
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "La capacité d'Hizo, nommée Spectre, repose sur une altération extrême de la fréquence vibratoire moléculaire de son corps. Lorsqu'il l'active, il devient totalement intangible et insensible à toute agression physique, qu'il s'agisse de coups, de balles ou de flammes. Cependant, cet état s'accompagne d'une rupture sensorielle totale : coupé des photons, des ondes sonores et de l'air, il ne peut plus voir, entendre, respirer ni subir la gravité, ce qui limite son utilisation à un maximum de cinq minutes pour éviter l'évanouissement. Enfin, cette intangibilité se double d'une application offensive et cinétique redoutable, puisque désactiver son pouvoir à l'intérieur d'un obstacle solide provoque une décompression brutale qui le propulse à une vitesse fulgurante à travers le champ de bataille.",
+     "reference": "https://docs.google.com/document/d/1NfbaffOxFh9Fiv8q2vHpSmHP2mLkAhzYQKfXWAJrxf4/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1qipXZwmkafdV5FOAtcsWg9v2gSZnpADe",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc-r7wyQpRdxUwQXRv44x732uhBbwfp4nvTNXkhTWvR1qKASe_zSfb7xLBdB33Tg1WOnGd2bmV_HkqHdrzII8D1gtxuYTd0xKT0PQPoIQy7A&s=10",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 4.8,
+     "tier": "elite",
+     "ability": "Ghost",
+     "ability_id": "ghost",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 5.0,
+      "trick": 7.0,
+      "speed": 6.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "La capacité d'Hizo, nommée Spectre, repose sur une altération extrême de la fréquence vibratoire moléculaire de son corps. Lorsqu'il l'active, il devient totalement intangible et insensible à toute agression physique, qu'il s'agisse de coups, de balles ou de flammes. Cependant, cet état s'accompagne d'une rupture sensorielle totale : coupé des photons, des ondes sonores et de l'air, il ne peut plus voir, entendre, respirer ni subir la gravité, ce qui limite son utilisation à un maximum de cinq minutes pour éviter l'évanouissement. Enfin, cette intangibilité se double d'une application offensive et cinétique redoutable, puisque désactiver son pouvoir à l'intérieur d'un obstacle solide provoque une décompression brutale qui le propulse à une vitesse fulgurante à travers le champ de bataille.",
+     "reference": "https://docs.google.com/document/d/1NfbaffOxFh9Fiv8q2vHpSmHP2mLkAhzYQKfXWAJrxf4/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1BA3ELz4t60OeCRvzQ4QxaHm8bmW4AXKd",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc-r7wyQpRdxUwQXRv44x732uhBbwfp4nvTNXkhTWvR1qKASe_zSfb7xLBdB33Tg1WOnGd2bmV_HkqHdrzII8D1gtxuYTd0xKT0PQPoIQy7A&s=10",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 4.9,
+     "tier": "elite",
+     "ability": "Ghost",
+     "ability_id": "ghost",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 5.0,
+      "trick": 7.0,
+      "speed": 6.0
+     },
+     "rate": 97.96,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "La capacité d'Hizo, nommée Spectre, repose sur une altération extrême de la fréquence vibratoire moléculaire de son corps. Lorsqu'il l'active, il devient totalement intangible et insensible à toute agression physique, qu'il s'agisse de coups, de balles ou de flammes. Cependant, cet état s'accompagne d'une rupture sensorielle totale : coupé des photons, des ondes sonores et de l'air, il ne peut plus voir, entendre, respirer ni subir la gravité, ce qui limite son utilisation à un maximum de cinq minutes pour éviter l'évanouissement. Enfin, cette intangibilité se double d'une application offensive et cinétique redoutable, puisque désactiver son pouvoir à l'intérieur d'un obstacle solide provoque une décompression brutale qui le propulse à une vitesse fulgurante à travers le champ de bataille.",
+     "reference": "https://docs.google.com/document/d/1NfbaffOxFh9Fiv8q2vHpSmHP2mLkAhzYQKfXWAJrxf4/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1AnZ0OhanE3vTwVHsZtmz2sQps6F07_AS",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc-r7wyQpRdxUwQXRv44x732uhBbwfp4nvTNXkhTWvR1qKASe_zSfb7xLBdB33Tg1WOnGd2bmV_HkqHdrzII8D1gtxuYTd0xKT0PQPoIQy7A&s=10",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "ice",
+   "name": "Ice",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [
+      "queen"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.6,
+   "ability_id": "icicle",
+   "stats": {
+    "power": 5.0,
+    "defense": 7.0,
+    "recovery": 6.0,
+    "trick": 4.0,
+    "speed": 3.0
+   },
+   "sex": "F",
+   "height_cm": 162,
+   "color": "#5981b7",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1405897787236946002/1407102716416626848",
+   "image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d4678a32-f7c1-4100-adf8-5c1c00585403/dhjj8m9-99a28ca2-abc4-4376-a353-53fe4017379c.jpg/v1/fit/w_414,h_414,q_70,strp/blue_girl_by_mrrvah_dhjj8m9-414w.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiIvZi9kNDY3OGEzMi1mN2MxLTQxMDAtYWRmOC01YzFjMDA1ODU0MDMvZGhqajhtOS05OWEyOGNhMi1hYmM0LTQzNzYtYTM1My01M2ZlNDAxNzM3OWMuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Iqx9KrRVyIpbeDhmZfmeB0lYbbgIT1d-VSJJ1wdsvpc",
+   "snapshots": [
+    {
+     "level": 5.5,
+     "tier": "high",
+     "ability": "Icicle",
+     "ability_id": "icicle",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 5.0,
+      "defense": 7.0,
+      "recovery": 6.0,
+      "trick": 4.0,
+      "speed": 3.0
+     },
+     "rate": 90.91,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Icicle : crée de la glace et la contrôle, mais seulement celle qu'elle a créée. Passif : sent la glace et le froid dans un rayon de 15 m.",
+     "reference": "https://discord.com/channels/875109165847179274/1405897787236946002/1407102716416626848",
+     "graph": "https://lh3.googleusercontent.com/d/1tRIgLIr9GaJBKfUzhB1sjZt0kjGQ9dgy",
+     "image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d4678a32-f7c1-4100-adf8-5c1c00585403/dhjj8m9-99a28ca2-abc4-4376-a353-53fe4017379c.jpg/v1/fit/w_414,h_414,q_70,strp/blue_girl_by_mrrvah_dhjj8m9-414w.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiIvZi9kNDY3OGEzMi1mN2MxLTQxMDAtYWRmOC01YzFjMDA1ODU0MDMvZGhqajhtOS05OWEyOGNhMi1hYmM0LTQzNzYtYTM1My01M2ZlNDAxNzM3OWMuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Iqx9KrRVyIpbeDhmZfmeB0lYbbgIT1d-VSJJ1wdsvpc",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.6,
+     "tier": "high",
+     "ability": "Icicle",
+     "ability_id": "icicle",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 5.0,
+      "defense": 7.0,
+      "recovery": 6.0,
+      "trick": 4.0,
+      "speed": 3.0
+     },
+     "rate": 89.29,
+     "bonuses": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "description": "Icicle : crée de la glace et la contrôle, mais seulement celle qu'elle a créée. Passif : sent la glace et le froid dans un rayon de 15 m.",
+     "reference": "https://discord.com/channels/875109165847179274/1405897787236946002/1407102716416626848",
+     "graph": "https://lh3.googleusercontent.com/d/1CbDsE_b5vdAznIN0Zc6T8bxYKShEz5wc",
+     "image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d4678a32-f7c1-4100-adf8-5c1c00585403/dhjj8m9-99a28ca2-abc4-4376-a353-53fe4017379c.jpg/v1/fit/w_414,h_414,q_70,strp/blue_girl_by_mrrvah_dhjj8m9-414w.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiIvZi9kNDY3OGEzMi1mN2MxLTQxMDAtYWRmOC01YzFjMDA1ODU0MDMvZGhqajhtOS05OWEyOGNhMi1hYmM0LTQzNzYtYTM1My01M2ZlNDAxNzM3OWMuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.Iqx9KrRVyIpbeDhmZfmeB0lYbbgIT1d-VSJJ1wdsvpc",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "irene",
+   "name": "Irene",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 7.4,
+   "ability_id": "white_hole",
+   "stats": {
+    "power": 7.0,
+    "defense": 12.0,
+    "recovery": 4.0,
+    "trick": 9.0,
+    "speed": 3.0
+   },
+   "sex": "F",
+   "height_cm": 168,
+   "color": "#eadcb8",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1465025673335804199/1465043323029950717",
+   "image": "https://lh3.googleusercontent.com/d/12RMdpVEzdEDbDIOqBP2hzVo8_NRSsfHt",
+   "snapshots": [
+    {
+     "level": 7.4,
+     "tier": "god",
+     "ability": "White Hole",
+     "ability_id": "white_hole",
+     "type": "emission",
+     "nature": null,
+     "stats": {
+      "power": 7.0,
+      "defense": 12.0,
+      "recovery": 4.0,
+      "trick": 9.0,
+      "speed": 3.0
+     },
+     "rate": 94.59,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "White Hole : matérialise deux sphères d'énergie blanche qui repoussent tout autour d'elles (2 m tant qu'elle les tient en main). Lancées, elles explosent au contact d'une surface et propulsent tout dans un rayon de 10 m. Rien ne peut s'en approcher, sauf avec une Speed ou un Power supérieur à sa Defense (12). Elle peut courber la lumière pour se rendre partiellement invisible, ce qui marche aussi contre les cibles intangibles. En concentrant deux sphères l'une contre l'autre, elle crée une onde de choc spatiale deux fois plus large : lumière aveuglante, bruit qui peut rompre les tympans et impact comme un mur à haute vitesse (fractures possibles, sans tuer).",
+     "reference": "https://discord.com/channels/875109165847179274/1465025673335804199/1465043323029950717",
+     "graph": "https://lh3.googleusercontent.com/d/1gCPfibZo6Xscn8xG1ipI-yg5KmdwrY2b",
+     "image": "https://lh3.googleusercontent.com/d/12RMdpVEzdEDbDIOqBP2hzVo8_NRSsfHt",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "isaure",
+   "name": "Isaure",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "rowden",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 6.8,
+   "ability_id": "debt",
+   "stats": {
+    "power": 6.0,
+    "defense": 10.0,
+    "recovery": 3.0,
+    "trick": 6.0,
+    "speed": 5.0
+   },
+   "sex": "F",
+   "height_cm": 170,
+   "color": "#0e0b01",
+   "status": null,
+   "charges": [],
+   "reference": "https://isaure-lazare.vercel.app/",
+   "image": "https://isaure-lazare.vercel.app/assets/ville-Bg6Zc44m.webp",
+   "snapshots": [
+    {
+     "level": 6.7,
+     "tier": "god",
+     "ability": "Debt",
+     "ability_id": "debt",
+     "type": "status",
+     "nature": "defense",
+     "stats": {
+      "power": 6.0,
+      "defense": 10.0,
+      "recovery": 3.0,
+      "trick": 6.0,
+      "speed": 5.0
+     },
+     "rate": 89.55,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Isaure transforme les coups qu’elle reçoit en dettes. Le coup d’un adversaire est mis en suspens dans son aura, grossit avec des intérêts, puis elle le lui rend en entier au contact.",
+     "reference": "https://isaure-lazare.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1DKEUAFWe8zAllRqFpoliuSnxfLPd5S7b",
+     "image": "https://isaure-lazare.vercel.app/assets/ville-Bg6Zc44m.webp",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.8,
+     "tier": "god",
+     "ability": "Debt",
+     "ability_id": "debt",
+     "type": "status",
+     "nature": "defense",
+     "stats": {
+      "power": 6.0,
+      "defense": 10.0,
+      "recovery": 3.0,
+      "trick": 6.0,
+      "speed": 5.0
+     },
+     "rate": 88.24,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Isaure transforme les coups qu’elle reçoit en dettes. Le coup d’un adversaire est mis en suspens dans son aura, grossit avec des intérêts, puis elle le lui rend en entier au contact.",
+     "reference": "https://isaure-lazare.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1DKEUAFWe8zAllRqFpoliuSnxfLPd5S7b",
+     "image": "https://isaure-lazare.vercel.app/assets/ville-Bg6Zc44m.webp",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "isen",
+   "name": "Isen",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [
+      "jack"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.3,
+   "ability_id": "predator",
+   "stats": {
+    "power": 7.0,
+    "defense": 5.0,
+    "recovery": 3.0,
+    "trick": 6.0,
+    "speed": 4.0
+   },
+   "sex": "H",
+   "height_cm": 183,
+   "color": "#ffb26b",
+   "status": null,
+   "charges": [
+    "vigilantism",
+    "illegal substance distribution"
+   ],
+   "reference": "https://unordinary.fandom.com/wiki/Isen",
+   "image": "https://lh3.googleusercontent.com/d/1JK9GbherdJVrfuJwRL_nDxegsqu4h-qQ",
+   "snapshots": [
+    {
+     "level": 4.4,
+     "tier": "elite",
+     "ability": "Hunter",
+     "ability_id": "hunter",
+     "type": "enhancement",
+     "nature": "attack",
+     "stats": {
+      "power": 5.0,
+      "defense": 5.0,
+      "recovery": 2.0,
+      "trick": 4.0,
+      "speed": 3.0
+     },
+     "rate": 86.36,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Predator: grants a wide range of tracking and capture abilities, including targeting, x-ray vision, telescopic vision, enhanced speed, and strength strong enough to stop a semi-truck or send people through a solid wall.",
+     "reference": "https://unordinary.fandom.com/wiki/Isen",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/b/be/Isen_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1JK9GbherdJVrfuJwRL_nDxegsqu4h-qQ",
+     "source": "unodex"
+    },
+    {
+     "level": 4.8,
+     "tier": "elite",
+     "ability": "Hunter",
+     "ability_id": "hunter",
+     "type": "enhancement",
+     "nature": "attack",
+     "stats": {
+      "power": 6.0,
+      "defense": 5.0,
+      "recovery": 3.0,
+      "trick": 6.0,
+      "speed": 3.0
+     },
+     "rate": 95.83,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Predator: grants a wide range of tracking and capture abilities, including targeting, x-ray vision, telescopic vision, enhanced speed, and strength strong enough to stop a semi-truck or send people through a solid wall.",
+     "reference": "https://unordinary.fandom.com/wiki/Isen",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/a/ac/Isen_Stats_02.jpg/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1JK9GbherdJVrfuJwRL_nDxegsqu4h-qQ",
+     "source": "unodex"
+    },
+    {
+     "level": 4.8,
+     "tier": "elite",
+     "ability": "Hunter",
+     "ability_id": "hunter",
+     "type": "enhancement",
+     "nature": "attack",
+     "stats": {
+      "power": 6.0,
+      "defense": 5.0,
+      "recovery": 3.0,
+      "trick": 6.0,
+      "speed": 3.0
+     },
+     "rate": 95.83,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Predator: grants a wide range of tracking and capture abilities, including targeting, x-ray vision, telescopic vision, enhanced speed, and strength strong enough to stop a semi-truck or send people through a solid wall.",
+     "reference": "https://unordinary.fandom.com/wiki/Isen",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/a/ac/Isen_Stats_02.jpg/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1JK9GbherdJVrfuJwRL_nDxegsqu4h-qQ",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.3,
+     "tier": "high",
+     "ability": "Predator",
+     "ability_id": "predator",
+     "type": "predator",
+     "nature": "attack",
+     "stats": {
+      "power": 7.0,
+      "defense": 5.0,
+      "recovery": 3.0,
+      "trick": 6.0,
+      "speed": 4.0
+     },
+     "rate": 94.34,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Predator: grants a wide range of tracking and capture abilities, including targeting, x-ray vision, telescopic vision, enhanced speed, and strength strong enough to stop a semi-truck or send people through a solid wall.",
+     "reference": "https://unordinary.fandom.com/wiki/Isen",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/e/ed/Isen_Stats_03.jpg/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1JK9GbherdJVrfuJwRL_nDxegsqu4h-qQ",
+     "source": "unodex"
+    }
+   ]
+  },
+  {
+   "id": "issei",
+   "name": "Issei",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "low",
+   "level": 1.6,
+   "ability_id": "claws",
+   "stats": {
+    "power": 2.0,
+    "defense": 2.0,
+    "recovery": 1.0,
+    "trick": 1.0,
+    "speed": 2.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#946134",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1450995317423079629/1541585425171218452",
+   "image": "https://lh3.googleusercontent.com/d/1PpI9t_O_jN-BM_AD1PugUBpb8ydfb3-q",
+   "snapshots": [
+    {
+     "level": 1.5,
+     "tier": "low",
+     "ability": "Claws",
+     "ability_id": "claws",
+     "type": "creation",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 2.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 2.0
+     },
+     "rate": 106.67,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Claws : fait apparaître des griffes sur ses doigts (stade actuel, 1.0-1.9). Évolution : gantelets qui remontent jusqu'aux avant-bras en plus des griffes (2.0-3.4), puis Armure Draconique complète avec des ailes rétractables pour voler s'il le souhaite (3.5-4.9).",
+     "reference": "https://discord.com/channels/875109165847179274/1450995317423079629/1541585425171218452",
+     "graph": "https://lh3.googleusercontent.com/d/1QZ4k8hrg8sH4LGEsVtnV1FMpvJx6JyxW",
+     "image": "https://lh3.googleusercontent.com/d/1PpI9t_O_jN-BM_AD1PugUBpb8ydfb3-q",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 1.6,
+     "tier": "low",
+     "ability": "Claws",
+     "ability_id": "claws",
+     "type": "creation",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 2.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 2.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Claws : fait apparaître des griffes sur ses doigts (stade actuel, 1.0-1.9). Évolution : gantelets qui remontent jusqu'aux avant-bras en plus des griffes (2.0-3.4), puis Armure Draconique complète avec des ailes rétractables pour voler s'il le souhaite (3.5-4.9).",
+     "reference": "https://discord.com/channels/875109165847179274/1450995317423079629/1541585425171218452",
+     "graph": "https://lh3.googleusercontent.com/d/1lkKb3TxKS75m6rD29zQ-SBtBx1HnOjcr",
+     "image": "https://lh3.googleusercontent.com/d/1PpI9t_O_jN-BM_AD1PugUBpb8ydfb3-q",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "joahness",
+   "name": "Joahness",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [
+      "queen"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 6.2,
+   "ability_id": "mistdream",
+   "stats": {
+    "power": 4.0,
+    "defense": 6.0,
+    "recovery": 5.0,
+    "trick": 9.0,
+    "speed": 5.0
+   },
+   "sex": "F",
+   "height_cm": 165,
+   "color": "#eadcb8",
+   "status": null,
+   "charges": [],
+   "reference": "https://foxavecunpoint.wixsite.com/joahnessunordinary",
+   "image": "https://static.wixstatic.com/media/f6d284_b35f30f5106b4849aa75a6e78a688f55~mv2.png",
+   "snapshots": [
+    {
+     "level": 6.1,
+     "tier": "god",
+     "ability": "Mistdream",
+     "ability_id": "mistdream",
+     "type": "mental",
+     "nature": null,
+     "stats": {
+      "power": 4.0,
+      "defense": 6.0,
+      "recovery": 5.0,
+      "trick": 9.0,
+      "speed": 5.0
+     },
+     "rate": 95.08,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "MistDream : contrôle une zone d'environ 3 m de rayon autour d'elle. Elle y crée des illusions réalistes (elles doivent avoir un fondement réel : rien qu'elle n'ait jamais vu) et y ralentit le temps, par exemple pour ralentir des projectiles, sans en réduire la force. Passif : sent les personnes et objets qui entrent dans sa zone ou en sortent.",
+     "reference": "https://foxavecunpoint.wixsite.com/joahnessunordinary",
+     "graph": "https://lh3.googleusercontent.com/d/1QK-d10ulKLVbn4LVZ7i0_MimLtGtb3e7",
+     "image": "https://static.wixstatic.com/media/f6d284_b35f30f5106b4849aa75a6e78a688f55~mv2.png",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.2,
+     "tier": "god",
+     "ability": "Mistdream",
+     "ability_id": "mistdream",
+     "type": "mental",
+     "nature": null,
+     "stats": {
+      "power": 4.0,
+      "defense": 6.0,
+      "recovery": 5.0,
+      "trick": 9.0,
+      "speed": 5.0
+     },
+     "rate": 93.55,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "MistDream : contrôle une zone d'environ 3 m de rayon autour d'elle. Elle y crée des illusions réalistes (elles doivent avoir un fondement réel : rien qu'elle n'ait jamais vu) et y ralentit le temps, par exemple pour ralentir des projectiles, sans en réduire la force. Passif : sent les personnes et objets qui entrent dans sa zone ou en sortent.",
+     "reference": "https://foxavecunpoint.wixsite.com/joahnessunordinary",
+     "graph": "https://lh3.googleusercontent.com/d/1NzCoAvbaw9gPkKb7TwQTqE1MpxKPfpkD",
+     "image": "https://static.wixstatic.com/media/f6d284_b35f30f5106b4849aa75a6e78a688f55~mv2.png",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "john",
+   "name": "John",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "new_bostin",
+     "roles": [
+      "alumni"
+     ],
+     "region": null
+    },
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 7.6,
+   "ability_id": "aura_manipulation",
+   "stats": {
+    "power": 4.0,
+    "defense": 1.0,
+    "recovery": 1.0,
+    "trick": 16.0,
+    "speed": 1.0
+   },
+   "sex": "H",
+   "height_cm": 180,
+   "color": "#0f172a",
+   "status": null,
+   "charges": [
+    "association with Spectre",
+    "distribution of Unordinary"
+   ],
+   "reference": "https://unordinary.fandom.com/wiki/John",
+   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xOvQydPw1PRV1whXpzc9k2iBM9Kaz92HSuvWCU7KCgdNgg",
+   "snapshots": [
+    {
+     "level": 7.5,
+     "tier": "god",
+     "ability": "Aura Manipulation",
+     "ability_id": "aura_manipulation",
+     "type": "detection",
+     "nature": "strategist",
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 16.0,
+      "speed": 1.0
+     },
+     "rate": 53.33,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Aura Manipulation: copies abilities (even from higher levels, to a lesser degree), combines them for devastating results, detects and senses aura intensities, and amplifies copied abilities. Since recovering, can do basic enhancements without a copied ability.",
+     "reference": "https://unordinary.fandom.com/wiki/John",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/3/3e/John_%28Default%29_Stats.PNG/revision/latest",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xOvQydPw1PRV1whXpzc9k2iBM9Kaz92HSuvWCU7KCgdNgg",
+     "source": "unodex"
+    },
+    {
+     "level": 7.5,
+     "tier": "god",
+     "ability": "Aura Manipulation",
+     "ability_id": "aura_manipulation",
+     "type": "detection",
+     "nature": "strategist",
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 16.0,
+      "speed": 1.0
+     },
+     "rate": 53.33,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Aura Manipulation: copies abilities (even from higher levels, to a lesser degree), combines them for devastating results, detects and senses aura intensities, and amplifies copied abilities. Since recovering, can do basic enhancements without a copied ability.",
+     "reference": "https://unordinary.fandom.com/wiki/John",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/3/3e/John_%28Default%29_Stats.PNG/revision/latest",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xOvQydPw1PRV1whXpzc9k2iBM9Kaz92HSuvWCU7KCgdNgg",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 7.6,
+     "tier": "god",
+     "ability": "Aura Manipulation",
+     "ability_id": "aura_manipulation",
+     "type": "detection",
+     "nature": "strategist",
+     "stats": {
+      "power": 4.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 16.0,
+      "speed": 1.0
+     },
+     "rate": 60.53,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Aura Manipulation: copies abilities (even from higher levels, to a lesser degree), combines them for devastating results, detects and senses aura intensities, and amplifies copied abilities. Since recovering, can do basic enhancements without a copied ability.",
+     "reference": "https://unordinary.fandom.com/wiki/John",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/b/b4/John_%28Default%29_Stats_02.PNG/revision/latest",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2xOvQydPw1PRV1whXpzc9k2iBM9Kaz92HSuvWCU7KCgdNgg",
+     "source": "unodex"
+    }
+   ]
+  },
+  {
+   "id": "julia",
+   "name": "Julia",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 4.5,
+   "ability_id": "telepathy",
+   "stats": {
+    "power": 5.0,
+    "defense": 6.0,
+    "recovery": 3.0,
+    "trick": 7.0,
+    "speed": 1.0
+   },
+   "sex": "F",
+   "height_cm": 162,
+   "color": "#f2d58a",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1535942163332989028/1536656827276726272",
+   "image": "https://lh3.googleusercontent.com/d/1UvV_JlFNHAiz_kVSLA5Yrwbj0pnO8qwP",
+   "snapshots": [
+    {
+     "level": 4.4,
+     "tier": "elite",
+     "ability": "Telepathy",
+     "ability_id": "telepathy",
+     "type": "mental",
+     "nature": "strategist",
+     "stats": {
+      "power": 5.0,
+      "defense": 6.0,
+      "recovery": 3.0,
+      "trick": 7.0,
+      "speed": 1.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Telepathy : parle par télépathie et crée des illusions.",
+     "reference": "https://discord.com/channels/875109165847179274/1535942163332989028/1536656827276726272",
+     "graph": "https://lh3.googleusercontent.com/d/1adGDvPRYV6_8y6LCkc2-dLruoY6qgNNj",
+     "image": "https://lh3.googleusercontent.com/d/1UvV_JlFNHAiz_kVSLA5Yrwbj0pnO8qwP",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 4.5,
+     "tier": "elite",
+     "ability": "Telepathy",
+     "ability_id": "telepathy",
+     "type": "mental",
+     "nature": "strategist",
+     "stats": {
+      "power": 5.0,
+      "defense": 6.0,
+      "recovery": 3.0,
+      "trick": 7.0,
+      "speed": 1.0
+     },
+     "rate": 97.78,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": 1.0
+     },
+     "description": "Telepathy : parle par télépathie et crée des illusions.",
+     "reference": "https://discord.com/channels/875109165847179274/1535942163332989028/1536656827276726272",
+     "graph": "https://lh3.googleusercontent.com/d/1VKRrw2r8AWUszMzynjbQPRKp3YY4b59x",
+     "image": "https://lh3.googleusercontent.com/d/1UvV_JlFNHAiz_kVSLA5Yrwbj0pnO8qwP",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "kael",
+   "name": "Kael",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.3,
+   "ability_id": "dark_blades",
+   "stats": {
+    "power": 8.0,
+    "defense": 4.0,
+    "recovery": 5.0,
+    "trick": 5.0,
+    "speed": 3.0
+   },
+   "sex": "H",
+   "height_cm": 179,
+   "color": "#a1305d",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1537158227639275600/1541735820254249040",
+   "image": "https://lh3.googleusercontent.com/d/1ZC3lFR20T4mAMwk5VOmRTfKWjG6MVjNN=w400-h400-p",
+   "snapshots": [
+    {
+     "level": 1.0,
+     "tier": "cripple",
+     "ability": "N/A",
+     "ability_id": null,
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": 1.0
+     },
+     "description": null,
+     "reference": "https://discord.com/channels/875109165847179274/1537158227639275600/1541735820254249040",
+     "graph": "https://lh3.googleusercontent.com/d/1AQn73jG7TV7PuVy4AgT4oOv13rWMruOt",
+     "image": "https://lh3.googleusercontent.com/d/1ZC3lFR20T4mAMwk5VOmRTfKWjG6MVjNN=w400-h400-p",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.2,
+     "tier": "high",
+     "ability": "Dark Blades",
+     "ability_id": "dark_blades",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 8.0,
+      "defense": 4.0,
+      "recovery": 5.0,
+      "trick": 5.0,
+      "speed": 3.0
+     },
+     "rate": 96.15,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Dark Blades : matérialise plusieurs lames sombres (12 maximum simultanément). Passif (affinité nocturne) : plus l'obscurité est grande, plus ses sens s'améliorent (dans l'ordre : vue, goût, odorat, toucher, ouïe) ; il voit dans le noir.",
+     "reference": "https://discord.com/channels/875109165847179274/1537158227639275600/1541735820254249040",
+     "graph": "https://lh3.googleusercontent.com/d/1q3tmVIE0KhzEXTVa-wv7oSCWmrLM0BK7",
+     "image": "https://lh3.googleusercontent.com/d/1ZC3lFR20T4mAMwk5VOmRTfKWjG6MVjNN=w400-h400-p",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.3,
+     "tier": "high",
+     "ability": "Dark Blades",
+     "ability_id": "dark_blades",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 8.0,
+      "defense": 4.0,
+      "recovery": 5.0,
+      "trick": 5.0,
+      "speed": 3.0
+     },
+     "rate": 94.34,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": 1.0
+     },
+     "description": "Dark Blades : matérialise plusieurs lames sombres (12 maximum simultanément). Passif (affinité nocturne) : plus l'obscurité est grande, plus ses sens s'améliorent (dans l'ordre : vue, goût, odorat, toucher, ouïe) ; il voit dans le noir.",
+     "reference": "https://discord.com/channels/875109165847179274/1537158227639275600/1541735820254249040",
+     "graph": "https://lh3.googleusercontent.com/d/1IGDBUcW0-CqV6y0Lhvdo61N_cFbZhnZT",
+     "image": "https://lh3.googleusercontent.com/d/1ZC3lFR20T4mAMwk5VOmRTfKWjG6MVjNN=w400-h400-p",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "kaira",
+   "name": "Kaïra",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "mid",
+   "level": 2.1,
+   "ability_id": "blade",
+   "stats": {
+    "power": 2.0,
+    "defense": 1.0,
+    "recovery": 1.0,
+    "trick": 1.0,
+    "speed": 1.0
+   },
+   "sex": "F",
+   "height_cm": 162,
+   "color": "#e2e2e2",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1443739948640374804/1443740025329287409",
+   "image": "https://lh3.googleusercontent.com/d/1syFRXd-bA8skyxuUD1RvdbjvH7oMFNoT=w400-h400-p",
+   "snapshots": [
+    {
+     "level": 1.8,
+     "tier": "low",
+     "ability": "Blade",
+     "ability_id": "blade",
+     "type": "creation",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 66.67,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Lame : capacité de création de lame (aucun détail supplémentaire sur la fiche).",
+     "reference": "https://discord.com/channels/875109165847179274/1443739948640374804/1443740025329287409",
+     "graph": "https://lh3.googleusercontent.com/d/1QN6-f9ZkMbjatXF6w-WQP1b2mYGgyWVV",
+     "image": "https://lh3.googleusercontent.com/d/1syFRXd-bA8skyxuUD1RvdbjvH7oMFNoT=w400-h400-p",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 1.9,
+     "tier": "low",
+     "ability": "Blade",
+     "ability_id": "blade",
+     "type": "creation",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 63.16,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Lame : capacité de création de lame (aucun détail supplémentaire sur la fiche).",
+     "reference": "https://discord.com/channels/875109165847179274/1443739948640374804/1443740025329287409",
+     "graph": "https://lh3.googleusercontent.com/d/1eeGrc0Tlt6BbA5lFrb8sds-MaTqV0nLX",
+     "image": "https://lh3.googleusercontent.com/d/1syFRXd-bA8skyxuUD1RvdbjvH7oMFNoT=w400-h400-p",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 2.0,
+     "tier": "mid",
+     "ability": "Blade",
+     "ability_id": "blade",
+     "type": "creation",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 60.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Lame : capacité de création de lame (aucun détail supplémentaire sur la fiche).",
+     "reference": "https://discord.com/channels/875109165847179274/1443739948640374804/1443740025329287409",
+     "graph": "https://lh3.googleusercontent.com/d/1Y4UEH3e_HFEJ7UxvdQVXrZuw6CdxPhrm",
+     "image": "https://lh3.googleusercontent.com/d/1syFRXd-bA8skyxuUD1RvdbjvH7oMFNoT=w400-h400-p",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 2.1,
+     "tier": "mid",
+     "ability": "Blade",
+     "ability_id": "blade",
+     "type": "creation",
+     "nature": "attack",
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 57.14,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": 1.0
+     },
+     "description": "Lame : capacité de création de lame (aucun détail supplémentaire sur la fiche).",
+     "reference": "https://discord.com/channels/875109165847179274/1443739948640374804/1443740025329287409",
+     "graph": "https://lh3.googleusercontent.com/d/1TobedpXi2-XNVDfRHIbYv1Q0tHIZv1Ob",
+     "image": "https://lh3.googleusercontent.com/d/1syFRXd-bA8skyxuUD1RvdbjvH7oMFNoT=w400-h400-p",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "kaito",
+   "name": "Kaito",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [
+      "alumni"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 7.1,
+   "ability_id": "digital_hive",
+   "stats": {
+    "power": 9.0,
+    "defense": 8.0,
+    "recovery": 4.0,
+    "trick": 13.0,
+    "speed": 7.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#1a1a1e",
+   "status": null,
+   "charges": [],
+   "reference": "https://the-night7.github.io/digital-bugs-uno/index.html",
+   "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfV1LJnpYVETqwZtWQvq1ML9kWKTHAyMd7WSRFs5Cqh7iHPuOXZB891Y&s=10",
+   "snapshots": [
+    {
+     "level": 5.8,
+     "tier": "high",
+     "ability": "Cancellation",
+     "ability_id": "cancellation",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 8.0,
+      "defense": 6.0,
+      "recovery": 3.0,
+      "trick": 10.0,
+      "speed": 6.0
+     },
+     "rate": 113.79,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+     "reference": "https://the-night7.github.io/digital-bugs-uno/index.html",
+     "graph": "https://lh3.googleusercontent.com/d/1thJRdwkSTXPWzfmEFp_G0VyTE0AyrQjz",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfV1LJnpYVETqwZtWQvq1ML9kWKTHAyMd7WSRFs5Cqh7iHPuOXZB891Y&s=10",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 7.0,
+     "tier": "god",
+     "ability": "Digital Hive",
+     "ability_id": "digital_hive",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 9.0,
+      "defense": 8.0,
+      "recovery": 4.0,
+      "trick": 13.0,
+      "speed": 7.0
+     },
+     "rate": 117.14,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+     "reference": "https://the-night7.github.io/digital-bugs-uno/index.html",
+     "graph": "https://lh3.googleusercontent.com/d/1byP8q7TyL7ywf1jrkKdNc94oXDuvGrKT",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfV1LJnpYVETqwZtWQvq1ML9kWKTHAyMd7WSRFs5Cqh7iHPuOXZB891Y&s=10",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 7.1,
+     "tier": "god",
+     "ability": "Digital Hive",
+     "ability_id": "digital_hive",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 9.0,
+      "defense": 8.0,
+      "recovery": 4.0,
+      "trick": 13.0,
+      "speed": 7.0
+     },
+     "rate": 115.49,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+     "reference": "https://the-night7.github.io/digital-bugs-uno/index.html",
+     "graph": "https://lh3.googleusercontent.com/d/14pLBqx06ayR3UK9o5IQElS77POCvlfsW",
+     "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmfV1LJnpYVETqwZtWQvq1ML9kWKTHAyMd7WSRFs5Cqh7iHPuOXZB891Y&s=10",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "keito",
+   "name": "Keito",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "rowden",
+     "roles": [
+      "king",
+      "alumni"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 8.8,
+   "ability_id": "death_fire",
+   "stats": {
+    "power": 16.0,
+    "defense": 6.0,
+    "recovery": 7.0,
+    "trick": 12.0,
+    "speed": 5.0
+   },
+   "sex": "H",
+   "height_cm": 180,
+   "color": "#2a1f3a",
+   "status": null,
+   "charges": [
+    "terrorism",
+    "association with spectre"
+   ],
+   "reference": "https://docs.google.com/document/d/1DhHWS5aKYAa_i5QHdVlBCiDxd7ObmKo2hLaI-zZki9Y/edit?usp=sharing",
+   "image": "https://lh3.googleusercontent.com/d/115z7fGU-Czwm529AhGaeX_VUKaJZSmoo",
+   "snapshots": [
+    {
+     "level": 8.8,
+     "tier": "god",
+     "ability": "Death Fire",
+     "ability_id": "death_fire",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 16.0,
+      "defense": 6.0,
+      "recovery": 7.0,
+      "trick": 12.0,
+      "speed": 5.0
+     },
+     "rate": 104.55,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Le pouvoir s’organise de la façon suivante : Il peut générer des flammes bleues, dans sa main où dans un cercle qui a un rayon de 25m de diamètre autour de lui, pouvant faire une attaque de zone, la particularité de ses flammes est qu'elles brûlent le métal, et inflige une douleur extrême tant qu’une capacité de guérison de haut tier n'est pas utilisé sur le blessure, une autre subtilité, est que la douleur causé par cette brûlure, se trouve être en réalité, une prévention du corps de la victime, car une fois toucher par les flammes, la personne brûler, va cuire de l’intérieur à partir de l'endroit la brûlure. Température flamme : 1300 degrés celsius . Portée maximale Lancée de flamme : 50M (à voir avec évolution du tier)",
+     "reference": "https://docs.google.com/document/d/1DhHWS5aKYAa_i5QHdVlBCiDxd7ObmKo2hLaI-zZki9Y/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1nQiZlH-bjz434H5KJO8OmAM3JyMq2foU",
+     "image": "https://lh3.googleusercontent.com/d/115z7fGU-Czwm529AhGaeX_VUKaJZSmoo",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "laura",
+   "name": "Laura",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 3.6,
+   "ability_id": "liquids_manipulation",
+   "stats": {
+    "power": 5.0,
+    "defense": 2.0,
+    "recovery": 1.0,
+    "trick": 6.0,
+    "speed": 2.0
+   },
+   "sex": "F",
+   "height_cm": 160,
+   "color": "#1e1a1c",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1poJ9DIJHwp6E4cqxgez8ErLyBKkEGN8Z7WO67Soz7N4/edit?usp=sharing",
+   "image": "https://lh3.googleusercontent.com/d/1LaONj7EW0uySo7BdEdAjeeowZTQYBb_A",
+   "snapshots": [
+    {
+     "level": 3.5,
+     "tier": "elite",
+     "ability": "Liquids Manipulation",
+     "ability_id": "liquids_manipulation",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 5.0,
+      "defense": 2.0,
+      "recovery": 1.0,
+      "trick": 6.0,
+      "speed": 2.0
+     },
+     "rate": 91.43,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Manipulation des liquides. Elle peut manipuler les liquides autour d’elle, le plus évident étant l’eau. Elle ne peut cependant rien manifester d'elle-même, et est obligée d’utiliser un liquide à sa portée (jusque dans un rayon de 30m autour d’elle, rayon d’action qui pourra augmenter avec son niveau). De fait, elle a toujours sur elle une bouteille d’eau en cas d’urgence. A son niveau actuel elle ne peut manipuler que des liquides visibles à son œil (elle pourra prétendre manipuler des liquides plus subtils ou cachés uniquement à des niveaux supérieurs).",
+     "reference": "https://docs.google.com/document/d/1poJ9DIJHwp6E4cqxgez8ErLyBKkEGN8Z7WO67Soz7N4/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1XD_VlHVpG-tnCRN594Y0KiK89UdYvBY2",
+     "image": "https://lh3.googleusercontent.com/d/1LaONj7EW0uySo7BdEdAjeeowZTQYBb_A",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 3.6,
+     "tier": "elite",
+     "ability": "Liquids Manipulation",
+     "ability_id": "liquids_manipulation",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 5.0,
+      "defense": 2.0,
+      "recovery": 1.0,
+      "trick": 6.0,
+      "speed": 2.0
+     },
+     "rate": 88.89,
+     "bonuses": {
+      "power": null,
+      "defense": 1.0,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Manipulation des liquides. Elle peut manipuler les liquides autour d’elle, le plus évident étant l’eau. Elle ne peut cependant rien manifester d'elle-même, et est obligée d’utiliser un liquide à sa portée (jusque dans un rayon de 30m autour d’elle, rayon d’action qui pourra augmenter avec son niveau). De fait, elle a toujours sur elle une bouteille d’eau en cas d’urgence. A son niveau actuel elle ne peut manipuler que des liquides visibles à son œil (elle pourra prétendre manipuler des liquides plus subtils ou cachés uniquement à des niveaux supérieurs).",
+     "reference": "https://docs.google.com/document/d/1poJ9DIJHwp6E4cqxgez8ErLyBKkEGN8Z7WO67Soz7N4/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1XD_VlHVpG-tnCRN594Y0KiK89UdYvBY2",
+     "image": "https://lh3.googleusercontent.com/d/1LaONj7EW0uySo7BdEdAjeeowZTQYBb_A",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "le_pinceau",
+   "name": "Le Pinceau",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "vigilante",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.8,
+   "ability_id": "cancellation",
+   "stats": {
+    "power": 8.0,
+    "defense": 6.0,
+    "recovery": 3.0,
+    "trick": 10.0,
+    "speed": 6.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#ffd700",
+   "status": null,
+   "charges": [],
+   "reference": "https://the-night7.github.io/digital-bugs-uno/index.html",
+   "image": "https://cdn.tupperbox.app/pfp/484850911622070284/zOeyeKO6gypmGJ2V.webp",
+   "snapshots": [
+    {
+     "level": 5.8,
+     "tier": "high",
+     "ability": "Cancellation",
+     "ability_id": "cancellation",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 8.0,
+      "defense": 6.0,
+      "recovery": 3.0,
+      "trick": 10.0,
+      "speed": 6.0
+     },
+     "rate": 113.79,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+     "reference": "https://the-night7.github.io/digital-bugs-uno/index.html",
+     "graph": "https://lh3.googleusercontent.com/d/1AUBvv-tvFGaCS4VOg-LUEKqZRigMf7la",
+     "image": "https://cdn.tupperbox.app/pfp/484850911622070284/zOeyeKO6gypmGJ2V.webp",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "leonie",
+   "name": "Leonie",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "mid",
+   "level": 2.5,
+   "ability_id": "possession",
+   "stats": {
+    "power": 1.0,
+    "defense": 3.0,
+    "recovery": 1.0,
+    "trick": 4.0,
+    "speed": 2.0
+   },
+   "sex": "F",
+   "height_cm": 166,
+   "color": "#8fd3ee",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1480926948904534026/1481377682913624104",
+   "image": "https://lh3.googleusercontent.com/d/1SQPJWq246Fzyq8TFlqfa04QxwtOpwYVH",
+   "snapshots": [
+    {
+     "level": 2.4,
+     "tier": "mid",
+     "ability": "Possession",
+     "ability_id": "possession",
+     "type": "mental",
+     "nature": "strategist",
+     "stats": {
+      "power": 1.0,
+      "defense": 3.0,
+      "recovery": 1.0,
+      "trick": 4.0,
+      "speed": 2.0
+     },
+     "rate": 91.67,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Possession : possède le corps de n'importe qui ayant un niveau de capacité plus faible que le sien, et peut alors utiliser la capacité du corps possédé (avec une maîtrise limitée).",
+     "reference": "https://discord.com/channels/875109165847179274/1480926948904534026/1481377682913624104",
+     "graph": "https://lh3.googleusercontent.com/d/1HQ64cZ1CvpI3G148-aGdNCjBdvVht26N",
+     "image": "https://lh3.googleusercontent.com/d/1SQPJWq246Fzyq8TFlqfa04QxwtOpwYVH",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 2.5,
+     "tier": "mid",
+     "ability": "Possession",
+     "ability_id": "possession",
+     "type": "mental",
+     "nature": "strategist",
+     "stats": {
+      "power": 1.0,
+      "defense": 3.0,
+      "recovery": 1.0,
+      "trick": 4.0,
+      "speed": 2.0
+     },
+     "rate": 88.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Possession : possède le corps de n'importe qui ayant un niveau de capacité plus faible que le sien, et peut alors utiliser la capacité du corps possédé (avec une maîtrise limitée).",
+     "reference": "https://discord.com/channels/875109165847179274/1480926948904534026/1481377682913624104",
+     "graph": "https://lh3.googleusercontent.com/d/1fhVkYqxY5xVTU5V8sNAg17brGZ6g0GN-",
+     "image": "https://lh3.googleusercontent.com/d/1SQPJWq246Fzyq8TFlqfa04QxwtOpwYVH",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "louis",
+   "name": "Louis",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "rowden",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "low",
+   "level": 1.7,
+   "ability_id": "knuckles",
+   "stats": {
+    "power": 2.0,
+    "defense": 1.0,
+    "recovery": 1.0,
+    "trick": 1.0,
+    "speed": 1.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#3b2a20",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1454148427624481029/1545725779843751966",
+   "image": "https://lh3.googleusercontent.com/d/1m0fYJEcm6xQvuHg3XMAyD3K3ikr4p-fk=w400-h400-p",
+   "snapshots": [
+    {
+     "level": 1.5,
+     "tier": "low",
+     "ability": "Knuckles",
+     "ability_id": "knuckles",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 80.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Knuckles : augmente sa force en renforçant ses muscles pour mieux projeter sa puissance physique.",
+     "reference": "https://discord.com/channels/875109165847179274/1454148427624481029/1545725779843751966",
+     "graph": "https://lh3.googleusercontent.com/d/1_YWkyA7RVL9J2o99CZ0v_W1o5MY6gr6p",
+     "image": "https://lh3.googleusercontent.com/d/1m0fYJEcm6xQvuHg3XMAyD3K3ikr4p-fk=w400-h400-p",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 1.6,
+     "tier": "low",
+     "ability": "Knuckles",
+     "ability_id": "knuckles",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 75.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Knuckles : augmente sa force en renforçant ses muscles pour mieux projeter sa puissance physique.",
+     "reference": "https://discord.com/channels/875109165847179274/1454148427624481029/1545725779843751966",
+     "graph": "https://lh3.googleusercontent.com/d/14dAGZAGg-MJ30eubrm7W4XmAVqCBNr_u",
+     "image": "https://lh3.googleusercontent.com/d/1m0fYJEcm6xQvuHg3XMAyD3K3ikr4p-fk=w400-h400-p",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 1.7,
+     "tier": "low",
+     "ability": "Knuckles",
+     "ability_id": "knuckles",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 2.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 70.59,
+     "bonuses": {
+      "power": 1.0,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Knuckles : augmente sa force en renforçant ses muscles pour mieux projeter sa puissance physique.",
+     "reference": "https://discord.com/channels/875109165847179274/1454148427624481029/1545725779843751966",
+     "graph": "https://lh3.googleusercontent.com/d/1mdE7DtanaFlVZI-FqUJ2SGBip4s-eOlB",
+     "image": "https://lh3.googleusercontent.com/d/1m0fYJEcm6xQvuHg3XMAyD3K3ikr4p-fk=w400-h400-p",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "lucian",
+   "name": "Lucian",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 4.7,
+   "ability_id": "pride",
+   "stats": {
+    "power": 6.0,
+    "defense": 3.0,
+    "recovery": 5.0,
+    "trick": 7.0,
+    "speed": 1.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#1a1a1a",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/13dXO2_CJHjxc6leu1R9ct9RAO3A_3BTA1TBPi08Q0A8/edit?tab=t.0",
+   "image": "https://lh3.googleusercontent.com/d/1LHcy39gFpCW9m2_w-G1B2oUyMsBTVaWr",
+   "snapshots": [
+    {
+     "level": 4.6,
+     "tier": "elite",
+     "ability": "Pride",
+     "ability_id": "pride",
+     "type": "enhancement",
+     "nature": "attack",
+     "stats": {
+      "power": 6.0,
+      "defense": 3.0,
+      "recovery": 5.0,
+      "trick": 7.0,
+      "speed": 1.0
+     },
+     "rate": 95.65,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Orgueil (Pride Manifestation) : se nourrit de sa fierté et de sa confiance en soi, plus son ego est stimulé (défi, combat, provocation) plus sa puissance augmente. Son aura exerce une pression psychique et physique sur ses adversaires et renforce son Power, sa Speed et sa Recovery. Il ne peut maintenir l'Orgueil absolu que 2 tours avant que sa vitalité chute, et plus il laisse son orgueil dominer, plus il perd le contrôle émotionnel. Passif (Refus de soumission) : plus il subit de dégâts ou de pression, plus sa résistance augmente ; impossible de le forcer à se soumettre (douleur, illusions, effets mentaux).",
+     "reference": "https://docs.google.com/document/d/13dXO2_CJHjxc6leu1R9ct9RAO3A_3BTA1TBPi08Q0A8/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/18Tlxxu7mqJhkzf_F8_GZB11NDi254uuI",
+     "image": "https://lh3.googleusercontent.com/d/1LHcy39gFpCW9m2_w-G1B2oUyMsBTVaWr",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 4.7,
+     "tier": "elite",
+     "ability": "Pride",
+     "ability_id": "pride",
+     "type": "enhancement",
+     "nature": "attack",
+     "stats": {
+      "power": 6.0,
+      "defense": 3.0,
+      "recovery": 5.0,
+      "trick": 7.0,
+      "speed": 1.0
+     },
+     "rate": 93.62,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Orgueil (Pride Manifestation) : se nourrit de sa fierté et de sa confiance en soi, plus son ego est stimulé (défi, combat, provocation) plus sa puissance augmente. Son aura exerce une pression psychique et physique sur ses adversaires et renforce son Power, sa Speed et sa Recovery. Il ne peut maintenir l'Orgueil absolu que 2 tours avant que sa vitalité chute, et plus il laisse son orgueil dominer, plus il perd le contrôle émotionnel. Passif (Refus de soumission) : plus il subit de dégâts ou de pression, plus sa résistance augmente ; impossible de le forcer à se soumettre (douleur, illusions, effets mentaux).",
+     "reference": "https://docs.google.com/document/d/13dXO2_CJHjxc6leu1R9ct9RAO3A_3BTA1TBPi08Q0A8/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1QswcPcfPNNBtAxuqKenE4ny0lxRkB3RC",
+     "image": "https://lh3.googleusercontent.com/d/1LHcy39gFpCW9m2_w-G1B2oUyMsBTVaWr",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "lucina",
+   "name": "Lucina",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.3,
+   "ability_id": "god_s_mind",
+   "stats": {
+    "power": 4.0,
+    "defense": 3.0,
+    "recovery": 6.0,
+    "trick": 9.0,
+    "speed": 3.0
+   },
+   "sex": "F",
+   "height_cm": 145,
+   "color": "#fb7eaa",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/19va5De-jDkUA-LKT9YRGGOm9Cvcvpg4t0Uenk4XnXHo/edit?usp=sharing",
+   "image": "https://lh3.googleusercontent.com/d/1pvDVIvdrMsXHVlhP_3o2lLWanVOnP76a",
+   "snapshots": [
+    {
+     "level": 1.0,
+     "tier": "cripple",
+     "ability": "N/A",
+     "ability_id": null,
+     "type": "mental",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": null,
+     "reference": "https://docs.google.com/document/d/19va5De-jDkUA-LKT9YRGGOm9Cvcvpg4t0Uenk4XnXHo/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1Rd9xzCpBjinVFAMOQeMQGILSXuEsQHUL",
+     "image": "https://lh3.googleusercontent.com/d/1pvDVIvdrMsXHVlhP_3o2lLWanVOnP76a",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.2,
+     "tier": "high",
+     "ability": "God's Mind",
+     "ability_id": "god_s_mind",
+     "type": "mental",
+     "nature": null,
+     "stats": {
+      "power": 4.0,
+      "defense": 3.0,
+      "recovery": 6.0,
+      "trick": 9.0,
+      "speed": 3.0
+     },
+     "rate": 96.15,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "God's Mind : se connecte à l'esprit d'un adversaire visible pour le lire et le manipuler, sans contrôle absolu (la cible peut toujours penser et bouger). Techniques : pression mentale, lecture des pensées et de la mémoire (6 mois max), liaison de pensées, partage de connaissances, trouble des 5 sens, isolation mentale (bloque les capacités), hallucinations ciblées (Imaginary control), émotions implantées (Parasite), suggestions inconscientes (Graveur de Dogme), altération de souvenirs (Gaslighting), Memory break, Double Exposure (partage de sa douleur) et Pantin (prise de contrôle du corps quelques tours). Passif (lvl 5.0) : immunité totale aux capacités mentales.",
+     "reference": "https://docs.google.com/document/d/19va5De-jDkUA-LKT9YRGGOm9Cvcvpg4t0Uenk4XnXHo/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1aluqmLDjDr73ngezHnAbJm_C1H2AZIOh",
+     "image": "https://lh3.googleusercontent.com/d/1pvDVIvdrMsXHVlhP_3o2lLWanVOnP76a",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.3,
+     "tier": "high",
+     "ability": "God's Mind",
+     "ability_id": "god_s_mind",
+     "type": "mental",
+     "nature": null,
+     "stats": {
+      "power": 4.0,
+      "defense": 3.0,
+      "recovery": 6.0,
+      "trick": 9.0,
+      "speed": 3.0
+     },
+     "rate": 94.34,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "God's Mind : se connecte à l'esprit d'un adversaire visible pour le lire et le manipuler, sans contrôle absolu (la cible peut toujours penser et bouger). Techniques : pression mentale, lecture des pensées et de la mémoire (6 mois max), liaison de pensées, partage de connaissances, trouble des 5 sens, isolation mentale (bloque les capacités), hallucinations ciblées (Imaginary control), émotions implantées (Parasite), suggestions inconscientes (Graveur de Dogme), altération de souvenirs (Gaslighting), Memory break, Double Exposure (partage de sa douleur) et Pantin (prise de contrôle du corps quelques tours). Passif (lvl 5.0) : immunité totale aux capacités mentales.",
+     "reference": "https://docs.google.com/document/d/19va5De-jDkUA-LKT9YRGGOm9Cvcvpg4t0Uenk4XnXHo/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1urhOMs-8JxNHm1H50zFYweaid9Sr80_I",
+     "image": "https://lh3.googleusercontent.com/d/1pvDVIvdrMsXHVlhP_3o2lLWanVOnP76a",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "marc",
+   "name": "Marc",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 8.6,
+   "ability_id": "modes_bal",
+   "stats": {
+    "power": 8.0,
+    "defense": 8.0,
+    "recovery": 8.0,
+    "trick": 14.0,
+    "speed": 8.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#fdffe5",
+   "status": null,
+   "charges": [],
+   "reference": "https://marcmarquez.vercel.app/",
+   "image": "https://lh3.googleusercontent.com/d/1TSZ38kjFKuBbhVSujA17zSCewykQEXPF",
+   "snapshots": [
+    {
+     "level": 8.6,
+     "tier": "god",
+     "ability": "Modes (Bal)",
+     "ability_id": "modes_bal",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 8.0,
+      "defense": 8.0,
+      "recovery": 8.0,
+      "trick": 14.0,
+      "speed": 8.0
+     },
+     "rate": 106.98,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Modes - Équilibré : aura stable et uniforme autour du corps. Adaptation rapide et consommation d'énergie réduite, l'état par défaut pour temporiser et analyser. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+     "reference": "https://marcmarquez.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1VkApdnR1N_wOkwRWX5d9lh5zTHzCKvtc",
+     "image": "https://lh3.googleusercontent.com/d/1TSZ38kjFKuBbhVSujA17zSCewykQEXPF",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 8.6,
+     "tier": "god",
+     "ability": "Modes (Atk)",
+     "ability_id": "modes_atk",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 12.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 14.0,
+      "speed": 8.0
+     },
+     "rate": 93.02,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Modes - Offensif : peau teintée et veines lumineuses. Frappes à impact augmenté et vitesse de déplacement accrue, idéal pour interrompre l'adversaire ou punir une ouverture. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+     "reference": "https://marcmarquez.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1UrdzD-obLoLsUAQravZNM7-GB3lecwGv",
+     "image": "https://lh3.googleusercontent.com/d/1TSZ38kjFKuBbhVSujA17zSCewykQEXPF",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 8.6,
+     "tier": "god",
+     "ability": "Modes (Def)",
+     "ability_id": "modes_def",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 3.0,
+      "defense": 12.0,
+      "recovery": 8.0,
+      "trick": 14.0,
+      "speed": 3.0
+     },
+     "rate": 93.02,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Modes - Défensif : peau cristallisée de sa teinte signature. Absorbe une grande partie de l'énergie cinétique et accélère sa régénération ; sert de tampon entre deux états extrêmes pour éviter la perte de conscience. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+     "reference": "https://marcmarquez.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1oi_XPb1TvmfJFgYs-Spzpw9g54oYRokD",
+     "image": "https://lh3.googleusercontent.com/d/1TSZ38kjFKuBbhVSujA17zSCewykQEXPF",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 8.6,
+     "tier": "god",
+     "ability": "Modes (Spd)",
+     "ability_id": "modes_spd",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 14.0,
+      "speed": 14.0
+     },
+     "rate": 86.05,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Modes - Vélocité : corps entouré de traînées lumineuses. Perception du temps accélérée et déplacements quasi instantanés sur de courtes distances. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+     "reference": "https://marcmarquez.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1uukxIAy-sGgHY106mRn6KXbufu9EjFfK",
+     "image": "https://lh3.googleusercontent.com/d/1TSZ38kjFKuBbhVSujA17zSCewykQEXPF",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 8.6,
+     "tier": "god",
+     "ability": "Modes (Dst)",
+     "ability_id": "modes_dst",
+     "type": "enhancement",
+     "nature": null,
+     "stats": {
+      "power": 14.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 14.0,
+      "speed": 3.0
+     },
+     "rate": 86.05,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Modes - Destructeur : peau craquelée laissant voir l'énergie à l'intérieur. Frappes dévastatrices avec onde de choc radiale à l'impact ; forme dangereuse, souvent utilisée atténuée pour disperser des cibles. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+     "reference": "https://marcmarquez.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1Ylenhptn6NPhOaWRjtHx9-oECMoWDlWW",
+     "image": "https://lh3.googleusercontent.com/d/1TSZ38kjFKuBbhVSujA17zSCewykQEXPF",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "mitsu",
+   "name": "Mitsu",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [
+      "jack"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.4,
+   "ability_id": "faucheuse_fantome",
+   "stats": {
+    "power": 6.0,
+    "defense": 3.0,
+    "recovery": 3.0,
+    "trick": 8.0,
+    "speed": 4.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#34110d",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/14ocLUb2X5F3VQ1bhcpNlDGCgAOS88HEKp2xP45ptqWo/edit?tab=t.0",
+   "image": "https://pbs.twimg.com/profile_images/2066611759318798336/hq6uLkfK_400x400.jpg",
+   "snapshots": [
+    {
+     "level": 5.3,
+     "tier": "high",
+     "ability": "Faucheuse Fantome",
+     "ability_id": "faucheuse_fantome",
+     "type": "emission",
+     "nature": null,
+     "stats": {
+      "power": 6.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 8.0,
+      "speed": 4.0
+     },
+     "rate": 90.57,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Faucheur Fantomatique : crée une faux fantôme qu'il peut rendre tangible ou intangible, rendant ses coups difficiles à parer ou à prévoir. Une cible touchée avec sa capacité active reçoit une marque hantée qui déstabilise sa capacité (plus difficile à contrôler ou moins efficace). Passif : attributs fantomatiques sans activation (rapidité accrue, présence plus discrète).",
+     "reference": "https://docs.google.com/document/d/14ocLUb2X5F3VQ1bhcpNlDGCgAOS88HEKp2xP45ptqWo/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/13YEQ2cbgUNZYewvJ1RR2QQJQYvIrE9dP",
+     "image": "https://pbs.twimg.com/profile_images/2066611759318798336/hq6uLkfK_400x400.jpg",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.4,
+     "tier": "high",
+     "ability": "Faucheuse Fantome",
+     "ability_id": "faucheuse_fantome",
+     "type": "emission",
+     "nature": null,
+     "stats": {
+      "power": 6.0,
+      "defense": 3.0,
+      "recovery": 3.0,
+      "trick": 8.0,
+      "speed": 4.0
+     },
+     "rate": 88.89,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Faucheur Fantomatique : crée une faux fantôme qu'il peut rendre tangible ou intangible, rendant ses coups difficiles à parer ou à prévoir. Une cible touchée avec sa capacité active reçoit une marque hantée qui déstabilise sa capacité (plus difficile à contrôler ou moins efficace). Passif : attributs fantomatiques sans activation (rapidité accrue, présence plus discrète).",
+     "reference": "https://docs.google.com/document/d/14ocLUb2X5F3VQ1bhcpNlDGCgAOS88HEKp2xP45ptqWo/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1TRHzKGDWvSPPnI6ikXYVrqMiTy5cuZtU",
+     "image": "https://pbs.twimg.com/profile_images/2066611759318798336/hq6uLkfK_400x400.jpg",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "morgane",
+   "name": "Morgane",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 6.3,
+   "ability_id": "life_steal",
+   "stats": {
+    "power": 6.0,
+    "defense": 4.0,
+    "recovery": 11.0,
+    "trick": 5.0,
+    "speed": 2.0
+   },
+   "sex": "F",
+   "height_cm": 200,
+   "color": "#6cac9e",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1jeOovGhz7e6JC0kkKLEkjmHB6oExRzWPu37GyhWBu1I/edit?tab=t.0",
+   "image": "https://lh3.googleusercontent.com/d/12nJHG9SvL6l4Cl7qpN9LSbuDmJiDRo0J",
+   "snapshots": [
+    {
+     "level": 6.3,
+     "tier": "god",
+     "ability": "Life Steal",
+     "ability_id": "life_steal",
+     "type": "curative",
+     "nature": null,
+     "stats": {
+      "power": 6.0,
+      "defense": 4.0,
+      "recovery": 11.0,
+      "trick": 5.0,
+      "speed": 2.0
+     },
+     "rate": 88.89,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "La capacité de Morgane lui permet de se soigner en frappant une personne, elle peut aussi stoquer de l'énergie curative pour soigner une plus grosse blessure d'un coup ou créer des ondes de choc qui blesseront plusieurs personnes et pourront soigner ses alliés dans une zone proche d'elle",
+     "reference": "https://docs.google.com/document/d/1jeOovGhz7e6JC0kkKLEkjmHB6oExRzWPu37GyhWBu1I/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1jUL4TwCl2OjVeq8P5myXr8PveMRBxvSF",
+     "image": "https://lh3.googleusercontent.com/d/12nJHG9SvL6l4Cl7qpN9LSbuDmJiDRo0J",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "power",
+   "name": "Power",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 4.9,
+   "ability_id": "graviton",
+   "stats": {
+    "power": 6.0,
+    "defense": 5.0,
+    "recovery": 2.0,
+    "trick": 7.0,
+    "speed": 3.0
+   },
+   "sex": "F",
+   "height_cm": 173,
+   "color": "#f2b880",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1S2Dol6hi5fX252Oklghjm67KPcBjUeIkaDPJjyvReTI/edit?usp=drivesdk",
+   "image": "https://lh3.googleusercontent.com/d/1d0AwZaKthgp2M9MFUbQX038AO1DwZ-C9",
+   "snapshots": [
+    {
+     "level": 4.8,
+     "tier": "elite",
+     "ability": "Graviton",
+     "ability_id": "graviton",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 6.0,
+      "defense": 5.0,
+      "recovery": 2.0,
+      "trick": 7.0,
+      "speed": 3.0
+     },
+     "rate": 95.83,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Graviton : manipule la gravité locale dans une zone restreinte (portée d'environ 8 m, souvent une seule cible). Peut alourdir un adversaire pour le ralentir, réduire sa propre gravité pour esquiver ou bondir, créer des champs gravitationnels pour déséquilibrer une cible ou dévier un projectile léger, et s'ancrer pour gagner en stabilité. Nécessite une ligne de vue claire et une forte concentration : un usage prolongé provoque vertiges voire effondrement physique.",
+     "reference": "https://docs.google.com/document/d/1S2Dol6hi5fX252Oklghjm67KPcBjUeIkaDPJjyvReTI/edit?usp=drivesdk",
+     "graph": "https://lh3.googleusercontent.com/d/1QPv3vuPR7nOW03GTGg-QRaw5WriLJB4v",
+     "image": "https://lh3.googleusercontent.com/d/1d0AwZaKthgp2M9MFUbQX038AO1DwZ-C9",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 4.9,
+     "tier": "elite",
+     "ability": "Graviton",
+     "ability_id": "graviton",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 6.0,
+      "defense": 5.0,
+      "recovery": 2.0,
+      "trick": 7.0,
+      "speed": 3.0
+     },
+     "rate": 93.88,
+     "bonuses": {
+      "power": 1.0,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Graviton : manipule la gravité locale dans une zone restreinte (portée d'environ 8 m, souvent une seule cible). Peut alourdir un adversaire pour le ralentir, réduire sa propre gravité pour esquiver ou bondir, créer des champs gravitationnels pour déséquilibrer une cible ou dévier un projectile léger, et s'ancrer pour gagner en stabilité. Nécessite une ligne de vue claire et une forte concentration : un usage prolongé provoque vertiges voire effondrement physique.",
+     "reference": "https://docs.google.com/document/d/1S2Dol6hi5fX252Oklghjm67KPcBjUeIkaDPJjyvReTI/edit?usp=drivesdk",
+     "graph": "https://lh3.googleusercontent.com/d/1_INqfT6M8BVzkedAtNY2JTR9B1ZBd8bB",
+     "image": "https://lh3.googleusercontent.com/d/1d0AwZaKthgp2M9MFUbQX038AO1DwZ-C9",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "ramlethal",
+   "name": "Ramlethal",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "low",
+   "level": 1.6,
+   "ability_id": "scanner",
+   "stats": {
+    "power": 1.0,
+    "defense": 1.0,
+    "recovery": 1.0,
+    "trick": 2.0,
+    "speed": 1.0
+   },
+   "sex": "F",
+   "height_cm": 167,
+   "color": "#f3e7c4",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1QV4m1LeM2aSghTOULf_ZJdHnEI-w07SO80T_KR-aWK8/edit?tab=t.0",
+   "image": "https://lh3.googleusercontent.com/d/1papqkkPZjgKaaZ0Vx03Qx8fLZfMBDBvM",
+   "snapshots": [
+    {
+     "level": 1.4,
+     "tier": "low",
+     "ability": "Scanner",
+     "ability_id": "scanner",
+     "type": "detection",
+     "nature": "strategist",
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 2.0,
+      "speed": 1.0
+     },
+     "rate": 85.71,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Ramlethal projette son aura vert jade pour analyser instantanément la structure interne et énergétique d'une personne.",
+     "reference": "https://docs.google.com/document/d/1QV4m1LeM2aSghTOULf_ZJdHnEI-w07SO80T_KR-aWK8/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1Lnn3WlFqxSrYg1Cf0e2SZSCtLeLGLttk",
+     "image": "https://lh3.googleusercontent.com/d/1papqkkPZjgKaaZ0Vx03Qx8fLZfMBDBvM",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 1.6,
+     "tier": "low",
+     "ability": "Scanner",
+     "ability_id": "scanner",
+     "type": "detection",
+     "nature": "strategist",
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 2.0,
+      "speed": 1.0
+     },
+     "rate": 75.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Ramlethal projette son aura vert jade pour analyser instantanément la structure interne et énergétique d'une personne.",
+     "reference": "https://docs.google.com/document/d/1QV4m1LeM2aSghTOULf_ZJdHnEI-w07SO80T_KR-aWK8/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/18CIBHZ9Zpf3EdrkMBLtWia53D-th6jsk",
+     "image": "https://lh3.googleusercontent.com/d/1papqkkPZjgKaaZ0Vx03Qx8fLZfMBDBvM",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "rein",
+   "name": "Rein",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "agwin",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.1,
+   "ability_id": "arachnid",
+   "stats": {
+    "power": 5.0,
+    "defense": 6.0,
+    "recovery": 2.0,
+    "trick": 6.0,
+    "speed": 4.0
+   },
+   "sex": null,
+   "height_cm": null,
+   "color": "#a9a9a9",
+   "status": null,
+   "charges": [
+    "association with spectre"
+   ],
+   "reference": "https://unordinary.fandom.com/wiki/Rein",
+   "image": "https://lh3.googleusercontent.com/d/1P2xsfEKblAoiMgyfcnkey4WKGL6JR2Qq",
+   "snapshots": [
+    {
+     "level": 4.9,
+     "tier": "elite",
+     "ability": "Arachnid",
+     "ability_id": "arachnid",
+     "type": "creation",
+     "nature": "defense",
+     "stats": {
+      "power": 4.0,
+      "defense": 6.0,
+      "recovery": 2.0,
+      "trick": 4.0,
+      "speed": 4.0
+     },
+     "rate": 81.63,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Arachnid: sprouts gigantic spider-like legs from her back for offense or defense; shown using at least eight.",
+     "reference": "https://unordinary.fandom.com/wiki/Rein",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/a/a0/Rein_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1P2xsfEKblAoiMgyfcnkey4WKGL6JR2Qq",
+     "source": "unodex"
+    },
+    {
+     "level": 4.9,
+     "tier": "elite",
+     "ability": "Arachnid",
+     "ability_id": "arachnid",
+     "type": "creation",
+     "nature": "defense",
+     "stats": {
+      "power": 4.0,
+      "defense": 6.0,
+      "recovery": 2.0,
+      "trick": 4.0,
+      "speed": 4.0
+     },
+     "rate": 81.63,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Arachnid: sprouts gigantic spider-like legs from her back for offense or defense; shown using at least eight.",
+     "reference": "https://unordinary.fandom.com/wiki/Rein",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/a/a0/Rein_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1P2xsfEKblAoiMgyfcnkey4WKGL6JR2Qq",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.1,
+     "tier": "high",
+     "ability": "Arachnid",
+     "ability_id": "arachnid",
+     "type": "creation",
+     "nature": "defense",
+     "stats": {
+      "power": 5.0,
+      "defense": 6.0,
+      "recovery": 2.0,
+      "trick": 6.0,
+      "speed": 4.0
+     },
+     "rate": 90.2,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Arachnid: sprouts gigantic spider-like legs from her back for offense or defense; shown using at least eight.",
+     "reference": "https://unordinary.fandom.com/wiki/Rein",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/a/a0/Rein_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1P2xsfEKblAoiMgyfcnkey4WKGL6JR2Qq",
+     "source": "unodex"
+    }
+   ]
+  },
+  {
+   "id": "remi",
+   "name": "Remi",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [
+      "queen"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.8,
+   "ability_id": "lightning",
+   "stats": {
+    "power": 7.0,
+    "defense": 4.0,
+    "recovery": 4.0,
+    "trick": 5.0,
+    "speed": 6.0
+   },
+   "sex": "F",
+   "height_cm": 165,
+   "color": "#f48fb1",
+   "status": null,
+   "charges": [
+    "vigilantism",
+    "illegal substance distribution"
+   ],
+   "reference": "https://unordinary.fandom.com/wiki/Remi",
+   "image": "https://lh3.googleusercontent.com/d/1HdcVydeDRtZK9bATdf2DAfs-hExYFwEO",
+   "snapshots": [
+    {
+     "level": 5.4,
+     "tier": "high",
+     "ability": "Lightning",
+     "ability_id": "lightning",
+     "type": "quantum",
+     "nature": "attack",
+     "stats": {
+      "power": 7.0,
+      "defense": 3.0,
+      "recovery": 4.0,
+      "trick": 4.0,
+      "speed": 6.0
+     },
+     "rate": 88.89,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Lightning: generates and manipulates electricity. Can also detect electrical currents and run fast enough to catch up to a motorcycle.",
+     "reference": "https://unordinary.fandom.com/wiki/Remi",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/1/1c/Remi_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1tsfJ3vBdSDwCd3IFs6gDvB9VfwXAXdV8",
+     "source": "unodex"
+    },
+    {
+     "level": 5.4,
+     "tier": "high",
+     "ability": "Lightning",
+     "ability_id": "lightning",
+     "type": "quantum",
+     "nature": "attack",
+     "stats": {
+      "power": 7.0,
+      "defense": 3.0,
+      "recovery": 4.0,
+      "trick": 4.0,
+      "speed": 6.0
+     },
+     "rate": 88.89,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Lightning: generates and manipulates electricity. Can also detect electrical currents and run fast enough to catch up to a motorcycle.",
+     "reference": "https://unordinary.fandom.com/wiki/Remi",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/1/1c/Remi_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1tsfJ3vBdSDwCd3IFs6gDvB9VfwXAXdV8",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.8,
+     "tier": "high",
+     "ability": "Lightning",
+     "ability_id": "lightning",
+     "type": "quantum",
+     "nature": "attack",
+     "stats": {
+      "power": 7.0,
+      "defense": 4.0,
+      "recovery": 4.0,
+      "trick": 5.0,
+      "speed": 6.0
+     },
+     "rate": 89.66,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Lightning: generates and manipulates electricity. Can also detect electrical currents and run fast enough to catch up to a motorcycle.",
+     "reference": "https://unordinary.fandom.com/wiki/Remi",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/2/2b/Remi_Stats_02.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1HdcVydeDRtZK9bATdf2DAfs-hExYFwEO",
+     "source": "unodex"
+    }
+   ]
+  },
+  {
+   "id": "rin",
+   "name": "Rin",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "high",
+   "level": 5.0,
+   "ability_id": "shadow_eclipse",
+   "stats": {
+    "power": 4.0,
+    "defense": 4.0,
+    "recovery": 3.0,
+    "trick": 5.0,
+    "speed": 6.0
+   },
+   "sex": "F",
+   "height_cm": 174,
+   "color": "#2b1d1a",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/192k-K5RskpKYFBuIQ9mChcaJXD4g_vck4JydeWOlj0Y/edit?tab=t.syz2eh4we236",
+   "image": "https://lh3.googleusercontent.com/d/1GTy3vp1cwHYjOId55MulN2vRJPeDoKrM",
+   "snapshots": [
+    {
+     "level": 4.9,
+     "tier": "elite",
+     "ability": "Shadow Eclipse",
+     "ability_id": "shadow_eclipse",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 4.0,
+      "defense": 4.0,
+      "recovery": 3.0,
+      "trick": 5.0,
+      "speed": 6.0
+     },
+     "rate": 89.8,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Shadow Eclipse : utilise l'ombre pour cacher sa présence ou créer des illusions dans l'obscurité. Se déplace d'ombre en ombre (ombres immobiles ou très larges, rayon d'environ 10 m) et crée de petits objets inanimés à partir de ses ombres.",
+     "reference": "https://docs.google.com/document/d/192k-K5RskpKYFBuIQ9mChcaJXD4g_vck4JydeWOlj0Y/edit?tab=t.syz2eh4we236",
+     "graph": "https://lh3.googleusercontent.com/d/1z1uT2SD0B7LQONhwmXzkH7KRprQWllAK",
+     "image": "https://lh3.googleusercontent.com/d/1GTy3vp1cwHYjOId55MulN2vRJPeDoKrM",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.0,
+     "tier": "high",
+     "ability": "Shadow Eclipse",
+     "ability_id": "shadow_eclipse",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 4.0,
+      "defense": 4.0,
+      "recovery": 3.0,
+      "trick": 5.0,
+      "speed": 6.0
+     },
+     "rate": 88.0,
+     "bonuses": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": null,
+      "speed": 2.0
+     },
+     "description": "Shadow Eclipse : utilise l'ombre pour cacher sa présence ou créer des illusions dans l'obscurité. Se déplace d'ombre en ombre (ombres immobiles ou très larges, rayon d'environ 10 m) et crée de petits objets inanimés à partir de ses ombres. Passif (Ombres Sentinelles, lvl 5.0) : perçoit inconsciemment les émotions et intentions des gens proches à travers leurs ombres, qui se déforment selon leur état émotionnel.",
+     "reference": "https://docs.google.com/document/d/192k-K5RskpKYFBuIQ9mChcaJXD4g_vck4JydeWOlj0Y/edit?tab=t.syz2eh4we236",
+     "graph": "https://lh3.googleusercontent.com/d/1L-1bnig3DUHheNj3w8Oh5Ne-hbTz_M29",
+     "image": "https://lh3.googleusercontent.com/d/1GTy3vp1cwHYjOId55MulN2vRJPeDoKrM",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "seraphina",
+   "name": "Seraphina",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 8.0,
+   "ability_id": "time_manipulation",
+   "stats": {
+    "power": 12.0,
+    "defense": 2.0,
+    "recovery": 9.0,
+    "trick": 10.0,
+    "speed": 14.0
+   },
+   "sex": "F",
+   "height_cm": 168,
+   "color": "#d77ea6",
+   "status": "missing",
+   "charges": [
+    "terrorism",
+    "association with Spectre"
+   ],
+   "reference": "https://unordinary.fandom.com/wiki/Seraphina",
+   "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRK39jgTMCiGnXnwGu5xEBAX6xTA3nZ9XNlv_Yikvo141LnYw",
+   "snapshots": [
+    {
+     "level": 8.0,
+     "tier": "god",
+     "ability": "Time Manipulation",
+     "ability_id": "time_manipulation",
+     "type": "quantum",
+     "nature": "agility",
+     "stats": {
+      "power": 12.0,
+      "defense": 2.0,
+      "recovery": 9.0,
+      "trick": 10.0,
+      "speed": 14.0
+     },
+     "rate": 117.5,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Time Manipulation: freezes or slows down time, moves in a time-frozen environment, and reverses time in a localized area to some extent. Frozen targets may or may not be aware depending on what she does; anything under her control turns grey, and pink gears can appear around her arm when rewinding.",
+     "reference": "https://unordinary.fandom.com/wiki/Seraphina",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/7/7f/Seraphina_Stats.PNG/revision/latest",
+     "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRK39jgTMCiGnXnwGu5xEBAX6xTA3nZ9XNlv_Yikvo141LnYw",
+     "source": "unodex"
+    },
+    {
+     "level": 8.0,
+     "tier": "god",
+     "ability": "Time Manipulation",
+     "ability_id": "time_manipulation",
+     "type": "quantum",
+     "nature": "agility",
+     "stats": {
+      "power": 12.0,
+      "defense": 2.0,
+      "recovery": 9.0,
+      "trick": 10.0,
+      "speed": 14.0
+     },
+     "rate": 117.5,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Time Manipulation: freezes or slows down time, moves in a time-frozen environment, and reverses time in a localized area to some extent. Frozen targets may or may not be aware depending on what she does; anything under her control turns grey, and pink gears can appear around her arm when rewinding.",
+     "reference": "https://unordinary.fandom.com/wiki/Seraphina",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/7/7f/Seraphina_Stats.PNG/revision/latest",
+     "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRK39jgTMCiGnXnwGu5xEBAX6xTA3nZ9XNlv_Yikvo141LnYw",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "soren",
+   "name": "Soren",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 4.9,
+   "ability_id": "crimson_thread",
+   "stats": {
+    "power": 5.0,
+    "defense": 3.0,
+    "recovery": 2.0,
+    "trick": 7.0,
+    "speed": 5.0
+   },
+   "sex": "H",
+   "height_cm": 175,
+   "color": "#7a050b",
+   "status": null,
+   "charges": [],
+   "reference": "https://discord.com/channels/875109165847179274/1537158227639275600/1538667354890707054",
+   "image": "https://lh3.googleusercontent.com/d/1neFiOEyipdjzhDgeRQQtN1bhmCm29xB8",
+   "snapshots": [
+    {
+     "level": 4.8,
+     "tier": "elite",
+     "ability": "Crimson Thread",
+     "ability_id": "crimson_thread",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 5.0,
+      "defense": 3.0,
+      "recovery": 2.0,
+      "trick": 7.0,
+      "speed": 5.0
+     },
+     "rate": 91.67,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Crimson Thread : crée des fils rouges très tranchants qui lui servent à emprisonner les autres. Passif : quand il y a de la tension autour de lui, de fins filaments très fragiles apparaissent et se cassent à la moindre pression.",
+     "reference": "https://discord.com/channels/875109165847179274/1537158227639275600/1538667354890707054",
+     "graph": "https://lh3.googleusercontent.com/d/1tU0YC4NB-WlaOAMJBv2miFxsvUlSdyVE",
+     "image": "https://lh3.googleusercontent.com/d/1neFiOEyipdjzhDgeRQQtN1bhmCm29xB8",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 4.9,
+     "tier": "elite",
+     "ability": "Crimson Thread",
+     "ability_id": "crimson_thread",
+     "type": "creation",
+     "nature": null,
+     "stats": {
+      "power": 5.0,
+      "defense": 3.0,
+      "recovery": 2.0,
+      "trick": 7.0,
+      "speed": 5.0
+     },
+     "rate": 89.8,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Crimson Thread : crée des fils rouges très tranchants qui lui servent à emprisonner les autres. Passif : quand il y a de la tension autour de lui, de fins filaments très fragiles apparaissent et se cassent à la moindre pression.",
+     "reference": "https://discord.com/channels/875109165847179274/1537158227639275600/1538667354890707054",
+     "graph": "https://lh3.googleusercontent.com/d/19dPrRlhowBDGOwlct1Q4ojcmHuVGiaPz",
+     "image": "https://lh3.googleusercontent.com/d/1neFiOEyipdjzhDgeRQQtN1bhmCm29xB8",
+     "source": "unodex-rp"
+    },
+    {
+     "level": null,
+     "tier": "unknown",
+     "ability": "Unknown",
+     "ability_id": "unknown",
+     "type": "unknown",
+     "nature": null,
+     "stats": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "rate": null,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Unnamed ability that grants a heightened sense of smell.",
+     "reference": "https://unordinary.fandom.com/wiki/Soren",
+     "graph": null,
+     "image": "https://lh3.googleusercontent.com/d/1k2W3nHnd9ttqR26LM7Zsd8tPVpGC9vrG",
+     "source": "unodex"
+    }
+   ]
+  },
+  {
+   "id": "telemachus",
+   "name": "Telemachus",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "westview",
+     "roles": [
+      "king"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 6.2,
+   "ability_id": "aura_deity",
+   "stats": {
+    "power": 1.0,
+    "defense": 1.0,
+    "recovery": 1.0,
+    "trick": 15.0,
+    "speed": 1.0
+   },
+   "sex": "H",
+   "height_cm": 170,
+   "color": "#3b2420",
+   "status": null,
+   "charges": [],
+   "reference": "https://telemachus-pawn-fiche.vercel.app/",
+   "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+   "snapshots": [
+    {
+     "level": 1.0,
+     "tier": "cripple",
+     "ability": "N/A",
+     "ability_id": null,
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 1.0,
+      "speed": 1.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 9.0,
+      "speed": null
+     },
+     "description": null,
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1e3vyPKfn7NX6CsjJjTnl9q2q1RJwx3hz",
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 1.6,
+     "tier": "low",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 4.0,
+      "speed": 1.0
+     },
+     "rate": 100.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 9.0,
+      "speed": null
+     },
+     "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve. Au niveau God Tier, il peut garder 4 capacités et rappeler à volonté toutes celles qu'il a déjà copiées.",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1awfaKSfKg0HVJ_kAAKeffvD8qDCJ5ZLX",
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 4.1,
+     "tier": "elite",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 5.4,
+      "defense": 3.2,
+      "recovery": 5.4,
+      "trick": 10.6,
+      "speed": 3.6
+     },
+     "rate": 137.56,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Copy Graviton (Power) et Sanity Control (Heal) (Beta)",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": null,
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.8,
+     "tier": "high",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 14.0,
+      "speed": 1.0
+     },
+     "rate": 62.07,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve.",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1WoSsN4XJxikyWp_RN_VnGY6zyfJAMlJn",
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 5.9,
+     "tier": "high",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 14.0,
+      "speed": 1.0
+     },
+     "rate": 61.02,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 1.0,
+      "speed": null
+     },
+     "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve.",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1Dk-_8PY-_MNKlxxWy7uLqPtkB0Xssz8X",
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.0,
+     "tier": "god",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 14.0,
+      "speed": 1.0
+     },
+     "rate": 60.0,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 7.0,
+      "speed": null
+     },
+     "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve. Au niveau God Tier, il peut garder 4 capacités et rappeler à volonté toutes celles qu'il a déjà copiées.",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1qZyn-efFRWBtbgSgaXraZ5DhJAk_lia6",
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.1,
+     "tier": "god",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 14.7,
+      "speed": 1.0
+     },
+     "rate": 61.31,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 8.0,
+      "speed": null
+     },
+     "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve. Au niveau God Tier, il peut garder 4 capacités et rappeler à volonté toutes celles qu'il a déjà copiées.",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1HChNWROT3fZ1PL5LypvDAGQBoxs9wFfi",
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    },
+    {
+     "level": 6.2,
+     "tier": "god",
+     "ability": "Aura Deity",
+     "ability_id": "aura_deity",
+     "type": "meta",
+     "nature": null,
+     "stats": {
+      "power": 1.0,
+      "defense": 1.0,
+      "recovery": 1.0,
+      "trick": 15.0,
+      "speed": 1.0
+     },
+     "rate": 61.29,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": 9.0,
+      "speed": null
+     },
+     "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve. Au niveau God Tier, il peut garder 4 capacités et rappeler à volonté toutes celles qu'il a déjà copiées.",
+     "reference": "https://telemachus-pawn-fiche.vercel.app/",
+     "graph": "https://lh3.googleusercontent.com/d/1aphUDwPAzagbVUidhfCaKYq3a6tV8RsS",
+     "image": "https://lh3.googleusercontent.com/d/1_7Sde-87uL5qMyoP5WlETrucQOoxGBE1",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "terrence",
+   "name": "Terrence",
+   "category": "rp",
+   "sources": [
+    "unodex",
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "wellston",
+     "roles": [
+      "alumni"
+     ],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 4.4,
+   "ability_id": "invisibility",
+   "stats": {
+    "power": 1.0,
+    "defense": 2.0,
+    "recovery": 2.0,
+    "trick": 10.0,
+    "speed": 3.0
+   },
+   "sex": null,
+   "height_cm": null,
+   "color": "#b5835a",
+   "status": "deceased",
+   "charges": [
+    "terrorism",
+    "association with Spectre"
+   ],
+   "reference": "https://unordinary.fandom.com/wiki/Terrence",
+   "image": "https://lh3.googleusercontent.com/d/1qwx2k2HYnPbDfd7RACzZCmO19Hg40SlH",
+   "snapshots": [
+    {
+     "level": 4.4,
+     "tier": "elite",
+     "ability": "Invisibility",
+     "ability_id": "invisibility",
+     "type": "enhancement",
+     "nature": "agility",
+     "stats": {
+      "power": 1.0,
+      "defense": 2.0,
+      "recovery": 2.0,
+      "trick": 10.0,
+      "speed": 3.0
+     },
+     "rate": 81.82,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Invisibility: makes himself invisible to the human eye, and can make others invisible by touching them or imbuing them with his aura.",
+     "reference": "https://unordinary.fandom.com/wiki/Terrence",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/6/6b/Terrence_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1qwx2k2HYnPbDfd7RACzZCmO19Hg40SlH",
+     "source": "unodex"
+    },
+    {
+     "level": 4.4,
+     "tier": "elite",
+     "ability": "Invisibility",
+     "ability_id": "invisibility",
+     "type": "enhancement",
+     "nature": "agility",
+     "stats": {
+      "power": 1.0,
+      "defense": 2.0,
+      "recovery": 2.0,
+      "trick": 10.0,
+      "speed": 3.0
+     },
+     "rate": 81.82,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "Invisibility: makes himself invisible to the human eye, and can make others invisible by touching them or imbuing them with his aura.",
+     "reference": "https://unordinary.fandom.com/wiki/Terrence",
+     "graph": "https://static.wikia.nocookie.net/unordinary6344/images/6/6b/Terrence_Stats.png/revision/latest",
+     "image": "https://lh3.googleusercontent.com/d/1qwx2k2HYnPbDfd7RACzZCmO19Hg40SlH",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "vitalis",
+   "name": "Vitalis",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "vigilante",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "god",
+   "level": 6.3,
+   "ability_id": "life_steal",
+   "stats": {
+    "power": 6.0,
+    "defense": 4.0,
+    "recovery": 11.0,
+    "trick": 5.0,
+    "speed": 2.0
+   },
+   "sex": "F",
+   "height_cm": 200,
+   "color": "#6cac9e",
+   "status": null,
+   "charges": [],
+   "reference": "https://docs.google.com/document/d/1jeOovGhz7e6JC0kkKLEkjmHB6oExRzWPu37GyhWBu1I/edit?tab=t.0",
+   "image": "https://cdn.tupperbox.app/pfp/558346805339750400/MTR5_tiEEGDf8uGO.webp",
+   "snapshots": [
+    {
+     "level": 6.3,
+     "tier": "god",
+     "ability": "Life Steal",
+     "ability_id": "life_steal",
+     "type": "curative",
+     "nature": null,
+     "stats": {
+      "power": 6.0,
+      "defense": 4.0,
+      "recovery": 11.0,
+      "trick": 5.0,
+      "speed": 2.0
+     },
+     "rate": 88.89,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "La capacité de Morgane lui permet de se soigner en frappant une personne, elle peut aussi stoquer de l'énergie curative pour soigner une plus grosse blessure d'un coup ou créer des ondes de choc qui blesseront plusieurs personnes et pourront soigner ses alliés dans une zone proche d'elle",
+     "reference": "https://docs.google.com/document/d/1jeOovGhz7e6JC0kkKLEkjmHB6oExRzWPu37GyhWBu1I/edit?tab=t.0",
+     "graph": "https://lh3.googleusercontent.com/d/1n1dk-_efni8lj0mFf02fHhvo_bIiyVqQ",
+     "image": "https://cdn.tupperbox.app/pfp/558346805339750400/MTR5_tiEEGDf8uGO.webp",
+     "source": "unodex-rp"
+    }
+   ]
+  },
+  {
+   "id": "void",
+   "name": "Void",
+   "category": "rp",
+   "sources": [
+    "unodex-rp"
+   ],
+   "schools": [
+    {
+     "school": "vigilante",
+     "roles": [],
+     "region": null
+    }
+   ],
+   "tier": "elite",
+   "level": 4.9,
+   "ability_id": "ghost",
+   "stats": {
+    "power": 3.0,
+    "defense": 3.0,
+    "recovery": 5.0,
+    "trick": 7.0,
+    "speed": 6.0
+   },
+   "sex": "H",
+   "height_cm": 185,
+   "color": "#598b52",
+   "status": null,
+   "charges": [
+    "vigilantism"
+   ],
+   "reference": "https://docs.google.com/document/d/1NfbaffOxFh9Fiv8q2vHpSmHP2mLkAhzYQKfXWAJrxf4/edit?usp=sharing",
+   "image": "https://cdn.tupperbox.app/pfp/1027664862320525373/lKYHZqKQs0E8myEx.webp",
+   "snapshots": [
+    {
+     "level": 4.9,
+     "tier": "elite",
+     "ability": "Ghost",
+     "ability_id": "ghost",
+     "type": "quantum",
+     "nature": null,
+     "stats": {
+      "power": 3.0,
+      "defense": 3.0,
+      "recovery": 5.0,
+      "trick": 7.0,
+      "speed": 6.0
+     },
+     "rate": 97.96,
+     "bonuses": {
+      "power": null,
+      "defense": null,
+      "recovery": null,
+      "trick": null,
+      "speed": null
+     },
+     "description": "La capacité d'Hizo, nommée Spectre, repose sur une altération extrême de la fréquence vibratoire moléculaire de son corps. Lorsqu'il l'active, il devient totalement intangible et insensible à toute agression physique, qu'il s'agisse de coups, de balles ou de flammes. Cependant, cet état s'accompagne d'une rupture sensorielle totale : coupé des photons, des ondes sonores et de l'air, il ne peut plus voir, entendre, respirer ni subir la gravité, ce qui limite son utilisation à un maximum de cinq minutes pour éviter l'évanouissement. Enfin, cette intangibilité se double d'une application offensive et cinétique redoutable, puisque désactiver son pouvoir à l'intérieur d'un obstacle solide provoque une décompression brutale qui le propulse à une vitesse fulgurante à travers le champ de bataille.",
+     "reference": "https://docs.google.com/document/d/1NfbaffOxFh9Fiv8q2vHpSmHP2mLkAhzYQKfXWAJrxf4/edit?usp=sharing",
+     "graph": "https://lh3.googleusercontent.com/d/1EV7-qBB-_XWMb5ujHzJdAicjp39R13kW",
+     "image": "https://cdn.tupperbox.app/pfp/1027664862320525373/lKYHZqKQs0E8myEx.webp",
+     "source": "unodex-rp"
+    }
+   ]
+  }
+ ]
+}

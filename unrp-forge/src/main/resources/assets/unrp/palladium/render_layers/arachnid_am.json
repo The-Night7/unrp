@@ -1,0 +1,24 @@
+{
+  "type": "palladium:compound",
+  "layers": [
+    {
+      "type": "geckolib:default",
+      "model": {
+        "normal": "unrp:geo/arachnid.geo.json",
+        "slim": "unrp:geo/arachnid.geo.json"
+      },
+      "texture": {
+        "base": "unrp:textures/models/arachnid_am.png"
+      },
+      "render_type": "glow",
+      "bones": {
+        "head": "head",
+        "body": "body",
+        "right_arm": "right_arm",
+        "left_arm": "left_arm",
+        "right_leg": "right_leg",
+        "left_leg": "left_leg"
+      }
+    }
+  ]
+}

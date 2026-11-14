@@ -1,0 +1,5 @@
+{
+    "type": "palladium:skin_overlay",
+    "render_type": "glow",
+    "texture": "unrp:textures/models/ability_guaging_eyes.png"
+}

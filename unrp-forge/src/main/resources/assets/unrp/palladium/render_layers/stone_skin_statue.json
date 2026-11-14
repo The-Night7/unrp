@@ -1,0 +1,26 @@
+{
+    "type": "palladium:compound",
+    "layers": [
+        {
+            "type": "palladium:skin_overlay",
+            "render_type": "solid",
+            "texture": {
+                "base": "unrp:textures/models/stone_statue.png",
+                "transformers": [
+                    {
+                        "type": "palladium:alpha_mask",
+                        "mask": "unrp:textures/alpha_mask/stone_skin/stone_skin_body_#TIMER.png"
+                    }
+                ],
+                "variables": {
+                    "TIMER": {
+                        "type": "palladium:animation_timer_ability",
+                        "power": "unrp:stone_skin",
+                        "ability": "transform"
+                    }
+                },
+                "output": "unrp:textures/alpha_mask/stone_skin/stone_statue_temp_#TIMER"
+            }
+        }
+    ]
+}

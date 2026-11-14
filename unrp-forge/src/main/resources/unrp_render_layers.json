@@ -1,0 +1,748 @@
+{
+ "powers": {
+  "armor_suit": [
+   {
+    "ability": "skin",
+    "layer": "unrp:armor_suit",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "armor_suit_am": [
+   {
+    "ability": "skin",
+    "layer": "unrp:armor_suit_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.armor_suit"
+      }
+     ]
+    }
+   }
+  ],
+  "aura_shred_am": [
+   {
+    "ability": "hands_render",
+    "layer": "unrp:contact_shred_hands",
+    "when": {
+     "all": [
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.aura_shred"
+      }
+     ]
+    }
+   }
+  ],
+  "blademaster": [
+   {
+    "ability": "blades_dual",
+    "layer": "unrp:blademaster_dual",
+    "when": {
+     "all": [
+      {
+       "tag": "unrp.bm.dual"
+      }
+     ]
+    }
+   },
+   {
+    "ability": "blades_great",
+    "layer": "unrp:blademaster_great",
+    "when": {
+     "all": [
+      {
+       "tag": "unrp.bm.great"
+      }
+     ]
+    }
+   }
+  ],
+  "blademaster_am": [
+   {
+    "ability": "blades_dual",
+    "layer": "unrp:blademaster_dual_am",
+    "when": {
+     "all": [
+      {
+       "tag": "unrp.bm.dual"
+      }
+     ]
+    }
+   },
+   {
+    "ability": "blades_great",
+    "layer": "unrp:blademaster_great_am",
+    "when": {
+     "all": [
+      {
+       "tag": "unrp.bm.great"
+      }
+     ]
+    }
+   }
+  ],
+  "conjure_disks": [
+   {
+    "ability": "disks_render_layer",
+    "layer": "unrp:conjure_disk",
+    "when": {
+     "all": [
+      {
+       "key": "hoverboard"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "conjure_disks_am": [
+   {
+    "ability": "disks_render_layer",
+    "layer": "unrp:conjure_disk_am",
+    "when": {
+     "all": [
+      {
+       "key": "hoverboard"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "contact_shred": [
+   {
+    "ability": "hands_render_layer",
+    "layer": "unrp:contact_shred_hands",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "contact_shred_am": [
+   {
+    "ability": "hands_render_layer",
+    "layer": "unrp:contact_shred_hands",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.contact_shred"
+      }
+     ]
+    }
+   }
+  ],
+  "demon_claw": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:demon_claws_model",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "demon_claw_am": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:demon_claws_model_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.demon_claw"
+      }
+     ]
+    }
+   }
+  ],
+  "flame_claw": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:flame_claws_model",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "not": {
+        "all": [
+         {
+          "key": "flame_surge"
+         }
+        ]
+       }
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "claws_soulfire",
+    "layer": "unrp:flame_claws_soulfire",
+    "when": {
+     "all": [
+      {
+       "key": "flame_surge"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "flame_claw_am": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:flame_claws_model_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "not": {
+        "all": [
+         {
+          "key": "toggle"
+         }
+        ]
+       }
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.flame_claw"
+      }
+     ]
+    }
+   },
+   {
+    "ability": "claws_soulfire",
+    "layer": "unrp:flame_claws_soulfire_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "flame_claw_enh": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:flame_claws_model",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "not": {
+        "all": [
+         {
+          "key": "flame_surge"
+         }
+        ]
+       }
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "claws_soulfire",
+    "layer": "unrp:flame_claws_soulfire",
+    "when": {
+     "all": [
+      {
+       "key": "flame_surge"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "flame_claw_leader": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:flame_claws_model",
+    "when": {
+     "all": []
+    }
+   }
+  ],
+  "flame_claw_syn": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:flame_claws_model",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "not": {
+        "all": [
+         {
+          "key": "flame_surge"
+         }
+        ]
+       }
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "claws_soulfire",
+    "layer": "unrp:flame_claws_soulfire",
+    "when": {
+     "all": [
+      {
+       "key": "flame_surge"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "heat_palm": [
+   {
+    "ability": "palms_render_layer",
+    "layer": "unrp:heat_palm_palms",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "heat_palm_am": [
+   {
+    "ability": "palms_render_layer",
+    "layer": "unrp:heat_palm_palms",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.heat_palm"
+      }
+     ]
+    }
+   }
+  ],
+  "hydrofreeze": [
+   {
+    "ability": "water_form_skin",
+    "layer": "unrp:hydrofreeze_water",
+    "when": {
+     "all": [
+      {
+       "key": "water_form"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "ice_blades_skin",
+    "layer": "unrp:hydrofreeze_ice",
+    "when": {
+     "all": [
+      {
+       "key": "ice_blades"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "ice_blades_model",
+    "layer": "unrp:hydrofreeze_ice_blades",
+    "when": {
+     "all": [
+      {
+       "key": "ice_blades"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "hydrofreeze_am": [
+   {
+    "ability": "water_form_skin",
+    "layer": "unrp:hydrofreeze_water_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "ice_blades_skin",
+    "layer": "unrp:hydrofreeze_ice_am",
+    "when": {
+     "all": [
+      {
+       "key": "ice_blades"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "ice_blades_model",
+    "layer": "unrp:hydrofreeze_ice_blades_am",
+    "when": {
+     "all": [
+      {
+       "key": "ice_blades"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "needles": [
+   {
+    "ability": "hands_render_layer",
+    "layer": "unrp:needles_hands",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "needles_am": [
+   {
+    "ability": "hands_render_layer",
+    "layer": "unrp:needles_hands_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.needles"
+      }
+     ]
+    }
+   }
+  ],
+  "phase_shift": [
+   {
+    "ability": "defense_form_skin",
+    "layer": "unrp:phase_shift_defense",
+    "when": {
+     "all": [
+      {
+       "key": "defense_form"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "speed_form_skin",
+    "layer": "unrp:phase_shift_speed",
+    "when": {
+     "all": [
+      {
+       "key": "speed_form"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "phase_shift_am": [
+   {
+    "ability": "defense_form_skin",
+    "layer": "unrp:phase_shift_defense_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "speed_form_skin",
+    "layer": "unrp:phase_shift_speed",
+    "when": {
+     "all": [
+      {
+       "key": "speed_form"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "predation_am": [
+   {
+    "ability": "hands_render",
+    "layer": "unrp:contact_shred_hands",
+    "when": {
+     "all": [
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.predation"
+      }
+     ]
+    }
+   }
+  ],
+  "rock_arm": [
+   {
+    "ability": "arms_render_layer",
+    "layer": "unrp:rock_arm_arms",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "rock_arm_am": [
+   {
+    "ability": "arms_render_layer",
+    "layer": "unrp:rock_arm_arms_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.rock_arm"
+      }
+     ]
+    }
+   }
+  ],
+  "stone_skin": [
+   {
+    "ability": "statue_layer",
+    "layer": "unrp:stone_skin_statue",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "key": "transform"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   },
+   {
+    "ability": "skin",
+    "layer": "unrp:stone_skin",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      }
+     ]
+    }
+   }
+  ],
+  "stone_skin_am": [
+   {
+    "ability": "statue_layer",
+    "layer": "unrp:stone_skin_statue_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "key": "transform"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.stone_skin"
+      }
+     ]
+    }
+   },
+   {
+    "ability": "skin",
+    "layer": "unrp:stone_skin_am",
+    "when": {
+     "all": [
+      {
+       "key": "toggle"
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.stone_skin"
+      }
+     ]
+    }
+   }
+  ],
+  "tempest_claws_am": [
+   {
+    "ability": "claws_model",
+    "layer": "unrp:demon_claws_model_am",
+    "when": {
+     "all": [
+      {
+       "true": 1
+      },
+      {
+       "true": 1
+      },
+      {
+       "tag": "unrp.am_shown.tempest_claws"
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "tags": [
+  "unrp.am_shown.armor_suit",
+  "unrp.am_shown.aura_shred",
+  "unrp.am_shown.contact_shred",
+  "unrp.am_shown.demon_claw",
+  "unrp.am_shown.flame_claw",
+  "unrp.am_shown.heat_palm",
+  "unrp.am_shown.needles",
+  "unrp.am_shown.predation",
+  "unrp.am_shown.rock_arm",
+  "unrp.am_shown.stone_skin",
+  "unrp.am_shown.tempest_claws",
+  "unrp.bm.dual",
+  "unrp.bm.great"
+ ]
+}

@@ -1,0 +1,13 @@
+{
+  "base": "unrp:textures/icons/energy_discharge_propulsion.png",
+  "transformers": [
+    {
+      "type": "palladium:color",
+      "color": {
+        "type": "unrp:owner_aura",
+        "default": "#E83030"
+      },
+      "ignore_blank": true
+    }
+  ]
+}

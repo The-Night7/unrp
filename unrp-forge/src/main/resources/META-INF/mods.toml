@@ -1,0 +1,54 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="unrp"
+version="0.1.0"
+displayName="Unordinary RP"
+authors="Myriam"
+description='''Mod de RP inspiré d'UnOrdinary : écoles, personnages, pouvoirs et tirage de potentiel.'''
+
+[[dependencies.unrp]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47.4.10,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.unrp]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
+
+# Palladium est obligatoire, comme dans le modèle : le vol (palladium:flight_speed) et le saut (palladium:jump_power) passent par lui.
+# GeckoLib est obligatoire, comme dans le modèle : les modèles 3D des pouvoirs (assets/unrp/geo) passent par lui.
+[[dependencies.unrp]]
+    modId="geckolib"
+    mandatory=true
+    versionRange="[4.0.0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.unrp]]
+    modId="palladium"
+    mandatory=true
+    versionRange="[4.5.5,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.unrp]]
+    modId="geckolib"
+    mandatory=false
+    versionRange="[4.0.0,)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.unrp]]
+    modId="pehkui"
+    mandatory=false
+    versionRange="[3.7.0,)"
+    ordering="AFTER"
+    side="BOTH"

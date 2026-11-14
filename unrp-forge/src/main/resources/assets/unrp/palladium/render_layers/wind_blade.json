@@ -1,0 +1,9 @@
+{
+  "model_type": "palladium:basic",
+  "model_layer": "unrp:wind_blade",
+  "texture": "unrp:textures/models/wind_blade.png",
+  "render_type": "cutout",
+  "tint": {
+    "type": "unrp:owner_aura"
+  }
+}

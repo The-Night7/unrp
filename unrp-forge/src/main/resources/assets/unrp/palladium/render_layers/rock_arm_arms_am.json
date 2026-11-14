@@ -1,0 +1,6 @@
+{
+    "model_type": "humanoid",
+    "model_layer": "unrp:rock_arm_arms",
+    "texture": "unrp:textures/models/rock_arm_arms_am.png",
+    "render_type": "solid"
+}

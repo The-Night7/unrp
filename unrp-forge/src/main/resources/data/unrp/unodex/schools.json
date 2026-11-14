@@ -1,0 +1,290 @@
+{
+ "schools": [
+  {
+   "id": "agwin",
+   "name": "Agwin",
+   "kind": "school",
+   "kind_confirmed": true,
+   "regions": [],
+   "leaders": [
+    {
+     "character_id": "hizo",
+     "role": "king"
+    },
+    {
+     "character_id": "joahness",
+     "role": "queen"
+    }
+   ],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 16,
+   "members": [
+    "adrien",
+    "broven",
+    "gou",
+    "grayson",
+    "hecate",
+    "hizo",
+    "irene",
+    "jace",
+    "joahness",
+    "kaito",
+    "laura",
+    "leena",
+    "leonie",
+    "melody",
+    "ramlethal",
+    "rein"
+   ]
+  },
+  {
+   "id": "ember",
+   "name": "Ember",
+   "kind": "organization",
+   "kind_confirmed": false,
+   "regions": [],
+   "leaders": [],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 4,
+   "members": [
+    "ablaze",
+    "brims",
+    "fury",
+    "volcan"
+   ]
+  },
+  {
+   "id": "new_bostin",
+   "name": "New Bostin",
+   "kind": "school",
+   "kind_confirmed": true,
+   "regions": [],
+   "leaders": [],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 5,
+   "members": [
+    "adrion",
+    "claire",
+    "john",
+    "oliver",
+    "zirian"
+   ]
+  },
+  {
+   "id": "rowden",
+   "name": "Rowden",
+   "kind": "school",
+   "kind_confirmed": true,
+   "regions": [],
+   "leaders": [
+    {
+     "character_id": "kree",
+     "role": "king"
+    },
+    {
+     "character_id": "skylar",
+     "role": "queen"
+    },
+    {
+     "character_id": "ezra",
+     "role": "jack"
+    },
+    {
+     "character_id": "myles",
+     "role": "healer"
+    }
+   ],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 7,
+   "members": [
+    "ezra",
+    "isaure",
+    "keito",
+    "kree",
+    "louis",
+    "myles",
+    "skylar"
+   ]
+  },
+  {
+   "id": "vigilante",
+   "name": "Vigilante",
+   "kind": "organization",
+   "kind_confirmed": false,
+   "regions": [],
+   "leaders": [],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 4,
+   "members": [
+    "arlequin",
+    "le_pinceau",
+    "vitalis",
+    "void"
+   ]
+  },
+  {
+   "id": "wellston",
+   "name": "Wellston",
+   "kind": "school",
+   "kind_confirmed": true,
+   "regions": [],
+   "leaders": [
+    {
+     "character_id": "blyke",
+     "role": "king"
+    },
+    {
+     "character_id": "remi",
+     "role": "queen"
+    },
+    {
+     "character_id": "isen",
+     "role": "jack"
+    }
+   ],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 53,
+   "members": [
+    "abel",
+    "alden",
+    "alden_s_friend",
+    "arlo",
+    "aurielle",
+    "blyke",
+    "brea",
+    "cecile",
+    "clio",
+    "crail",
+    "dylan",
+    "elaine",
+    "evie",
+    "gavin",
+    "gianna",
+    "heinz",
+    "holden",
+    "hower",
+    "illena",
+    "isen",
+    "issei",
+    "john",
+    "julia",
+    "julien",
+    "juni",
+    "kael",
+    "kalum",
+    "kassandra",
+    "kiara",
+    "krolik",
+    "kuyo",
+    "lin",
+    "mardin",
+    "meili",
+    "misa",
+    "morgane",
+    "otis",
+    "rei",
+    "remi",
+    "roland",
+    "rouker",
+    "seraphina",
+    "sherri",
+    "skrev",
+    "soren",
+    "talia",
+    "tanner",
+    "terrence",
+    "ventus",
+    "wenqi",
+    "wyatt",
+    "yuline",
+    "zeke"
+   ]
+  },
+  {
+   "id": "wellston_university",
+   "name": "Wellston University",
+   "kind": "school",
+   "kind_confirmed": true,
+   "regions": [],
+   "leaders": [],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 3,
+   "members": [
+    "kassandra",
+    "kayden",
+    "kuyo"
+   ]
+  },
+  {
+   "id": "westview",
+   "name": "Westview",
+   "kind": "school",
+   "kind_confirmed": true,
+   "regions": [],
+   "leaders": [
+    {
+     "character_id": "telemachus",
+     "role": "king"
+    },
+    {
+     "character_id": "ice",
+     "role": "queen"
+    },
+    {
+     "character_id": "mitsu",
+     "role": "jack"
+    },
+    {
+     "character_id": "beta",
+     "role": "healer"
+    }
+   ],
+   "campus": {
+    "variant": null,
+    "palette": null,
+    "notes": null
+   },
+   "member_count": 10,
+   "members": [
+    "beta",
+    "ice",
+    "kaira",
+    "lucian",
+    "lucina",
+    "marc",
+    "mitsu",
+    "power",
+    "rin",
+    "telemachus"
+   ]
+  }
+ ]
+}

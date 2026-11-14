@@ -1,0 +1,26 @@
+package com.myriam.unrp.look;
+
+/** StatClientCache du modèle : aura du joueur local (notre état synchronisé), mode du HUD, élan. */
+public final class StatClientCache {
+    private StatClientCache() {}
+
+    public static int hudMode = 0;
+    public static int aura, auraMax, momentum;
+
+    /** Appelé quand notre état joueur arrive. */
+    public static void update(int a, int max) {
+        aura = a;
+        auraMax = max;
+    }
+
+    /** Essaim de Particles (StatClientCache.setWeave du modèle). */
+    public static int motes = 0;
+    public static int motesMax = 0;
+    public static int weaveFlags = 0;
+
+    public static void setWeave(int motesValue, int motesMaxValue, int flags) {
+        motes = motesValue;
+        motesMax = motesMaxValue;
+        weaveFlags = flags;
+    }
+}

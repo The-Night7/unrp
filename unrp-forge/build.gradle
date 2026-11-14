@@ -1,0 +1,91 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    // Mixin : sert à poser les bras/le corps du joueur pendant les capacités (voir mixin/PlayerModelMixin.java)
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    copyIdeResources = true
+
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+        client {
+            // Compte de test hors-ligne : pas besoin de te connecter pour tester.
+        }
+        server {
+            args '--nogui'
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, 'unrp.refmap.json'
+    config 'unrp.mixins.json'
+}
+
+repositories {
+    // Les jars des autres mods (Palladium, GeckoLib...) se déposent dans libs/
+    flatDir { dir 'libs' }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // Chaque jar présent dans libs/ est ajouté automatiquement (voir docs/SETUP.md).
+    // Nom du fichier "geckolib-forge-1.20.1-4.8.4.jar" -> nom "geckolib-forge", version "1.20.1-4.8.4".
+    fileTree(dir: 'libs', include: '*.jar').files.each { jar ->
+        def base = jar.name.replaceAll(/\.jar$/, '')
+        def m = (base =~ /^(.*?)-(\d.*)$/)
+        if (m.matches()) {
+            implementation fg.deobf("libs:${m.group(1)}:${m.group(2)}")
+        } else {
+            logger.warn("libs/${jar.name} ignoré : renomme-le 'nom-version.jar'")
+        }
+    }
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('jar', Jar).configure {
+    manifest.attributes([
+        'Specification-Title'  : mod_id,
+        'Specification-Vendor' : 'Myriam',
+        'Implementation-Title' : project.name,
+        'Implementation-Version': project.jar.archiveVersion,
+    ])
+    finalizedBy 'reobfJar'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}

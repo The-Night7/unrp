@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P P",
+    "P P"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:blue_wool"
+    }
+  },
+  "result": {
+    "item": "unrp:wellstone_shoes",
+    "count": 1
+  }
+}

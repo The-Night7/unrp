@@ -1,0 +1,1378 @@
+.
+├── alpha_mask
+│   └── stone_skin
+│       ├── stone_skin_body_0.png
+│       ├── stone_skin_body_10.png
+│       ├── stone_skin_body_11.png
+│       ├── stone_skin_body_12.png
+│       ├── stone_skin_body_13.png
+│       ├── stone_skin_body_14.png
+│       ├── stone_skin_body_15.png
+│       ├── stone_skin_body_16.png
+│       ├── stone_skin_body_17.png
+│       ├── stone_skin_body_18.png
+│       ├── stone_skin_body_19.png
+│       ├── stone_skin_body_1.png
+│       ├── stone_skin_body_20.png
+│       ├── stone_skin_body_2.png
+│       ├── stone_skin_body_3.png
+│       ├── stone_skin_body_4.png
+│       ├── stone_skin_body_5.png
+│       ├── stone_skin_body_6.png
+│       ├── stone_skin_body_7.png
+│       ├── stone_skin_body_8.png
+│       ├── stone_skin_body_9.png
+│       ├── stone_skin_reveal_0.png
+│       ├── stone_skin_reveal_10.png
+│       ├── stone_skin_reveal_11.png
+│       ├── stone_skin_reveal_12.png
+│       ├── stone_skin_reveal_13.png
+│       ├── stone_skin_reveal_14.png
+│       ├── stone_skin_reveal_15.png
+│       ├── stone_skin_reveal_16.png
+│       ├── stone_skin_reveal_17.png
+│       ├── stone_skin_reveal_18.png
+│       ├── stone_skin_reveal_19.png
+│       ├── stone_skin_reveal_1.png
+│       ├── stone_skin_reveal_20.png
+│       ├── stone_skin_reveal_2.png
+│       ├── stone_skin_reveal_3.png
+│       ├── stone_skin_reveal_4.png
+│       ├── stone_skin_reveal_5.png
+│       ├── stone_skin_reveal_6.png
+│       ├── stone_skin_reveal_7.png
+│       ├── stone_skin_reveal_8.png
+│       └── stone_skin_reveal_9.png
+├── block
+│   ├── barrier_block_am.png
+│   ├── barrier_block.png
+│   ├── conversion_machine_front.png
+│   ├── conversion_machine_side.png
+│   ├── conversion_machine_top.png
+│   ├── particle_block.png
+│   ├── phylactery.png
+│   ├── recovery_machine_front.png
+│   ├── recovery_machine.png
+│   ├── recovery_machine_side.png
+│   ├── recovery_machine_top.png
+│   ├── salt_block.png
+│   ├── suppression_field_bottom.png
+│   ├── suppression_field_side_on.png
+│   ├── suppression_field_side.png
+│   ├── suppression_field_top_on.png
+│   └── suppression_field_top.png
+├── entity
+│   ├── agent_authority.png
+│   ├── agent_claws.png
+│   ├── agent_claws_surge.png
+│   ├── agent_leader.png
+│   ├── agent.png
+│   ├── agent_spectre.png
+│   ├── arsenal_gate_add.png
+│   ├── arsenal_gate.png
+│   ├── aura_thread.png
+│   ├── barrier_0.png
+│   ├── barrier_1.png
+│   ├── barrier_2.png
+│   ├── barrier_3.png
+│   ├── black_lash_fx_add.png
+│   ├── black_lash_fx.png
+│   ├── black_lash_ground.png
+│   ├── black_lash_veins_1.png
+│   ├── black_lash_veins_2.png
+│   ├── black_lash_veins_3.png
+│   ├── black_lash_veins_4.png
+│   ├── black_lash_veins_5.png
+│   ├── black_lash_veins_6.png
+│   ├── black_lash_veins_7.png
+│   ├── black_lash_veins_8.png
+│   ├── black_lash_veins_glow_1.png
+│   ├── black_lash_veins_glow_2.png
+│   ├── black_lash_veins_glow_3.png
+│   ├── black_lash_veins_glow_4.png
+│   ├── black_lash_veins_glow_5.png
+│   ├── black_lash_veins_glow_6.png
+│   ├── black_lash_veins_glow_7.png
+│   ├── black_lash_veins_glow_8.png
+│   ├── chained_beast_boxes_edge.png
+│   ├── chained_beast_boxes_glow.png
+│   ├── chained_beast_boxes.png
+│   ├── chained_beast_glow.png
+│   ├── chained_beast_glow_slim.png
+│   ├── chained_beast.png
+│   ├── chained_beast_slim.png
+│   ├── chained_chains.png
+│   ├── chained_chains_slim.png
+│   ├── chained_claw_skin.png
+│   ├── chained_cut.png
+│   ├── chained_edges.png
+│   ├── chained_edges_slim.png
+│   ├── chained_forms_fx_add.png
+│   ├── chained_forms_fx.png
+│   ├── chained_great_decals.png
+│   ├── chained_seal.png
+│   ├── chained_sovereign_boxes_edge.png
+│   ├── chained_sovereign_boxes_glow.png
+│   ├── chained_sovereign_boxes.png
+│   ├── chained_sovereign_edges.png
+│   ├── chained_sovereign_edges_slim.png
+│   ├── chained_sovereign_glow.png
+│   ├── chained_sovereign_glow_slim.png
+│   ├── chained_sovereign.png
+│   ├── chained_sovereign_slim.png
+│   ├── chained_tails_fx_add.png
+│   ├── chained_tails_fx.png
+│   ├── chained_white.png
+│   ├── chained_wings_edge.png
+│   ├── chained_wings.png
+│   ├── colossus.png
+│   ├── daystar_fx_add.png
+│   ├── daystar_fx.png
+│   ├── daystar_ground.png
+│   ├── finn.png
+│   ├── gatehound.png
+│   ├── hm_stone.png
+│   ├── lb_aura.png
+│   ├── legacy_echo.png
+│   ├── leilah.png
+│   ├── particle_construct_hand_0.png
+│   ├── particle_construct_hand_1.png
+│   ├── particle_construct_hand_2.png
+│   ├── particle_construct_hand_3.png
+│   ├── particle_construct_pylon_0.png
+│   ├── particle_construct_pylon_1.png
+│   ├── particle_construct_pylon_2.png
+│   ├── particle_construct_pylon_3.png
+│   ├── particle_construct_tower_0.png
+│   ├── particle_construct_tower_1.png
+│   ├── particle_construct_tower_2.png
+│   ├── particle_construct_tower_3.png
+│   ├── particle_construct_wall_0.png
+│   ├── particle_construct_wall_1.png
+│   ├── particle_construct_wall_2.png
+│   ├── particle_construct_wall_3.png
+│   ├── principal_rhodes.png
+│   ├── principal_vaughn.png
+│   ├── relay_0.png
+│   ├── relay_1.png
+│   ├── salt_cracks.png
+│   ├── salt_crust.png
+│   ├── salt_fx_add.png
+│   ├── salt_fx.png
+│   ├── salt_ground.png
+│   ├── sg_cracks_0.png
+│   ├── sg_cracks_1.png
+│   ├── sg_cracks_2.png
+│   ├── sg_cracks_3.png
+│   ├── sg_stars.png
+│   ├── shard
+│   │   ├── counterweight.png
+│   │   ├── crimson_mark.png
+│   │   ├── dealmaker.png
+│   │   ├── dragon_engine.png
+│   │   ├── edict.png
+│   │   ├── hollow_mark.png
+│   │   ├── limit_breaker.png
+│   │   ├── sarcophage.png
+│   │   ├── singularity.png
+│   │   └── vertigo.png
+│   ├── singularity_orb.png
+│   ├── titan
+│   │   ├── earth_glow.png
+│   │   ├── earth_marks.png
+│   │   ├── earth.png
+│   │   ├── fire_glow.png
+│   │   ├── fire_marks.png
+│   │   ├── fire.png
+│   │   ├── ice_glow.png
+│   │   ├── ice_marks.png
+│   │   ├── ice.png
+│   │   ├── light_glow.png
+│   │   ├── light_marks.png
+│   │   ├── lightning_glow.png
+│   │   ├── lightning_marks.png
+│   │   ├── lightning.png
+│   │   ├── light.png
+│   │   ├── metal_glow.png
+│   │   ├── metal_marks.png
+│   │   ├── metal.png
+│   │   ├── nature_glow.png
+│   │   ├── nature_marks.png
+│   │   ├── nature.png
+│   │   ├── shadow_glow.png
+│   │   ├── shadow_marks.png
+│   │   ├── shadow.png
+│   │   ├── water_glow.png
+│   │   ├── water_marks.png
+│   │   ├── water.png
+│   │   ├── wind_glow.png
+│   │   ├── wind_marks.png
+│   │   └── wind.png
+│   ├── titan_fx_add.png
+│   ├── titan_fx.png
+│   ├── titan_ground.png
+│   ├── valerie.png
+│   ├── weave_atlas.png
+│   ├── weave_glow.png
+│   ├── wraith.png
+│   └── wyrm.png
+├── eyes
+│   ├── classic.png
+│   ├── vessel_eye_ignited.png
+│   ├── vessel_eye_resting.png
+│   └── vessel_eye_tempest.png
+├── fx
+│   ├── pass_add.png
+│   ├── pass_decals_add.png
+│   ├── pass_decals.png
+│   ├── pass_over.png
+│   └── pass_soft.png
+├── gui
+│   ├── ability_bars
+│   │   ├── unrp_powers.png
+│   │   └── white.png
+│   ├── aura_back.png
+│   ├── aura_front.png
+│   ├── beam_glow.png
+│   ├── eye_ring.png
+│   ├── eye_round.png
+│   ├── eye_sharp.png
+│   ├── hud
+│   │   ├── aura_bar_0.png
+│   │   ├── aura_bar_10.png
+│   │   ├── aura_bar_11.png
+│   │   ├── aura_bar_12.png
+│   │   ├── aura_bar_13.png
+│   │   ├── aura_bar_14.png
+│   │   ├── aura_bar_15.png
+│   │   ├── aura_bar_16.png
+│   │   ├── aura_bar_17.png
+│   │   ├── aura_bar_18.png
+│   │   ├── aura_bar_19.png
+│   │   ├── aura_bar_1.png
+│   │   ├── aura_bar_20.png
+│   │   ├── aura_bar_21.png
+│   │   ├── aura_bar_22.png
+│   │   ├── aura_bar_23.png
+│   │   ├── aura_bar_24.png
+│   │   ├── aura_bar_25.png
+│   │   ├── aura_bar_26.png
+│   │   ├── aura_bar_27.png
+│   │   ├── aura_bar_28.png
+│   │   ├── aura_bar_29.png
+│   │   ├── aura_bar_2.png
+│   │   ├── aura_bar_30.png
+│   │   ├── aura_bar_31.png
+│   │   ├── aura_bar_32.png
+│   │   ├── aura_bar_33.png
+│   │   ├── aura_bar_34.png
+│   │   ├── aura_bar_35.png
+│   │   ├── aura_bar_36.png
+│   │   ├── aura_bar_37.png
+│   │   ├── aura_bar_38.png
+│   │   ├── aura_bar_39.png
+│   │   ├── aura_bar_3.png
+│   │   ├── aura_bar_40.png
+│   │   ├── aura_bar_41.png
+│   │   ├── aura_bar_42.png
+│   │   ├── aura_bar_43.png
+│   │   ├── aura_bar_44.png
+│   │   ├── aura_bar_45.png
+│   │   ├── aura_bar_46.png
+│   │   ├── aura_bar_47.png
+│   │   ├── aura_bar_48.png
+│   │   ├── aura_bar_49.png
+│   │   ├── aura_bar_4.png
+│   │   ├── aura_bar_50.png
+│   │   ├── aura_bar_51.png
+│   │   ├── aura_bar_52.png
+│   │   ├── aura_bar_53.png
+│   │   ├── aura_bar_54.png
+│   │   ├── aura_bar_55.png
+│   │   ├── aura_bar_56.png
+│   │   ├── aura_bar_57.png
+│   │   ├── aura_bar_58.png
+│   │   ├── aura_bar_59.png
+│   │   ├── aura_bar_5.png
+│   │   ├── aura_bar_60.png
+│   │   ├── aura_bar_61.png
+│   │   ├── aura_bar_62.png
+│   │   ├── aura_bar_63.png
+│   │   ├── aura_bar_64.png
+│   │   ├── aura_bar_65.png
+│   │   ├── aura_bar_66.png
+│   │   ├── aura_bar_67.png
+│   │   ├── aura_bar_68.png
+│   │   ├── aura_bar_69.png
+│   │   ├── aura_bar_6.png
+│   │   ├── aura_bar_70.png
+│   │   ├── aura_bar_71.png
+│   │   ├── aura_bar_72.png
+│   │   ├── aura_bar_73.png
+│   │   ├── aura_bar_74.png
+│   │   ├── aura_bar_75.png
+│   │   ├── aura_bar_76.png
+│   │   ├── aura_bar_77.png
+│   │   ├── aura_bar_78.png
+│   │   ├── aura_bar_79.png
+│   │   ├── aura_bar_7.png
+│   │   ├── aura_bar_80.png
+│   │   ├── aura_bar_8.png
+│   │   ├── aura_bar_9.png
+│   │   ├── aura_bar_depleted.png
+│   │   ├── rpg_hud_back.png
+│   │   └── rpg_hud_front.png
+│   ├── lb_forms
+│   │   ├── sigil_10.png
+│   │   ├── sigil_11.png
+│   │   ├── sigil_12.png
+│   │   ├── sigil_13.png
+│   │   ├── sigil_14.png
+│   │   ├── sigil_1.png
+│   │   ├── sigil_2.png
+│   │   ├── sigil_3.png
+│   │   ├── sigil_4.png
+│   │   ├── sigil_5.png
+│   │   ├── sigil_6.png
+│   │   ├── sigil_7.png
+│   │   ├── sigil_8.png
+│   │   └── sigil_9.png
+│   ├── power_background.png
+│   ├── predator_crosshair.png
+│   └── stars.png
+├── icons
+│   ├── ability_gauging_activation.png
+│   ├── ability_gauging_aura_scope_icon.png
+│   ├── ability_gauging_aura_scope.png
+│   ├── ability_gauging_icon.png
+│   ├── ability_gauging_touch_scan_icon.png
+│   ├── ability_gauging_touch_scan.png
+│   ├── arachnid_assault_icon.png
+│   ├── arachnid_guard_icon.png
+│   ├── arachnid_icon.png
+│   ├── arachnid_leap_icon.png
+│   ├── arachnid_rush_icon.png
+│   ├── arcane_shot_icon.png
+│   ├── arcane_shot_shot_icon.png
+│   ├── arcane_shot_volley_icon.png
+│   ├── arcroot_icon.png
+│   ├── arcroot_lash_icon.png
+│   ├── arcroot_storm_icon.png
+│   ├── arcroot_tether_icon.png
+│   ├── armament_dominion_activation.png
+│   ├── armament_dominion_forge_icon.png
+│   ├── armament_dominion_full_icon.png
+│   ├── armament_dominion_icon.png
+│   ├── armament_dominion_recall_icon.png
+│   ├── armament_dominion_shot_icon.png
+│   ├── armor_suit_brace_icon.png
+│   ├── armor_suit_crash_icon.png
+│   ├── armor_suit_icon.png
+│   ├── armor_suit_shed_icon.png
+│   ├── armor_suit_volley_icon.png
+│   ├── aura_manip_activation.png
+│   ├── aura_manipulation_activation.png
+│   ├── aura_manipulation_copy.png
+│   ├── aura_manipulation_copy_wheel.png
+│   ├── aura_manipulation_expel.png
+│   ├── aura_manipulation.png
+│   ├── aura_manipulation_power_icon.png
+│   ├── aura_shred_icon.png
+│   ├── aura_shred_stance_icon.png
+│   ├── aura_transference_activation.png
+│   ├── aura_transference_attune_icon.png
+│   ├── aura_transference_icon.png
+│   ├── aura_transference_imbue_player_icon.png
+│   ├── aura_transference_imbue_weapon_icon.png
+│   ├── azure_storm_climber_icon.png
+│   ├── azure_storm_guard_icon.png
+│   ├── azure_storm_icon.png
+│   ├── azure_storm_lance_icon.png
+│   ├── azure_storm_storm_icon.png
+│   ├── barrier_activation.png
+│   ├── barrier_deploy.png
+│   ├── barrier_growth.png
+│   ├── barrier_ram.png
+│   ├── black_lash_activation.png
+│   ├── black_lash_bind_icon.png
+│   ├── black_lash_icon.png
+│   ├── black_lash_snatch_icon.png
+│   ├── black_lash_storm_icon.png
+│   ├── black_lash_whip_icon.png
+│   ├── blademaster.png
+│   ├── blizzard_cyclone_icon.png
+│   ├── blizzard_icon.png
+│   ├── blizzard_whiteout_icon.png
+│   ├── blizzard_zero_icon.png
+│   ├── bm_blade.png
+│   ├── bm_crescent.png
+│   ├── bm_domain.png
+│   ├── bm_manifest.png
+│   ├── bm_ranged.png
+│   ├── boon_projection_icon.png
+│   ├── boon_travel_icon.png
+│   ├── catalyst_ray_activation.png
+│   ├── catalyst_ray_catalyze.png
+│   ├── catalyst_ray_clean_slate.png
+│   ├── catalyst_ray_genetic_stasis.png
+│   ├── catalyst_ray_mutation_cascade.png
+│   ├── catalyst_ray_mutation_imbuement.png
+│   ├── catalyst_ray_power_icon.png
+│   ├── chained_one_abyss.png
+│   ├── chained_one_activation.png
+│   ├── chained_one_aegis.png
+│   ├── chained_one_ascend.png
+│   ├── chained_one_blades.png
+│   ├── chained_one_breath.png
+│   ├── chained_one_bulwark.png
+│   ├── chained_one_cataclysm.png
+│   ├── chained_one_citadel.png
+│   ├── chained_one_claws.png
+│   ├── chained_one_comet.png
+│   ├── chained_one_dreadstep.png
+│   ├── chained_one_eclipse.png
+│   ├── chained_one_exile.png
+│   ├── chained_one_gate.png
+│   ├── chained_one_genesis.png
+│   ├── chained_one_hammer.png
+│   ├── chained_one_harvest.png
+│   ├── chained_one_hellfall.png
+│   ├── chained_one_hunt.png
+│   ├── chained_one_icon.png
+│   ├── chained_one_kneel.png
+│   ├── chained_one_lance.png
+│   ├── chained_one_lancerain.png
+│   ├── chained_one_lashstorm.png
+│   ├── chained_one_legion.png
+│   ├── chained_one_maw.png
+│   ├── chained_one_monolith.png
+│   ├── chained_one_murmuration.png
+│   ├── chained_one_nulla.png
+│   ├── chained_one_rampage.png
+│   ├── chained_one_rend.png
+│   ├── chained_one_sclaws.png
+│   ├── chained_one_scythe.png
+│   ├── chained_one_sh_dragon.png
+│   ├── chained_one_sh_husk.png
+│   ├── chained_one_sh_pillager.png
+│   ├── chained_one_sh_skeleton.png
+│   ├── chained_one_sh_warden.png
+│   ├── chained_one_sh_zombie.png
+│   ├── chained_one_starfall.png
+│   ├── chained_one_swarm.png
+│   ├── chained_one_tails.png
+│   ├── chained_one_tatter.png
+│   ├── chained_one_tenfold.png
+│   ├── chained_one_unchained.png
+│   ├── chained_one_wings.png
+│   ├── chained_one_wl_cat.png
+│   ├── chained_one_wl_choir.png
+│   ├── chained_one_wl_colossus.png
+│   ├── chained_one_wl_dismiss.png
+│   ├── chained_one_wl_echoes.png
+│   ├── chained_one_wl_hounds.png
+│   ├── chained_one_wl_shadows.png
+│   ├── chained_one_wl_wyrm.png
+│   ├── chained_one_worldbreaker.png
+│   ├── cm_destiny_icon.png
+│   ├── cm_edge_icon.png
+│   ├── cm_loom_icon.png
+│   ├── cm_rung2_icon.png
+│   ├── cm_rung3_icon.png
+│   ├── cm_rung4_icon.png
+│   ├── cm_rung5_icon.png
+│   ├── cm_rung6_icon.png
+│   ├── cm_sever_icon.png
+│   ├── cm_step_icon.png
+│   ├── conjure_disks_activation.png
+│   ├── conjure_disks_disk_launch_icon.png
+│   ├── conjure_disks_hoverboard_icon.png
+│   ├── conjure_disks_icon.png
+│   ├── conjure_disks_orbit_shield_icon.png
+│   ├── conjure_vines_entanglement_icon.png
+│   ├── conjure_vines_grasping_growth_icon.png
+│   ├── conjure_vines_icon.png
+│   ├── conjure_vines_vine_lash_icon.png
+│   ├── conjure_vines_vine_spikes_icon.png
+│   ├── contact_shred_activation.png
+│   ├── contact_shred_icon.png
+│   ├── contact_shred_raking_touch_icon.png
+│   ├── contact_shred_shred_grip_icon.png
+│   ├── counterweight_icon.png
+│   ├── crescent_slash_grand_icon.png
+│   ├── crescent_slash_icon.png
+│   ├── crescent_slash_slash_icon.png
+│   ├── crescent_slash_twin_icon.png
+│   ├── crescent_slash_volley_icon.png
+│   ├── crimson_mark_icon.png
+│   ├── cw_absorb_icon.png
+│   ├── cw_fist_icon.png
+│   ├── cw_point_icon.png
+│   ├── cw_rung2_icon.png
+│   ├── cw_rung3_icon.png
+│   ├── cw_rung4_icon.png
+│   ├── cw_rung5_icon.png
+│   ├── cw_rung6_icon.png
+│   ├── cw_wave_icon.png
+│   ├── daystar_activation.png
+│   ├── daystar_axe_icon.png
+│   ├── daystar_icon.png
+│   ├── daystar_noon_icon.png
+│   ├── daystar_sunder_icon.png
+│   ├── daystar_sun_icon.png
+│   ├── deadeye_activation.png
+│   ├── deadeye_barrage_icon.png
+│   ├── deadeye_beam_icon.png
+│   ├── deadeye_overload_icon.png
+│   ├── deadeye_pulse_icon.png
+│   ├── deadeye_sniper_icon.png
+│   ├── dealmaker_icon.png
+│   ├── dealmaker_ledger_button.png
+│   ├── dealmaker_ledger.png
+│   ├── dealmaker_seal1.png
+│   ├── dealmaker_seal2.png
+│   ├── dealmaker_seal3.png
+│   ├── dealmaker_seal4.png
+│   ├── dealmaker_seal6.png
+│   ├── dealmaker_seal7.png
+│   ├── dealmaker_seal8.png
+│   ├── dealmaker_seal9.png
+│   ├── demon_claw_activation.png
+│   ├── demon_claw_claw_strikes_icon.png
+│   ├── demon_claw_demon_lunge_icon.png
+│   ├── demon_claw_feral_focus_icon.png
+│   ├── demon_claw_icon.png
+│   ├── demon_claw_ripper_slash_icon.png
+│   ├── disguise_icon.png
+│   ├── dizzy_punch_activation.png
+│   ├── dizzy_punch_haymaker_spin.png
+│   ├── dizzy_punch.png
+│   ├── dizzy_punch_sucker_swing.png
+│   ├── dizzy_punch_weave.png
+│   ├── edict_colossus_icon.png
+│   ├── edict_gavel_icon.png
+│   ├── edict_icon.png
+│   ├── edict_inviolable_icon.png
+│   ├── edict_pass_icon.png
+│   ├── edict_repeal_icon.png
+│   ├── edict_seizure_icon.png
+│   ├── edict_statute_icon.png
+│   ├── energy_conduit_control_icon.png
+│   ├── energy_conduit_icon.png
+│   ├── energy_conduit_lasso_icon.png
+│   ├── energy_conduit_restore_icon.png
+│   ├── energy_conduit_transfer_icon.png
+│   ├── energy_discharge_activation.png
+│   ├── energy_discharge_burst.png
+│   ├── energy_discharge_long_beam.png
+│   ├── energy_discharge_power_icon.png
+│   ├── energy_discharge_propulsion.png
+│   ├── energy_discharge_sphere.png
+│   ├── explosion_activation.png
+│   ├── explosion_cluster_icon.png
+│   ├── explosion_detonate_icon.png
+│   ├── explosion_icon.png
+│   ├── explosion_shock_icon.png
+│   ├── explosive_missile_icon.png
+│   ├── explosive_missile_mortar_icon.png
+│   ├── explosive_missile_shot_icon.png
+│   ├── explosive_missile_volley_icon.png
+│   ├── flame_claw_activation.png
+│   ├── flame_claw_blazing_rush_icon.png
+│   ├── flame_claw_burning_claws_icon.png
+│   ├── flame_claw_claw_focus_icon.png
+│   ├── flame_claw_fire_ring_icon.png
+│   ├── flame_claw_flame_surge_icon.png
+│   ├── flame_claw_icon.png
+│   ├── fusework_icon.png
+│   ├── fusework_seam_icon.png
+│   ├── fusework_stitch_icon.png
+│   ├── fusework_volley_icon.png
+│   ├── hand_blade_blade_form_icon.png
+│   ├── hand_blade_energy_release_icon.png
+│   ├── hand_blade_icon.png
+│   ├── hand_blade_piercing_thrust_icon.png
+│   ├── healing_activation.png
+│   ├── healing_external.png
+│   ├── healing_mark.png
+│   ├── healing_power_icon.png
+│   ├── healing_self_active.png
+│   ├── healing_self.png
+│   ├── healing_triage_surge.png
+│   ├── heat_palm_activation.png
+│   ├── heat_palm_icon.png
+│   ├── heat_palm_palm_strike_icon.png
+│   ├── heat_palm_smelting_palm_icon.png
+│   ├── hm_bend_icon.png
+│   ├── hm_blink_icon.png
+│   ├── hm_calcify_icon.png
+│   ├── hm_codex_icon.png
+│   ├── hm_darts_icon.png
+│   ├── hm_doppel_icon.png
+│   ├── hm_gaze_icon.png
+│   ├── hm_gift_icon.png
+│   ├── hm_rung2_icon.png
+│   ├── hm_rung3_icon.png
+│   ├── hm_rung4_icon.png
+│   ├── hm_shade_icon.png
+│   ├── hm_slam_icon.png
+│   ├── hm_sympathy_icon.png
+│   ├── hm_thrall_icon.png
+│   ├── hollow_mark_icon.png
+│   ├── homing_explosive_missile_barrage_icon.png
+│   ├── homing_explosive_missile_icon.png
+│   ├── homing_explosive_missile_seek_icon.png
+│   ├── homing_explosive_missile_volley_icon.png
+│   ├── hydrofreeze_activation.png
+│   ├── hydrofreeze_bind_icon.png
+│   ├── hydrofreeze_blades_icon.png
+│   ├── hydrofreeze_envelop_icon.png
+│   ├── hydrofreeze_icon.png
+│   ├── hydrofreeze_lance_icon.png
+│   ├── hydrofreeze_stance_icon.png
+│   ├── hydrofreeze_surge_icon.png
+│   ├── hydrofreeze_water_form_icon.png
+│   ├── hypnosis_activation.png
+│   ├── hypnosis_command_gaze_icon.png
+│   ├── hypnosis_deep_hypnosis_icon.png
+│   ├── hypnosis_icon.png
+│   ├── hypnosis_memory_wipe_icon.png
+│   ├── hypnosis_sleep_pulse_icon.png
+│   ├── icons.zip
+│   ├── illumination_activation.png
+│   ├── illumination_beacon_light_icon.png
+│   ├── illumination_dazzling_pulse_icon.png
+│   ├── illumination_flash_burst_icon.png
+│   ├── illumination_hand_light_icon.png
+│   ├── illumination_icon.png
+│   ├── invis_cloak.png
+│   ├── invisibility.png
+│   ├── invis_shared.png
+│   ├── lb_bolt_icon.png
+│   ├── lb_break_icon.png
+│   ├── lb_form_azure_icon.png
+│   ├── lb_form_nature_icon.png
+│   ├── lb_form_radiance_icon.png
+│   ├── lb_form_surge_icon.png
+│   ├── lb_grit_icon.png
+│   ├── lb_ladder_icon.png
+│   ├── lb_limitless_icon.png
+│   ├── lb_rush_icon.png
+│   ├── lb_wave_icon.png
+│   ├── legacy_activation.png
+│   ├── legacy_echoes.png
+│   ├── legacy_icon.png
+│   ├── legacy_line.png
+│   ├── legacy_pass.png
+│   ├── legacy_trick.png
+│   ├── lightning_activation.png
+│   ├── lightning_icon.png
+│   ├── lightning_lightning_beam_icon.png
+│   ├── lightning_lightning_bolt_icon.png
+│   ├── lightning_shock_touch_icon.png
+│   ├── lightning_surge_run_icon.png
+│   ├── limit_breaker_icon.png
+│   ├── livewire_burst_icon.png
+│   ├── livewire_cage_icon.png
+│   ├── livewire_icon.png
+│   ├── livewire_wall_icon.png
+│   ├── missile_punch_icon.png
+│   ├── missile_punch_jab_icon.png
+│   ├── missile_punch_swarm_icon.png
+│   ├── missile_punch_upper_icon.png
+│   ├── missiles_barrage_icon.png
+│   ├── missiles_heavy_icon.png
+│   ├── missiles_icon.png
+│   ├── missiles_missile_icon.png
+│   ├── missiles_twin_icon.png
+│   ├── nadir_icon.png
+│   ├── nd_capsize_icon.png
+│   ├── nd_ceiling_icon.png
+│   ├── nd_compass_icon.png
+│   ├── nd_drop_icon.png
+│   ├── nd_hurl_icon.png
+│   ├── nd_landfall_icon.png
+│   ├── nd_lift_icon.png
+│   ├── nd_meteor_icon.png
+│   ├── nd_millstone_icon.png
+│   ├── nd_rung2_icon.png
+│   ├── nd_rung3_icon.png
+│   ├── nd_rung4_icon.png
+│   ├── nd_rung5_icon.png
+│   ├── nd_rung6_icon.png
+│   ├── nd_shear_icon.png
+│   ├── nd_turning_icon.png
+│   ├── needles_activation.png
+│   ├── needles_focused_volley_icon.png
+│   ├── needles_icon.png
+│   ├── needles_needle_barrage_icon.png
+│   ├── needles_needle_shot_icon.png
+│   ├── nightmare_activation.png
+│   ├── nightmare_hallucination_icon.png
+│   ├── nightmare_icon.png
+│   ├── nightmare_panic_spike_icon.png
+│   ├── nightmare_terror_field_icon.png
+│   ├── particles_architect_icon.png
+│   ├── particles_condense_icon.png
+│   ├── particles_construct_icon.png
+│   ├── particles_fist_icon.png
+│   ├── particles_guardian_icon.png
+│   ├── particles_icon.png
+│   ├── particles_pattern_icon.png
+│   ├── particles_vanguard_icon.png
+│   ├── particles_warden_icon.png
+│   ├── particles_weave_icon.png
+│   ├── phantom_fist_barrage_icon.png
+│   ├── phantom_fist_double_icon.png
+│   ├── phantom_fist_fist_icon.png
+│   ├── phantom_fist_icon.png
+│   ├── phantom_fist_meteor_icon.png
+│   ├── phantom_push_icon.png
+│   ├── phantom_push_palm_icon.png
+│   ├── phantom_push_push_icon.png
+│   ├── phantom_push_volley_icon.png
+│   ├── phantom_push_wave_icon.png
+│   ├── phase_shift_activation.png
+│   ├── phase_shift_defense.png
+│   ├── phase_shift_power_icon.png
+│   ├── phase_shift_speed.png
+│   ├── predator_activation.png
+│   ├── predator_breaker_icon.png
+│   ├── predator_focus_icon.png
+│   ├── predator_lock_icon.png
+│   ├── predator_rush_icon.png
+│   ├── predator_trans_icon.png
+│   ├── quick_strike_assault_stance_icon.png
+│   ├── quick_strike_blitz_punch_icon.png
+│   ├── quick_strike_combo_rush_icon.png
+│   ├── quick_strike_icon.png
+│   ├── quick_strike_pursuit_dash_icon.png
+│   ├── regeneration_activation.png
+│   ├── regeneration_adrenaline.png
+│   ├── regeneration_martyr.png
+│   ├── regeneration.png
+│   ├── rock_arm_activation.png
+│   ├── rock_arm_guarded_stance_icon.png
+│   ├── rock_arm_icon.png
+│   ├── rock_arm_rock_smash_icon.png
+│   ├── salt_seraph_activation.png
+│   ├── salt_seraph_great_icon.png
+│   ├── salt_seraph_icon.png
+│   ├── salt_seraph_lance_icon.png
+│   ├── salt_seraph_seal_icon.png
+│   ├── salt_seraph_spires_icon.png
+│   ├── salt_seraph_wake_icon.png
+│   ├── salt_seraph_wall_icon.png
+│   ├── sanct_barrier.png
+│   ├── sanct_bastion.png
+│   ├── sanct_circuit.png
+│   ├── sanct_mode.png
+│   ├── sanctuary.png
+│   ├── sarcophage_coffin_icon.png
+│   ├── sarcophage_grab_icon.png
+│   ├── sarcophage_icon.png
+│   ├── sarcophage_lunge_icon.png
+│   ├── sarcophage_sever_icon.png
+│   ├── sarcophage_shroud_icon.png
+│   ├── sarcophage_spray_icon.png
+│   ├── sarcophage_tempest_icon.png
+│   ├── sarcophage_unseal_icon.png
+│   ├── shadow_flame_activation.png
+│   ├── shadow_flame_dual_volley_icon.png
+│   ├── shadow_flame_flame_bolt_icon.png
+│   ├── shadow_flame_icon.png
+│   ├── singularity_anathema_icon.png
+│   ├── singularity_blink_icon.png
+│   ├── singularity_collapse_icon.png
+│   ├── singularity_creation_icon.png
+│   ├── singularity_deathless_icon.png
+│   ├── singularity_devour_icon.png
+│   ├── singularity_distortion_icon.png
+│   ├── singularity_echo_icon.png
+│   ├── singularity_end_icon.png
+│   ├── singularity_eons_icon.png
+│   ├── singularity_erasure_icon.png
+│   ├── singularity_expend_icon.png
+│   ├── singularity_fear_icon.png
+│   ├── singularity_forge_icon.png
+│   ├── singularity_fountain_icon.png
+│   ├── singularity_haste_icon.png
+│   ├── singularity_horizon_icon.png
+│   ├── singularity_icon.png
+│   ├── singularity_lag_icon.png
+│   ├── singularity_orb_icon.png
+│   ├── singularity_presence_icon.png
+│   ├── singularity_pull_icon.png
+│   ├── singularity_puppet_icon.png
+│   ├── singularity_rung2_icon.png
+│   ├── singularity_rung3_icon.png
+│   ├── singularity_rung4_icon.png
+│   ├── singularity_rung5_icon.png
+│   ├── singularity_rung6_icon.png
+│   ├── singularity_rung7_icon.png
+│   ├── singularity_talk_icon.png
+│   ├── singularity_touch_icon.png
+│   ├── singularity_whoopsy_icon.png
+│   ├── singularity_world_icon.png
+│   ├── soul_bound_borrow.png
+│   ├── soul_bound_icon.png
+│   ├── soul_bound_sanctuary.png
+│   ├── soul_bound_soul.png
+│   ├── soul_bound_sword.png
+│   ├── spectral_claw_grip_icon.png
+│   ├── spectral_claw_icon.png
+│   ├── spectral_claw_throw_icon.png
+│   ├── speed_activation.png
+│   ├── speed_blitz_dash_icon.png
+│   ├── speed_icon.png
+│   ├── speed_speed_rush_icon.png
+│   ├── spikes_icon.png
+│   ├── spikes_redirected_spikes_icon.png
+│   ├── spikes_spike_field_icon.png
+│   ├── spikes_spike_shot_icon.png
+│   ├── spikes_spike_volley_icon.png
+│   ├── stone_skin_harden.png
+│   ├── stone_skin_icon.png
+│   ├── stone_skin_immovable.png
+│   ├── strong_kick_activation.png
+│   ├── strong_kick_axe_kick.png
+│   ├── strong_kick_ground_smash.png
+│   ├── strong_kick_power_icon.png
+│   ├── strong_kick_sweep.png
+│   ├── strong_punch_activation.png
+│   ├── strong_punch_ground_smash.png
+│   ├── strong_punch_guard_break.png
+│   ├── strong_punch_haymaker.png
+│   ├── strong_punch_power_icon.png
+│   ├── telekinesis.png
+│   ├── tempest_claws_icon.png
+│   ├── tempest_claws.png
+│   ├── ti_earth_2.png
+│   ├── ti_earth_3.png
+│   ├── ti_earth_4.png
+│   ├── ti_earth_5.png
+│   ├── ti_earth.png
+│   ├── ti_fire_2.png
+│   ├── ti_fire_3.png
+│   ├── ti_fire_4.png
+│   ├── ti_fire_5.png
+│   ├── ti_fire.png
+│   ├── ti_fist.png
+│   ├── ti_grab.png
+│   ├── ti_guard.png
+│   ├── ti_ice_2.png
+│   ├── ti_ice_3.png
+│   ├── ti_ice_4.png
+│   ├── ti_ice_5.png
+│   ├── ti_ice.png
+│   ├── ti_ichor.png
+│   ├── ti_light_2.png
+│   ├── ti_light_3.png
+│   ├── ti_light_4.png
+│   ├── ti_light_5.png
+│   ├── ti_lightning_2.png
+│   ├── ti_lightning_3.png
+│   ├── ti_lightning_4.png
+│   ├── ti_lightning_5.png
+│   ├── ti_lightning.png
+│   ├── ti_light.png
+│   ├── time_manipulation_activation.png
+│   ├── time_manipulation_flow_accel.png
+│   ├── time_manipulation_flow_decel.png
+│   ├── time_manipulation_flow.png
+│   ├── time_manipulation_fracture_delayed.png
+│   ├── time_manipulation_fracture.png
+│   ├── time_manipulation_fracture_strike.png
+│   ├── time_manipulation_freeze.png
+│   ├── time_manipulation_power_icon.png
+│   ├── time_manipulation_rewind_ally.png
+│   ├── time_manipulation_rewind.png
+│   ├── time_manipulation_rewind_self.png
+│   ├── time_manipulation_shift_blink.png
+│   ├── time_manipulation_shift.png
+│   ├── time_manipulation_shift_recall.png
+│   ├── time_manipulation_stance.png
+│   ├── ti_metal_2.png
+│   ├── ti_metal_3.png
+│   ├── ti_metal_4.png
+│   ├── ti_metal_5.png
+│   ├── ti_metal.png
+│   ├── ti_nature_2.png
+│   ├── ti_nature_3.png
+│   ├── ti_nature_4.png
+│   ├── ti_nature_5.png
+│   ├── ti_nature.png
+│   ├── ti_out.png
+│   ├── ti_roar.png
+│   ├── ti_shadow_2.png
+│   ├── ti_shadow_3.png
+│   ├── ti_shadow_4.png
+│   ├── ti_shadow_5.png
+│   ├── ti_shadow.png
+│   ├── ti_shift.png
+│   ├── ti_stomp.png
+│   ├── ti_swipe.png
+│   ├── ti_titan.png
+│   ├── ti_water_2.png
+│   ├── ti_water_3.png
+│   ├── ti_water_4.png
+│   ├── ti_water_5.png
+│   ├── ti_water.png
+│   ├── ti_wind_2.png
+│   ├── ti_wind_3.png
+│   ├── ti_wind_4.png
+│   ├── ti_wind_5.png
+│   ├── ti_wind.png
+│   ├── tk_dominion.png
+│   ├── tk_force.png
+│   ├── tk_orbit.png
+│   ├── tk_pressure.png
+│   ├── tremor_burst_icon.png
+│   ├── tremor_fault_icon.png
+│   ├── tremor_icon.png
+│   ├── tremor_mag_icon.png
+│   ├── tremor_quake_icon.png
+│   ├── umbral_shift_assault_icon.png
+│   ├── umbral_shift_dive_icon.png
+│   ├── umbral_shift_icon.png
+│   ├── vine_barrier_burst_icon.png
+│   ├── vine_barrier_dome_icon.png
+│   ├── vine_barrier_icon.png
+│   ├── vine_barrier_wall_icon.png
+│   ├── volt_deadeye_activation.png
+│   ├── volt_deadeye_barrage_icon.png
+│   ├── volt_deadeye_beam_icon.png
+│   ├── volt_deadeye_overload_icon.png
+│   ├── volt_deadeye.png
+│   ├── volt_deadeye_pulse_icon.png
+│   ├── volt_deadeye_sniper_icon.png
+│   ├── warhead_icon.png
+│   ├── warhead_rush_icon.png
+│   ├── warhead_slam_icon.png
+│   ├── warhead_upper_icon.png
+│   ├── whirlwind_activation.png
+│   ├── whirlwind_air_blast_icon.png
+│   ├── whirlwind_cyclone_pull_icon.png
+│   ├── whirlwind_flight_icon.png
+│   ├── whirlwind_icon.png
+│   ├── whirlwind_razor_wind_icon.png
+│   ├── whirlwind_wind_shield_icon.png
+│   ├── wyrm_art_icon.png
+│   ├── wyrm_ascalon_icon.png
+│   ├── wyrm_bishop_icon.png
+│   ├── wyrm_boost_icon.png
+│   ├── wyrm_charge1_icon.png
+│   ├── wyrm_charge2_icon.png
+│   ├── wyrm_charge3_icon.png
+│   ├── wyrm_dispel_icon.png
+│   ├── wyrm_engine_icon.png
+│   ├── wyrm_form_icon.png
+│   ├── wyrm_knight_icon.png
+│   ├── wyrm_paladin_icon.png
+│   ├── wyrm_plate_icon.png
+│   ├── wyrm_rook_icon.png
+│   ├── wyrm_ruin_icon.png
+│   ├── wyrm_shot_icon.png
+│   └── wyrm_tyrant_icon.png
+├── item
+│   ├── agwin_blazer.png
+│   ├── agwin_girl_blazer.png
+│   ├── agwin_girl_shirt.png
+│   ├── agwin_girl_shoes.png
+│   ├── agwin_girl_skirt.png
+│   ├── agwin_off_shoulder_blazer.png
+│   ├── agwin_one_shoulder_blazer.png
+│   ├── agwin_shirt.png
+│   ├── agwin_shoes.png
+│   ├── agwin_trousers.png
+│   ├── amplifier.png
+│   ├── armament_burst.png
+│   ├── armament_diamond.png
+│   ├── armament_fang.png
+│   ├── armament_gold.png
+│   ├── armament_iron.png
+│   ├── armament_netherite.png
+│   ├── armament_oak.png
+│   ├── armament_rot.png
+│   ├── armament_sear.png
+│   ├── armament_stone.png
+│   ├── armament_warp.png
+│   ├── ascalon_mk2.png
+│   ├── ascalon.png
+│   ├── binding_link.png
+│   ├── bone_charm.png
+│   ├── carved_rune.png
+│   ├── contract.png
+│   ├── contract_proposed.png
+│   ├── contract_proposed_stamped.png
+│   ├── contract_soul.png
+│   ├── contract_soul_stamped.png
+│   ├── contract_stamped.png
+│   ├── counterweight_shard.png
+│   ├── crimson_mark_shard.png
+│   ├── dealmaker_shard.png
+│   ├── deamplifier.png
+│   ├── disabler.png
+│   ├── dragon_engine_shard.png
+│   ├── edict_shard.png
+│   ├── ember_leader_boots.png
+│   ├── ember_leader_coat.png
+│   ├── ember_leader_hat.png
+│   ├── ember_leader_pants.png
+│   ├── hollow_mark_shard.png
+│   ├── joker_mask.png
+│   ├── limit_breaker_shard.png
+│   ├── manuscript_aug.png
+│   ├── manuscript_con.png
+│   ├── manuscript_med.png
+│   ├── manuscript_proj.png
+│   ├── manuscript_qtm.png
+│   ├── music_disc_crown_match.png
+│   ├── music_disc_guardian.png
+│   ├── music_disc_surge.png
+│   ├── music_disc_the_hunt.png
+│   ├── music_disc_turf_war.png
+│   ├── music_disc_tyrant.png
+│   ├── ossified_tail.png
+│   ├── rewriter_serum.png
+│   ├── salt_spear.png
+│   ├── sarcophage_shard.png
+│   ├── school_uniform_boots.png
+│   ├── school_uniform_chestplate.png
+│   ├── school_uniform_leggings.png
+│   ├── singularity_shard.png
+│   ├── soul.png
+│   ├── soul_sword.png
+│   ├── spectre_bandana.png
+│   ├── spectre_boots.png
+│   ├── spectre_pants.png
+│   ├── spectre_top.png
+│   ├── sunsteel_axe.png
+│   ├── syringe_amplifier.png
+│   ├── syringe_blood.png
+│   ├── syringe_deamplifier.png
+│   ├── syringe_disabler.png
+│   ├── syringe.png
+│   ├── tome_aug.png
+│   ├── tome_con.png
+│   ├── tome_med.png
+│   ├── tome_proj.png
+│   ├── tome_qtm.png
+│   ├── tower_core.png
+│   ├── unordinary_book.png
+│   ├── vertigo_shard.png
+│   ├── vital_sand.png
+│   ├── wellstone_blazer.png
+│   ├── wellstone_girl_blazer.png
+│   ├── wellstone_girl_shirt.png
+│   ├── wellstone_girl_shoes.png
+│   ├── wellstone_girl_skirt.png
+│   ├── wellstone_one_shoulder_blazer.png
+│   ├── wellstone_seraphina_blazer.png
+│   ├── wellstone_shirt.png
+│   ├── wellstone_shoes.png
+│   ├── wellstone_trousers.png
+│   ├── xstatic_boots.png
+│   ├── xstatic_pants.png
+│   └── xstatic_top.png
+├── misc
+│   ├── conjure_shield_disk.png
+│   ├── ember_mote.png
+│   ├── time_gear.png
+│   ├── white_ink.png
+│   └── white.png
+├── models
+│   ├── ability_guaging_eyes.png
+│   ├── anathema_limbs.png
+│   ├── anathema_pelt.png
+│   ├── arachnid_am.png
+│   ├── arachnid.png
+│   ├── arcane_bolt.png
+│   ├── armor
+│   │   ├── agwin_girl_uniform_layer_1.png
+│   │   ├── agwin_girl_uniform_layer_2.png
+│   │   ├── agwin_off_shoulder_layer_1.png
+│   │   ├── agwin_one_shoulder_layer_1.png
+│   │   ├── agwin_shirt_layer_1.png
+│   │   ├── agwin_uniform_layer_1.png
+│   │   ├── agwin_uniform_layer_2.png
+│   │   ├── ember_hat_layer_1.png
+│   │   ├── ember_leader_layer_1.png
+│   │   ├── ember_leader_layer_2.png
+│   │   ├── joker_layer_1.png
+│   │   ├── school_uniform_layer_1.png
+│   │   ├── school_uniform_layer_2.png
+│   │   ├── spectre_bandana_layer_1.png
+│   │   ├── spectre_layer_1.png
+│   │   ├── spectre_layer_2.png
+│   │   ├── wellstone_girl_shirt_layer_1.png
+│   │   ├── wellstone_girl_uniform_layer_1.png
+│   │   ├── wellstone_girl_uniform_layer_2.png
+│   │   ├── wellstone_one_shoulder_layer_1.png
+│   │   ├── wellstone_seraphina_layer_1.png
+│   │   ├── wellstone_shirt_layer_1.png
+│   │   ├── wellstone_uniform_layer_1.png
+│   │   ├── wellstone_uniform_layer_2.png
+│   │   ├── xstatic_layer_1.png
+│   │   └── xstatic_layer_2.png
+│   ├── armor_suit_am.png
+│   ├── armor_suit.png
+│   ├── armor_suit_skin_am.png
+│   ├── armor_suit_skin.png
+│   ├── aurademon_claws.png
+│   ├── aura_fire_claws.png
+│   ├── aura_lasso.png
+│   ├── aura_soulfire_claws.png
+│   ├── aura_spike.png
+│   ├── azure_tornado.png
+│   ├── barrier_eyes.png
+│   ├── blade_dagger.png
+│   ├── blademaster_blade.png
+│   ├── blademaster_greatsword_am.png
+│   ├── blademaster_greatsword.png
+│   ├── blademaster_katana_am.png
+│   ├── blademaster_katana.png
+│   ├── colossus_gilded_glow.png
+│   ├── colossus_gilded.png
+│   ├── colossus_glow.png
+│   ├── colossus.png
+│   ├── conjure_disks_am.png
+│   ├── conjure_disks_display.png
+│   ├── conjure_disks_eyes.png
+│   ├── conjure_disks.png
+│   ├── contact_shred_eyes.png
+│   ├── contact_shred_hands.png
+│   ├── crescent.png
+│   ├── demon_claw_eyes.png
+│   ├── demon_claws.png
+│   ├── dizzy_punch_eyes.png
+│   ├── dread_pelt.png
+│   ├── energy_ball_aura.png
+│   ├── energy_ball.png
+│   ├── energy_discharge_eyes.png
+│   ├── energy_discharge_sphere_am.png
+│   ├── energy_discharge_sphere.png
+│   ├── explosion_eyes.png
+│   ├── fire_claws.png
+│   ├── flame_claw_eyes.png
+│   ├── hand_blade_am.png
+│   ├── hand_blade.png
+│   ├── healing_eyes.png
+│   ├── heat_palm_eyes.png
+│   ├── heat_palm_palms.png
+│   ├── hm_glyphs.png
+│   ├── hydrofreeze_eyes.png
+│   ├── hydrofreeze_ice_am.png
+│   ├── hydrofreeze_ice_blades_am.png
+│   ├── hydrofreeze_ice_blades.png
+│   ├── hydrofreeze_ice.png
+│   ├── hydrofreeze_ice_projectile_am.png
+│   ├── hydrofreeze_ice_projectile.png
+│   ├── hydrofreeze_water_am.png
+│   ├── hydrofreeze_water.png
+│   ├── hydrofreeze_water_projectile_am.png
+│   ├── hydrofreeze_water_projectile.png
+│   ├── hypnosis_eyes.png
+│   ├── illumination_eyes.png
+│   ├── lb_fur.png
+│   ├── lb_hair.png
+│   ├── lightning_eyes.png
+│   ├── missile.png
+│   ├── needle_am.png
+│   ├── needle.png
+│   ├── needles_eyes.png
+│   ├── needles_hands_am.png
+│   ├── needles_hands.png
+│   ├── nightmare_eyes.png
+│   ├── phantom_hand.png
+│   ├── phase_shift_defense_am.png
+│   ├── phase_shift_defense.png
+│   ├── phase_shift_eyes.png
+│   ├── predator_claws.png
+│   ├── predator_stripes_glow.png
+│   ├── predator_stripes.png
+│   ├── regeneration_eyes.png
+│   ├── rock_arm_arms_am.png
+│   ├── rock_arm_arms.png
+│   ├── rock_arm_eyes.png
+│   ├── sarcophage_phage_glow.png
+│   ├── sarcophage_phage.png
+│   ├── sarcophage_props.png
+│   ├── sarcophage_shroud.png
+│   ├── sarcophage_tail_glow.png
+│   ├── sarcophage_tail.png
+│   ├── sarcophage_tempest_glow.png
+│   ├── sarcophage_tempest.png
+│   ├── shadow_flame_bolt.png
+│   ├── shadow_flame_eyes.png
+│   ├── soulfire_claws.png
+│   ├── spectral_claw_am.png
+│   ├── spectral_claw.png
+│   ├── speed_eyes.png
+│   ├── stone_skin_am.png
+│   ├── stone_skin_eyes.png
+│   ├── stone_skin.png
+│   ├── stone_statue_am.png
+│   ├── stone_statue.png
+│   ├── strong_kick_eyes.png
+│   ├── strong_punch_eyes.png
+│   ├── vine_segment.png
+│   ├── vine_stake.png
+│   ├── water_bullet_aura.png
+│   ├── water_bullet.png
+│   ├── whirlwind_eyes_am.png
+│   ├── whirlwind_eyes.png
+│   ├── wind_blade.png
+│   ├── wyrm_bastion.png
+│   ├── wyrm_bishop.png
+│   ├── wyrm_dragonplate.png
+│   ├── wyrm_gauntlet_bishop_glow.png
+│   ├── wyrm_gauntlet_bishop.png
+│   ├── wyrm_gauntlet_dragonplate_glow.png
+│   ├── wyrm_gauntlet_dragonplate.png
+│   ├── wyrm_gauntlet_knight_glow.png
+│   ├── wyrm_gauntlet_knight.png
+│   ├── wyrm_gauntlet_paladin_glow.png
+│   ├── wyrm_gauntlet_paladin.png
+│   ├── wyrm_gauntlet_rook_glow.png
+│   ├── wyrm_gauntlet_rook.png
+│   ├── wyrm_gauntlet_ruin_glow.png
+│   ├── wyrm_gauntlet_ruin.png
+│   ├── wyrm_gauntlet_tyrant_glow.png
+│   ├── wyrm_gauntlet_tyrant.png
+│   ├── wyrm_knight.png
+│   ├── wyrm_paladin.png
+│   ├── wyrm_plate_bishop_glow.png
+│   ├── wyrm_plate_bishop.png
+│   ├── wyrm_plate_dragonplate_glow.png
+│   ├── wyrm_plate_dragonplate.png
+│   ├── wyrm_plate_knight_glow.png
+│   ├── wyrm_plate_knight.png
+│   ├── wyrm_plate_paladin_glow.png
+│   ├── wyrm_plate_paladin.png
+│   ├── wyrm_plate_rook_glow.png
+│   ├── wyrm_plate_rook.png
+│   ├── wyrm_plate_ruin_glow.png
+│   ├── wyrm_plate_ruin.png
+│   ├── wyrm_plate_tyrant_glow.png
+│   ├── wyrm_plate_tyrant.png
+│   ├── wyrm_rook.png
+│   ├── wyrm_ruin.png
+│   ├── wyrm_tail_dragonplate_glow.png
+│   ├── wyrm_tail_dragonplate.png
+│   ├── wyrm_tail_ruin_glow.png
+│   ├── wyrm_tail_ruin.png
+│   ├── wyrm_tyrant.png
+│   ├── wyrm_wings_dragonplate_glow.png
+│   ├── wyrm_wings_dragonplate.png
+│   ├── wyrm_wings_ruin_glow.png
+│   └── wyrm_wings_ruin.png
+└── particle
+    ├── amber_vein_0.png
+    ├── amber_vein_1.png
+    ├── amber_vein_2.png
+    ├── arc_0.png
+    ├── arc_1.png
+    ├── arc_2.png
+    ├── arc_3.png
+    ├── aura_mote_0.png
+    ├── aura_mote_1.png
+    ├── aura_mote_2.png
+    ├── cross_0.png
+    ├── dread_wisp_0.png
+    ├── dread_wisp_1.png
+    ├── dread_wisp_2.png
+    ├── drop_0.png
+    ├── edge_flake_0.png
+    ├── edge_flake_1.png
+    ├── edge_flake_2.png
+    ├── ember_0.png
+    ├── ember_1.png
+    ├── ember_2.png
+    ├── ember_3.png
+    ├── energy_flare_0.png
+    ├── energy_flare_1.png
+    ├── energy_flare_2.png
+    ├── flare_0.png
+    ├── flare_1.png
+    ├── frost_shard_0.png
+    ├── frost_shard_1.png
+    ├── frost_shard_2.png
+    ├── gale_streak_0.png
+    ├── gale_streak_1.png
+    ├── gale_streak_2.png
+    ├── glint_0.png
+    ├── glint_1.png
+    ├── glyph_0.png
+    ├── glyph_1.png
+    ├── glyph_2.png
+    ├── glyph_3.png
+    ├── hex_0.png
+    ├── hex_1.png
+    ├── leaf_0.png
+    ├── leaf_1.png
+    ├── mote_0.png
+    ├── mote_1.png
+    ├── mote_2.png
+    ├── pact_heart_0.png
+    ├── pact_heart_1.png
+    ├── pact_ink_0.png
+    ├── pact_ink_1.png
+    ├── pact_ink_2.png
+    ├── pressure_streak_0.png
+    ├── pressure_streak_1.png
+    ├── punch_wave_0.png
+    ├── punch_wave_1.png
+    ├── punch_wave_2.png
+    ├── purple_flame.png
+    ├── rewind_dash_0.png
+    ├── rewind_dash_1.png
+    ├── ring_0.png
+    ├── ring_1.png
+    ├── rock_0.png
+    ├── rock_1.png
+    ├── rock_2.png
+    ├── script_glyph_0.png
+    ├── script_glyph_1.png
+    ├── script_glyph_2.png
+    ├── script_glyph_3.png
+    ├── script_glyph_4.png
+    ├── script_glyph_5.png
+    ├── script_glyph_6.png
+    ├── script_glyph_7.png
+    ├── shadow_ember_0.png
+    ├── shadow_ember_1.png
+    ├── shadow_ember_2.png
+    ├── shadow_ember_3.png
+    ├── shard_0.png
+    ├── shard_1.png
+    ├── shard_2.png
+    ├── smoke_0.png
+    ├── smoke_1.png
+    ├── smoke_2.png
+    ├── soul_flame_0.png
+    ├── soul_flame_1.png
+    ├── soul_flame_2.png
+    ├── soul_flame_3.png
+    ├── spark_ring_0.png
+    ├── spark_ring_1.png
+    ├── steel_glint_0.png
+    ├── steel_glint_1.png
+    ├── steel_glint_2.png
+    ├── storm_arc_0.png
+    ├── storm_arc_1.png
+    ├── storm_arc_2.png
+    ├── storm_arc_3.png
+    ├── streak_0.png
+    ├── streak_1.png
+    ├── void_filament_0.png
+    ├── void_filament_1.png
+    ├── void_filament_2.png
+    ├── water_drop_0.png
+    ├── water_drop_1.png
+    ├── water_drop_2.png
+    ├── wisp_0.png
+    ├── wisp_1.png
+    └── wisp_2.png
+
+19 directories, 1357 files

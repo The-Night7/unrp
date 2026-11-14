@@ -1,0 +1,9 @@
+{
+  "variables": {
+    "X": {
+      "type": "palladium:objective_score",
+      "objective": "unrp.aura_pct"
+    }
+  },
+  "base": "unrp:textures/gui/hud/aura_bar_#X.png"
+}

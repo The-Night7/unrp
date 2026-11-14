@@ -1,0 +1,6 @@
+{
+  "model_type": "palladium:basic",
+  "model_layer": "unrp:hydrofreeze_ice_projectile",
+  "texture": "unrp:textures/models/hydrofreeze_ice_projectile_am.png",
+  "render_type": "glow"
+}

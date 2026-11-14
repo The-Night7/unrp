@@ -1,0 +1,154 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.phantom_fist",
+        "texture_width": 64,
+        "texture_height": 64,
+        "visible_bounds_width": 2,
+        "visible_bounds_height": 2,
+        "visible_bounds_offset": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "fist",
+          "pivot": [
+            0,
+            0,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -7,
+                -6,
+                -5
+              ],
+              "size": [
+                14,
+                12,
+                10
+              ],
+              "uv": [
+                0,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "knuckles",
+          "parent": "fist",
+          "pivot": [
+            0,
+            6,
+            5
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -6.5,
+                4.5,
+                4
+              ],
+              "size": [
+                3,
+                3,
+                3
+              ],
+              "uv": [
+                0,
+                23
+              ]
+            },
+            {
+              "origin": [
+                -3,
+                4.5,
+                4
+              ],
+              "size": [
+                3,
+                3,
+                3
+              ],
+              "uv": [
+                13,
+                23
+              ]
+            },
+            {
+              "origin": [
+                0.5,
+                4.5,
+                4
+              ],
+              "size": [
+                3,
+                3,
+                3
+              ],
+              "uv": [
+                26,
+                23
+              ]
+            },
+            {
+              "origin": [
+                4,
+                4.5,
+                4
+              ],
+              "size": [
+                3,
+                3,
+                3
+              ],
+              "uv": [
+                39,
+                23
+              ]
+            }
+          ]
+        },
+        {
+          "name": "thumb",
+          "parent": "fist",
+          "pivot": [
+            -7,
+            -2,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            30
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -10,
+                -4,
+                -2
+              ],
+              "size": [
+                3,
+                7,
+                4
+              ],
+              "uv": [
+                0,
+                30
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

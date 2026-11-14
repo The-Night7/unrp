@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "unrp:block/recovery_machine_side",
+    "down": "unrp:block/recovery_machine_side",
+    "up": "unrp:block/recovery_machine_top",
+    "north": "unrp:block/recovery_machine_front",
+    "south": "unrp:block/recovery_machine_side",
+    "east": "unrp:block/recovery_machine_side",
+    "west": "unrp:block/recovery_machine_side"
+  }
+}

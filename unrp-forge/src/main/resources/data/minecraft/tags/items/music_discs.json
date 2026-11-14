@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "unrp:music_disc_turf_war",
+    "unrp:music_disc_crown_match",
+    "unrp:music_disc_guardian",
+    "unrp:music_disc_tyrant",
+    "unrp:music_disc_surge",
+    "unrp:music_disc_the_hunt"
+  ]
+}

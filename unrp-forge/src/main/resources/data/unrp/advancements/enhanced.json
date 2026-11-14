@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:dragon_breath"
+    },
+    "title": {
+      "text": "Transcendence",
+      "color": "#B9A8E8"
+    },
+    "description": {
+      "text": "Enhance your natural ability with amplified blood"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "unlock": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "unrp:synth"
+}

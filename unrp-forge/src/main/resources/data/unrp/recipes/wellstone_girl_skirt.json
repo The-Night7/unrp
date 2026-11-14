@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PAP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:blue_wool"
+    },
+    "A": {
+      "item": "minecraft:pink_wool"
+    }
+  },
+  "result": {
+    "item": "unrp:wellstone_girl_skirt",
+    "count": 1
+  }
+}

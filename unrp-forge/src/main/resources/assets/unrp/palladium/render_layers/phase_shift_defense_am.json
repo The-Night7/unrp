@@ -1,0 +1,5 @@
+{
+  "type": "palladium:skin_overlay",
+  "render_type": "unrp:translucent",
+  "texture": "unrp:textures/models/phase_shift_defense_am.png"
+}

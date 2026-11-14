@@ -1,0 +1,28 @@
+{
+  "type": "palladium:compound",
+  "layers": [
+    {
+      "type": "geckolib:default",
+      "model": {
+        "normal": "unrp:geo/spectral_claw.geo.json",
+        "slim": "unrp:geo/spectral_claw.geo.json"
+      },
+      "texture": {
+        "base": "unrp:textures/models/spectral_claw.png"
+      },
+      "render_type": "glow",
+      "tint": {
+        "type": "unrp:owner_aura",
+        "default": "#9B4FD8"
+      },
+      "bones": {
+        "head": "head",
+        "body": "body",
+        "right_arm": "right_arm",
+        "left_arm": "left_arm",
+        "right_leg": "right_leg",
+        "left_leg": "left_leg"
+      }
+    }
+  ]
+}

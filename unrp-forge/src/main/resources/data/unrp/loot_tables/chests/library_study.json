@@ -1,0 +1,63 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 1,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:manuscript_proj",
+          "weight": 22
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:manuscript_aug",
+          "weight": 22
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:manuscript_con",
+          "weight": 16
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:manuscript_med",
+          "weight": 16
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:manuscript_qtm",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:tome_proj",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:tome_aug",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:tome_con",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "unrp:tome_med",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

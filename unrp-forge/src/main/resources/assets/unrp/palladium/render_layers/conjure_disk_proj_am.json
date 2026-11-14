@@ -1,0 +1,6 @@
+{
+    "model_type": "palladium:basic",
+    "model_layer": "unrp:conjure_disk_proj",
+    "texture": "unrp:textures/models/conjure_disks_am.png",
+    "render_type": "glow"
+}

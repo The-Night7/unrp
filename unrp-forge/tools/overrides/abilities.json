@@ -1,0 +1,6 @@
+{
+  "_aide": "Clés = id de capacité. Sert surtout à suivre l'avancement (impl.status: todo | wip | done) et à lier un pouvoir Palladium.",
+  "_exemple": {
+    "speed": { "impl": { "status": "wip", "palladium_power": "unrp:speed", "notes": "version de base faite" } }
+  }
+}

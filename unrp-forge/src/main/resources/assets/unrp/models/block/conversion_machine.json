@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "unrp:block/conversion_machine_side",
+    "down": "unrp:block/conversion_machine_side",
+    "up": "unrp:block/conversion_machine_top",
+    "north": "unrp:block/conversion_machine_front",
+    "south": "unrp:block/conversion_machine_side",
+    "east": "unrp:block/conversion_machine_side",
+    "west": "unrp:block/conversion_machine_side"
+  }
+}

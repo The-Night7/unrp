@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "unrp:manuscript_proj"
+    },
+    "title": {
+      "text": "A Little Light Reading",
+      "color": "#D18CE0"
+    },
+    "description": {
+      "text": "Study your first power-type manuscript"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "unlock": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "unrp:awakening"
+}

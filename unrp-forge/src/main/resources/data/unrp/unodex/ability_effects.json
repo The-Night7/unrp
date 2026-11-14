@@ -1,0 +1,1962 @@
+{
+ "_aide": "Un effet par capacité (clé = id de abilities.json). Voir docs/ABILITIES.md.",
+ "effects": {
+  "non_specifiee": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 5.0,
+   "cooldown": 40,
+   "particle": "angry_villager",
+   "cost": 15
+  },
+  "aura_deity": {
+   "kind": "scan",
+   "radius": 40,
+   "glow": 10,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 15
+  },
+  "blade": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 5,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 15
+  },
+  "claws": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 5,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 15
+  },
+  "illumination": {
+   "kind": "pulse",
+   "radius": 10,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "glowing",
+     "amp": 0,
+     "secs": 8
+    }
+   ],
+   "self_effects": [
+    {
+     "id": "night_vision",
+     "amp": 0,
+     "secs": 40
+    }
+   ],
+   "cooldown": 240,
+   "particle": "end_rod",
+   "cost": 15
+  },
+  "knuckles": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 5,
+   "kb": 0.9,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 0,
+     "secs": 8
+    }
+   ],
+   "cost": 15
+  },
+  "needles": {
+   "kind": "beam",
+   "range": 20,
+   "dmg": 3.0,
+   "cooldown": 12,
+   "particle": "crit",
+   "cost": 15
+  },
+  "scanner": {
+   "kind": "scan",
+   "radius": 24,
+   "glow": 8,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 15
+  },
+  "tir_concentre": {
+   "kind": "beam",
+   "range": 30,
+   "dmg": 5.0,
+   "cooldown": 50,
+   "particle": "flame",
+   "explosion": 1.5,
+   "cost": 15
+  },
+  "troll": {
+   "kind": "debuff",
+   "range": 20,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 8
+    },
+    {
+     "id": "slowness",
+     "amp": 1,
+     "secs": 4
+    },
+    {
+     "id": "blindness",
+     "amp": 0,
+     "secs": 2
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "witch",
+   "cost": 15
+  },
+  "unknown_augmentation_ability": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 7,
+   "kb": 1.5,
+   "hits": 1,
+   "particle": "poof",
+   "cooldown": 25,
+   "cost": 20
+  },
+  "ability_gauging": {
+   "kind": "scan",
+   "radius": 5,
+   "glow": 0,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 20
+  },
+  "arcane_shot": {
+   "kind": "beam",
+   "range": 40,
+   "dmg": 7.0,
+   "cooldown": 40,
+   "particle": "enchanted_hit",
+   "cost": 20
+  },
+  "archer": {
+   "kind": "beam",
+   "range": 60,
+   "dmg": 9.0,
+   "cooldown": 60,
+   "particle": "crit",
+   "cost": 20
+  },
+  "barrage": {
+   "kind": "strike",
+   "range": 3,
+   "dmg": 1.5,
+   "kb": 0.3,
+   "hits": 6,
+   "particle": "sweep_attack",
+   "cooldown": 60,
+   "cost": 20
+  },
+  "catalyst_ray": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 7.0,
+   "cooldown": 40,
+   "particle": "end_rod",
+   "cost": 20
+  },
+  "catch_up": {
+   "kind": "dash",
+   "power": 2.8,
+   "up": 0.2,
+   "self_effects": [],
+   "cooldown": 100,
+   "particle": "cloud",
+   "cost": 20
+  },
+  "charge": {
+   "kind": "dash",
+   "power": 2.4,
+   "up": 0.2,
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 1,
+     "secs": 6
+    }
+   ],
+   "cooldown": 100,
+   "particle": "cloud",
+   "cost": 20
+  },
+  "charge_shot": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 10.0,
+   "cooldown": 80,
+   "particle": "end_rod",
+   "cost": 20
+  },
+  "clairvoyance": {
+   "kind": "scan",
+   "radius": 32,
+   "glow": 10,
+   "report": false,
+   "self_effects": [
+    {
+     "id": "night_vision",
+     "amp": 0,
+     "secs": 30
+    }
+   ],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 20
+  },
+  "clobber": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 9,
+   "kb": 1.2,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 20
+  },
+  "contact_shred": {
+   "kind": "strike",
+   "range": 2.5,
+   "dmg": 10,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "crit",
+   "cooldown": 25,
+   "effects": [
+    {
+     "id": "wither",
+     "amp": 0,
+     "secs": 3
+    }
+   ],
+   "cost": 20
+  },
+  "detection_de_mensonge": {
+   "kind": "scan",
+   "radius": 8,
+   "glow": 0,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 20
+  },
+  "dizzy_punch": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 7,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "crit",
+   "cooldown": 25,
+   "effects": [
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 6
+    },
+    {
+     "id": "slowness",
+     "amp": 1,
+     "secs": 2
+    }
+   ],
+   "cost": 20
+  },
+  "flash_forward": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 1,
+     "secs": 10
+    },
+    {
+     "id": "resistance",
+     "amp": 1,
+     "secs": 10
+    }
+   ],
+   "cooldown": 300,
+   "particle": "end_rod",
+   "cost": 20
+  },
+  "fortify": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 0,
+     "secs": 30
+    },
+    {
+     "id": "resistance",
+     "amp": 0,
+     "secs": 30
+    },
+    {
+     "id": "speed",
+     "amp": 0,
+     "secs": 30
+    }
+   ],
+   "cooldown": 400,
+   "particle": "happy_villager",
+   "cost": 20
+  },
+  "ground_pound": {
+   "kind": "blast",
+   "radius": 5,
+   "dmg": 7.0,
+   "kb": 1.0,
+   "up": 0.6,
+   "cooldown": 100,
+   "particle": "explosion",
+   "cost": 20
+  },
+  "hair_growth": {
+   "kind": "dash",
+   "power": 1.6,
+   "up": 0.7,
+   "self_effects": [],
+   "cooldown": 100,
+   "particle": "crit",
+   "cost": 20
+  },
+  "hand_blade": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 7,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 20
+  },
+  "heat_palm": {
+   "kind": "beam",
+   "range": 4,
+   "dmg": 7.0,
+   "cooldown": 40,
+   "particle": "flame",
+   "fire": 5,
+   "cost": 20
+  },
+  "heavy_hitter": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 7,
+   "kb": 1.2,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 20
+  },
+  "impact": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 7,
+   "kb": 1.4,
+   "hits": 1,
+   "particle": "poof",
+   "cooldown": 25,
+   "cost": 20
+  },
+  "lazor": {
+   "kind": "beam",
+   "range": 40,
+   "dmg": 11.0,
+   "cooldown": 80,
+   "particle": "end_rod",
+   "cost": 20
+  },
+  "lie_detection": {
+   "kind": "scan",
+   "radius": 8,
+   "glow": 0,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 20
+  },
+  "missiles": {
+   "kind": "beam",
+   "range": 40,
+   "dmg": 7.0,
+   "cooldown": 80,
+   "particle": "smoke",
+   "explosion": 2.0,
+   "cost": 20
+  },
+  "phantom_fist": {
+   "kind": "beam",
+   "range": 16,
+   "dmg": 7.0,
+   "cooldown": 40,
+   "particle": "poof",
+   "kb": 2.0,
+   "cost": 20
+  },
+  "phantom_push": {
+   "kind": "beam",
+   "range": 10,
+   "dmg": 1.4,
+   "cooldown": 40,
+   "particle": "poof",
+   "kb": 3.5,
+   "up": 0.4,
+   "cost": 20
+  },
+  "possession": {
+   "kind": "debuff",
+   "range": 8,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 5,
+     "secs": 10
+    },
+    {
+     "id": "weakness",
+     "amp": 3,
+     "secs": 10
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "witch",
+   "cost": 20
+  },
+  "quick_strike": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 2.0,
+   "kb": 0.6,
+   "hits": 3,
+   "particle": "sweep_attack",
+   "cooldown": 15,
+   "cost": 20
+  },
+  "regeneration": {
+   "kind": "heal",
+   "amount": 10,
+   "range": 0,
+   "effects": [
+    {
+     "id": "regeneration",
+     "amp": 2,
+     "secs": 8
+    }
+   ],
+   "cleanse": false,
+   "cooldown": 200,
+   "particle": "heart",
+   "cost": 20
+  },
+  "repulsion": {
+   "kind": "blast",
+   "radius": 5,
+   "dmg": 7.0,
+   "kb": 3.0,
+   "up": 0.4,
+   "cooldown": 100,
+   "particle": "poof",
+   "cost": 20
+  },
+  "rock_arm": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "resistance",
+     "amp": 1,
+     "secs": 30
+    }
+   ],
+   "cooldown": 400,
+   "particle": "poof",
+   "cost": 20
+  },
+  "sanity_control_bal": {
+   "kind": "debuff",
+   "range": 16,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 1,
+     "secs": 5
+    },
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 3
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "witch",
+   "cost": 20
+  },
+  "sanity_control_heal": {
+   "kind": "heal",
+   "amount": 8,
+   "range": 8,
+   "effects": [
+    {
+     "id": "regeneration",
+     "amp": 0,
+     "secs": 6
+    }
+   ],
+   "cleanse": false,
+   "cooldown": 200,
+   "particle": "heart",
+   "cost": 20
+  },
+  "sanity_control_hurt": {
+   "kind": "debuff",
+   "range": 16,
+   "dmg": 4,
+   "effects": [
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 6
+    },
+    {
+     "id": "weakness",
+     "amp": 1,
+     "secs": 8
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "witch",
+   "cost": 20
+  },
+  "shockwave": {
+   "kind": "blast",
+   "radius": 8,
+   "dmg": 7.0,
+   "kb": 2.2,
+   "up": 0.4,
+   "cooldown": 100,
+   "particle": "explosion",
+   "cost": 20
+  },
+  "speed": {
+   "kind": "dash",
+   "power": 2.4,
+   "up": 0.2,
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 2,
+     "secs": 6
+    }
+   ],
+   "cooldown": 100,
+   "particle": "cloud",
+   "cost": 20
+  },
+  "stone_skin": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "resistance",
+     "amp": 2,
+     "secs": 20
+    },
+    {
+     "id": "slowness",
+     "amp": 0,
+     "secs": 20
+    }
+   ],
+   "cooldown": 400,
+   "particle": "poof",
+   "cost": 20
+  },
+  "strength": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 1,
+     "secs": 30
+    }
+   ],
+   "cooldown": 400,
+   "particle": "happy_villager",
+   "cost": 20
+  },
+  "strong_kick": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 7,
+   "kb": 1.5,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 20
+  },
+  "strong_punch": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 7,
+   "kb": 1.5,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 20
+  },
+  "tremor": {
+   "kind": "blast",
+   "radius": 7,
+   "dmg": 7.0,
+   "kb": 0.5,
+   "up": 0.4,
+   "cooldown": 100,
+   "particle": "poof",
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 2,
+     "secs": 3
+    }
+   ],
+   "cost": 20
+  },
+  "vigor": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 0,
+     "secs": 30
+    },
+    {
+     "id": "haste",
+     "amp": 0,
+     "secs": 30
+    }
+   ],
+   "cooldown": 400,
+   "particle": "happy_villager",
+   "cost": 20
+  },
+  "ghost": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "invisibility",
+     "amp": 0,
+     "secs": 20
+    },
+    {
+     "id": "speed",
+     "amp": 1,
+     "secs": 20
+    },
+    {
+     "id": "night_vision",
+     "amp": 0,
+     "secs": 20
+    }
+   ],
+   "cooldown": 400,
+   "particle": "soul",
+   "cost": 25
+  },
+  "healing": {
+   "kind": "heal",
+   "amount": 20,
+   "range": 8,
+   "effects": [
+    {
+     "id": "regeneration",
+     "amp": 3,
+     "secs": 10
+    }
+   ],
+   "cleanse": true,
+   "cooldown": 300,
+   "particle": "heart",
+   "cost": 25
+  },
+  "lightning": {
+   "kind": "beam",
+   "range": 30,
+   "dmg": 13.0,
+   "cooldown": 40,
+   "particle": "electric_spark",
+   "fire": 2,
+   "cost": 25
+  },
+  "telepathy": {
+   "kind": "scan",
+   "radius": 30,
+   "glow": 0,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 25
+  },
+  "arachnid": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 0,
+     "secs": 30
+    },
+    {
+     "id": "jump_boost",
+     "amp": 2,
+     "secs": 30
+    },
+    {
+     "id": "speed",
+     "amp": 0,
+     "secs": 30
+    }
+   ],
+   "cooldown": 400,
+   "particle": "smoke",
+   "cost": 25
+  },
+  "armor_suit": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "resistance",
+     "amp": 1,
+     "secs": 40
+    },
+    {
+     "id": "absorption",
+     "amp": 1,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "crit",
+   "cost": 25
+  },
+  "conjure_disks": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "absorption",
+     "amp": 1,
+     "secs": 30
+    },
+    {
+     "id": "resistance",
+     "amp": 0,
+     "secs": 30
+    }
+   ],
+   "cooldown": 400,
+   "particle": "enchant",
+   "cost": 25
+  },
+  "crescent_slash": {
+   "kind": "beam",
+   "range": 10,
+   "dmg": 11.0,
+   "cooldown": 40,
+   "particle": "sweep_attack",
+   "kb": 1.0,
+   "cost": 25
+  },
+  "crimson_thread": {
+   "kind": "strike",
+   "range": 5,
+   "dmg": 9,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "crit",
+   "cooldown": 25,
+   "cost": 25
+  },
+  "demon_blade": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 9,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 25
+  },
+  "demon_claw": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 9,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 25
+  },
+  "energy_beam": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 11.0,
+   "cooldown": 40,
+   "particle": "crit",
+   "cost": 25
+  },
+  "explosion": {
+   "kind": "blast",
+   "radius": 6,
+   "dmg": 0.0,
+   "kb": 0,
+   "up": 0,
+   "cooldown": 100,
+   "particle": "poof",
+   "explosion": 3.0,
+   "cost": 25
+  },
+  "fleetstep": {
+   "kind": "dash",
+   "power": 2.0,
+   "up": 0.2,
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 1,
+     "secs": 8
+    }
+   ],
+   "cooldown": 100,
+   "particle": "cloud",
+   "cost": 25
+  },
+  "graviton": {
+   "kind": "blast",
+   "radius": 8,
+   "dmg": 0.0,
+   "kb": -1.5,
+   "up": 0.0,
+   "cooldown": 100,
+   "particle": "portal",
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 3,
+     "secs": 5
+    }
+   ],
+   "cost": 25
+  },
+  "grenadier": {
+   "kind": "beam",
+   "range": 20,
+   "dmg": 9.0,
+   "cooldown": 120,
+   "particle": "flame",
+   "explosion": 2.5,
+   "cost": 25
+  },
+  "heal_link": {
+   "kind": "heal",
+   "amount": 6,
+   "range": 12,
+   "effects": [
+    {
+     "id": "regeneration",
+     "amp": 1,
+     "secs": 8
+    }
+   ],
+   "cleanse": false,
+   "cooldown": 100,
+   "particle": "heart",
+   "cost": 25
+  },
+  "hunter": {
+   "kind": "scan",
+   "radius": 32,
+   "glow": 10,
+   "report": false,
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 0,
+     "secs": 20
+    }
+   ],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 25
+  },
+  "invisibility": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "invisibility",
+     "amp": 0,
+     "secs": 30
+    },
+    {
+     "id": "speed",
+     "amp": 0,
+     "secs": 30
+    }
+   ],
+   "cooldown": 400,
+   "particle": "cloud",
+   "cost": 25
+  },
+  "iron_knuckle": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 9,
+   "kb": 1.0,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "self_effects": [
+    {
+     "id": "resistance",
+     "amp": 0,
+     "secs": 8
+    }
+   ],
+   "cost": 25
+  },
+  "liquids_manipulation": {
+   "kind": "blast",
+   "radius": 7,
+   "dmg": 4.5,
+   "kb": 1.6,
+   "up": 0.2,
+   "cooldown": 100,
+   "particle": "falling_water",
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 1,
+     "secs": 4
+    }
+   ],
+   "cost": 25
+  },
+  "nightmare": {
+   "kind": "pulse",
+   "radius": 8,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "darkness",
+     "amp": 0,
+     "secs": 8
+    },
+    {
+     "id": "weakness",
+     "amp": 1,
+     "secs": 8
+    },
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 5
+    }
+   ],
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "smoke",
+   "cost": 25
+  },
+  "phase_shift_def": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "resistance",
+     "amp": 2,
+     "secs": 40
+    },
+    {
+     "id": "slowness",
+     "amp": 0,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "end_rod",
+   "cost": 25
+  },
+  "phase_shift_off": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 2,
+     "secs": 40
+    },
+    {
+     "id": "speed",
+     "amp": 1,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "end_rod",
+   "cost": 25
+  },
+  "pride": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 1,
+     "secs": 20
+    },
+    {
+     "id": "resistance",
+     "amp": 1,
+     "secs": 20
+    },
+    {
+     "id": "absorption",
+     "amp": 1,
+     "secs": 20
+    }
+   ],
+   "cooldown": 400,
+   "particle": "flame",
+   "cost": 25
+  },
+  "royal_guard": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "resistance",
+     "amp": 2,
+     "secs": 25
+    },
+    {
+     "id": "absorption",
+     "amp": 2,
+     "secs": 25
+    }
+   ],
+   "cooldown": 400,
+   "particle": "flame",
+   "cost": 25
+  },
+  "shadow_eclipse": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "invisibility",
+     "amp": 0,
+     "secs": 25
+    },
+    {
+     "id": "speed",
+     "amp": 0,
+     "secs": 25
+    },
+    {
+     "id": "night_vision",
+     "amp": 0,
+     "secs": 25
+    }
+   ],
+   "cooldown": 400,
+   "particle": "smoke",
+   "cost": 25
+  },
+  "shadow_flame": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 9.0,
+   "cooldown": 40,
+   "particle": "soul_fire_flame",
+   "fire": 4,
+   "cost": 25
+  },
+  "super_strength": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 11,
+   "kb": 2.0,
+   "hits": 1,
+   "particle": "explosion",
+   "cooldown": 25,
+   "cost": 25
+  },
+  "superhuman": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 1,
+     "secs": 25
+    },
+    {
+     "id": "resistance",
+     "amp": 1,
+     "secs": 25
+    },
+    {
+     "id": "speed",
+     "amp": 1,
+     "secs": 25
+    },
+    {
+     "id": "regeneration",
+     "amp": 0,
+     "secs": 25
+    }
+   ],
+   "cooldown": 400,
+   "particle": "happy_villager",
+   "cost": 25
+  },
+  "teleportation": {
+   "kind": "teleport",
+   "range": 12,
+   "cooldown": 60,
+   "particle": "portal",
+   "cost": 25
+  },
+  "whirlwind": {
+   "kind": "blast",
+   "radius": 6,
+   "dmg": 9.0,
+   "kb": 2.0,
+   "up": 1.0,
+   "cooldown": 100,
+   "particle": "cloud",
+   "cost": 25
+  },
+  "alchimie": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "haste",
+     "amp": 1,
+     "secs": 20
+    },
+    {
+     "id": "regeneration",
+     "amp": 0,
+     "secs": 20
+    }
+   ],
+   "cooldown": 400,
+   "particle": "enchant",
+   "cost": 30
+  },
+  "cancellation": {
+   "kind": "dispel",
+   "range": 30,
+   "cooldown": 160,
+   "particle": "end_rod",
+   "cost": 30
+  },
+  "azure_storm": {
+   "kind": "blast",
+   "radius": 8,
+   "dmg": 11.0,
+   "kb": 2.5,
+   "up": 0.8,
+   "cooldown": 100,
+   "particle": "cloud",
+   "cost": 30
+  },
+  "bodybuilder": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 2,
+     "secs": 25
+    },
+    {
+     "id": "resistance",
+     "amp": 0,
+     "secs": 25
+    }
+   ],
+   "cooldown": 400,
+   "particle": "happy_villager",
+   "cost": 30
+  },
+  "conjure_vines": {
+   "kind": "debuff",
+   "range": 16,
+   "dmg": 11,
+   "effects": [],
+   "root": 5,
+   "cooldown": 140,
+   "particle": "happy_villager",
+   "cost": 30
+  },
+  "dark_blades": {
+   "kind": "strike",
+   "range": 5,
+   "dmg": 13,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "smoke",
+   "cooldown": 25,
+   "cost": 30
+  },
+  "demolition": {
+   "kind": "beam",
+   "range": 30,
+   "dmg": 11.0,
+   "cooldown": 140,
+   "particle": "smoke",
+   "explosion": 3.0,
+   "cost": 30
+  },
+  "duplication": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 1,
+     "secs": 20
+    },
+    {
+     "id": "resistance",
+     "amp": 0,
+     "secs": 20
+    }
+   ],
+   "cooldown": 400,
+   "particle": "cloud",
+   "cost": 30
+  },
+  "energy_conduit": {
+   "kind": "heal",
+   "amount": 8,
+   "range": 12,
+   "effects": [
+    {
+     "id": "absorption",
+     "amp": 1,
+     "secs": 20
+    }
+   ],
+   "cleanse": false,
+   "cooldown": 200,
+   "particle": "heart",
+   "cost": 30
+  },
+  "energy_discharge": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 13.0,
+   "cooldown": 40,
+   "particle": "crit",
+   "cost": 30
+  },
+  "faucheuse_fantome": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 13.0,
+   "cooldown": 40,
+   "particle": "soul",
+   "effects": [
+    {
+     "id": "wither",
+     "amp": 0,
+     "secs": 3
+    }
+   ],
+   "cost": 30
+  },
+  "god_s_mind": {
+   "kind": "debuff",
+   "range": 40,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 10
+    },
+    {
+     "id": "weakness",
+     "amp": 2,
+     "secs": 10
+    },
+    {
+     "id": "slowness",
+     "amp": 2,
+     "secs": 10
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "witch",
+   "cost": 30
+  },
+  "icicle": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 11.0,
+   "cooldown": 40,
+   "particle": "snowflake",
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 2,
+     "secs": 4
+    }
+   ],
+   "cost": 30
+  },
+  "imprison": {
+   "kind": "debuff",
+   "range": 14,
+   "dmg": 0.0,
+   "effects": [],
+   "root": 10,
+   "cooldown": 140,
+   "particle": "witch",
+   "cost": 30
+  },
+  "lightining": {
+   "kind": "beam",
+   "range": 30,
+   "dmg": 15.0,
+   "cooldown": 40,
+   "particle": "electric_spark",
+   "fire": 2,
+   "cost": 30
+  },
+  "memory_recall": {
+   "kind": "debuff",
+   "range": 16,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 8
+    },
+    {
+     "id": "slowness",
+     "amp": 1,
+     "secs": 8
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "witch",
+   "cost": 30
+  },
+  "portals": {
+   "kind": "teleport",
+   "range": 20,
+   "cooldown": 80,
+   "particle": "reverse_portal",
+   "cost": 30
+  },
+  "predator": {
+   "kind": "scan",
+   "radius": 32,
+   "glow": 10,
+   "report": false,
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 0,
+     "secs": 20
+    }
+   ],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 30
+  },
+  "protector": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "absorption",
+     "amp": 2,
+     "secs": 20
+    },
+    {
+     "id": "resistance",
+     "amp": 1,
+     "secs": 20
+    }
+   ],
+   "cooldown": 400,
+   "particle": "end_rod",
+   "cost": 30
+  },
+  "psy_blast": {
+   "kind": "beam",
+   "range": 16,
+   "dmg": 13.0,
+   "cooldown": 40,
+   "particle": "witch",
+   "effects": [
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 3
+    }
+   ],
+   "cost": 30
+  },
+  "psychopomp": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 11.0,
+   "cooldown": 40,
+   "particle": "soul",
+   "effects": [
+    {
+     "id": "weakness",
+     "amp": 0,
+     "secs": 6
+    }
+   ],
+   "cost": 30
+  },
+  "spectral_claw": {
+   "kind": "strike",
+   "range": 4.5,
+   "dmg": 11,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "soul",
+   "cooldown": 25,
+   "cost": 30
+  },
+  "umbral_shift": {
+   "kind": "dash",
+   "power": 2.0,
+   "up": 0.2,
+   "self_effects": [
+    {
+     "id": "invisibility",
+     "amp": 0,
+     "secs": 3
+    }
+   ],
+   "cooldown": 100,
+   "particle": "smoke",
+   "cost": 30
+  },
+  "wrist_spike": {
+   "kind": "strike",
+   "range": 3.5,
+   "dmg": 11,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 30
+  },
+  "barrier": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "absorption",
+     "amp": 3,
+     "secs": 15
+    },
+    {
+     "id": "resistance",
+     "amp": 2,
+     "secs": 15
+    }
+   ],
+   "cooldown": 400,
+   "particle": "end_rod",
+   "cost": 35
+  },
+  "time_manipulation": {
+   "kind": "pulse",
+   "radius": 10,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 3,
+     "secs": 8
+    },
+    {
+     "id": "weakness",
+     "amp": 0,
+     "secs": 8
+    }
+   ],
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 2,
+     "secs": 8
+    },
+    {
+     "id": "haste",
+     "amp": 1,
+     "secs": 8
+    }
+   ],
+   "cooldown": 300,
+   "particle": "reverse_portal",
+   "cost": 35
+  },
+  "botanist": {
+   "kind": "debuff",
+   "range": 18,
+   "dmg": 2,
+   "effects": [],
+   "root": 8,
+   "cooldown": 140,
+   "particle": "happy_villager",
+   "cost": 35
+  },
+  "channel_master": {
+   "kind": "scan",
+   "radius": 30,
+   "glow": 0,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 35
+  },
+  "debt": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "absorption",
+     "amp": 3,
+     "secs": 20
+    },
+    {
+     "id": "resistance",
+     "amp": 1,
+     "secs": 20
+    }
+   ],
+   "cooldown": 400,
+   "particle": "soul",
+   "cost": 35
+  },
+  "hypnosis": {
+   "kind": "debuff",
+   "range": 16,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 3,
+     "secs": 6
+    },
+    {
+     "id": "blindness",
+     "amp": 0,
+     "secs": 4
+    },
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 6
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "enchant",
+   "cost": 35
+  },
+  "life_steal": {
+   "kind": "beam",
+   "range": 4,
+   "dmg": 13.0,
+   "cooldown": 40,
+   "particle": "heart",
+   "lifesteal": 1.0,
+   "cost": 35
+  },
+  "aura_manipulation": {
+   "kind": "scan",
+   "radius": 40,
+   "glow": 0,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 35
+  },
+  "blademaster": {
+   "kind": "strike",
+   "range": 6,
+   "dmg": 16,
+   "kb": 0.6,
+   "hits": 1,
+   "particle": "sweep_attack",
+   "cooldown": 25,
+   "cost": 35
+  },
+  "command": {
+   "kind": "debuff",
+   "range": 16,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 4,
+     "secs": 6
+    },
+    {
+     "id": "weakness",
+     "amp": 0,
+     "secs": 6
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "enchant",
+   "cost": 35
+  },
+  "death_fire": {
+   "kind": "beam",
+   "range": 20,
+   "dmg": 15.0,
+   "cooldown": 100,
+   "particle": "flame",
+   "fire": 8,
+   "cost": 35
+  },
+  "digital_hive": {
+   "kind": "pulse",
+   "radius": 8,
+   "dmg": 13,
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 1,
+     "secs": 6
+    },
+    {
+     "id": "weakness",
+     "amp": 0,
+     "secs": 6
+    },
+    {
+     "id": "glowing",
+     "amp": 0,
+     "secs": 6
+    }
+   ],
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "electric_spark",
+   "cost": 35
+  },
+  "hydrofreeze": {
+   "kind": "blast",
+   "radius": 6,
+   "dmg": 13.0,
+   "kb": 1.5,
+   "up": 0.4,
+   "cooldown": 100,
+   "particle": "snowflake",
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 4,
+     "secs": 5
+    }
+   ],
+   "cost": 35
+  },
+  "minefield": {
+   "kind": "blast",
+   "radius": 10,
+   "dmg": 9.1,
+   "kb": 1.5,
+   "up": 0.4,
+   "cooldown": 100,
+   "particle": "smoke",
+   "explosion": 2.0,
+   "cost": 35
+  },
+  "mistdream": {
+   "kind": "pulse",
+   "radius": 6,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "blindness",
+     "amp": 0,
+     "secs": 6
+    },
+    {
+     "id": "slowness",
+     "amp": 1,
+     "secs": 6
+    },
+    {
+     "id": "darkness",
+     "amp": 0,
+     "secs": 6
+    }
+   ],
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "cloud",
+   "cost": 35
+  },
+  "modes_atk": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 2,
+     "secs": 40
+    },
+    {
+     "id": "haste",
+     "amp": 1,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "crit",
+   "cost": 35
+  },
+  "modes_bal": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 0,
+     "secs": 40
+    },
+    {
+     "id": "resistance",
+     "amp": 0,
+     "secs": 40
+    },
+    {
+     "id": "speed",
+     "amp": 0,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "end_rod",
+   "cost": 35
+  },
+  "modes_def": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "resistance",
+     "amp": 3,
+     "secs": 40
+    },
+    {
+     "id": "absorption",
+     "amp": 2,
+     "secs": 40
+    },
+    {
+     "id": "slowness",
+     "amp": 0,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "crit",
+   "cost": 35
+  },
+  "modes_dst": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "strength",
+     "amp": 3,
+     "secs": 40
+    },
+    {
+     "id": "glowing",
+     "amp": 0,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "flame",
+   "cost": 35
+  },
+  "modes_spd": {
+   "kind": "buff",
+   "self_effects": [
+    {
+     "id": "speed",
+     "amp": 3,
+     "secs": 40
+    },
+    {
+     "id": "jump_boost",
+     "amp": 1,
+     "secs": 40
+    }
+   ],
+   "cooldown": 400,
+   "particle": "cloud",
+   "cost": 35
+  },
+  "paralysis": {
+   "kind": "pulse",
+   "radius": 12,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "slowness",
+     "amp": 7,
+     "secs": 6
+    },
+    {
+     "id": "weakness",
+     "amp": 2,
+     "secs": 6
+    }
+   ],
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "witch",
+   "cost": 35
+  },
+  "particles": {
+   "kind": "beam",
+   "range": 20,
+   "dmg": 13.0,
+   "cooldown": 40,
+   "particle": "end_rod",
+   "cost": 35
+  },
+  "sensory_control": {
+   "kind": "debuff",
+   "range": 16,
+   "dmg": 0.0,
+   "effects": [
+    {
+     "id": "blindness",
+     "amp": 0,
+     "secs": 8
+    },
+    {
+     "id": "nausea",
+     "amp": 0,
+     "secs": 8
+    }
+   ],
+   "root": 0,
+   "cooldown": 140,
+   "particle": "smoke",
+   "cost": 35
+  },
+  "telekinesis": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 2.6,
+   "cooldown": 40,
+   "particle": "enchant",
+   "up": 1.0,
+   "kb": 2.5,
+   "effects": [
+    {
+     "id": "levitation",
+     "amp": 0,
+     "secs": 2
+    }
+   ],
+   "cost": 35
+  },
+  "vitalize": {
+   "kind": "heal",
+   "amount": 10,
+   "range": 0,
+   "effects": [
+    {
+     "id": "regeneration",
+     "amp": 1,
+     "secs": 10
+    }
+   ],
+   "cleanse": false,
+   "cooldown": 200,
+   "particle": "heart",
+   "cost": 35
+  },
+  "white_hole": {
+   "kind": "beam",
+   "range": 24,
+   "dmg": 13.0,
+   "cooldown": 40,
+   "particle": "end_rod",
+   "kb": 3.0,
+   "up": 0.3,
+   "cost": 35
+  },
+  "medium": {
+   "kind": "scan",
+   "radius": 24,
+   "glow": 0,
+   "report": true,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 40
+  },
+  "unknown": {
+   "kind": "scan",
+   "radius": 40,
+   "glow": 10,
+   "report": false,
+   "self_effects": [],
+   "cooldown": 200,
+   "particle": "enchant",
+   "cost": 40
+  }
+ }
+}

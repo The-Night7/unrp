@@ -1,0 +1,24 @@
+{
+  "type": "palladium:compound",
+  "layers": [
+    {
+      "type": "geckolib:default",
+      "model": {
+        "normal": "unrp:geo/hand_blade.geo.json",
+        "slim": "unrp:geo/hand_blade.geo.json"
+      },
+      "texture": {
+        "base": "unrp:textures/models/hand_blade_am.png"
+      },
+      "render_type": "glow",
+      "bones": {
+        "head": "head",
+        "body": "body",
+        "right_arm": "right_arm",
+        "left_arm": "left_arm",
+        "right_leg": "right_leg",
+        "left_leg": "left_leg"
+      }
+    }
+  ]
+}

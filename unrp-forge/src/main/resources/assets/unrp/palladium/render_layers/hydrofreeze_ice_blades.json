@@ -1,0 +1,28 @@
+{
+  "type": "palladium:compound",
+  "layers": [
+    {
+      "model": {
+        "normal": "unrp:geo/hydrofreeze_ice_blades.geo.json",
+        "slim": "unrp:geo/hydrofreeze_ice_blades.geo.json"
+      },
+      "type": "geckolib:default",
+      "texture": {
+        "base": "unrp:textures/models/hydrofreeze_ice_blades.png"
+      },
+      "render_type": "glow",
+      "bones": {
+        "head": "head",
+        "body": "body",
+        "right_arm": "right_arm",
+        "left_arm": "left_arm",
+        "right_leg": "right_leg",
+        "left_leg": "left_leg"
+      }
+    }
+  ],
+  "tint": {
+    "type": "unrp:owner_aura"
+  },
+  "render_type": "cutout"
+}

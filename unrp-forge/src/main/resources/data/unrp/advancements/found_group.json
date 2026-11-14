@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:white_banner"
+    },
+    "title": {
+      "text": "Strength in Numbers",
+      "color": "#7FE0C0"
+    },
+    "description": {
+      "text": "Found your own group"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "unlock": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "unrp:awakening"
+}

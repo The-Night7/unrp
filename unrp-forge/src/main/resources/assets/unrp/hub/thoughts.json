@@ -1,0 +1,1575 @@
+{
+ "v": 1,
+ "powers": {
+  "ability_gauging": {
+   "start": "I read people the way others read faces.",
+   "flavour": [
+    "Crowds give me a headache.",
+    "Numbers float up when I squint.",
+    "Nobody likes being stared at."
+   ],
+   "moves": {
+    "aura_scope": [
+     "Read them from far away.",
+     "Close up, a touch tells me everything.",
+     "Farther out, the signal thins.",
+     "So I narrow it like a scope."
+    ]
+   }
+  },
+  "arachnid": {
+   "start": "Eight legs answer when I call them.",
+   "flavour": [
+    "My back aches after.",
+    "Spiders don't scare me anymore.",
+    "Doorways are tricky now."
+   ],
+   "moves": {
+    "guard": [
+     "Nothing gets through.",
+     "The legs move faster than my arms.",
+     "They can catch what I can't see.",
+     "So I curl them around me."
+    ],
+    "leap": [
+     "Up and over.",
+     "The legs are stronger than mine.",
+     "Pressed down, they're springs.",
+     "Let them all push at once."
+    ],
+    "rush": [
+     "Through the middle of them.",
+     "The legs reach before I do.",
+     "Pointed forward, they're spears.",
+     "Lunge, and let them lead."
+    ]
+   }
+  },
+  "arcane_shot": {
+   "start": "My aura comes out as bolts.",
+   "flavour": [
+    "My aim was never this good.",
+    "The bolts hum before they fly.",
+    "I count my shots without meaning to."
+   ],
+   "moves": {
+    "volley": [
+     "Cover the whole field.",
+     "One bolt hits one thing.",
+     "I can split the aura before it leaves.",
+     "So I fan seven out at once."
+    ]
+   }
+  },
+  "arcroot": {
+   "start": "The vine in my hand carries current.",
+   "flavour": [
+    "My hair stands up near it.",
+    "Plants lean toward me.",
+    "Rain makes it crackle."
+   ],
+   "moves": {
+    "tether": [
+     "Drain them dry.",
+     "Current runs both ways along a vine.",
+     "If I hold on, it flows into me.",
+     "So I latch on and don't let go."
+    ],
+    "storm": [
+     "The ground itself strikes.",
+     "Roots already run underground.",
+     "Current can follow them.",
+     "Drive it down and let them erupt."
+    ]
+   }
+  },
+  "armament_dominion": {
+   "start": "Whatever I beat, I get to keep.",
+   "flavour": [
+    "Gold suits me.",
+    "My vault never feels full.",
+    "I appraise everything I see."
+   ],
+   "moves": {
+    "recall": [
+     "The right weapon, every time.",
+     "My armaments wait in the vault.",
+     "One dissolves, another can form.",
+     "So I swap them in a breath."
+    ],
+    "armament_shot": [
+     "Pierce through all of them.",
+     "Aura packs tighter at a point.",
+     "My fingertip is a small gate.",
+     "So I pack it in, then let go."
+    ],
+    "full_arsenal": [
+     "Everything at once.",
+     "Each armament has its own gate.",
+     "The gates can open together.",
+     "Loose them all at one target."
+    ]
+   }
+  },
+  "armor_suit": {
+   "start": "Steel grows over me when I need it.",
+   "flavour": [
+    "Hugs are awkward now.",
+    "I clank when I run.",
+    "Rain sounds louder on metal."
+   ],
+   "moves": {
+    "crash": [
+     "Knock them off balance.",
+     "The plates make me heavy.",
+     "Heavy things hit hard even slowly.",
+     "So I lean in with my shoulder."
+    ],
+    "shed": [
+     "Push everyone away.",
+     "The plates always grow back.",
+     "So losing them costs me nothing.",
+     "Blast them all off at once."
+    ],
+    "plate_volley": [
+     "Strip their armor.",
+     "My plates are sharp at the edges.",
+     "They come off when I pull.",
+     "Throw them, and they cut through."
+    ]
+   }
+  },
+  "aura_manipulation": {
+   "start": "I feel every power around me.",
+   "flavour": [
+    "Crowds feel loud even when quiet.",
+    "I borrow more than I own.",
+    "My own aura feels grey."
+   ],
+   "moves": {
+    "expel_powers": [
+     "Back to myself.",
+     "Copies crowd my aura.",
+     "I can loosen my grip on them.",
+     "Let them all go at once."
+    ],
+    "am_copy3": [
+     "Their third move.",
+     "My copies stop before the third move.",
+     "Deeper study opens more of it.",
+     "So my copies reach further."
+    ],
+    "am_copy4": [
+     "All of it.",
+     "My copies stop short.",
+     "A full copy holds nothing back.",
+     "So I take the last move too."
+    ]
+   }
+  },
+  "aura_transference": {
+   "start": "A punch takes a thread of what they are.",
+   "flavour": [
+    "My knuckles tingle after.",
+    "I collect things.",
+    "Not every thread is pretty."
+   ],
+   "moves": {
+    "imbue_weapon": [
+     "My blade carries it.",
+     "A thread can wind around anything.",
+     "A weapon holds still for it.",
+     "So I coil it round the blade."
+    ],
+    "imbue_player": [
+     "Give it to someone.",
+     "A thread can wind around a person too.",
+     "They carry it while I keep it alive.",
+     "So I weave it into them."
+    ]
+   }
+  },
+  "azure_storm": {
+   "start": "The wind takes my color when I call it.",
+   "flavour": [
+    "My ears pop a lot.",
+    "Kites never fly right near me.",
+    "I like high places."
+   ],
+   "moves": {
+    "guard": [
+     "A wall of wind.",
+     "Wind can be packed tight.",
+     "Packed air pushes back.",
+     "Slam it up in front of me."
+    ],
+    "climber": [
+     "Up into the sky.",
+     "The wind already lifts dust.",
+     "Strong enough, it can lift me.",
+     "So I ride it."
+    ],
+    "lance": [
+     "Straight through them.",
+     "A tornado spins wide.",
+     "Narrowed, it spins harder.",
+     "Throw it like a spear."
+    ]
+   }
+  },
+  "barrier": {
+   "start": "I can make walls out of nothing.",
+   "flavour": [
+    "I always know where the exits are.",
+    "Glass makes me think of my shells.",
+    "People lean on my walls."
+   ],
+   "moves": {
+    "barrier_growth": [
+     "Make them bigger.",
+     "Every barrier is the same stuff.",
+     "I can stretch it thinner.",
+     "So I push them all outward."
+    ],
+    "barrier_ram": [
+     "Through them.",
+     "A shield in front of me takes the hits.",
+     "If I move, it moves with me.",
+     "So I charge behind it."
+    ]
+   }
+  },
+  "black_lash": {
+   "start": "Black tendrils come out of my arms.",
+   "flavour": [
+    "They twitch when I'm angry.",
+    "Teal light leaks out at night.",
+    "I sleep with my arms crossed."
+   ],
+   "moves": {
+    "bind": [
+     "Hold them up.",
+     "A tendril can grip anything.",
+     "Lifted, they can't fight.",
+     "So I seize them and hold."
+    ],
+    "whip": [
+     "Three cracks.",
+     "A tendril is faster than a fist.",
+     "It can swing back the other way.",
+     "Forehand and backhand, then down."
+    ],
+    "storm": [
+     "Everyone at once.",
+     "I have more tendrils than I use.",
+     "My back can open too.",
+     "Let eight of them loose."
+    ]
+   }
+  },
+  "blademaster": {
+   "start": "My aura takes the shape of blades.",
+   "flavour": [
+    "I sharpen pencils too much.",
+    "Sheaths feel pointless.",
+    "My hands are steady."
+   ],
+   "moves": {
+    "bm_ranged": [
+     "From far away.",
+     "A blade doesn't need a hand.",
+     "Thrown, it keeps its edge.",
+     "So I throw it fast."
+    ],
+    "bm_crescent": [
+     "Cut the distance.",
+     "A swing pushes air.",
+     "Aura can ride that push.",
+     "Let the swing fly on its own."
+    ],
+    "bm_manifest": [
+     "Nothing can hold me.",
+     "Blades can form anywhere I want.",
+     "Even from my own skin.",
+     "So they burst out of me."
+    ]
+   }
+  },
+  "blizzard": {
+   "start": "Wind and frost come together for me.",
+   "flavour": [
+    "My breath fogs indoors.",
+    "Snow never melts on me.",
+    "I like the quiet after snowfall."
+   ],
+   "moves": {
+    "cyclone": [
+     "A storm that travels.",
+     "My whiteout follows me.",
+     "A cyclone could follow the ground instead.",
+     "So I send it rolling."
+    ],
+    "zero": [
+     "Shatter them.",
+     "Frozen things are brittle.",
+     "The cold is all around me.",
+     "Let it all go at once."
+    ]
+   }
+  },
+  "catalyst_ray": {
+   "start": "My rays change whatever they touch.",
+   "flavour": [
+    "My plants grow strange.",
+    "Coins land on their edges near me.",
+    "I never know what I'll get."
+   ],
+   "moves": {
+    "clean_slate": [
+     "Undo it.",
+     "Every mutation is something added.",
+     "What's added can be taken away.",
+     "So I strip it off with a touch."
+    ],
+    "genetic_stasis": [
+     "No limit.",
+     "A body can only hold so many changes.",
+     "That limit is a kind of balance.",
+     "Freeze the balance and they stack."
+    ],
+    "mutation_imbuement": [
+     "Make it stay.",
+     "Mutations fade on their own.",
+     "One alone is easy to hold.",
+     "So I fix it in place."
+    ]
+   }
+  },
+  "conjure_disks": {
+   "start": "Disks spin out of my aura.",
+   "flavour": [
+    "Frisbees are too easy now.",
+    "Plates in the kitchen look tempting.",
+    "The hum keeps me awake."
+   ],
+   "moves": {
+    "disk_launch": [
+     "Cut in a straight line.",
+     "My disks spin fast.",
+     "A spinning edge cuts.",
+     "So I throw one."
+    ],
+    "hoverboard": [
+     "Ride the air.",
+     "A disk can carry weight.",
+     "My weight, even.",
+     "So I stand on one."
+    ]
+   }
+  },
+  "conjure_vines": {
+   "start": "Green vines grow from my aura.",
+   "flavour": [
+    "They're always green, whatever I do.",
+    "Gardens look different now.",
+    "They smell like rain."
+   ],
+   "moves": {
+    "entangle": [
+     "Stop them running.",
+     "Vines wrap around anything.",
+     "Legs are easy to wrap.",
+     "Throw them low and they bind."
+    ],
+    "spikes": [
+     "Pierce from afar.",
+     "Vines can harden at the tips.",
+     "Hard tips are spikes.",
+     "Fire them in a spread."
+    ],
+    "grasp": [
+     "The ground is mine.",
+     "One vine grabs one thing.",
+     "A field of them grabs everything.",
+     "Let them spread while I hold."
+    ]
+   }
+  },
+  "contact_shred": {
+   "start": "My touch leaves marks that tear later.",
+   "flavour": [
+    "Paper cuts don't bother me.",
+    "I wear gloves to shake hands.",
+    "Scratches heal slowly around me."
+   ],
+   "moves": {
+    "raking_touch": [
+     "Mark them all.",
+     "A touch only marks one.",
+     "Moving fast, I touch many.",
+     "So I dash through and rake them."
+    ]
+   }
+  },
+  "crescent_slash": {
+   "start": "My swings leave crescents in the air.",
+   "flavour": [
+    "The moon looks familiar.",
+    "Curtains never hang straight near me.",
+    "I like the sound they make."
+   ],
+   "moves": {
+    "twin": [
+     "Two at once.",
+     "One crescent is easy to dodge.",
+     "Two leave less room.",
+     "So I throw them together."
+    ],
+    "volley": [
+     "A whole crowd.",
+     "Small crescents cost less.",
+     "Many small ones cover more.",
+     "Throw them in a fan."
+    ],
+    "grand": [
+     "Through everything in line.",
+     "A bigger crescent cuts deeper.",
+     "Gathering takes time.",
+     "Hold, then let it go."
+    ]
+   }
+  },
+  "daystar": {
+   "start": "The higher the sun, the stronger I am.",
+   "flavour": [
+    "Nights feel long.",
+    "I tan in winter.",
+    "Clouds make me tired."
+   ],
+   "moves": {
+    "sun": [
+     "A sun in my hands.",
+     "The light gathers when I hold it.",
+     "Held long enough, it grows.",
+     "Then I throw it."
+    ],
+    "sunder": [
+     "Split the ground.",
+     "The axe carries the sun's heat.",
+     "Brought down hard, it cracks stone.",
+     "Let the crack burn."
+    ],
+    "high_noon": [
+     "Untouchable.",
+     "The sun peaks at noon.",
+     "So do I.",
+     "For a minute, almost nothing hurts me."
+    ]
+   }
+  },
+  "demon_claw": {
+   "start": "Demon claws grow when I let them.",
+   "flavour": [
+    "I bite my nails less now.",
+    "Cats keep their distance.",
+    "My gloves don't fit."
+   ],
+   "moves": {
+    "demon_lunge": [
+     "Close the gap.",
+     "Claws need me close.",
+     "My legs are faster than they look.",
+     "So I pounce."
+    ],
+    "ripper_slash": [
+     "Everything in front of me.",
+     "One claw cuts one line.",
+     "Two crossed cut more.",
+     "So I swing them both."
+    ],
+    "feral_focus": [
+     "Let the beast out.",
+     "I hold the claws back.",
+     "Without holding back, they grow.",
+     "So I stop holding."
+    ]
+   }
+  },
+  "dizzy_punch": {
+   "start": "My punches make the world spin.",
+   "flavour": [
+    "Merry-go-rounds don't bother me.",
+    "I never get seasick.",
+    "People sway when I'm near."
+   ],
+   "moves": {
+    "sucker_swing": [
+     "Hit where they don't look.",
+     "They watch my fists.",
+     "A feint pulls their eyes.",
+     "Then I hook from the blind side."
+    ],
+    "weave": [
+     "They can't hit me.",
+     "A drunk man is hard to read.",
+     "I can sway like one.",
+     "Loose, every hit lands soft."
+    ]
+   }
+  },
+  "energy_conduit": {
+   "start": "I can link my aura to anyone.",
+   "flavour": [
+    "I always know who's nearby.",
+    "Phones die near me.",
+    "I hum when I'm happy."
+   ],
+   "moves": {
+    "transfer": [
+     "Share it.",
+     "A link carries aura.",
+     "It flows from more to less.",
+     "So I let mine flow out."
+    ],
+    "restore": [
+     "Heal them.",
+     "Aura can mend a body.",
+     "The link carries it there.",
+     "Send healing down every line."
+    ],
+    "control": [
+     "Bring them to me.",
+     "Every link is a strand.",
+     "Strands can be pulled.",
+     "So I reel them in."
+    ]
+   }
+  },
+  "energy_discharge": {
+   "start": "Raw energy builds inside me.",
+   "flavour": [
+    "Lights flicker when I'm angry.",
+    "My hands are always warm.",
+    "Static follows me."
+   ],
+   "moves": {
+    "energy_sphere": [
+     "A blast from afar.",
+     "Energy can be packed into a ball.",
+     "Packed tight, it bursts.",
+     "Throw it and let it burst."
+    ],
+    "energy_burst": [
+     "Get them off me.",
+     "Energy pushes outward.",
+     "All of it at once pushes hard.",
+     "Let it out in every direction."
+    ],
+    "propulsion": [
+     "Move fast.",
+     "Energy pushes things away.",
+     "Pushing back pushes me forward.",
+     "So I fire it behind me."
+    ]
+   }
+  },
+  "explosion": {
+   "start": "My palm goes off like a struck match.",
+   "flavour": [
+    "My ears ring for a while after.",
+    "Sparks don't bother me.",
+    "It shakes the ground a little."
+   ],
+   "moves": {
+    "shock_blast": [
+     "Everything around me.",
+     "My own blasts can't hurt me.",
+     "So I don't have to aim it away.",
+     "Let it go off where I stand."
+    ],
+    "cluster_detonation": [
+     "A rattle of little booms.",
+     "It goes off where I'm looking.",
+     "A small one barely costs me.",
+     "So I can keep them coming."
+    ]
+   }
+  },
+  "explosive_missile": {
+   "start": "My missiles explode when they land.",
+   "flavour": [
+    "Fireworks bore me.",
+    "I flinch at doors slamming.",
+    "The smell of smoke is comforting."
+   ],
+   "moves": {
+    "volley": [
+     "Cover an area.",
+     "One missile is one blast.",
+     "Each can split into more.",
+     "So I fan five out."
+    ],
+    "mortar": [
+     "From far above.",
+     "A high arc comes down hard.",
+     "Heavier shells fall harder.",
+     "So I lob the biggest one."
+    ]
+   }
+  },
+  "flame_claw": {
+   "start": "My nails burn when I call the fire.",
+   "flavour": [
+    "Water hisses when it touches me.",
+    "Smoke always finds my eyes.",
+    "Ash gets everywhere."
+   ],
+   "moves": {
+    "fire_ring": [
+     "Nothing gets close.",
+     "The fire wants to spread out.",
+     "If I spin, it follows my claws.",
+     "A circle leaves no gaps."
+    ],
+    "flame_surge": [
+     "Hotter than before.",
+     "Every scratch keeps burning.",
+     "I've been holding the fire back.",
+     "Let it all into my claws."
+    ],
+    "blazing_rush": [
+     "Right through them.",
+     "The flare pushes me forward.",
+     "Claws out, I don't stop.",
+     "Whoever's in the way burns."
+    ]
+   }
+  },
+  "fusework": {
+   "start": "My needles wait until I say.",
+   "flavour": [
+    "I can wait all day.",
+    "I keep a sewing kit.",
+    "Fuses fascinate me."
+   ],
+   "moves": {
+    "stitch": [
+     "All of them at once.",
+     "Every pin holds a charge.",
+     "They're all on the same thread.",
+     "Pull it, and they all go."
+    ],
+    "seam": [
+     "A line of blasts.",
+     "Needles can go into the ground.",
+     "Buried in a row, they're a seam.",
+     "Rip it open."
+    ]
+   }
+  },
+  "hand_blade": {
+   "start": "My forearms become blades.",
+   "flavour": [
+    "I'm careful with doors.",
+    "Sleeves rip easily.",
+    "My arms feel long."
+   ],
+   "moves": {
+    "thrust": [
+     "Through them.",
+     "A blade cuts deepest point-first.",
+     "Moving forward adds weight.",
+     "So I lunge."
+    ],
+    "release": [
+     "Cut from a distance.",
+     "My blades are made of energy.",
+     "Energy can leave the blade.",
+     "Swing, and let it fly."
+    ]
+   }
+  },
+  "healing": {
+   "start": "My aura can mend wounds.",
+   "flavour": [
+    "Bandages feel slow.",
+    "Plants perk up near me.",
+    "I can't stand seeing people hurt."
+   ],
+   "moves": {
+    "mark_target": [
+     "Choose who to save.",
+     "Healing works better with focus.",
+     "Focus needs a target.",
+     "So I mark them."
+    ],
+    "external_heal": [
+     "Heal them from here.",
+     "My aura reaches past my hands.",
+     "A marked target is easy to find.",
+     "Reach out and mend."
+    ],
+    "triage_surge": [
+     "Everyone at once.",
+     "I hold back some of my strength.",
+     "Spent all at once, it reaches everyone.",
+     "It leaves me weak."
+    ]
+   }
+  },
+  "heat_palm": {
+   "start": "My palms burn red-hot.",
+   "flavour": [
+    "I never need a lighter.",
+    "Ice melts in my hands.",
+    "Ovens feel slow."
+   ],
+   "moves": {
+    "smelting_palm": [
+     "A furnace in my hand.",
+     "My palms are as hot as a forge.",
+     "Ore melts in a forge.",
+     "So I hold it and wait."
+    ]
+   }
+  },
+  "homing_explosive_missile": {
+   "start": "My missiles hunt what I look at.",
+   "flavour": [
+    "I always know where people are.",
+    "Eye contact is hard for me.",
+    "I follow things with my eyes."
+   ],
+   "moves": {
+    "volley": [
+     "Many targets.",
+     "Each seeker picks its own prey.",
+     "More seekers, more prey.",
+     "So I send four."
+    ],
+    "barrage": [
+     "They can't escape.",
+     "One seeker can be dodged.",
+     "Ten in a row can't.",
+     "So I keep them coming."
+    ]
+   }
+  },
+  "hydrofreeze": {
+   "start": "Water and ice answer me.",
+   "flavour": [
+    "I'm always thirsty.",
+    "Puddles ripple when I pass.",
+    "Winter is my season."
+   ],
+   "moves": {
+    "water_form": [
+     "Hard to hurt.",
+     "Water flows around a blow.",
+     "I can be water too.",
+     "So I become it."
+    ],
+    "water_envelopment": [
+     "They can't breathe.",
+     "Water presses on everything.",
+     "Wrapped tight, it holds them.",
+     "So I wrap them in it."
+    ],
+    "water_surge": [
+     "Push them back.",
+     "A wave hits hard.",
+     "I can make the wave.",
+     "So I send it."
+    ],
+    "ice_lance": [
+     "Pierce them.",
+     "Ice is sharp when it's thin.",
+     "Thrown, it flies straight.",
+     "So I throw a lance."
+    ],
+    "freeze_bind": [
+     "Hold them still.",
+     "Water freezes fast around me.",
+     "Frozen, they can't move.",
+     "So I freeze them in place."
+    ],
+    "ice_blades": [
+     "Every hit chills.",
+     "Ice can take any shape.",
+     "On my arms it's a blade.",
+     "So I wear it."
+    ]
+   }
+  },
+  "hypnosis": {
+   "start": "My mind can reach into others.",
+   "flavour": [
+    "I'm good at waiting.",
+    "Clocks ticking calm me.",
+    "People yawn around me."
+   ],
+   "moves": {
+    "command_gaze": [
+     "Stay there.",
+     "A look can carry an order.",
+     "A weak mind obeys.",
+     "So I tell them with my eyes."
+    ],
+    "deep_hypnosis": [
+     "Hold them completely.",
+     "One order fades.",
+     "Held, it doesn't.",
+     "So I keep my focus on them."
+    ],
+    "memory_wipe": [
+     "They forget what they were doing.",
+     "A mind is easy to cloud.",
+     "Clouded, it can't see.",
+     "So I fog it."
+    ]
+   }
+  },
+  "illumination": {
+   "start": "Light pours from my hands.",
+   "flavour": [
+    "I never trip in the dark.",
+    "Moths follow me.",
+    "Sunglasses help."
+   ],
+   "moves": {
+    "flash_burst": [
+     "Blind them.",
+     "Light is brightest close up.",
+     "A cone keeps it focused.",
+     "So I flash it in their eyes."
+    ],
+    "beacon_light": [
+     "Find what's hiding.",
+     "Hidden things show up in the light.",
+     "More light shows more of them.",
+     "So I flare it all."
+    ],
+    "dazzling_pulse": [
+     "Everyone around me.",
+     "A flash one way misses the rest.",
+     "Light can go every way.",
+     "So I burst it all out."
+    ]
+   }
+  },
+  "invisibility": {
+   "start": "I can fade from sight.",
+   "flavour": [
+    "People bump into me.",
+    "Mirrors feel strange.",
+    "I'm good at hide and seek."
+   ],
+   "moves": {
+    "shared_cloak": [
+     "Hide them too.",
+     "My cloak is aura.",
+     "Aura can be sent.",
+     "So I send it to them."
+    ]
+   }
+  },
+  "lightning": {
+   "start": "When it's on, lightning runs under my skin.",
+   "flavour": [
+    "Thunder always comes a moment later.",
+    "Rain makes it harder to hold.",
+    "It smells like a storm after."
+   ],
+   "moves": {
+    "shock_touch": [
+     "Right up close.",
+     "It jumps to whatever I touch.",
+     "Up close, none of it gets lost.",
+     "So I put it all in one palm."
+    ],
+    "surge_run": [
+     "Faster than I've ever been.",
+     "It already makes my legs quick.",
+     "What if I don't let it out?",
+     "Held in, it overcharges me."
+    ],
+    "lightning_beam": [
+     "A line that doesn't break.",
+     "A bolt is gone once it leaves.",
+     "Feed it, and it doesn't end.",
+     "Both hands keep it steady."
+    ]
+   }
+  },
+  "livewire": {
+   "start": "Current runs through my vines.",
+   "flavour": [
+    "My fingertips tingle.",
+    "Fences hum when I touch them.",
+    "I sleep best during storms."
+   ],
+   "moves": {
+    "dome": [
+     "Trap them in current.",
+     "Vines can grow in a ring.",
+     "Current flows around a ring.",
+     "So they're caged in it."
+    ],
+    "burst": [
+     "Lightning on all of them.",
+     "Every charged foe carries a mark.",
+     "Lightning looks for marks.",
+     "So I set it all off."
+    ]
+   }
+  },
+  "missile_punch": {
+   "start": "My fists are launch tubes.",
+   "flavour": [
+    "My knuckles smell of smoke.",
+    "I count my punches.",
+    "Loud noises don't bother me."
+   ],
+   "moves": {
+    "hunter_uppercut": [
+     "Up, then boom.",
+     "My punches load the mark.",
+     "In the air, there's nowhere to go.",
+     "So I launch them first."
+    ],
+    "swarm_release": [
+     "All of it at once.",
+     "Every punch left a missile in them.",
+     "They're waiting for the word.",
+     "So I let them go."
+    ]
+   }
+  },
+  "missiles": {
+   "start": "Missiles streak out of my aura.",
+   "flavour": [
+    "I like watching rockets.",
+    "The trails linger in my eyes.",
+    "The ground never cracks."
+   ],
+   "moves": {
+    "twin": [
+     "Two at once.",
+     "I have two hands.",
+     "Each can launch one.",
+     "Aim them to meet."
+    ],
+    "barrage": [
+     "Keep firing.",
+     "Small missiles cost little.",
+     "Little costs add up slowly.",
+     "So I hold and keep them coming."
+    ],
+    "heavy": [
+     "One huge blast.",
+     "Charging makes them bigger.",
+     "Bigger is slower.",
+     "Slow is fine if it lands."
+    ]
+   }
+  },
+  "needles": {
+   "start": "Thin needles fly from my hands.",
+   "flavour": [
+    "I never lose a sewing needle.",
+    "My hands are quick.",
+    "Pins and needles feel like home."
+   ],
+   "moves": {
+    "needle_barrage": [
+     "Cover more ground.",
+     "One needle is easy to miss.",
+     "Seven in a fan aren't.",
+     "So I spread them."
+    ],
+    "focused_volley": [
+     "Shred one target.",
+     "A spread wastes needles.",
+     "Tight bursts don't.",
+     "So I hold and focus them."
+    ]
+   }
+  },
+  "nightmare": {
+   "start": "Dread follows me.",
+   "flavour": [
+    "I sleep badly.",
+    "Dogs growl at me.",
+    "Dark rooms feel friendly."
+   ],
+   "moves": {
+    "hallucination": [
+     "Break one mind.",
+     "Fear spreads thin across a crowd.",
+     "Focused, it's crushing.",
+     "So I pour it all into one."
+    ],
+    "panic_spike": [
+     "Get off me.",
+     "Fear makes people run.",
+     "Sudden fear makes them jump.",
+     "So I burst it all at once."
+    ]
+   }
+  },
+  "particles": {
+   "start": "My aura has weight.",
+   "flavour": [
+    "Embers drift around me.",
+    "The buzz never stops.",
+    "Dust settles in patterns."
+   ],
+   "moves": {
+    "condensation": [
+     "Shape it to the pattern.",
+     "The swarm follows my pattern.",
+     "One pattern wards an ally, one cuffs a foe.",
+     "So I condense it that way."
+    ],
+    "weave": [
+     "Build where I look.",
+     "The swarm can hold still.",
+     "Held flat, it's a plate.",
+     "So I weave it."
+    ],
+    "construct": [
+     "Something that stays.",
+     "The swarm can stand on its own.",
+     "A construct holds the field.",
+     "So I raise one."
+    ],
+    "fist": [
+     "Drive them to it.",
+     "My construct is strongest close.",
+     "They won't walk to it.",
+     "So I push them."
+    ]
+   }
+  },
+  "phantom_fist": {
+   "start": "Giant fists punch for me.",
+   "flavour": [
+    "I shadowbox in my sleep.",
+    "Punching bags last a day.",
+    "My arms never get tired."
+   ],
+   "moves": {
+    "double": [
+     "One-two.",
+     "One fist leaves them reeling.",
+     "A second catches them recovering.",
+     "So I throw both."
+    ],
+    "meteor": [
+     "Down from the sky.",
+     "A fist falls hard.",
+     "From higher, harder.",
+     "So I build it above them."
+    ],
+    "barrage": [
+     "A storm of punches.",
+     "Small jabs are fast.",
+     "Fast enough, they never stop.",
+     "So I let them fly."
+    ]
+   }
+  },
+  "phantom_push": {
+   "start": "Giant hands push for me.",
+   "flavour": [
+    "Doors open before I touch them.",
+    "I'm never in a crowd for long.",
+    "I like space."
+   ],
+   "moves": {
+    "volley": [
+     "Keep them off balance.",
+     "One push only lasts a moment.",
+     "Many pushes never let up.",
+     "So I fire them quick."
+    ],
+    "palm": [
+     "Crush them.",
+     "A hand can push down too.",
+     "From above, it's a slam.",
+     "So I bring it down on them."
+    ],
+    "wave": [
+     "Everything back.",
+     "Two hands push wider than one.",
+     "Wide enough, nothing gets through.",
+     "So I push with both."
+    ]
+   }
+  },
+  "phase_shift": {
+   "start": "My body shifts between forms.",
+   "flavour": [
+    "I change my mind a lot.",
+    "Mirrors show me differently.",
+    "I'm never quite the same twice."
+   ],
+   "moves": {
+    "speed_form": [
+     "Faster, harder.",
+     "My defense slows me.",
+     "Without it, I'm quick.",
+     "So I drop my guard."
+    ]
+   }
+  },
+  "predator": {
+   "start": "I'm a hunter.",
+   "flavour": [
+    "I smell rain coming.",
+    "I always face the door.",
+    "Heartbeats are loud to me."
+   ],
+   "moves": {
+    "sense_focus": [
+     "See through walls.",
+     "My senses are sharp.",
+     "Focused, they're sharper.",
+     "So I hold still and listen."
+    ],
+    "predator_rush": [
+     "Run them down.",
+     "My prey is locked.",
+     "I know exactly where they are.",
+     "So I dash straight at them."
+    ],
+    "ground_breaker": [
+     "The ground hits them.",
+     "My punches are strong.",
+     "The ground carries force.",
+     "So I punch the ground."
+    ],
+    "transformation": [
+     "Let the beast out.",
+     "I hold the hunter back.",
+     "Let go, it's stronger.",
+     "So I let go."
+    ]
+   }
+  },
+  "quick_strike": {
+   "start": "I move before they can react.",
+   "flavour": [
+    "I finish my food first.",
+    "Waiting makes me itch.",
+    "I tap my feet a lot."
+   ],
+   "moves": {
+    "stance": [
+     "All out.",
+     "I pace myself.",
+     "For a while, I don't have to.",
+     "Then I rest."
+    ],
+    "combo": [
+     "Keep hitting.",
+     "One hit opens them.",
+     "Every hit opens them more.",
+     "So I don't stop."
+    ],
+    "pursuit": [
+     "Catch them.",
+     "Speed closes any gap.",
+     "Or opens one.",
+     "Either way, I dash."
+    ]
+   }
+  },
+  "regeneration": {
+   "start": "My body heals itself.",
+   "flavour": [
+    "Scars fade fast.",
+    "I eat a lot.",
+    "Doctors are confused by me."
+   ],
+   "moves": {
+    "martyr": [
+     "Take it for them.",
+     "I heal fast.",
+     "They don't.",
+     "So I take some of their hurt."
+    ]
+   }
+  },
+  "rock_arm": {
+   "start": "My forearms turn to stone.",
+   "flavour": [
+    "I break mugs by accident.",
+    "Gravel feels nice.",
+    "My arms are heavy."
+   ],
+   "moves": {
+    "guarded_stance": [
+     "Take the hits.",
+     "Stone is hard.",
+     "Raised, it's a wall.",
+     "So I hold my arms up."
+    ]
+   }
+  },
+  "salt_seraph": {
+   "start": "Salt answers my hand.",
+   "flavour": [
+    "The sea smells like home.",
+    "My lips taste of salt.",
+    "Food never needs seasoning."
+   ],
+   "moves": {
+    "wall": [
+     "Keep them out.",
+     "Salt can stack.",
+     "Stacked high, it's a wall.",
+     "So I raise it."
+    ],
+    "spires": [
+     "Along the ground.",
+     "Salt grows where I sweep.",
+     "Spires burst up from it.",
+     "So I sweep my palm."
+    ],
+    "wake": [
+     "Rise.",
+     "There are black branches in my back.",
+     "Spread out, they hold me up.",
+     "So I let them open."
+    ]
+   }
+  },
+  "shadow_flame": {
+   "start": "Violet fire wraps my hands.",
+   "flavour": [
+    "Candles flicker purple near me.",
+    "My shadow looks darker.",
+    "Smoke curls toward me."
+   ],
+   "moves": {
+    "dual_volley": [
+     "Three at once.",
+     "One bolt is easy to dodge.",
+     "Split three ways, they cover more.",
+     "So I throw them together."
+    ]
+   }
+  },
+  "spectral_claw": {
+   "start": "A giant claw forms over my arm.",
+   "flavour": [
+    "I hold doors too tightly.",
+    "Handshakes are a problem.",
+    "My shadow has claws."
+   ],
+   "moves": {
+    "throw": [
+     "Into the wall.",
+     "The claw holds them up.",
+     "What's held can be thrown.",
+     "So I throw them at a wall."
+    ]
+   }
+  },
+  "speed": {
+   "start": "My legs want to run.",
+   "flavour": [
+    "I'm always early.",
+    "Stairs are boring.",
+    "Wind follows me."
+   ],
+   "moves": {
+    "blitz_dash": [
+     "Here, then there.",
+     "Running takes steps.",
+     "One burst skips them.",
+     "So I dash."
+    ]
+   }
+  },
+  "spikes": {
+   "start": "Crystal spikes grow from the ground.",
+   "flavour": [
+    "I never fly.",
+    "Pebbles look like seeds.",
+    "The ground hums under my feet."
+   ],
+   "moves": {
+    "volley": [
+     "A hostile patch of ground.",
+     "One spike is over fast.",
+     "Five in a row keep going.",
+     "So I seed the ground."
+    ],
+    "redirect": [
+     "From the sides.",
+     "Spikes rise straight up.",
+     "Torn free, they can curve.",
+     "So I bend them at the target."
+    ],
+    "field": [
+     "The ground won't stop.",
+     "Spikes grow fast.",
+     "If they keep growing, it never ends.",
+     "So I leave the ground restless."
+    ]
+   }
+  },
+  "stone_skin": {
+   "start": "My skin hardens into stone.",
+   "flavour": [
+    "Mosquitoes give up.",
+    "I'm heavy on the scales.",
+    "Rough walls feel familiar."
+   ],
+   "moves": {
+    "immovable": [
+     "Nothing moves me.",
+     "Stone is heavy.",
+     "Rooted, it's heavier.",
+     "So I stand like bedrock."
+    ]
+   }
+  },
+  "strong_kick": {
+   "start": "My legs are explosive.",
+   "flavour": [
+    "I break doors by accident.",
+    "Ceilings feel low.",
+    "Running shoes wear out fast."
+   ],
+   "moves": {
+    "ground_smash": [
+     "Come down hard.",
+     "My legs throw me high.",
+     "The higher I go, the harder I land.",
+     "So I aim the landing."
+    ],
+    "sweep": [
+     "Off their feet.",
+     "Legs hold people up.",
+     "Take the legs away.",
+     "So I sweep low."
+    ]
+   }
+  },
+  "strong_punch": {
+   "start": "My arms can break stone.",
+   "flavour": [
+    "Jars open easily.",
+    "I shake hands gently.",
+    "Doors don't stand a chance."
+   ],
+   "moves": {
+    "ground_smash": [
+     "Everyone around me.",
+     "My punches are huge.",
+     "The ground spreads force.",
+     "So I punch it."
+    ],
+    "guard_break": [
+     "Through the guard.",
+     "A shield stops a normal punch.",
+     "Mine isn't normal.",
+     "So I break it."
+    ]
+   }
+  },
+  "telekinesis": {
+   "start": "My mind can move things.",
+   "flavour": [
+    "I never get up for the remote.",
+    "Spoons bend near me.",
+    "Headaches come with it."
+   ],
+   "moves": {
+    "tk_force": [
+     "Throw them.",
+     "I can grab them with my mind.",
+     "A grip can swing.",
+     "Swing, then let go."
+    ],
+    "tk_orbit": [
+     "Nothing gets close.",
+     "Debris is everywhere.",
+     "I can spin it all around me.",
+     "Let it shred what comes in."
+    ],
+    "tk_dominion": [
+     "Everyone at once.",
+     "My grip can reach far.",
+     "It can hold many.",
+     "Lift them all, then drop the sky."
+    ]
+   }
+  },
+  "time_manipulation": {
+   "start": "Time bends around me.",
+   "flavour": [
+    "Clocks run strange near me.",
+    "I'm never late.",
+    "Some days feel twice as long."
+   ],
+   "moves": {
+    "time_flow": [
+     "Faster than them.",
+     "Time flows the same for everyone.",
+     "Unless I bend it.",
+     "So I speed up mine."
+    ],
+    "temporal_rewind": [
+     "Undo the hurt.",
+     "Wounds are only seconds old.",
+     "I can rewind a few seconds.",
+     "So I turn myself back."
+    ],
+    "temporal_shift": [
+     "Skip the distance.",
+     "Moving takes time.",
+     "Time can be skipped.",
+     "So I blink."
+    ],
+    "time_freeze": [
+     "Stop everything.",
+     "Time can slow.",
+     "Slowed enough, it stops.",
+     "So I freeze a pocket of it."
+    ],
+    "fracture_strike": [
+     "One overwhelming blow.",
+     "Every fight builds momentum in me.",
+     "Momentum can be spent.",
+     "So I spend it all in one punch."
+    ],
+    "fracture_delayed": [
+     "Hit them later.",
+     "A blow lands right away.",
+     "Unless I hold it in time.",
+     "So I store it."
+    ]
+   }
+  },
+  "tremor": {
+   "start": "The ground shakes when I want it to.",
+   "flavour": [
+    "Birds fly away from me.",
+    "My coffee ripples.",
+    "Flyers make me nervous."
+   ],
+   "moves": {
+    "fault": [
+     "Along the ground.",
+     "A quake spreads in a circle.",
+     "Pointed, it runs in a line.",
+     "So I aim it."
+    ],
+    "mag": [
+     "Stronger.",
+     "I hold the quakes back.",
+     "If I stop holding, they all get bigger.",
+     "So I let it all out."
+    ],
+    "burst": [
+     "Throw them back.",
+     "The ground carries a push.",
+     "A slam pushes everyone.",
+     "So I slam it."
+    ]
+   }
+  },
+  "umbral_shift": {
+   "start": "The ground lets me in.",
+   "flavour": [
+    "Basements feel safe.",
+    "I hold my breath a lot.",
+    "Shadows feel warm."
+   ],
+   "moves": {
+    "assault": [
+     "Out of nowhere.",
+     "Nobody sees me under the ground.",
+     "Surfacing is a surprise.",
+     "So I burst out hard."
+    ]
+   }
+  },
+  "vine_barrier": {
+   "start": "Thorns grow where I stand.",
+   "flavour": [
+    "Gloves don't last.",
+    "Roses like me.",
+    "I bleed less than I should."
+   ],
+   "moves": {
+    "dome": [
+     "Nobody leaves.",
+     "Thorns can grow in a ring.",
+     "The ring holds whoever's inside.",
+     "So I raise one."
+    ],
+    "burst": [
+     "Every mark at once.",
+     "My thorns mark what they touch.",
+     "Marks can be called.",
+     "So I set them off."
+    ]
+   }
+  },
+  "warhead": {
+   "start": "I'm the missile.",
+   "flavour": [
+    "My fists are always warm.",
+    "I like big entrances.",
+    "Smoke follows me."
+   ],
+   "moves": {
+    "upper": [
+     "Up, then boom.",
+     "My punch carries a charge.",
+     "In the air, they can't move.",
+     "Then it goes off."
+    ],
+    "slam": [
+     "Down like a bomb.",
+     "I can launch myself.",
+     "A long fall hits harder.",
+     "So I come down hard."
+    ]
+   }
+  },
+  "whirlwind": {
+   "start": "Wind spirals around my hands.",
+   "flavour": [
+    "My hair never stays put.",
+    "Paper flies off my desk.",
+    "I like the sound of wind."
+   ],
+   "moves": {
+    "cyclone_pull": [
+     "Bring them in.",
+     "Wind can push.",
+     "Spun around, it pulls.",
+     "So I open a vortex."
+    ],
+    "flight": [
+     "Up into the air.",
+     "Wind lifts leaves.",
+     "Strong enough, it lifts me.",
+     "So I ride it."
+    ],
+    "wind_shield": [
+     "Turn arrows away.",
+     "Wind bends what flies.",
+     "Spinning, it bends everything.",
+     "So I spin it around me."
+    ]
+   }
+  }
+ }
+}

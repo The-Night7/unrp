@@ -1,0 +1,6 @@
+{
+    "model_type": "palladium:basic",
+    "model_layer": "unrp:needle",
+    "texture": "unrp:textures/models/needle_am.png",
+    "render_type": "glow"
+}

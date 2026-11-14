@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "water=false": {"model": "unrp:block/salt_block"},
+    "water=true": {"model": "unrp:block/salt_block"}
+  }
+}

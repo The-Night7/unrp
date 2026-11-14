@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "item": "unrp:tower_core"
+    },
+    "title": {
+      "text": "Unrp"
+    },
+    "description": {
+      "text": "The world of abilities"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/block/deepslate_tiles.png"
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

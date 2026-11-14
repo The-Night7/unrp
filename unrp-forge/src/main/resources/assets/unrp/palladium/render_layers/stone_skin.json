@@ -1,0 +1,5 @@
+{
+    "type": "palladium:skin_overlay",
+    "render_type": "solid",
+    "texture": "unrp:textures/models/stone_skin.png"
+}

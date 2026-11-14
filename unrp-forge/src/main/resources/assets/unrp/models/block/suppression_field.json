@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "unrp:block/suppression_field_top",
+    "side": "unrp:block/suppression_field_side",
+    "bottom": "unrp:block/suppression_field_bottom"
+  }
+}

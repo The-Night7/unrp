@@ -1,0 +1,9 @@
+{
+  "_aide": "Clés = id d'école. Ne contient que ce que tu changes ; le reste vient de l'export. Ajouter \"_remove\": true supprime une entrée.",
+  "_exemple": {
+    "wellston": {
+      "campus": { "variant": "wellston", "palette": "brique" }
+    },
+    "ember": { "kind": "organization", "kind_confirmed": true }
+  }
+}

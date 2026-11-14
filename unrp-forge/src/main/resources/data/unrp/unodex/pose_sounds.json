@@ -1,0 +1,484 @@
+{
+ "_aide": "Sons des capacités : chaque pose joue la signature de son geste (couches de sons Minecraft : événement, volume, hauteur). Modifie 'signatures' pour changer un son, 'poses' pour associer une pose à une signature.",
+ "signatures": {
+  "beam": [
+   [
+    "block.beacon.power_select",
+    0.6,
+    1.8
+   ],
+   [
+    "entity.firework_rocket.blast",
+    0.35,
+    1.5
+   ]
+  ],
+  "shot": [
+   [
+    "entity.arrow.shoot",
+    0.7,
+    1.6
+   ],
+   [
+    "block.amethyst_block.chime",
+    0.5,
+    1.8
+   ]
+  ],
+  "bow": [
+   [
+    "entity.arrow.shoot",
+    1,
+    0.9
+   ]
+  ],
+  "toss": [
+   [
+    "entity.snowball.throw",
+    0.9,
+    0.7
+   ],
+   [
+    "entity.ender_pearl.throw",
+    0.4,
+    1.4
+   ]
+  ],
+  "punch": [
+   [
+    "entity.player.attack.strong",
+    1,
+    0.8
+   ],
+   [
+    "entity.player.attack.knockback",
+    0.6,
+    0.7
+   ]
+  ],
+  "flurry": [
+   [
+    "entity.player.attack.sweep",
+    0.8,
+    1.6
+   ],
+   [
+    "entity.player.attack.weak",
+    0.6,
+    1.4
+   ]
+  ],
+  "slash": [
+   [
+    "entity.player.attack.sweep",
+    1,
+    0.9
+   ],
+   [
+    "block.chain.hit",
+    0.4,
+    1.4
+   ]
+  ],
+  "claw": [
+   [
+    "entity.player.attack.crit",
+    0.8,
+    1.2
+   ],
+   [
+    "entity.cat.hiss",
+    0.3,
+    0.6
+   ]
+  ],
+  "slam": [
+   [
+    "entity.generic.explode",
+    0.5,
+    1.4
+   ],
+   [
+    "block.anvil.land",
+    0.7,
+    0.6
+   ]
+  ],
+  "wave": [
+   [
+    "entity.evoker.cast_spell",
+    0.8,
+    1.2
+   ],
+   [
+    "block.respawn_anchor.deplete",
+    0.4,
+    1.5
+   ]
+  ],
+  "mind": [
+   [
+    "entity.illusioner.prepare_mirror",
+    0.7,
+    1.3
+   ]
+  ],
+  "scan": [
+   [
+    "entity.experience_orb.pickup",
+    0.7,
+    1.5
+   ],
+   [
+    "block.sculk_sensor.clicking",
+    0.5,
+    1.2
+   ]
+  ],
+  "surge": [
+   [
+    "block.beacon.activate",
+    0.6,
+    1.6
+   ],
+   [
+    "entity.player.levelup",
+    0.3,
+    1.2
+   ]
+  ],
+  "heal": [
+   [
+    "entity.player.levelup",
+    0.6,
+    1.8
+   ],
+   [
+    "block.beacon.ambient",
+    0.4,
+    1.6
+   ]
+  ],
+  "dash": [
+   [
+    "entity.ender_dragon.flap",
+    0.5,
+    1.6
+   ],
+   [
+    "entity.player.attack.sweep",
+    0.5,
+    0.6
+   ]
+  ],
+  "summon": [
+   [
+    "entity.evoker.prepare_summon",
+    0.8,
+    1.0
+   ]
+  ],
+  "command": [
+   [
+    "entity.illusioner.cast_spell",
+    0.7,
+    0.8
+   ]
+  ],
+  "guard": [
+   [
+    "item.shield.block",
+    0.9,
+    0.8
+   ],
+   [
+    "block.iron_trapdoor.close",
+    0.5,
+    0.9
+   ]
+  ],
+  "touch": [
+   [
+    "block.amethyst_block.resonate",
+    0.7,
+    1.2
+   ]
+  ],
+  "orb": [
+   [
+    "entity.blaze.shoot",
+    0.8,
+    0.6
+   ],
+   [
+    "block.fire.ambient",
+    0.6,
+    0.8
+   ]
+  ],
+  "launch": [
+   [
+    "entity.firework_rocket.launch",
+    0.7,
+    1.2
+   ]
+  ],
+  "hook": [
+   [
+    "entity.player.attack.strong",
+    0.9,
+    1.0
+   ]
+  ],
+  "stance": [
+   [
+    "item.armor.equip_iron",
+    0.8,
+    1.0
+   ]
+  ],
+  "harden": [
+   [
+    "entity.iron_golem.damage",
+    0.7,
+    0.8
+   ],
+   [
+    "item.armor.equip_netherite",
+    0.6,
+    0.8
+   ]
+  ],
+  "spin": [
+   [
+    "item.trident.riptide_1",
+    0.8,
+    1.0
+   ]
+  ],
+  "fly": [
+   [
+    "entity.ender_dragon.flap",
+    0.6,
+    1.2
+   ],
+   [
+    "entity.firework_rocket.launch",
+    0.5,
+    1.0
+   ]
+  ],
+  "lash": [
+   [
+    "entity.fishing_bobber.retrieve",
+    0.8,
+    1.2
+   ],
+   [
+    "entity.player.attack.knockback",
+    0.5,
+    1.5
+   ]
+  ],
+  "wall": [
+   [
+    "block.stone.place",
+    0.9,
+    0.6
+   ],
+   [
+    "block.amethyst_block.place",
+    0.6,
+    0.5
+   ]
+  ],
+  "rise": [
+   [
+    "block.beacon.activate",
+    0.8,
+    0.9
+   ],
+   [
+    "entity.wither.spawn",
+    0.2,
+    1.8
+   ]
+  ],
+  "axe": [
+   [
+    "item.axe.strip",
+    0.9,
+    0.7
+   ],
+   [
+    "entity.player.attack.strong",
+    0.6,
+    0.8
+   ]
+  ],
+  "spear": [
+   [
+    "item.trident.throw",
+    0.9,
+    1.0
+   ]
+  ],
+  "grab": [
+   [
+    "entity.evoker_fangs.attack",
+    0.8,
+    0.9
+   ]
+  ],
+  "palm": [
+   [
+    "entity.blaze.shoot",
+    0.6,
+    1.2
+   ],
+   [
+    "entity.player.attack.strong",
+    0.5,
+    1.2
+   ]
+  ],
+  "dive": [
+   [
+    "entity.phantom.swoop",
+    0.8,
+    1.0
+   ]
+  ],
+  "flare": [
+   [
+    "entity.firework_rocket.blast",
+    0.8,
+    1.0
+   ],
+   [
+    "item.firecharge.use",
+    0.6,
+    1.0
+   ]
+  ],
+  "cloak": [
+   [
+    "block.amethyst_block.chime",
+    0.5,
+    0.6
+   ]
+  ],
+  "clock": [
+   [
+    "block.note_block.bell",
+    0.7,
+    1.2
+   ],
+   [
+    "block.amethyst_block.chime",
+    0.4,
+    1.0
+   ]
+  ]
+ },
+ "poses": {
+  "br_ward": "guard",
+  "br_point": "surge",
+  "br_grow": "surge",
+  "br_shrink": "surge",
+  "br_ram": "punch",
+  "lt_cast": "flare",
+  "lt_touch": "flare",
+  "lt_surge": "flare",
+  "lt_beam": "beam",
+  "inv_cloak": "cloak",
+  "inv_share": "cloak",
+  "cast_beam": "beam",
+  "cast_bolt": "shot",
+  "cast_strike": "punch",
+  "cast_blast": "flare",
+  "cast_pulse": "wave",
+  "cast_buff": "surge",
+  "cast_dash": "dash",
+  "cast_heal": "heal",
+  "cast_mind": "mind",
+  "cast_wall": "wall",
+  "lt_call": "flare",
+  "spd_rush": "dash",
+  "spd_dash": "dash",
+  "ps_bulwark": "guard",
+  "ps_streamline": "dash",
+  "heal_self": "heal",
+  "heal_other": "heal",
+  "heal_mark": "heal",
+  "heal_triage": "heal",
+  "regen_exhale": "heal",
+  "regen_adrenaline": "heal",
+  "tk_crush": "wave",
+  "tk_lift": "wave",
+  "tk_orbit": "wave",
+  "tk_dominion_up": "wave",
+  "tk_slam": "slam",
+  "hy_switch": "mind",
+  "hy_envelop": "mind",
+  "hy_surge": "mind",
+  "hy_lance": "mind",
+  "hy_bind": "mind",
+  "hy_blades": "mind",
+  "nm_field": "mind",
+  "nm_hallucinate": "mind",
+  "nm_clutch": "mind",
+  "tm_call": "clock",
+  "tm_rewind": "clock",
+  "tm_blink": "clock",
+  "tm_freeze": "clock",
+  "tm_strike": "clock",
+  "tm_mark": "clock",
+  "gauge_touch": "scan",
+  "gauge_scope": "scan",
+  "ar_assault": "punch",
+  "ar_guard": "harden",
+  "ar_rush": "punch",
+  "arc_aim": "bow",
+  "arc_volley": "bow",
+  "as_vortex": "surge",
+  "bm_draw": "surge",
+  "bm_great": "surge",
+  "og_point": "shot",
+  "og_beam": "beam",
+  "og_bow": "bow",
+  "og_toss": "toss",
+  "og_punch": "punch",
+  "og_flurry": "flurry",
+  "og_slash": "slash",
+  "og_claw": "claw",
+  "og_slam": "slam",
+  "og_wave": "wave",
+  "og_temple": "mind",
+  "og_scan": "scan",
+  "og_surge": "surge",
+  "og_heal": "heal",
+  "og_dash": "dash",
+  "og_summon": "summon",
+  "og_command": "command",
+  "og_guard": "guard",
+  "og_touch": "touch",
+  "md_orb": "orb",
+  "md_launch": "launch",
+  "md_hook": "hook",
+  "md_uppercut": "hook",
+  "md_stance": "stance",
+  "md_harden": "harden",
+  "md_spin": "spin",
+  "md_fly": "fly",
+  "md_lash": "lash",
+  "md_wall": "wall",
+  "md_rise": "rise",
+  "md_axe": "axe",
+  "md_spear": "spear",
+  "md_grab": "grab",
+  "md_palm": "palm",
+  "md_dive": "dive",
+  "md_flare": "flare"
+ }
+}

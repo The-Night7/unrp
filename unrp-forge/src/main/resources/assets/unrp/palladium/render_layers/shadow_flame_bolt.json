@@ -1,0 +1,9 @@
+{
+  "model_type": "palladium:basic",
+  "model_layer": "unrp:shadow_flame_bolt",
+  "texture": "unrp:textures/models/shadow_flame_bolt.png",
+  "render_type": "glow",
+  "tint": {
+    "type": "unrp:owner_aura"
+  }
+}

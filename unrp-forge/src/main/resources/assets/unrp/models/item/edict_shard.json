@@ -1,0 +1,18 @@
+{
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "unrp:item/shard_3d",
+    "textures": {
+      "particle": "unrp:item/edict_shard"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "minecraft:item/generated",
+      "textures": {
+        "layer0": "unrp:item/edict_shard"
+      }
+    }
+  }
+}

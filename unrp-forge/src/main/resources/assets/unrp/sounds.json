@@ -1,0 +1,3090 @@
+{
+  "button_click": {
+    "category": "ui",
+    "sounds": [
+      "unrp:ui/button_click"
+    ]
+  },
+  "advancement_notification": {
+    "category": "ui",
+    "sounds": [
+      "unrp:ui/advancement_notification"
+    ]
+  },
+  "nxgen_lab": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/nxgen_lab",
+        "stream": true
+      }
+    ]
+  },
+  "specimen": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/specimen",
+        "stream": true
+      }
+    ]
+  },
+  "breakthrough": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/breakthrough",
+        "stream": true
+      }
+    ]
+  },
+  "afternoon_walk": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/afternoon_walk",
+        "stream": true
+      }
+    ]
+  },
+  "morning_bell": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/morning_bell",
+        "stream": true
+      }
+    ]
+  },
+  "cold_halls": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/cold_halls",
+        "stream": true
+      }
+    ]
+  },
+  "aurora": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/aurora",
+        "stream": true
+      }
+    ]
+  },
+  "nightfall": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/nightfall",
+        "stream": true
+      }
+    ]
+  },
+  "aftermath": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:music/aftermath",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.turf_war": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "unrp:music/turf_war",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.crown_match": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "unrp:music/crown_match",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.guardian": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "unrp:music/guardian",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.tyrant": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "unrp:music/tyrant",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.surge": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "unrp:music/surge",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.the_hunt": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "unrp:music/the_hunt",
+        "stream": true
+      }
+    ]
+  },
+  "particles_buzz": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.particles_buzz",
+    "sounds": [
+      "unrp:ambient/particles_buzz"
+    ]
+  },
+  "aura_roar": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.aura_roar",
+    "sounds": [
+      {
+        "name": "unrp:ambient/aura_roar",
+        "stream": false
+      }
+    ]
+  },
+  "aura_surge": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.aura_surge",
+    "sounds": [
+      "unrp:ambient/aura_surge"
+    ]
+  },
+  "cn_mantle_up": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_mantle_up",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_mantle_up",
+        "stream": false
+      }
+    ]
+  },
+  "cn_mantle_down": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_mantle_down",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_mantle_down",
+        "stream": false
+      }
+    ]
+  },
+  "cn_ward_break": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_ward_break",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_ward_break",
+        "stream": false
+      }
+    ]
+  },
+  "cn_ward_whole": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_ward_whole",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_ward_whole",
+        "stream": false
+      }
+    ]
+  },
+  "cn_godfall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_godfall",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_godfall",
+        "stream": false
+      }
+    ]
+  },
+  "cn_lash": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_lash",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_lash",
+        "stream": false
+      }
+    ]
+  },
+  "cn_lash_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_lash_hit",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_lash_hit",
+        "stream": false
+      }
+    ]
+  },
+  "cn_bind": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_bind",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_bind",
+        "stream": false
+      }
+    ]
+  },
+  "cn_bind_grab": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_bind_grab",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_bind_grab",
+        "stream": false
+      }
+    ]
+  },
+  "cn_slam": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_slam",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_slam",
+        "stream": false
+      }
+    ]
+  },
+  "cn_lashstorm": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_lashstorm",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_lashstorm",
+        "stream": false
+      }
+    ]
+  },
+  "cn_lashstorm_whirl": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_lashstorm_whirl",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_lashstorm_whirl",
+        "stream": false
+      }
+    ]
+  },
+  "cn_pick": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_pick",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wheel_tick": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wheel_tick",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shape_out": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shape_out",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shape_out",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shape_away": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shape_away",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shape_away",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wingbeat": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wingbeat",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wingbeat",
+        "stream": false
+      }
+    ]
+  },
+  "cn_swat": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_swat",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_swat",
+        "stream": false
+      }
+    ]
+  },
+  "cn_swat_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_swat_hit",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_swat_hit",
+        "stream": false
+      }
+    ]
+  },
+  "cn_grab": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_grab",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_grab",
+        "stream": false
+      }
+    ]
+  },
+  "cn_grip": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_grip",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_grip",
+        "stream": false
+      }
+    ]
+  },
+  "cn_throw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_throw",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_throw",
+        "stream": false
+      }
+    ]
+  },
+  "cn_throw_land": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_throw_land",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_throw_land",
+        "stream": false
+      }
+    ]
+  },
+  "cn_starfall_dive": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_starfall_dive",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_starfall_dive",
+        "stream": false
+      }
+    ]
+  },
+  "cn_starfall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_starfall",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_starfall",
+        "stream": false
+      }
+    ]
+  },
+  "cn_cataclysm_rise": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_cataclysm_rise",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_cataclysm_rise",
+        "stream": false
+      }
+    ]
+  },
+  "cn_cataclysm": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_cataclysm",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_cataclysm",
+        "stream": false
+      }
+    ]
+  },
+  "cn_blade_swing": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_blade_swing",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_blade_swing",
+        "stream": false
+      }
+    ]
+  },
+  "cn_sever": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_sever",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_sever",
+        "stream": false
+      }
+    ]
+  },
+  "cn_sever_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_sever_hit",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_sever_hit",
+        "stream": false
+      }
+    ]
+  },
+  "cn_eclipse_draw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_eclipse_draw",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_eclipse_draw",
+        "stream": false
+      }
+    ]
+  },
+  "cn_eclipse": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_eclipse",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_eclipse",
+        "stream": false
+      }
+    ]
+  },
+  "cn_hammer_heft": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_hammer_heft",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_hammer_heft",
+        "stream": false
+      }
+    ]
+  },
+  "cn_smash": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_smash",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_smash",
+        "stream": false
+      }
+    ]
+  },
+  "cn_hammer_swell": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_hammer_swell",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_hammer_swell",
+        "stream": false
+      }
+    ]
+  },
+  "cn_worldbreaker": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_worldbreaker",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_worldbreaker",
+        "stream": false
+      }
+    ]
+  },
+  "cn_reap": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_reap",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_reap",
+        "stream": false
+      }
+    ]
+  },
+  "cn_reap_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_reap_hit",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_reap_hit",
+        "stream": false
+      }
+    ]
+  },
+  "cn_harvest": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_harvest",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_harvest",
+        "stream": false
+      }
+    ]
+  },
+  "cn_harvest_spin": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_harvest_spin",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_harvest_spin",
+        "stream": false
+      }
+    ]
+  },
+  "cn_harvest_home": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_harvest_home",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_harvest_home",
+        "stream": false
+      }
+    ]
+  },
+  "cn_guard": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_guard",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_guard",
+        "stream": false
+      }
+    ]
+  },
+  "cn_block": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_block",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_block",
+        "stream": false
+      }
+    ]
+  },
+  "cn_recoil": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_recoil",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_recoil",
+        "stream": false
+      }
+    ]
+  },
+  "cn_recoil_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_recoil_hit",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_recoil_hit",
+        "stream": false
+      }
+    ]
+  },
+  "cn_aegis_cast": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_aegis_cast",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_aegis_cast",
+        "stream": false
+      }
+    ]
+  },
+  "cn_aegis": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_aegis",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_aegis",
+        "stream": false
+      }
+    ]
+  },
+  "cn_aegis_end": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_aegis_end",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_aegis_end",
+        "stream": false
+      }
+    ]
+  },
+  "cn_ripple": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_ripple",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_ripple",
+        "stream": false
+      }
+    ]
+  },
+  "cn_lance_draw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_lance_draw",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_lance_draw",
+        "stream": false
+      }
+    ]
+  },
+  "cn_lance_throw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_lance_throw",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_lance_throw",
+        "stream": false
+      }
+    ]
+  },
+  "cn_lance_strike": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_lance_strike",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_lance_strike",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rain_call": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rain_call",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rain_call",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rain_strike": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rain_strike",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rain_strike",
+        "stream": false
+      }
+    ]
+  },
+  "cn_maw_lunge": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_maw_lunge",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_maw_lunge",
+        "stream": false
+      }
+    ]
+  },
+  "cn_devour": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_devour",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_devour",
+        "stream": false
+      }
+    ]
+  },
+  "cn_maw_feed": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_maw_feed",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_maw_feed",
+        "stream": false
+      }
+    ]
+  },
+  "cn_abyss_call": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_abyss_call",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_abyss_call",
+        "stream": false
+      }
+    ]
+  },
+  "cn_abyss": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_abyss",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_abyss",
+        "stream": false
+      }
+    ]
+  },
+  "cn_gate_open": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_gate_open",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_gate_open",
+        "stream": false
+      }
+    ]
+  },
+  "cn_gate_step": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_gate_step",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_gate_step",
+        "stream": false
+      }
+    ]
+  },
+  "cn_exile_tear": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_exile_tear",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_exile_tear",
+        "stream": false
+      }
+    ]
+  },
+  "cn_exile_fall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_exile_fall",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_exile_fall",
+        "stream": false
+      }
+    ]
+  },
+  "cn_flock": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_flock",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_flock",
+        "stream": false
+      }
+    ]
+  },
+  "cn_flock_home": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_flock_home",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_flock_home",
+        "stream": false
+      }
+    ]
+  },
+  "cn_peck": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_peck",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_peck",
+        "stream": false
+      }
+    ]
+  },
+  "cn_murmur_rise": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_murmur_rise",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_murmur_rise",
+        "stream": false
+      }
+    ]
+  },
+  "cn_murmur": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_murmur",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_murmur",
+        "stream": false
+      }
+    ]
+  },
+  "cn_murmur_wings": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_murmur_wings",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_murmur_wings",
+        "stream": false
+      }
+    ]
+  },
+  "cn_murmur_end": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_murmur_end",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_murmur_end",
+        "stream": false
+      }
+    ]
+  },
+  "cn_spire_call": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_spire_call",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_spire_call",
+        "stream": false
+      }
+    ]
+  },
+  "cn_spire": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_spire",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_spire",
+        "stream": false
+      }
+    ]
+  },
+  "cn_citadel_call": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_citadel_call",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_citadel_call",
+        "stream": false
+      }
+    ]
+  },
+  "cn_citadel": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_citadel",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_citadel",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wall_rise": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wall_rise",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wall_rise",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wall_fall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wall_fall",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wall_fall",
+        "stream": false
+      }
+    ]
+  },
+  "cn_hellfall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_hellfall",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_hellfall",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rift": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rift",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rift",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rock_fall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rock_fall",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rock_fall",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rock_land": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rock_land",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rock_land",
+        "stream": false
+      }
+    ]
+  },
+  "cn_great_land": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_great_land",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_great_land",
+        "stream": false
+      }
+    ]
+  },
+  "cn_null": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_null",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_null",
+        "stream": false
+      }
+    ]
+  },
+  "cn_null_end": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_null_end",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_null_end",
+        "stream": false
+      }
+    ]
+  },
+  "cn_genesis_rise": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_genesis_rise",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_genesis_rise",
+        "stream": false
+      }
+    ]
+  },
+  "cn_genesis_pull": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_genesis_pull",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_genesis_pull",
+        "stream": false
+      }
+    ]
+  },
+  "cn_genesis_blast": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_genesis_blast",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_genesis_blast",
+        "stream": false
+      }
+    ]
+  },
+  "cn_genesis_wall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_genesis_wall",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_genesis_wall",
+        "stream": false
+      }
+    ]
+  },
+  "cn_ascend": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_ascend",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_ascend",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descend": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descend",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descend",
+        "stream": false
+      }
+    ]
+  },
+  "cn_tatter_open": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_tatter_open",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_tatter_open",
+        "stream": false
+      }
+    ]
+  },
+  "cn_tatter_close": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_tatter_close",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_tatter_close",
+        "stream": false
+      }
+    ]
+  },
+  "cn_comet_dive": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_comet_dive",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_comet_dive",
+        "stream": false
+      }
+    ]
+  },
+  "cn_comet_land": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_comet_land",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_comet_land",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rake": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rake",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rake",
+        "stream": false
+      }
+    ]
+  },
+  "cn_step": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_step",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_step",
+        "stream": false
+      }
+    ]
+  },
+  "cn_split": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_split",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_split",
+        "stream": false
+      }
+    ]
+  },
+  "cn_decree": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_decree",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_decree",
+        "stream": false
+      }
+    ]
+  },
+  "cn_kneel": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_kneel",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_kneel",
+        "stream": false
+      }
+    ]
+  },
+  "cn_dread": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_dread",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_dread",
+        "stream": false
+      }
+    ]
+  },
+  "cn_unchain": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_unchain",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_unchain",
+        "stream": false
+      }
+    ]
+  },
+  "cn_roar": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_roar",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_roar",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rechain": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rechain",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rechain",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rampage": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rampage",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rampage",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rampage_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rampage_hit",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rampage_hit",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rend": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rend",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rend",
+        "stream": false
+      }
+    ]
+  },
+  "cn_breath_start": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_breath_start",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_breath_start",
+        "stream": false
+      }
+    ]
+  },
+  "cn_breath": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_breath",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_breath",
+        "stream": false
+      }
+    ]
+  },
+  "cn_tenfold": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_tenfold",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_tenfold",
+        "stream": false
+      }
+    ]
+  },
+  "cn_tenfold_pull": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_tenfold_pull",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_tenfold_pull",
+        "stream": false
+      }
+    ]
+  },
+  "cn_beast_claw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_beast_claw",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_beast_claw",
+        "stream": false
+      }
+    ]
+  },
+  "cn_pounce": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_pounce",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_pounce",
+        "stream": false
+      }
+    ]
+  },
+  "cn_legion_open": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_legion_open",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_legion_open",
+        "stream": false
+      }
+    ]
+  },
+  "cn_summon": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_summon",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_summon",
+        "stream": false
+      }
+    ]
+  },
+  "cn_rise": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_rise",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_rise",
+        "stream": false
+      }
+    ]
+  },
+  "cn_choir": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_choir",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_choir",
+        "stream": false
+      }
+    ]
+  },
+  "cn_hounds": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_hounds",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_hounds",
+        "stream": false
+      }
+    ]
+  },
+  "cn_hound_bite": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_hound_bite",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_hound_bite",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wraith_dive": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wraith_dive",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wraith_dive",
+        "stream": false
+      }
+    ]
+  },
+  "cn_dismiss": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_dismiss",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_dismiss",
+        "stream": false
+      }
+    ]
+  },
+  "cn_unmake": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_unmake",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_unmake",
+        "stream": false
+      }
+    ]
+  },
+  "cn_echo_bolt": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_echo_bolt",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_echo_bolt",
+        "stream": false
+      }
+    ]
+  },
+  "cn_echo_arc": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_echo_arc",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_echo_arc",
+        "stream": false
+      }
+    ]
+  },
+  "cn_echo_claw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_echo_claw",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_echo_claw",
+        "stream": false
+      }
+    ]
+  },
+  "cn_echo_burst": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_echo_burst",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_echo_burst",
+        "stream": false
+      }
+    ]
+  },
+  "cn_echo_quake": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_echo_quake",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_echo_quake",
+        "stream": false
+      }
+    ]
+  },
+  "cn_echo_fissure": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_echo_fissure",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_echo_fissure",
+        "stream": false
+      }
+    ]
+  },
+  "cn_echo_blink": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_echo_blink",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_echo_blink",
+        "stream": false
+      }
+    ]
+  },
+  "cn_finn_yowl": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_finn_yowl",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_finn_yowl",
+        "stream": false
+      }
+    ]
+  },
+  "cn_finn_pounce": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_finn_pounce",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_finn_pounce",
+        "stream": false
+      }
+    ]
+  },
+  "cn_finn_land": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_finn_land",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_finn_land",
+        "stream": false
+      }
+    ]
+  },
+  "cn_finn_swipe": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_finn_swipe",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_finn_swipe",
+        "stream": false
+      }
+    ]
+  },
+  "cn_colossus_rise": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_colossus_rise",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_colossus_rise",
+        "stream": false
+      }
+    ]
+  },
+  "cn_colossus_stomp": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_colossus_stomp",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_colossus_stomp",
+        "stream": false
+      }
+    ]
+  },
+  "cn_colossus_slam": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_colossus_slam",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_colossus_slam",
+        "stream": false
+      }
+    ]
+  },
+  "cn_colossus_break": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_colossus_break",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_colossus_break",
+        "stream": false
+      }
+    ]
+  },
+  "cn_colossus_step": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_colossus_step",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_colossus_step",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_roar": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_roar",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_roar",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_wings": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_wings",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_wings",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_takeoff": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_takeoff",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_takeoff",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_breath": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_breath",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_breath",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_land": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_land",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_land",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_bite": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_bite",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_bite",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_claw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_claw",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_claw",
+        "stream": false
+      }
+    ]
+  },
+  "cn_wyrm_tail": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_wyrm_tail",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_wyrm_tail",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_score": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_score",
+        "stream": true
+      }
+    ]
+  },
+  "cn_descent_blip": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_blip",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_strike": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_strike",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_strike",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_strike_last": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_strike_last",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_strike_last",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_boom_key": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_boom_key",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_boom_key",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_boom_ul": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_boom_ul",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_boom_ul",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_boom_pillar": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_boom_pillar",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_boom_pillar",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_boom_land": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_boom_land",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_boom_land",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_crack": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_crack",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_crack",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_snap_0": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_snap_0",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_snap_0",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_snap_1": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_snap_1",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_snap_1",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_snap_2": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_snap_2",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_snap_2",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_cue": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_cue",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_cue",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_0": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_0",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_0",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_1": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_1",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_1",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_2": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_2",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_2",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_3": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_3",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_3",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_4": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_4",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_4",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_5": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_5",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_5",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_6": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_6",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_6",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_7": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_7",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_7",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_8": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_8",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_8",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_bell_9": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_bell_9",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_bell_9",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_beat": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_beat",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_beat",
+        "stream": false
+      }
+    ]
+  },
+  "cn_descent_beat_soft": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_descent_beat_soft",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_descent_beat_soft",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_fall_0": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_fall_0",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_fall_0",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_fall_3": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_fall_3",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_fall_3",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_fall_6": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_fall_6",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_fall_6",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_fall_9": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_fall_9",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_fall_9",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_0": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_0",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_0",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_1": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_1",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_1",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_2": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_2",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_2",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_3": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_3",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_3",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_4": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_4",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_4",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_5": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_5",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_5",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_6": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_6",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_6",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_7": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_7",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_7",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_8": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_8",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_8",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_take_9": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_take_9",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_take_9",
+        "stream": false
+      }
+    ]
+  },
+  "cn_evolve": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_evolve",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_evolve",
+        "stream": false
+      }
+    ]
+  },
+  "cn_shard_crumble": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.cn_shard_crumble",
+    "sounds": [
+      {
+        "name": "unrp:chained/cn_shard_crumble",
+        "stream": false
+      }
+    ]
+  },
+  "hub_click": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/click",
+        "stream": false
+      }
+    ]
+  },
+  "hub_hover": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/hover",
+        "stream": false
+      }
+    ]
+  },
+  "hub_tab": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/tab",
+        "stream": false
+      }
+    ]
+  },
+  "hub_open": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/open",
+        "stream": false
+      }
+    ]
+  },
+  "hub_close": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/close",
+        "stream": false
+      }
+    ]
+  },
+  "hub_select": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/select",
+        "stream": false
+      }
+    ]
+  },
+  "hub_lift": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/lift",
+        "stream": false
+      }
+    ]
+  },
+  "hub_place": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/place",
+        "stream": false
+      }
+    ]
+  },
+  "hub_wrong": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/wrong",
+        "stream": false
+      }
+    ]
+  },
+  "hub_partial": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/partial",
+        "stream": false
+      }
+    ]
+  },
+  "hub_unlock": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/unlock",
+        "stream": false
+      }
+    ]
+  },
+  "hub_lose": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/lose",
+        "stream": false
+      }
+    ]
+  },
+  "hub_toast": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/toast",
+        "stream": false
+      }
+    ]
+  },
+  "hub_hit": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/hit",
+        "stream": false
+      }
+    ]
+  },
+  "hub_miss": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/miss",
+        "stream": false
+      }
+    ]
+  },
+  "hub_charge": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/charge",
+        "stream": false
+      }
+    ]
+  },
+  "hub_tick": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/tick",
+        "stream": false
+      }
+    ]
+  },
+  "hub_level": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/level",
+        "stream": false
+      }
+    ]
+  },
+  "hub_slide": {
+    "category": "ui",
+    "sounds": [
+      {
+        "name": "unrp:ui/hub/slide",
+        "stream": false
+      }
+    ]
+  },
+  "ti_step": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_step",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_step",
+        "stream": false
+      }
+    ]
+  },
+  "ti_stomp": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_stomp",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_stomp",
+        "stream": false
+      }
+    ]
+  },
+  "ti_boom": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_boom",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_boom",
+        "stream": false
+      }
+    ]
+  },
+  "ti_smash": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_smash",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_smash",
+        "stream": false
+      }
+    ]
+  },
+  "ti_thunder": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_thunder",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_thunder",
+        "stream": false
+      }
+    ]
+  },
+  "ti_roar": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_roar",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_roar",
+        "stream": false
+      }
+    ]
+  },
+  "ti_swipe": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_swipe",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_swipe",
+        "stream": false
+      }
+    ]
+  },
+  "ti_throw": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_throw",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_throw",
+        "stream": false
+      }
+    ]
+  },
+  "ti_lift": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_lift",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_lift",
+        "stream": false
+      }
+    ]
+  },
+  "ti_grip": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_grip",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_grip",
+        "stream": false
+      }
+    ]
+  },
+  "ti_block": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_block",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_block",
+        "stream": false
+      }
+    ]
+  },
+  "ti_punch": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_punch",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_punch",
+        "stream": false
+      }
+    ]
+  },
+  "ti_partial": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_partial",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_partial",
+        "stream": false
+      }
+    ]
+  },
+  "ti_fall": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_fall",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_fall",
+        "stream": false
+      }
+    ]
+  },
+  "ti_eject": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_eject",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_eject",
+        "stream": false
+      }
+    ]
+  },
+  "ti_out": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_out",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_out",
+        "stream": false
+      }
+    ]
+  },
+  "ti_bell": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_bell",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_bell",
+        "stream": false
+      }
+    ]
+  },
+  "ti_impact": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_impact",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_impact",
+        "stream": false
+      }
+    ]
+  },
+  "ti_vent": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_vent",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_vent",
+        "stream": false
+      }
+    ]
+  },
+  "ti_pyro": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_pyro",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_pyro",
+        "stream": false
+      }
+    ]
+  },
+  "ti_armour": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_armour",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_armour",
+        "stream": false
+      }
+    ]
+  },
+  "ti_shatter": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_shatter",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_shatter",
+        "stream": false
+      }
+    ]
+  },
+  "ti_frost": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_frost",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_frost",
+        "stream": false
+      }
+    ]
+  },
+  "ti_blizzard": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_blizzard",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_blizzard",
+        "stream": false
+      }
+    ]
+  },
+  "ti_clap": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_clap",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_clap",
+        "stream": false
+      }
+    ]
+  },
+  "ti_crackle": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_crackle",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_crackle",
+        "stream": false
+      }
+    ]
+  },
+  "ti_rock": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_rock",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_rock",
+        "stream": false
+      }
+    ]
+  },
+  "ti_quake": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_quake",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_quake",
+        "stream": false
+      }
+    ]
+  },
+  "ti_gust": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_gust",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_gust",
+        "stream": false
+      }
+    ]
+  },
+  "ti_tornado": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_tornado",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_tornado",
+        "stream": false
+      }
+    ]
+  },
+  "ti_wave": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_wave",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_wave",
+        "stream": false
+      }
+    ]
+  },
+  "ti_splash": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_splash",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_splash",
+        "stream": false
+      }
+    ]
+  },
+  "ti_whirl": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_whirl",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_whirl",
+        "stream": false
+      }
+    ]
+  },
+  "ti_glare": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_glare",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_glare",
+        "stream": false
+      }
+    ]
+  },
+  "ti_beam": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_beam",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_beam",
+        "stream": false
+      }
+    ]
+  },
+  "ti_dusk": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_dusk",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_dusk",
+        "stream": false
+      }
+    ]
+  },
+  "ti_vein": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_vein",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_vein",
+        "stream": false
+      }
+    ]
+  },
+  "ti_shell": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_shell",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_shell",
+        "stream": false
+      }
+    ]
+  },
+  "ti_sunder": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_sunder",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_sunder",
+        "stream": false
+      }
+    ]
+  },
+  "ti_heat": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_heat",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_heat",
+        "stream": false
+      }
+    ]
+  },
+  "ti_roots": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ti_roots",
+    "sounds": [
+      {
+        "name": "unrp:titan/ti_roots",
+        "stream": false
+      }
+    ]
+  },
+  "lt_on": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.lt_on",
+    "sounds": [
+      {
+        "name": "unrp:pass/lt_on",
+        "stream": false
+      }
+    ]
+  },
+  "lt_bolt": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.lt_bolt",
+    "sounds": [
+      {
+        "name": "unrp:pass/lt_bolt",
+        "stream": false
+      }
+    ]
+  },
+  "lt_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.lt_hit",
+    "sounds": [
+      {
+        "name": "unrp:pass/lt_hit",
+        "stream": false
+      }
+    ]
+  },
+  "lt_touch": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.lt_touch",
+    "sounds": [
+      {
+        "name": "unrp:pass/lt_touch",
+        "stream": false
+      }
+    ]
+  },
+  "lt_surge": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.lt_surge",
+    "sounds": [
+      {
+        "name": "unrp:pass/lt_surge",
+        "stream": false
+      }
+    ]
+  },
+  "lt_beam": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.lt_beam",
+    "sounds": [
+      {
+        "name": "unrp:pass/lt_beam",
+        "stream": false
+      }
+    ]
+  },
+  "pass_crackle": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pass_crackle",
+    "sounds": [
+      {
+        "name": "unrp:pass/pass_crackle",
+        "stream": false
+      }
+    ]
+  },
+  "ed_on": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_on",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_on",
+        "stream": false
+      }
+    ]
+  },
+  "ed_beam": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_beam",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_beam",
+        "stream": false
+      }
+    ]
+  },
+  "ed_beam_end": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_beam_end",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_beam_end",
+        "stream": false
+      }
+    ]
+  },
+  "ed_wave_charge": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_wave_charge",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_wave_charge",
+        "stream": false
+      }
+    ]
+  },
+  "ed_wave": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_wave",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_wave",
+        "stream": false
+      }
+    ]
+  },
+  "ed_wave_end": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_wave_end",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_wave_end",
+        "stream": false
+      }
+    ]
+  },
+  "ed_hurl": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_hurl",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_hurl",
+        "stream": false
+      }
+    ]
+  },
+  "ed_blast": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_blast",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_blast",
+        "stream": false
+      }
+    ]
+  },
+  "ed_gather": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_gather",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_gather",
+        "stream": false
+      }
+    ]
+  },
+  "ed_burst": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_burst",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_burst",
+        "stream": false
+      }
+    ]
+  },
+  "ed_propel": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.ed_propel",
+    "sounds": [
+      {
+        "name": "unrp:pass/ed_propel",
+        "stream": false
+      }
+    ]
+  },
+  "pass_whine": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pass_whine",
+    "sounds": [
+      {
+        "name": "unrp:pass/pass_whine",
+        "stream": false
+      }
+    ]
+  },
+  "pass_plasma": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pass_plasma",
+    "sounds": [
+      {
+        "name": "unrp:pass/pass_plasma",
+        "stream": false
+      }
+    ]
+  },
+  "br_deploy": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.br_deploy",
+    "sounds": [
+      {
+        "name": "unrp:pass/br_deploy",
+        "stream": false
+      }
+    ]
+  },
+  "br_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.br_hit",
+    "sounds": [
+      {
+        "name": "unrp:pass/br_hit",
+        "stream": false
+      }
+    ]
+  },
+  "br_crack": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.br_crack",
+    "sounds": [
+      {
+        "name": "unrp:pass/br_crack",
+        "stream": false
+      }
+    ]
+  },
+  "br_shatter": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.br_shatter",
+    "sounds": [
+      {
+        "name": "unrp:pass/br_shatter",
+        "stream": false
+      }
+    ]
+  },
+  "br_grow": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.br_grow",
+    "sounds": [
+      {
+        "name": "unrp:pass/br_grow",
+        "stream": false
+      }
+    ]
+  },
+  "br_shrink": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.br_shrink",
+    "sounds": [
+      {
+        "name": "unrp:pass/br_shrink",
+        "stream": false
+      }
+    ]
+  },
+  "br_ram": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.br_ram",
+    "sounds": [
+      {
+        "name": "unrp:pass/br_ram",
+        "stream": false
+      }
+    ]
+  },
+  "tm_on": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_on",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_on",
+        "stream": false
+      }
+    ]
+  },
+  "tm_flow": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_flow",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_flow",
+        "stream": false
+      }
+    ]
+  },
+  "tm_slow": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_slow",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_slow",
+        "stream": false
+      }
+    ]
+  },
+  "tm_rewind": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_rewind",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_rewind",
+        "stream": false
+      }
+    ]
+  },
+  "tm_blink": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_blink",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_blink",
+        "stream": false
+      }
+    ]
+  },
+  "tm_mark": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_mark",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_mark",
+        "stream": false
+      }
+    ]
+  },
+  "tm_freeze": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_freeze",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_freeze",
+        "stream": false
+      }
+    ]
+  },
+  "tm_release": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_release",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_release",
+        "stream": false
+      }
+    ]
+  },
+  "tm_strike": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_strike",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_strike",
+        "stream": false
+      }
+    ]
+  },
+  "tm_delay": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.tm_delay",
+    "sounds": [
+      {
+        "name": "unrp:pass/tm_delay",
+        "stream": false
+      }
+    ]
+  },
+  "pass_ticking": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pass_ticking",
+    "sounds": [
+      {
+        "name": "unrp:pass/pass_ticking",
+        "stream": false
+      }
+    ]
+  },
+  "pd_on": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_on",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_on",
+        "stream": false
+      }
+    ]
+  },
+  "pd_lock": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_lock",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_lock",
+        "stream": false
+      }
+    ]
+  },
+  "pd_pulse": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_pulse",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_pulse",
+        "stream": false
+      }
+    ]
+  },
+  "pd_rush": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_rush",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_rush",
+        "stream": false
+      }
+    ]
+  },
+  "pd_rush_hit": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_rush_hit",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_rush_hit",
+        "stream": false
+      }
+    ]
+  },
+  "pd_breaker": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_breaker",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_breaker",
+        "stream": false
+      }
+    ]
+  },
+  "pd_rock": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_rock",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_rock",
+        "stream": false
+      }
+    ]
+  },
+  "pd_roar": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.pd_roar",
+    "sounds": [
+      {
+        "name": "unrp:pass/pd_roar",
+        "stream": false
+      }
+    ]
+  },
+  "am_on": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.am_on",
+    "sounds": [
+      {
+        "name": "unrp:pass/am_on",
+        "stream": false
+      }
+    ]
+  },
+  "am_take": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.am_take",
+    "sounds": [
+      {
+        "name": "unrp:pass/am_take",
+        "stream": false
+      }
+    ]
+  },
+  "am_expel": {
+    "category": "player",
+    "subtitle": "subtitles.unrp.am_expel",
+    "sounds": [
+      {
+        "name": "unrp:pass/am_expel",
+        "stream": false
+      }
+    ]
+  }
+}

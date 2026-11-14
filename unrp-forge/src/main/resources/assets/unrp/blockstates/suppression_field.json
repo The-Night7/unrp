@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "unrp:block/suppression_field"
+    },
+    "lit=true": {
+      "model": "unrp:block/suppression_field_on"
+    }
+  }
+}

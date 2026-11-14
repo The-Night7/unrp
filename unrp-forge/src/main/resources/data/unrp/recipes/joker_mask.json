@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["WWW", "WSW"],
+  "key": {
+    "W": { "item": "minecraft:black_wool" },
+    "S": { "item": "minecraft:string" }
+  },
+  "result": { "item": "unrp:joker_mask", "count": 1 }
+}

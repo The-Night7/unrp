@@ -1,0 +1,12 @@
+{
+  "type": "palladium:after_image",
+  "color": {
+    "type": "unrp:owner_aura",
+    "default": "#FFEB5C"
+  },
+  "mimic_player": false,
+  "spacing": 1.8,
+  "lifetime": 8,
+  "requires_movement": true,
+  "opacity": 0.4
+}

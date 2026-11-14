@@ -1,0 +1,9 @@
+{
+  "model_type": "palladium:basic",
+  "model_layer": "unrp:energy_sphere",
+  "texture": "unrp:textures/models/energy_ball.png",
+  "render_type": "cutout",
+  "tint": {
+    "type": "unrp:owner_aura"
+  }
+}

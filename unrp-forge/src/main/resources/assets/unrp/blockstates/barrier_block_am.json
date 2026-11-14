@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "unrp:block/barrier_block_am"
+    }
+  }
+}

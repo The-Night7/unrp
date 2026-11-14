@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "unrp:block/phylactery"
+    },
+    "facing=east": {
+      "model": "unrp:block/phylactery",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "unrp:block/phylactery",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "unrp:block/phylactery",
+      "y": 270
+    }
+  }
+}

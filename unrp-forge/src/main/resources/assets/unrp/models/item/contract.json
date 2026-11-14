@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unrp:item/contract"
+  },
+  "overrides": [
+    { "predicate": { "unrp:scroll": 0.0, "unrp:stamped": 1.0 }, "model": "unrp:item/contract_stamped" },
+    { "predicate": { "unrp:scroll": 1.0 }, "model": "unrp:item/contract_soul" },
+    { "predicate": { "unrp:scroll": 1.0, "unrp:stamped": 1.0 }, "model": "unrp:item/contract_soul_stamped" },
+    { "predicate": { "unrp:scroll": 2.0 }, "model": "unrp:item/contract_proposed" },
+    { "predicate": { "unrp:scroll": 2.0, "unrp:stamped": 1.0 }, "model": "unrp:item/contract_proposed_stamped" }
+  ]
+}

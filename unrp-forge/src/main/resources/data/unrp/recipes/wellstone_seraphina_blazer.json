@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P P",
+    "PAP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:blue_wool"
+    },
+    "A": {
+      "item": "minecraft:purple_wool"
+    }
+  },
+  "result": {
+    "item": "unrp:wellstone_seraphina_blazer",
+    "count": 1
+  }
+}

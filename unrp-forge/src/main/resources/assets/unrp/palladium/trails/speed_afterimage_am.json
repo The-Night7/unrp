@@ -1,0 +1,9 @@
+{
+  "type": "palladium:after_image",
+  "color": "#1E1E1E",
+  "mimic_player": false,
+  "spacing": 1.8,
+  "lifetime": 8,
+  "requires_movement": true,
+  "opacity": 0.5
+}

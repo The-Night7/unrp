@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "unrp:tower_core"
+    },
+    "title": {
+      "text": "Tower Breaker",
+      "color": "#B9A8E8"
+    },
+    "description": {
+      "text": "Raid an EMBER tower and claim its core"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "unlock": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "unrp:leader"
+}

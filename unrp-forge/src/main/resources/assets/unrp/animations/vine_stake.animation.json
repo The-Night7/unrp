@@ -1,0 +1,25 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"stake_mid": {
+					"rotation": {
+						"0.0": [0, 0, 2.5],
+						"1.0": [0, 0, -2.5],
+						"2.0": [0, 0, 2.5]
+					}
+				},
+				"stake_tip": {
+					"rotation": {
+						"0.0": [2.5, 0, -3],
+						"1.0": [-2.5, 0, 3],
+						"2.0": [2.5, 0, -3]
+					}
+				}
+			}
+		}
+	}
+}

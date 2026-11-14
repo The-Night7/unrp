@@ -1,0 +1,8 @@
+.gradle/
+build/
+run/
+.idea/
+*.iml
+eclipse/
+# jars de mods tiers : à ne pas versionner
+libs/*.jar

@@ -1,0 +1,7 @@
+{
+  "parent": "unrp:item/ascalon",
+  "textures": {
+    "0": "unrp:item/ascalon_mk2",
+    "particle": "unrp:item/ascalon_mk2"
+  }
+}
