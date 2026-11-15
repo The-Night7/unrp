@@ -8,12 +8,12 @@ All six UNRP schools now have dedicated Java-generated campus layouts. No manual
 | Agwin | 97 × 97 | Five | [AGWIN.md](AGWIN.md) |
 | New Bostin | 97 × 97 | Three | [NEW_BOSTIN.md](NEW_BOSTIN.md) |
 | Rowden | 97 × 97 | Three in main block, two in pavilions | [ROWDEN.md](ROWDEN.md) |
-| Westview | 97 × 97 | Two, connected at both levels | [WESTVIEW.md](WESTVIEW.md) |
+| Westview | 177 × 177 | One-floor pavilions, three/four-floor teaching blocks | [WESTVIEW.md](WESTVIEW.md) |
 | Wellston University | 161 × 161 | Three in lower halls, seven/eight in towers | [WELLSTON_UNIVERSITY.md](WELLSTON_UNIVERSITY.md) |
 
 [View all six ground-floor plans](schools-preview.svg).
 
-Canon references guide the depicted features of Wellston, Agwin, New Bostin and the university. Exact dimensions and unseen room arrangements remain adaptations. Rowden's architecture is original because the consulted references do not map its campus. Westview is an original UNRP design requested by the author. The individual guides identify references and limits.
+Canon references guide the depicted features of Wellston, Agwin, New Bostin and the university. Exact dimensions and unseen room arrangements remain adaptations. Rowden's architecture is original because the consulted references do not map its campus. Westview is an original UNRP school with architecture adapted from the author’s three campus photographs. The individual guides identify references and limits.
 
 ## Finding the campuses
 
@@ -47,7 +47,8 @@ Saved piece layouts and palettes are retained, including when a building's remai
 | 1 | Original 73 × 73 templates for all schools |
 | 2 | Dedicated Wellston; original templates elsewhere |
 | 3 | Dedicated Wellston and Agwin; original templates for the remaining four |
-| 4 | All six dedicated layouts |
+| 4 | All six dedicated layouts, including the former H-shaped Westview |
+| 5 | Photo-inspired Westview; the other five designs retained |
 
 Current changes do not overwrite explored campuses. A fresh world is the reliable way to see every revised layout.
 
@@ -99,18 +100,21 @@ javac -encoding UTF-8 -d /tmp/unrp-school-preview \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/NewBostinBlueprint.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/RowdenBlueprint.java \
+  unrp-forge/src/main/java/com/myriam/unrp/worldgen/WestviewV4Blueprint.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/WestviewBlueprint.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/UniversityBlueprint.java \
   unrp-forge/tools/SchoolPreview.java \
   unrp-forge/tools/WellstonPreview.java \
   unrp-forge/tools/AgwinPreview.java \
-  unrp-forge/tools/CampusPreview.java
+  unrp-forge/tools/CampusPreview.java \
+  unrp-forge/tools/WestviewPreview.java
 java -cp /tmp/unrp-school-preview SchoolPreview unrp-forge/docs/schools-preview.svg
 java -cp /tmp/unrp-school-preview WellstonPreview unrp-forge/docs/wellston-preview.svg
 java -cp /tmp/unrp-school-preview AgwinPreview unrp-forge/docs/agwin-preview.svg
 java -cp /tmp/unrp-school-preview CampusPreview new_bostin unrp-forge/docs/new-bostin-preview.svg
 java -cp /tmp/unrp-school-preview CampusPreview rowden unrp-forge/docs/rowden-preview.svg
 java -cp /tmp/unrp-school-preview CampusPreview westview unrp-forge/docs/westview-preview.svg
+java -cp /tmp/unrp-school-preview WestviewPreview unrp-forge/docs/westview-exterior.svg
 java -cp /tmp/unrp-school-preview CampusPreview wellston_university unrp-forge/docs/wellston-university-preview.svg
 ```
 

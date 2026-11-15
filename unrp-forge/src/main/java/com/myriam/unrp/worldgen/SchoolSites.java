@@ -16,7 +16,7 @@ public final class SchoolSites {
             new School("agwin", "Agwin", -1, 0, 5, "agwin"),
             new School("new_bostin", "New Bostin", 0, -1, 3, "new_bostin"),
             new School("rowden", "Rowden", -1, -1, 3, "rowden"),
-            new School("westview", "Westview", 1, 0, 2, "westview"),
+            new School("westview", "Westview", 1, 0, 4, "westview_modern"),
             new School("wellston_university", "Wellston University", 0, 1, 8, "university"));
     private SchoolSites() {}
     public static School school(String id) {

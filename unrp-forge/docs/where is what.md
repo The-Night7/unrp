@@ -10,8 +10,10 @@ All six schools have dedicated layouts. [SCHOOLS.md](SCHOOLS.md) covers unique s
 | Agwin | [AGWIN.md](AGWIN.md) | [AgwinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java) | [Elevation/floors](agwin-preview.svg) |
 | New Bostin | [NEW_BOSTIN.md](NEW_BOSTIN.md) | [NewBostinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/NewBostinBlueprint.java) | [Floors](new-bostin-preview.svg) |
 | Rowden | [ROWDEN.md](ROWDEN.md) | [RowdenBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/RowdenBlueprint.java) | [Floors](rowden-preview.svg) |
-| Westview | [WESTVIEW.md](WESTVIEW.md) | [WestviewBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WestviewBlueprint.java) | [Floors](westview-preview.svg) |
+| Westview | [WESTVIEW.md](WESTVIEW.md) | [WestviewBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WestviewBlueprint.java) | [Floors](westview-preview.svg), [exterior](westview-exterior.svg) |
 | University | [WELLSTON_UNIVERSITY.md](WELLSTON_UNIVERSITY.md) | [UniversityBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/UniversityBlueprint.java) | [Floors](wellston-university-preview.svg) |
+
+Westview’s photo-inspired blocks, glass links, covered paths, gateway and leaf mural are defined in `WestviewBlueprint.java`; its block colours use `westview_modern` in `SchoolPiece.java`. The former layout is preserved in `WestviewV4Blueprint.java` for saved version 4.
 
 [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) decides the one natural site per school. [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) selects current/saved layouts. [CampusBuilder.java](../src/main/java/com/myriam/unrp/worldgen/CampusBuilder.java) supplies shared room/stair primitives for the four latest campuses. [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java) chooses block palettes and places them inside chunk bounds. Use `/unrp school locate <id>` to find a reserved Overworld site.
 

@@ -7,11 +7,11 @@ import java.nio.file.Path;
 public class CampusPreview {
     public static void main(String[] args) throws Exception {
         var school=SchoolSites.school(args[0]);var plan=SchoolBlueprint.create(school);
-        int[] floors=switch(school.id()) {case "westview" -> new int[]{0,6,12};case "wellston_university" -> new int[]{0,6,12,18,42,48};default -> new int[]{0,6,12,18};};
+        int[] floors=switch(school.id()) {case "westview" -> new int[]{0,6,12,18,24};case "wellston_university" -> new int[]{0,6,12,18,42,48};default -> new int[]{0,6,12,18};};
         String description=switch(school.id()) {
             case "new_bostin" -> "Canon-informed brick exterior, rear walkways, classroom 2-B and roof; room positions adapted.";
             case "rowden" -> "Original campus for a canon school; its architectural plan is not established by the references.";
-            case "westview" -> "Original UNRP school requested by the author; no webtoon campus claim.";
+            case "westview" -> "Photo-inspired concrete/glass campus, blue-grey roofs and covered walks; scale and interiors adapted.";
             default -> "Episode 369-inspired mixed-height campus and medical teaching lab; scale and room positions adapted.";
         };
         int rows=(floors.length+1)/2,height=120+rows*580;

@@ -31,6 +31,7 @@ final class CampusBuilder {
     void at(SchoolBlueprint.Material material,int x,int y,int z) { box(material,x,y,z,x,y,z); }
     void path(int x1,int z1,int x2,int z2) {box(PAVING,x1,0,z1,x2,0,z2);}
     void label(int x,int y,int z,String text) {at(SIGN,x,y,z);labels.add(new SchoolBlueprint.Label(x,y,z,text));}
+    void removeLabel(int x,int y,int z) {labels.removeIf(l -> l.x()==x && l.y()==y && l.z()==z);at(AIR,x,y,z);}
     void door(int x,int y,int z) {at(DOOR_LOWER,x,y,z);at(DOOR_UPPER,x,y+1,z);}
     void tree(int x,int z) {box(LOG,x,1,z,x,3,z);box(LEAVES,x-2,4,z-2,x+2,6,z+2);}
     void lamp(int x,int z) {box(ACCENT,x,1,z,x,2,z);at(LIGHT,x,3,z);}

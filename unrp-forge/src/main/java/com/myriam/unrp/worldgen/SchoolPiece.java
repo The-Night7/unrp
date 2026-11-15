@@ -91,7 +91,7 @@ public final class SchoolPiece extends StructurePiece {
     private static BlockState state(SchoolBlueprint.Material material, SchoolSites.School school) {
         Block accent=switch(school.palette()) {
             case "new_bostin" -> Blocks.POLISHED_ANDESITE; case "rowden" -> Blocks.RED_TERRACOTTA;
-            case "westview" -> Blocks.CYAN_TERRACOTTA; case "university" -> Blocks.SMOOTH_QUARTZ;
+            case "westview_modern" -> Blocks.LIGHT_GRAY_CONCRETE; case "westview" -> Blocks.CYAN_TERRACOTTA; case "university" -> Blocks.SMOOTH_QUARTZ;
             case "agwin" -> Blocks.LIGHT_GRAY_CONCRETE; case "wellston" -> Blocks.SMOOTH_SANDSTONE; case "blue" -> Blocks.BLUE_TERRACOTTA; case "green" -> Blocks.GREEN_TERRACOTTA;
             case "red" -> Blocks.RED_TERRACOTTA; case "cyan" -> Blocks.CYAN_TERRACOTTA;
             case "purple" -> Blocks.PURPLE_TERRACOTTA; default -> Blocks.YELLOW_TERRACOTTA;
@@ -101,11 +101,11 @@ public final class SchoolPiece extends StructurePiece {
             case FOUNDATION -> Blocks.STONE_BRICKS.defaultBlockState();
             case PAVING -> Blocks.SMOOTH_STONE.defaultBlockState();
             case GRASS -> Blocks.GRASS_BLOCK.defaultBlockState();
-            case WALL -> (school.palette().equals("new_bostin") || school.palette().equals("university")?Blocks.BRICKS:school.palette().equals("rowden")?Blocks.STONE_BRICKS:school.id().equals("wellston") && school.palette().equals("wellston")?Blocks.TERRACOTTA:school.palette().equals("red")?Blocks.STONE_BRICKS:school.palette().equals("green")?Blocks.BRICKS:Blocks.SMOOTH_QUARTZ).defaultBlockState();
-            case FLOOR -> (java.util.Set.of("agwin","new_bostin","university").contains(school.palette())?Blocks.SMOOTH_STONE:Blocks.BIRCH_PLANKS).defaultBlockState();
-            case ROOF -> (school.palette().equals("westview")?Blocks.WAXED_OXIDIZED_COPPER:school.palette().equals("new_bostin")?Blocks.LIGHT_GRAY_CONCRETE:school.palette().equals("university")?Blocks.GRAY_CONCRETE:school.palette().equals("agwin")?Blocks.GRAY_CONCRETE:school.palette().equals("wellston")?Blocks.LIGHT_GRAY_CONCRETE:school.palette().equals("green")?Blocks.DARK_OAK_PLANKS:Blocks.DEEPSLATE_TILES).defaultBlockState();
+            case WALL -> (school.palette().equals("westview_modern")?Blocks.WHITE_CONCRETE:school.palette().equals("new_bostin") || school.palette().equals("university")?Blocks.BRICKS:school.palette().equals("rowden")?Blocks.STONE_BRICKS:school.id().equals("wellston") && school.palette().equals("wellston")?Blocks.TERRACOTTA:school.palette().equals("red")?Blocks.STONE_BRICKS:school.palette().equals("green")?Blocks.BRICKS:Blocks.SMOOTH_QUARTZ).defaultBlockState();
+            case FLOOR -> (java.util.Set.of("agwin","new_bostin","university","westview_modern").contains(school.palette())?Blocks.SMOOTH_STONE:Blocks.BIRCH_PLANKS).defaultBlockState();
+            case ROOF -> (school.palette().equals("westview_modern")?Blocks.LIGHT_BLUE_TERRACOTTA:school.palette().equals("westview")?Blocks.WAXED_OXIDIZED_COPPER:school.palette().equals("new_bostin")?Blocks.LIGHT_GRAY_CONCRETE:school.palette().equals("university")?Blocks.GRAY_CONCRETE:school.palette().equals("agwin")?Blocks.GRAY_CONCRETE:school.palette().equals("wellston")?Blocks.LIGHT_GRAY_CONCRETE:school.palette().equals("green")?Blocks.DARK_OAK_PLANKS:Blocks.DEEPSLATE_TILES).defaultBlockState();
             case ACCENT -> accent.defaultBlockState();
-            case GLASS -> (java.util.Set.of("agwin","new_bostin","university").contains(school.palette())?Blocks.LIGHT_GRAY_STAINED_GLASS:Blocks.LIGHT_BLUE_STAINED_GLASS).defaultBlockState();
+            case GLASS -> (java.util.Set.of("agwin","new_bostin","university","westview_modern").contains(school.palette())?Blocks.LIGHT_GRAY_STAINED_GLASS:Blocks.LIGHT_BLUE_STAINED_GLASS).defaultBlockState();
             case FENCE -> Blocks.IRON_BARS.defaultBlockState();
             case LEAVES -> Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT,true);
             case LOG -> Blocks.OAK_LOG.defaultBlockState();
@@ -127,7 +127,7 @@ public final class SchoolPiece extends StructurePiece {
             case BOARD -> (school.palette().equals("university")?Blocks.WHITE_CONCRETE:school.palette().equals("new_bostin")?Blocks.GREEN_CONCRETE:school.palette().equals("agwin")?Blocks.GREEN_CONCRETE:Blocks.BLACK_CONCRETE).defaultBlockState();
             case SIGN -> Blocks.OAK_SIGN.defaultBlockState();
             case WALL_SIGN -> Blocks.OAK_WALL_SIGN.defaultBlockState().setValue(WallSignBlock.FACING,Direction.NORTH);
-            case TRIM -> (java.util.Set.of("new_bostin","university","rowden").contains(school.palette())?Blocks.POLISHED_ANDESITE:school.palette().equals("agwin")?Blocks.LIGHT_GRAY_CONCRETE:Blocks.SMOOTH_SANDSTONE).defaultBlockState();
+            case TRIM -> (java.util.Set.of("new_bostin","university","rowden","westview_modern").contains(school.palette())?Blocks.POLISHED_ANDESITE:school.palette().equals("agwin")?Blocks.LIGHT_GRAY_CONCRETE:Blocks.SMOOTH_SANDSTONE).defaultBlockState();
             case PARTITION -> Blocks.SMOOTH_QUARTZ.defaultBlockState();
             case LOCKER -> Blocks.IRON_BLOCK.defaultBlockState();
             case COMPUTER -> Blocks.BLACK_CONCRETE.defaultBlockState();
@@ -148,6 +148,13 @@ public final class SchoolPiece extends StructurePiece {
             case TOWER_WALL -> Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState();
             case TOWER_GLASS -> Blocks.GRAY_STAINED_GLASS.defaultBlockState();
             case BREWING_STAND -> Blocks.BREWING_STAND.defaultBlockState();
+            case ROAD_DARK -> Blocks.GRAY_CONCRETE.defaultBlockState();
+            case PLAZA_PAVERS -> Blocks.POLISHED_ANDESITE.defaultBlockState();
+            case GATE_EW -> Blocks.IRON_BARS.defaultBlockState().setValue(IronBarsBlock.EAST,true).setValue(IronBarsBlock.WEST,true);
+            case GATE_NS -> Blocks.IRON_BARS.defaultBlockState().setValue(IronBarsBlock.NORTH,true).setValue(IronBarsBlock.SOUTH,true);
+            case MURAL_GREEN -> Blocks.GREEN_CONCRETE.defaultBlockState();
+            case MURAL_LIGHT -> Blocks.LIME_TERRACOTTA.defaultBlockState();
+            case FLAG_CYAN -> Blocks.CYAN_CONCRETE.defaultBlockState();
         };
     }
     private static final class BlockTagsAdapter {

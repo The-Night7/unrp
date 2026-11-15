@@ -39,9 +39,9 @@ class RemainingCampusesTest {
         assertFalse(names(plan).stream().anyMatch(s -> s.contains("Safe House") || s.contains("Recovery Machine") || s.contains("King")));
     }
     @Test void westviewBridgeConnectsBothFloorLevelsAndRowdenHasSeparatePavilions() {
-        var west=WestviewBlueprint.create();
+        var west=SchoolBlueprint.forVersion(SchoolSites.school("westview"),4);
         for(int y:new int[]{1,7}) {assertEquals(AIR,west.at(34,y,48));assertEquals(AIR,west.at(62,y,48));assertEquals(FLOOR,west.at(48,y-1,48));}
-        assertEquals(2,WestviewBlueprint.BUILDINGS.size());assertEquals(3,RowdenBlueprint.BUILDINGS.size());
+        assertEquals(2,WestviewV4Blueprint.BUILDINGS.size());assertEquals(3,RowdenBlueprint.BUILDINGS.size());
         assertFalse(names(RowdenBlueprint.create()).stream().anyMatch(s -> s.contains("Resort") || s.contains("Obelisk")));
     }
     @Test void stairHeadroomRemainsOpenInEveryNewBuilding() {
@@ -79,7 +79,7 @@ class RemainingCampusesTest {
     private static List<CampusBuilder.Building> buildings(String id) {
         return switch(id) {case "new_bostin" -> NewBostinBlueprint.BUILDINGS;case "rowden" -> RowdenBlueprint.BUILDINGS;case "westview" -> WestviewBlueprint.BUILDINGS;default -> UniversityBlueprint.BUILDINGS;};
     }
-    private static boolean[] reachable(SchoolBlueprint.Plan plan) {
+    static boolean[] reachable(SchoolBlueprint.Plan plan) {
         int size=plan.size(),layer=size*size;byte[] cells=new byte[layer*plan.height()];
         for(var b:plan.boxes()) for(int y=Math.max(0,b.y1());y<=b.y2();y++) for(int z=b.z1();z<=b.z2();z++) for(int x=b.x1();x<=b.x2();x++) cells[x+z*size+y*layer]=(byte)b.material().ordinal();
         boolean[] pass=new boolean[SchoolBlueprint.Material.values().length];
