@@ -8,7 +8,9 @@ public final class SchoolBlueprint {
     public static final int SIZE = 73;
     public enum Material { AIR, FOUNDATION, PAVING, GRASS, WALL, FLOOR, ROOF, ACCENT, GLASS,
         FENCE, LEAVES, LOG, LIGHT, WATER, WHITE, COURT, BOOKS, DESK, CHAIR, STAIRS,
-        DOOR_LOWER, DOOR_UPPER, BED_HEAD, BED_FOOT, COUNTER, FURNACE, CAULDRON, BOARD, SIGN }
+        DOOR_LOWER, DOOR_UPPER, BED_HEAD, BED_FOOT, COUNTER, FURNACE, CAULDRON, BOARD, SIGN,
+        TRIM, PARTITION, LOCKER, COMPUTER, SOFA, WALL_SIGN,
+        CAFETERIA_TABLE, CAFETERIA_CHAIR, CAFETERIA_COUNTER, CAFETERIA_WALL }
     public record Box(Material material, int x1, int y1, int z1, int x2, int y2, int z2) {
         public Box {
             if (x1 > x2 || y1 > y2 || z1 > z2) throw new IllegalArgumentException("Inverted box");
@@ -18,7 +20,8 @@ public final class SchoolBlueprint {
         }
     }
     public record Label(int x, int y, int z, String text) {}
-    public record Plan(List<Box> boxes, List<Label> labels, int height) {
+    public record Plan(List<Box> boxes, List<Label> labels, int height, int size) {
+        public Plan(List<Box> boxes, List<Label> labels, int height) { this(boxes,labels,height,SIZE); }
         public Material at(int x, int y, int z) {
             Material result = Material.AIR;
             for (Box b : boxes) if (b.contains(x, y, z)) result = b.material();
@@ -29,7 +32,14 @@ public final class SchoolBlueprint {
     private final List<Label> labels = new ArrayList<>();
     private final SchoolSites.School school;
     private SchoolBlueprint(SchoolSites.School school) { this.school = school; }
-    public static Plan create(SchoolSites.School school) { return new SchoolBlueprint(school).build(); }
+    public static Plan create(SchoolSites.School school) {
+        return school.id().equals("wellston") ? WellstonBlueprint.create() : legacy(school);
+    }
+    /** Existing serialized campus pieces retain their original layout when adjacent chunks finish later. */
+    public static Plan legacy(SchoolSites.School school) {
+        if(school.id().equals("wellston")) school=new SchoolSites.School(school.id(),school.name(),school.regionX(),school.regionZ(),2,"gold");
+        return new SchoolBlueprint(school).build();
+    }
     private void box(Material m, int x1, int y1, int z1, int x2, int y2, int z2) { boxes.add(new Box(m,x1,y1,z1,x2,y2,z2)); }
     private void block(Material m, int x, int y, int z) { box(m,x,y,z,x,y,z); }
     private void door(int x, int y, int z) { block(Material.DOOR_LOWER,x,y,z); block(Material.DOOR_UPPER,x,y+1,z); }

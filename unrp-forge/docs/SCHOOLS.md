@@ -4,7 +4,7 @@ UNRP generates six furnished campuses directly from Java: **Wellston, Agwin, New
 
 There is **one natural generation site for each school per Overworld**, not a repeating school every few regions. The sites are fixed by the world seed, independently of exploration order, chunk-generation threads, saves and restarts. No manual building, NBT template or additional scripting mod is required.
 
-These are original campus layouts, not exact reproductions of canonical buildings. The five secondary schools have two floors; Wellston University has three. Palettes vary by school; Wellston and its university have clock towers.
+Wellston now has a [dedicated canon-based layout](WELLSTON.md): three teaching blocks, separate dormitories, Room 224, the press room and an accessible fenced rooftop. Its exact dimensions and room adjacencies are adaptations. The other four secondary schools retain the original two-floor layouts; Wellston University retains its original three-floor design. The private school no longer has the invented clock tower.
 
 [View the ground-floor plans](schools-preview.svg).
 
@@ -29,7 +29,9 @@ Existing worlds can generate a school only if its reserved starting chunk has no
 
 ## Buildings
 
-Each 73 × 73 campus has:
+The five original campuses occupy 73 × 73 blocks. Wellston occupies 129 × 129 blocks, with three teaching floors and separate two-floor dormitories. Its layout is documented separately in [WELLSTON.md](WELLSTON.md).
+
+The original campus design includes:
 
 - A fenced perimeter, entrance plaza, paths, trees and lighting.
 - A main teaching block and two connected wings.
@@ -47,6 +49,7 @@ The site is not discarded because it falls in an ocean or on a slope: the campus
 | Purpose | Location |
 | --- | --- |
 | Six school IDs, fixed regions and seed-derived unique sites | [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) |
+| Dedicated Wellston layout and canon notes | [WellstonBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java), [WELLSTON.md](WELLSTON.md) |
 | Building geometry and furniture | [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) |
 | World-generation entry point and terrain height | [SchoolStructure.java](../src/main/java/com/myriam/unrp/worldgen/SchoolStructure.java) |
 | Chunk-clipped block placement, palettes, signs and NBT persistence | [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java) |
@@ -71,8 +74,11 @@ mkdir -p /tmp/unrp-school-preview
 javac -encoding UTF-8 -d /tmp/unrp-school-preview \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolSites.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java \
-  unrp-forge/tools/SchoolPreview.java
+  unrp-forge/src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java \
+  unrp-forge/tools/SchoolPreview.java \
+  unrp-forge/tools/WellstonPreview.java
 java -cp /tmp/unrp-school-preview SchoolPreview unrp-forge/docs/schools-preview.svg
+java -cp /tmp/unrp-school-preview WellstonPreview unrp-forge/docs/wellston-preview.svg
 ```
 
 Automated tests cover vanilla placement agreement, a single eligible location in a grid of candidate regions, unique school sites, data coverage, geometry bounds, unobstructed entrances and stair headroom, signs and essential furnishings. A live Minecraft world-generation and visual playtest is still required, especially for terrain joins, extreme landscapes and interactions with other world-generation mods.

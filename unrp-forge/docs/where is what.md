@@ -2,6 +2,8 @@
 
 ## School buildings and world generation
 
+Wellston has its own [canon-based campus guide](WELLSTON.md), [floor-by-floor preview](wellston-preview.svg) and [WellstonBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java). Its footprint and saved layout version are handled in `SchoolPiece.java`; the other schools retain their original plans.
+
 See [SCHOOLS.md](SCHOOLS.md) for the six procedural campuses, one natural site per school, the locate command and terrain behavior. [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) controls unique seed-based locations; [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) controls the buildings; [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java) controls blocks and palettes. [Preview the floor plans](schools-preview.svg). Use `/unrp school locate wellston` (or another school ID) to find a reserved Overworld site.
 
 ## Créer et modifier des capacités
