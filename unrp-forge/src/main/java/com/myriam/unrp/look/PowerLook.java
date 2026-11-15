@@ -60,6 +60,7 @@ public final class PowerLook {
    }
 
    static {
+      look("covenant", 0xF2C94C, "unrp:textures/icons/covenant_posture.png");
       look("stone_skin", 9474192, "unrp:textures/icons/stone_skin_icon.png");
       look("energy_discharge", 15022389, "unrp:textures/icons/energy_discharge_power_icon.png");
       look("regeneration", 1880082, "unrp:textures/icons/regeneration.png");

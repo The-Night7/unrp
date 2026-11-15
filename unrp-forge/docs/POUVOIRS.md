@@ -167,6 +167,7 @@ Exemple réel (l'Éclair de Remi) :
 | `passive` | liste | vide | `held` / `toggle` : effets de potion tant que la capacité est active. Exemple : invisibilité de la Cape optique. |
 | `attributes` | liste | vide | `held` / `toggle` : attributs modifiés tant que la capacité est active. Exemple : +60 % de vitesse pour Course foudroyante. |
 | `k` | nombre | 0,25 | `held` : force de chaque pulsation (1 = pleine puissance). |
+| `min_level` | nombre | 0 | Niveau minimum du personnage, indépendant des rangs achetés ; utilisé par les paliers de Covenant. |
 | `special` | texte | | `"mode_next"` = passer à la forme suivante (pouvoirs avec `modes`). |
 | `fx` | objet | | L'effet déclenché, voir [§5](#5-leffet-fx--les-17-types). Peut être absent pour un interrupteur qui ne fait que des passifs. |
 

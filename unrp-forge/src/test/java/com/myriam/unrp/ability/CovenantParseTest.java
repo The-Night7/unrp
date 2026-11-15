@@ -48,4 +48,22 @@ class CovenantParseTest {
         assertEquals(Kind.BRANCH, p[1].kind());
         assertNull(CovenantParse.pact("juste un cadeau"));
     }
+    @Test
+    void godClausesAndNamedBranches() {
+        assertEquals(Kind.ABILITY, CovenantParse.law("No running. Penalty: whole ability").pen().kind());
+        assertEquals(Kind.NONE, CovenantParse.pact("nothing for your whole ability")[0].kind());
+        assertEquals(Kind.STAT, CovenantParse.pen("Power").kind());
+        assertEquals("4", CovenantParse.pen("Speed").key());
+        assertEquals("fire", CovenantParse.pen("branch fire").key());
+        assertEquals("2", CovenantParse.pen("branch: 2").key());
+        assertEquals("hearing", CovenantParse.pen("hearing").key());
+    }
+    @Test void courtAndFlameAreNotMisreadAsRunningAndSouls() {
+        assertEquals(Viol.ATTACK, CovenantParse.law("No attacking in my court. Penalty: your Speed").viol());
+        assertEquals(Viol.LEAVE, CovenantParse.law("No leaving the court. Penalty: movement").viol());
+        assertEquals(Viol.SPRINT, CovenantParse.law("Personne ne court. Penalty: Speed").viol());
+        assertEquals(Kind.BRANCH, CovenantParse.pen("your flame branch").kind());
+        assertEquals("flame", CovenantParse.pen("your flame branch").key());
+        assertEquals(Kind.SOUL, CovenantParse.pen("their soul").kind());
+    }
 }

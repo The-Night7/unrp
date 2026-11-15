@@ -14,19 +14,21 @@ public final class CovenantParse {
 
     public enum Viol { SPRINT, JUMP, ATTACK, ABILITY, SPEAK, FLY, BREAK, PLACE, SNEAK, LEAVE }
 
-    public enum Kind { STAT, MOVE, BRANCH, SENSE, MEMORY, SOUL, LIFE }
+    public enum Kind { STAT, MOVE, BRANCH, SENSE, MEMORY, SOUL, LIFE, ABILITY, NONE }
 
     /** key : STAT = "0".."4" (Puissance, Défense, Récupération, Ruse, Vitesse) ; MOVE = sprint|jump|walk ; SENSE = sight|touch ; sinon "". */
     public record Pen(Kind kind, String key) {
         public String label() {
             return switch (kind) {
-                case STAT -> "stat " + new String[] {"Puissance", "Défense", "Récupération", "Ruse", "Vitesse"}[Integer.parseInt(key)];
-                case MOVE -> "mouvement (" + (key.equals("sprint") ? "course" : key.equals("jump") ? "saut" : "marche") + ")";
-                case BRANCH -> "branche de capacité";
-                case SENSE -> "sens (" + (key.equals("sight") ? "vue" : "toucher") + ")";
-                case MEMORY -> "mémoire";
-                case SOUL -> "âme";
-                case LIFE -> "vie";
+                case STAT -> "stat " + new String[] {"Power", "Defense", "Recovery", "Trick", "Speed"}[Integer.parseInt(key)];
+                case MOVE -> "movement (" + (key.equals("sprint") ? "sprint" : key.equals("jump") ? "jump" : "walk") + ")";
+                case BRANCH -> "ability branch";
+                case SENSE -> "sense (" + (key.equals("sight") ? "sight" : key.equals("hearing") ? "hearing" : "touch") + ")";
+                case MEMORY -> "memory";
+                case SOUL -> "soul";
+                case LIFE -> "life";
+                case ABILITY -> "whole ability";
+                case NONE -> "no consideration";
             };
         }
     }
@@ -59,7 +61,7 @@ public final class CovenantParse {
 
     public static Viol viol(String left) {
         String s = norm(left);
-        if (has(s, "sprint", "run", "cour", "course")) return Viol.SPRINT;
+        if (has(s, "sprint", "run", "courir", "course") || s.matches(".*\\bne\\s+court\\b.*")) return Viol.SPRINT;
         if (has(s, "jump", "saut", "bond")) return Viol.JUMP;
         if (has(s, "ability", "power", "pouvoir", "capacit", "magic", "magie", "cast")) return Viol.ABILITY;
         if (has(s, "attack", "fight", "hit", "strike", "violen", "combat", "frapp", "attaqu", "bagarr", "harm", "blesser")) return Viol.ATTACK;
@@ -68,16 +70,20 @@ public final class CovenantParse {
         if (has(s, "break", "mine", "dig", "casse", "miner", "creus", "destroy", "detruire")) return Viol.BREAK;
         if (has(s, "place", "build", "pose", "constru", "batir")) return Viol.PLACE;
         if (has(s, "sneak", "crouch", "accroup", "hide", "cacher")) return Viol.SNEAK;
-        if (has(s, "leave", "exit", "flee", "fuir", "quitt", "sortir", "escape", "depart")) return Viol.LEAVE;
+        if (has(s, "leav", "exit", "flee", "fuir", "quitt", "sortir", "escape", "depart")) return Viol.LEAVE;
         return null;
     }
 
     public static Pen pen(String right) {
         String s = norm(right);
         if (s.isEmpty()) return null;
-        if (has(s, "soul", "ame ", "ame.", "ame,", " ame", "ame\n") || s.endsWith("ame")) return new Pen(Kind.SOUL, "");
+        if (has(s, "whole ability", "entire ability", "whole power", "entire power", "total forfeit", "capacite entiere", "pouvoir entier")) return new Pen(Kind.ABILITY, "");
+        if (has(s, "nothing", "no consideration", "rien", "aucune contrepartie")) return new Pen(Kind.NONE, "");
+        if (has(s, "branch", "branche")) return new Pen(Kind.BRANCH, branchKey(s));
+        if (s.matches(".*\\b(soul|ame)\\b.*")) return new Pen(Kind.SOUL, "");
         if (has(s, "memor", "souvenir", "memoire", "recollection")) return new Pen(Kind.MEMORY, "");
-        if (has(s, "branch", "capacit", "ability", "pouvoir", "power branch")) return new Pen(Kind.BRANCH, "");
+        if (has(s, "capacit", "ability", "pouvoir")) return new Pen(Kind.BRANCH, "");
+        if (has(s, "hearing", "ouie", "sound", "audition")) return new Pen(Kind.SENSE, "hearing");
         if (has(s, "sight", "vision", "vue", "eyes", "yeux", "sens")) return new Pen(Kind.SENSE, "sight");
         if (has(s, "touch", "toucher", "feeling")) return new Pen(Kind.SENSE, "touch");
         if (has(s, "jump", "saut")) return new Pen(Kind.MOVE, "jump");
@@ -90,6 +96,14 @@ public final class CovenantParse {
         if (has(s, "power", "puissance", "strength", "force")) return new Pen(Kind.STAT, "0");
         if (has(s, "life", "vie")) return new Pen(Kind.LIFE, "");
         return null;
+    }
+
+    private static String branchKey(String text) {
+        int at = text.indexOf("branch");
+        String after = text.substring(at).replaceFirst("^branch(?:e)?", "").trim();
+        String value = after.isBlank() ? text.substring(0, at) : after;
+        return value.replaceAll("\\b(penalty|penalite|peine|punishment|their|your|his|her|the|a|an|ability|power|of|i|give|je|donne|ma|ta|sa|son|ses|leur|leurs|de|capacite)\\b", " ")
+                .replaceAll("[^a-z0-9 _-]", " ").trim().replaceAll("\\s+", " ");
     }
 
     /** Une loi complète, ou null si l'infraction ou la peine n'est pas reconnue. */

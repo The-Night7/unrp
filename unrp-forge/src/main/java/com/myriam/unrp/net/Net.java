@@ -7,17 +7,30 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 /** Canal réseau du mod : le serveur décide de tout, le client n'envoie que des demandes. */
 public final class Net {
-    private static final String PROTOCOL = "6";
+    private static final String PROTOCOL = "7";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(UnrpMod.MOD_ID, "main"), () -> PROTOCOL, PROTOCOL::equals, PROTOCOL::equals);
     private static boolean registered;
 
     private Net() {}
 
+    private static <M> java.util.function.BiConsumer<M, java.util.function.Supplier<net.minecraftforge.network.NetworkEvent.Context>> magic(
+            java.util.function.BiConsumer<M, java.util.function.Supplier<net.minecraftforge.network.NetworkEvent.Context>> handler) {
+        return (message, supplier) -> {
+            var context = supplier.get();
+            context.enqueueWork(() -> {
+                var sender = context.getSender();
+                if (sender == null || !com.myriam.unrp.ability.AbilityEngine.disabled(sender)) handler.accept(message, supplier);
+            });
+            context.setPacketHandled(true);
+        };
+    }
+
     public static synchronized void register() {
         if (registered) return;
         registered = true;
         int id = 0;
+        CHANNEL.registerMessage(id++, CovenantPacket.class, CovenantPacket::encode, CovenantPacket::decode, CovenantPacket::handle);
         CHANNEL.registerMessage(id++, MenuDataPacket.class, MenuDataPacket::encode, MenuDataPacket::decode, MenuDataPacket::handle);
         CHANNEL.registerMessage(id++, ClaimRequestPacket.class, ClaimRequestPacket::encode, ClaimRequestPacket::decode, ClaimRequestPacket::handle);
         CHANNEL.registerMessage(id++, PlayerStatePacket.class, PlayerStatePacket::encode, PlayerStatePacket::decode, PlayerStatePacket::handle);
@@ -33,7 +46,7 @@ public final class Net {
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.CodexSyncPacket.class, com.myriam.unrp.uo.CodexSyncPacket::encode, com.myriam.unrp.uo.CodexSyncPacket::decode, com.myriam.unrp.uo.CodexSyncPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.CodexActionPacket.class, com.myriam.unrp.uo.CodexActionPacket::encode, com.myriam.unrp.uo.CodexActionPacket::decode, com.myriam.unrp.uo.CodexActionPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.FormWheelPacket.class, com.myriam.unrp.uo.FormWheelPacket::encode, com.myriam.unrp.uo.FormWheelPacket::decode, com.myriam.unrp.uo.FormWheelPacket::handle);
-        CHANNEL.registerMessage(id++, com.myriam.unrp.uo.FormPickPacket.class, com.myriam.unrp.uo.FormPickPacket::encode, com.myriam.unrp.uo.FormPickPacket::decode, com.myriam.unrp.uo.FormPickPacket::handle);
+        CHANNEL.registerMessage(id++, com.myriam.unrp.uo.FormPickPacket.class, com.myriam.unrp.uo.FormPickPacket::encode, com.myriam.unrp.uo.FormPickPacket::decode, magic(com.myriam.unrp.uo.FormPickPacket::handle));
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LbFormPacket.class, com.myriam.unrp.uo.LbFormPacket::encode, com.myriam.unrp.uo.LbFormPacket::decode, com.myriam.unrp.uo.LbFormPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LbBecomingPacket.class, com.myriam.unrp.uo.LbBecomingPacket::encode, com.myriam.unrp.uo.LbBecomingPacket::decode, com.myriam.unrp.uo.LbBecomingPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.GritHudPacket.class, com.myriam.unrp.uo.GritHudPacket::encode, com.myriam.unrp.uo.GritHudPacket::decode, com.myriam.unrp.uo.GritHudPacket::handle);
@@ -48,7 +61,7 @@ public final class Net {
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LashGiveUpPacket.class, com.myriam.unrp.uo.LashGiveUpPacket::encode, com.myriam.unrp.uo.LashGiveUpPacket::decode, com.myriam.unrp.uo.LashGiveUpPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LashHudPacket.class, com.myriam.unrp.uo.LashHudPacket::encode, com.myriam.unrp.uo.LashHudPacket::decode, com.myriam.unrp.uo.LashHudPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LashMovePacket.class, com.myriam.unrp.uo.LashMovePacket::encode, com.myriam.unrp.uo.LashMovePacket::decode, com.myriam.unrp.uo.LashMovePacket::handle);
-        CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LashSwingPacket.class, com.myriam.unrp.uo.LashSwingPacket::encode, com.myriam.unrp.uo.LashSwingPacket::decode, com.myriam.unrp.uo.LashSwingPacket::handle);
+        CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LashSwingPacket.class, com.myriam.unrp.uo.LashSwingPacket::encode, com.myriam.unrp.uo.LashSwingPacket::decode, magic(com.myriam.unrp.uo.LashSwingPacket::handle));
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.LashWindPacket.class, com.myriam.unrp.uo.LashWindPacket::encode, com.myriam.unrp.uo.LashWindPacket::decode, com.myriam.unrp.uo.LashWindPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.FlashPacket.class, com.myriam.unrp.uo.FlashPacket::encode, com.myriam.unrp.uo.FlashPacket::decode, com.myriam.unrp.uo.FlashPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.StrugglePacket.class, com.myriam.unrp.uo.StrugglePacket::encode, com.myriam.unrp.uo.StrugglePacket::decode, com.myriam.unrp.uo.StrugglePacket::handle);
@@ -61,13 +74,13 @@ public final class Net {
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.CwHudPacket.class, com.myriam.unrp.uo.CwHudPacket::encode, com.myriam.unrp.uo.CwHudPacket::decode, com.myriam.unrp.uo.CwHudPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.WeaveSyncPacket.class, com.myriam.unrp.uo.WeaveSyncPacket::encode, com.myriam.unrp.uo.WeaveSyncPacket::decode, com.myriam.unrp.uo.WeaveSyncPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.uo.WeaveFxPacket.class, com.myriam.unrp.uo.WeaveFxPacket::encode, com.myriam.unrp.uo.WeaveFxPacket::decode, com.myriam.unrp.uo.WeaveFxPacket::handle);
-        CHANNEL.registerMessage(id++, com.myriam.unrp.uo.WeaveReachPacket.class, com.myriam.unrp.uo.WeaveReachPacket::encode, com.myriam.unrp.uo.WeaveReachPacket::decode, com.myriam.unrp.uo.WeaveReachPacket::handle);
+        CHANNEL.registerMessage(id++, com.myriam.unrp.uo.WeaveReachPacket.class, com.myriam.unrp.uo.WeaveReachPacket::encode, com.myriam.unrp.uo.WeaveReachPacket::decode, magic(com.myriam.unrp.uo.WeaveReachPacket::handle));
         CHANNEL.registerMessage(id++, PunchPacket.class, PunchPacket::encode, PunchPacket::decode, PunchPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.pass.PassFxPacket.class, com.myriam.unrp.pass.PassFxPacket::encode, com.myriam.unrp.pass.PassFxPacket::decode, com.myriam.unrp.pass.PassFxPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.am.AmWheelPacket.class, com.myriam.unrp.am.AmWheelPacket::encode, com.myriam.unrp.am.AmWheelPacket::decode, com.myriam.unrp.am.AmWheelPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.am.AmWheelAskPacket.class, com.myriam.unrp.am.AmWheelAskPacket::encode, com.myriam.unrp.am.AmWheelAskPacket::decode, com.myriam.unrp.am.AmWheelAskPacket::handle);
-        CHANNEL.registerMessage(id++, com.myriam.unrp.am.AmWheelPickPacket.class, com.myriam.unrp.am.AmWheelPickPacket::encode, com.myriam.unrp.am.AmWheelPickPacket::decode, com.myriam.unrp.am.AmWheelPickPacket::handle);
-        CHANNEL.registerMessage(id++, com.myriam.unrp.deal.PactEditPacket.class, com.myriam.unrp.deal.PactEditPacket::encode, com.myriam.unrp.deal.PactEditPacket::decode, com.myriam.unrp.deal.PactEditPacket::handle);
+        CHANNEL.registerMessage(id++, com.myriam.unrp.am.AmWheelPickPacket.class, com.myriam.unrp.am.AmWheelPickPacket::encode, com.myriam.unrp.am.AmWheelPickPacket::decode, magic(com.myriam.unrp.am.AmWheelPickPacket::handle));
+        CHANNEL.registerMessage(id++, com.myriam.unrp.deal.PactEditPacket.class, com.myriam.unrp.deal.PactEditPacket::encode, com.myriam.unrp.deal.PactEditPacket::decode, magic(com.myriam.unrp.deal.PactEditPacket::handle));
         CHANNEL.registerMessage(id++, com.myriam.unrp.deal.PactViewPacket.class, com.myriam.unrp.deal.PactViewPacket::encode, com.myriam.unrp.deal.PactViewPacket::decode, com.myriam.unrp.deal.PactViewPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.deal.PactHudPacket.class, com.myriam.unrp.deal.PactHudPacket::encode, com.myriam.unrp.deal.PactHudPacket::decode, com.myriam.unrp.deal.PactHudPacket::handle);
         CHANNEL.registerMessage(id++, com.myriam.unrp.deal.LedgerActionPacket.class, com.myriam.unrp.deal.LedgerActionPacket::encode, com.myriam.unrp.deal.LedgerActionPacket::decode, com.myriam.unrp.deal.LedgerActionPacket::handle);

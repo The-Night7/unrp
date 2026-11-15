@@ -306,7 +306,7 @@ public class HubScreen extends Screen {
             text(g, "Maîtrise", cx, y + 40, DIM);
             text(g, mastery + " / 100", cx + leftW - font.width(mastery + " / 100"), y + 40, TXT);
             bar(g, cx, y + 51, leftW, 5, mastery / 100.0, ACCENT);
-        } else text(g, "Niveau de fiche fixe", cx, y + 42, DIM);
+        } else text(g, "Level de fiche fixe", cx, y + 42, DIM);
         String school = str(me, "school_name"), rank = str(me, "rank");
         if (!school.isEmpty()) text(g, font.plainSubstrByWidth(school + (rank.isEmpty() ? "" : " · " + rankFr(rank)), leftW), cx, y + 62, DIM);
         section(g, "STATISTIQUES", cx, y + 77);
@@ -543,7 +543,7 @@ public class HubScreen extends Screen {
             final int unlockRank = rank;
             boolean owned = (ps.unlockMask & (1 << rank)) != 0;
             button(g, cx + (rank - 2) * (buttonW + 6), bottom + 7, buttonW, 15,
-                    owned ? "Rang " + rank + " : acquis" : "Rang " + rank + " : " + (rank - 1) + " PA",
+                    owned ? "Rank " + rank + " : acquis" : "Rank " + rank + " : " + (rank - 1) + " AP",
                     !owned && ps.abilityPts >= rank - 1, () -> send("unlock", String.valueOf(unlockRank), ""));
         }
     }
@@ -575,27 +575,30 @@ public class HubScreen extends Screen {
         int infoY = y + height - 78;
         g.fill(x + 7, infoY - 6, x + width - 7, infoY - 5, UiSkin.WAVE);
         if (move == null) {
-            text(g, "R : activer / désactiver", x + 9, infoY, DIM);
-            text(g, ps.active ? "Pouvoir actif" : "Pouvoir inactif", x + 9, infoY + 14, ps.active ? GOOD : DIM);
-            boundedWrap(g, "Sélectionne un mouvement pour voir ses conditions et son coût.", x + 9, infoY + 32, width - 18, y + height - 5, TXT);
+            text(g, "R: activate / deactivate", x + 9, infoY, DIM);
+            text(g, ps.active ? "Power active" : "Power inactive", x + 9, infoY + 14, ps.active ? GOOD : DIM);
+            boundedWrap(g, "Select a move to see its requirements and cost.", x + 9, infoY + 32, width - 18, y + height - 5, TXT);
             return;
         }
         String input = switch (str(move, "input")) {
-            case "held" -> "Maintenir";
-            case "toggle" -> "Interrupteur";
-            case "charge" -> "Charger puis relâcher";
-            default -> "Une pression";
+            case "held" -> "Hold";
+            case "toggle" -> "Toggle";
+            case "charge" -> "Charge and release";
+            default -> "Press";
         };
-        text(g, "Case " + num(move, "slot") + " · " + input, x + 9, infoY, DIM);
-        text(g, num(move, "cost") > 0 ? num(move, "cost") + " aura" : "Sans coût direct", x + 9, infoY + 12, ACCENT);
-        text(g, "Recharge : " + String.format(Locale.ROOT, "%.1f s", num(move, "cooldown") / 20.0), x + 9, infoY + 24, DIM);
-        String requirement = "Disponible dès le départ";
+        text(g, "Slot " + num(move, "slot") + " · " + input, x + 9, infoY, DIM);
+        text(g, num(move, "cost") > 0 ? num(move, "cost") + " aura" : "No direct cost", x + 9, infoY + 12, ACCENT);
+        text(g, "Cooldown: " + String.format(Locale.ROOT, "%.1f s", num(move, "cooldown") / 20.0), x + 9, infoY + 24, DIM);
+        String requirement = "Available from the start";
         int rank = num(move, "rank"), parent = num(move, "requires");
-        if (rank >= 2) requirement = "Rang " + rank + " · " + (rank - 1) + " PA";
-        if (bool(move, "mastery") && !bool(move, "mastered")) requirement = "Maîtrise complète requise";
+        if (rank >= 2) requirement = "Rank " + rank + " · " + (rank - 1) + " AP";
+        if (move.has("min_level") && move.get("min_level").getAsDouble() > 0) {
+            requirement = "Level " + String.format(Locale.ROOT, "%.1f", move.get("min_level").getAsDouble()) + " required";
+        }
+        if (bool(move, "mastery") && !bool(move, "mastered")) requirement = "Full mastery required";
         text(g, requirement, x + 9, infoY + 40, locked ? ACCENT : GOOD);
         if (parent >= 0 && parent < moves.size()) {
-            String prerequisite = "Prérequis : " + str(moves.get(parent).getAsJsonObject(), "name");
+            String prerequisite = "Requires: " + str(moves.get(parent).getAsJsonObject(), "name");
             text(g, font.plainSubstrByWidth(prerequisite, width - 18), x + 9, infoY + 52, DIM);
             if (mx >= x && mx < x + width && my >= infoY + 50 && my < infoY + 63) tooltip.add(prerequisite);
         }

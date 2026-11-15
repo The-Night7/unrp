@@ -161,7 +161,9 @@ public class AuraTransferEvents {
                if (noncanonOn(player)) {
                   String short_ = resolveTargetPower(target);
                   if (short_ != null) {
-                     if (SgRules.outside(target)) {
+                     if (target instanceof ServerPlayer escrowOwner && com.myriam.unrp.ability.Specials17.protectedTrait(escrowOwner)) {
+                        bar(player, "§6Une branche est sous séquestre : ce trait ne peut pas être copié.");
+                     } else if (SgRules.outside(target)) {
                         bar(player, "§8There's nothing of theirs to take.");
                      } else if (!player.getMainHandItem().isEmpty()) {
                         bar(player, "§7Strike with an §fEMPTY HAND§7 to siphon a trait.");

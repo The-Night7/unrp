@@ -675,9 +675,10 @@ public final class SocialService {
                 node.addProperty("icon", move.icon);
                 node.addProperty("requires", move.requires);
                 node.addProperty("rank", move.unlock);
+                node.addProperty("min_level", move.minLevel);
                 node.addProperty("mastery", move.mastery);
                 node.addProperty("mastered", mastered);
-                node.addProperty("locked", com.myriam.unrp.ability.Unlocks.locked(ps.unlockMask, definition, i, mastered));
+                node.addProperty("locked", (ch != null && ch.level != null ? ch.level : pr.level) < move.minLevel || com.myriam.unrp.ability.Unlocks.locked(ps.unlockMask, definition, i, mastered));
                 node.addProperty("cost", move.cost);
                 node.addProperty("cooldown", move.cooldown);
                 node.addProperty("input", move.input);

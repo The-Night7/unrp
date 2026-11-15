@@ -2671,7 +2671,7 @@
    "aliases": [],
    "type": "origin",
    "nature": null,
-   "description": "Origin VII-I. Le Souverain écrit des lois ; son Tribunal lie quiconque y entre, et chaque infraction est prélevée sur-le-champ en Gage. Voir docs/PLAN_COVENANT.md.",
+   "description": "Stepping into his court is signing his contract. The Sovereign writes laws and collects their penalties as Collateral. Court range: 10–500 m. Permanent Indemnity from 5.0. God tier (6.0+): Constitutions, Retroactive Laws, whole-ability forfeiture, 24-hour jurisdiction and one-week remote signatures. See docs/COVENANT.md.",
    "users": [],
    "level_min": 1.0,
    "level_max": 10.0,
@@ -2679,7 +2679,7 @@
    "impl": {
     "status": "done",
     "palladium_power": null,
-    "notes": "capacité originale"
+    "notes": "CovenantRules, Specials17, persistent ledger and client signatures; docs/COVENANT.md."
    }
   }
  ]

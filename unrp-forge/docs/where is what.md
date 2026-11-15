@@ -4,6 +4,15 @@
 
 Voir [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) pour le guide complet : fichiers JSON et Java, chaîne d’exécution client/serveur, ajout d’un pouvoir, mouvements, animations, prérequis de l’arbre, effets visuels et tests en jeu. La référence détaillée des champs JSON reste dans [POUVOIRS.md](POUVOIRS.md).
 
+## Covenant
+
+- [COVENANT_SPEC.md](COVENANT_SPEC.md): full author specification, God tier and permanent Indemnity from 5.0.
+- [COVENANT.md](COVENANT.md): implemented rules, six stances, chat controls, persistence and Minecraft representations.
+- [CovenantRules.java](../src/main/java/com/myriam/unrp/ability/CovenantRules.java), [Specials17.java](../src/main/java/com/myriam/unrp/ability/Specials17.java), [CovenantParse.java](../src/main/java/com/myriam/unrp/ability/CovenantParse.java): tiers, gameplay and law grammar.
+- [CovenantStateData.java](../src/main/java/com/myriam/unrp/ability/CovenantStateData.java): world ledger saved in `<world>/data/unrp_covenant.dat`.
+- [CovenantClient.java](../src/main/java/com/myriam/unrp/client/CovenantClient.java) and [CovenantSignatureLayer.java](../src/main/java/com/myriam/unrp/client/CovenantSignatureLayer.java): signatures, Constitutions, markers and private parchments.
+- [make_covenant_icons.py](../tools/make_covenant_icons.py): native gold icon generation.
+
 ## Ressources et identifiants UNRP
 
 Toutes les ressources du mod utilisent le namespace `unrp` :

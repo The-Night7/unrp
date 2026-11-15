@@ -10,6 +10,8 @@ import java.util.List;
  * Les noms de champs JSON sont en snake_case (drainEvery ici = "drain_every" dans le JSON).
  */
 public class AbilityPower {
+    /** Runtime-only view of a leased branch; no unrelated power passives. */
+    public transient String branchSource;
     /** ANCIEN format : aura perdue par seconde tant que le pouvoir est actif. Préférer drainEvery. */
     public double drain;
     /** -1 aura toutes les N ticks tant que le pouvoir est actif (0 = gratuit). 20 ticks = 1 seconde. */
@@ -56,6 +58,14 @@ public class AbilityPower {
     public List<Move> moves = new ArrayList<>();
     /** apparence (couleur, particule) d'après le webtoon */
     public Look look;
+
+    /** A leased move keeps its definition and visual identity, without unrelated base-power passives. */
+    public AbilityPower branchView(String sourceId) {
+        AbilityPower view = new AbilityPower();
+        view.moves = moves; view.icon = icon; view.barColor = barColor;
+        view.look = look; view.activatePose = activatePose; view.branchSource = sourceId;
+        return view;
+    }
 
     /** Modificateur d'attribut Minecraft, comme "palladium:attribute_modifier" dans le modèle. */
     public static class Attr {
@@ -135,6 +145,8 @@ public class AbilityPower {
         public Double k;
         /** rang de déblocage (2, 3 ou 4) : coûte rang-1 points d'aptitude, valable pour tous tes pouvoirs ; 0 = disponible d'emblée */
         public int unlock;
+        /** Minimum character level; independent of purchased ranks. */
+        public double minLevel;
         /** exige la maîtrise pleine (OC au niveau 10 ; personnage de l'Unodex : toujours) : Domaine des mille lames */
         public boolean mastery;
         /** index (dans "moves") de la capacité à débloquer d'abord ; -1 = aucune */

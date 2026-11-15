@@ -138,7 +138,7 @@ public class PlayerStatePacket {
         p.abilityPts = b.readVarInt();
         p.abilityPtsTotal = b.readVarInt();
         p.unlockMask = b.readVarInt();
-        int n = b.readVarInt();
+        int n = readCount(b, com.myriam.unrp.ability.AbilityInputProtocol.CAPACITY, "moves");
         p.moveNames = new String[n];
         p.moveHeld = new boolean[n];
         p.moveCharge = new int[n];
@@ -165,7 +165,7 @@ public class PlayerStatePacket {
         }
         p.powerIcon = b.readUtf();
         p.powerColor = b.readUtf();
-        int bn = Math.min(64, b.readVarInt());
+        int bn = readCount(b, 8192, "bar entries");
         p.barSlot = new int[bn]; p.barCd = new int[bn]; p.barLeft = new int[bn];
         p.barIcon = new String[bn]; p.barColor = new String[bn]; p.barName = new String[bn];
         p.barLocked = new boolean[bn]; p.barOn = new boolean[bn];
@@ -182,7 +182,7 @@ public class PlayerStatePacket {
             p.barPower[k] = b.readVarInt();
             p.barMove[k] = b.readVarInt();
         }
-        int pn = Math.min(32, b.readVarInt());
+        int pn = readCount(b, 256, "powers");
         p.powIcon = new String[pn]; p.powColor = new String[pn]; p.powName = new String[pn]; p.powOn = new boolean[pn];
         for (int k = 0; k < pn; k++) {
             p.powIcon[k] = b.readUtf();
@@ -192,6 +192,12 @@ public class PlayerStatePacket {
         }
         p.barMore = b.readBoolean();
         return p;
+    }
+
+    private static int readCount(FriendlyByteBuf buffer, int maximum, String field) {
+        int count = buffer.readVarInt();
+        if (count < 0 || count > maximum) throw new io.netty.handler.codec.DecoderException("Invalid " + field + " count: " + count);
+        return count;
     }
 
     public static void handle(PlayerStatePacket p, Supplier<NetworkEvent.Context> ctx) {

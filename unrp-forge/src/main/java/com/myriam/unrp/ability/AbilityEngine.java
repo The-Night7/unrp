@@ -78,7 +78,7 @@ import java.util.Set;
 public final class AbilityEngine {
     public static final int SLOTS = 5;
     /** capacités par pouvoir au maximum (toutes postures confondues) */
-    public static final int MAX_MOVES = 12;
+    public static final int MAX_MOVES = AbilityInputProtocol.CAPACITY;
     /** blocage après épuisement de l'aura (200 ticks = 10 s, comme le modèle) */
     private static final int DEPLETION_LOCKOUT = 200;
     private static final double HELD_K = 0.25;
@@ -202,7 +202,7 @@ public final class AbilityEngine {
     }
 
     /** Coupe tous les pouvoirs du joueur. */
-    private static void allOff(ServerPlayer p) {
+    public static void allOff(ServerPlayer p) {
         St f = STATE.get(p.getUUID());
         if (f != null && f.on) turnOff(p, setup(p, false), f, null);
         Map<String, St> o = OTHERS.get(p.getUUID());
@@ -345,7 +345,8 @@ public final class AbilityEngine {
             return null;
         }
         String id = copied != null ? copied : data.aliases.getOrDefault(aid, aid);
-        int[] st = PlayerStateService.stats(p.server, p.getUUID(), pr, c);
+        power = Specials17.borrowedView(p, id, power);
+        int[] st = Specials17.borrowedStats(p, id, PlayerStateService.stats(p.server, p.getUUID(), pr, c));
         if (pr.aura < 0) pr.aura = PlayerStateService.maxAura(st);
         return new Setup(claims, pr, id, power, st);
     }
@@ -368,6 +369,7 @@ public final class AbilityEngine {
         if (power == null) return;
         if (!power.modes.isEmpty()) s.modeName = power.modes.get(st == null ? 0 : st.mode % power.modes.size()).name;
         if (!power.stances.isEmpty()) s.modeName = power.stances.get(st == null ? 0 : st.stance % power.stances.size());
+        power = Specials17.borrowedView(p, st != null && st.copyId != null ? st.copyId : basePowerId(p), power);
         List<Integer> vis = visible(power, st, p);
         int n = vis.size();
         s.moveNames = new String[n];
@@ -385,7 +387,8 @@ public final class AbilityEngine {
             int i = vis.get(k);
             AbilityPower.Move m = power.moves.get(i);
             s.moveRank[k] = m.unlock;
-            s.moveLocked[k] = !copiedNow && Unlocks.locked(s.unlockMask, power, i, Unlocks.mastered(p.server, p));
+            s.moveLocked[k] = Specials17.moveLevel(p, st != null && st.copyId != null ? st.copyId : basePowerId(p), i) < m.minLevel || (!copiedNow && Unlocks.locked(s.unlockMask, power, i, Unlocks.mastered(p.server, p)))
+                    || !Specials17.borrowedMoveAllowed(p, st != null && st.copyId != null ? st.copyId : AbilityEngine.basePowerId(p), i);
             s.moveNames[k] = m.name == null ? "?" : (m.name.length() > 40 ? m.name.substring(0, 40) : m.name);
             s.moveDesc[k] = m.desc == null ? "" : (m.desc.length() > 200 ? m.desc.substring(0, 200) : m.desc);
             s.moveHeld[k] = "held".equals(m.input);
@@ -437,13 +440,14 @@ public final class AbilityEngine {
                     AbilityPower.Move m = power.moves.get(i);
                     bp.add(idx);
                     bmove.add(i);
-                    bslot.add(m.barSlot >= 0 ? m.barSlot : i + 1);
+                    bslot.add(power.branchSource != null ? i + 1 : m.barSlot >= 0 ? m.barSlot : i + 1);
                     bcd.add(Math.max(0, m.cooldown));
                     bleft.add(st == null ? 0 : (int) Math.max(0, st.cdEnd[i] - now));
                     bicon.add(m.icon == null ? "" : m.icon);
                     bcol.add(m.barColor == null ? "" : m.barColor);
                     bname.add(m.name == null ? "?" : (m.name.length() > 40 ? m.name.substring(0, 40) : m.name));
-                    block.add(!vis.contains(i) || (!borrowed && Unlocks.locked(mask, power, i, Unlocks.mastered(p.server, p))));
+                    block.add(!vis.contains(i) || Specials17.moveLevel(p, su.powerId, i) < m.minLevel || !Specials17.borrowedMoveAllowed(p, su.powerId, i)
+                            || Specials17.branchBlocked(p, su.powerId, i) || (!borrowed && Unlocks.locked(mask, power, i, Unlocks.mastered(p.server, p))));
                     bon.add(st != null && (st.toggled[i] || st.held[i] || st.charging[i]));
                 }
             });
@@ -461,6 +465,8 @@ public final class AbilityEngine {
         }
     }
 
+    private static double levelOf(ServerPlayer player) { return Specials17.levelOf(player); }
+
     // ------------------------------------------------------------------ entrées (touches)
     /** action : 0 = activer/désactiver ; 10+i = appui sur la capacité i ; 20+i = relâchement. */
     public static void input(ServerPlayer p, int action) {
@@ -475,6 +481,16 @@ public final class AbilityEngine {
         if (action == 140) { // touche de liste de Palladium, après la dernière page : pouvoir suivant (copies, pouvoirs accordés)
             St st0 = STATE.computeIfAbsent(p.getUUID(), k -> new St());
             if (!st0.reserve.isEmpty() || !Superpowers.granted(p).isEmpty()) cycleCopy(p, st0);
+            return;
+        }
+        if (AbilityInputProtocol.isMove(action)) {
+            boolean press = AbilityInputProtocol.isPress(action);
+            int index = AbilityInputProtocol.index(action);
+            Setup setup = setup(p, press);
+            if (setup == null) return;
+            St state = STATE.computeIfAbsent(p.getUUID(), k -> new St());
+            int key = visible(setup.power, state, p).indexOf(index);
+            if (key >= 0) input(p, press ? 10 : 20, key);
             return;
         }
         if (action >= 100 && action < 140) { // case de la barre : capacité désignée par son rang dans le pouvoir
@@ -499,6 +515,7 @@ public final class AbilityEngine {
         St st = STATE.computeIfAbsent(p.getUUID(), k -> new St());
         st.powerId = su.powerId;
         long now = p.serverLevel().getGameTime();
+        if (Specials17.powerBlocked(p)) { bar(p, "Ton pouvoir est détenu en Gage ou suspendu par arbitrage."); return; }
         if (action == 0 && p.isShiftKeyDown() && pagedBar(su.power)) { // pouvoirs à pages (Hollow Mark) : Maj + R change de page
             st.stance = (st.stance + 1) % su.power.stances.size();
             bar(p, su.power.stances.get(st.stance));
@@ -545,6 +562,9 @@ public final class AbilityEngine {
             }
             return;
         }
+        if (Specials17.moveLevel(p, su.powerId, slot) < m.minLevel) {
+            bar(p, "Niveau " + m.minLevel + " requis."); return;
+        }
         if (!st.on) {
             bar(p, "Active d'abord ton pouvoir (R).");
             return;
@@ -555,7 +575,7 @@ public final class AbilityEngine {
             bar(p, m.name + " : verrouillé" + (rk >= Unlocks.MIN_RANK ? " (rang " + rk + ", " + Unlocks.cost(rk) + " pt) : touche H, onglet Capacités." : " : débloque d'abord la capacité précédente."));
             return;
         }
-        if (Specials17.branchBlocked(p, slot)) {
+        if ((Specials17.branchBlocked(p, su.powerId, slot) || !Specials17.borrowedMoveAllowed(p, su.powerId, slot))) {
             bar(p, "§cCette capacité est prise en gage (Covenant).");
             return;
         }
@@ -738,7 +758,10 @@ public final class AbilityEngine {
     }
 
     private static boolean perform(ServerPlayer p, Setup su, St st, AbilityPower.Move m, double k, boolean speak) {
+        int[] originalStrength = Specials17.borrowedMoveStats(p, su.powerId, su.power.moves.indexOf(m), su.st);
+        su = new Setup(su.claims, su.pr, su.powerId, su.power, originalStrength);
         if (!"stance_next".equals(m.special) && !"mode_next".equals(m.special)) Specials17.onCast(p);
+        if (!st.on || Specials17.powerBlocked(p) || (su.power.branchSource != null && !Specials17.hasLease(p, su.powerId))) return false;
         if ("stance_next".equals(m.special)) {
             if (su.power.stances.isEmpty()) return false;
             st.stance = (st.stance + 1) % su.power.stances.size();
@@ -746,7 +769,7 @@ public final class AbilityEngine {
             bar(p, "Posture : " + su.power.stances.get(st.stance));
             return true;
         }
-        if (m.special != null && Specials.handles(m.special)) return Specials.run(p, su.power, m, su.st, st.stance);
+        if (m.special != null && Specials.handles(m.special)) return Specials.run(p, su.power, m, su.st, su.power.branchSource != null && m.stance >= 0 ? m.stance : st.stance);
         if ("mode_next".equals(m.special)) {
             if (su.power.modes.isEmpty()) return false;
             st.mode = (st.mode + 1) % su.power.modes.size();
@@ -816,6 +839,7 @@ public final class AbilityEngine {
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
             St st = STATE.get(p.getUUID());
             if (st == null) continue;
+            if (Specials17.powerBlocked(p)) { allOff(p); continue; }
             if (st.lockUntil > 0) {
                 lockout(p, st, now);
                 continue;
@@ -854,7 +878,7 @@ public final class AbilityEngine {
             boolean active = st.held[i] || st.toggled[i];
             if (active) {
                 if (m.healEvery > 0 && now % m.healEvery < 4 && p.getHealth() < p.getMaxHealth()) p.heal(m.healAmount);
-                if (st.toggled[i] && m.special != null) Specials.whileOn(p, su.power, m, su.st, st.stance, now);
+                if (st.toggled[i] && m.special != null) Specials.whileOn(p, su.power, m, Specials17.borrowedMoveStats(p, su.powerId, i, su.st), su.power.branchSource != null && m.stance >= 0 ? m.stance : st.stance, now);
                 passive.addAll(m.passive);
                 if (m.drainEvery > 0) rate += 1.0 / m.drainEvery;
             }
@@ -1172,6 +1196,19 @@ public final class AbilityEngine {
         }
     }
 
+    public static void suspendBranch(ServerPlayer player, String power, int move) {
+        if (power == null || move < 0 || move >= MAX_MOVES) return;
+        String key = power.equals(basePowerId(player)) ? "" : power;
+        withPower(player, key, () -> {
+            St state = STATE.get(player.getUUID());
+            AbilityPower definition = UnodexData.get().powers.get(power);
+            if (state == null || definition == null || move >= definition.moves.size()) return;
+            state.held[move] = state.toggled[move] = state.charging[move] = false;
+            Specials.stop(player, definition.moves.get(move).special);
+        });
+        PlayerStateService.send(player);
+    }
+
     /** Identifiant du pouvoir de base du joueur (sans copie), ou null. */
     public static String basePowerId(ServerPlayer p) {
         ClaimData.Profile pr = ClaimData.get(p.server).profileOf(p.getUUID()).orElse(null);
@@ -1191,6 +1228,7 @@ public final class AbilityEngine {
 
     /** Retire un pouvoir de la réserve (et de la main s'il y était). */
     public static void removeCopy(ServerPlayer p, String id) {
+        if (Specials17.hasLease(p, id)) return; // a contract loan ends through its collateral ledger
         St st = STATE.get(p.getUUID());
         if (st == null) return;
         Map<String, St> o = OTHERS.get(p.getUUID());
@@ -1225,7 +1263,7 @@ public final class AbilityEngine {
         if (id == null) { // fin de toutes les copies : elles se coupent
             for (String r : new ArrayList<>(st.reserve)) removeCopy(p, r);
             st = STATE.get(p.getUUID());
-            st.reserve.clear();
+            st.reserve.removeIf(idToRemove -> !Specials17.hasLease(p, idToRemove));
             focus(p, "");
         } else {
             st.reserve.add(id);
@@ -1343,7 +1381,7 @@ public final class AbilityEngine {
     /** Pouvoir suspendu en ce moment (le tag « power_disabled » du modèle). */
     public static boolean disabled(ServerPlayer p) {
         St st = STATE.get(p.getUUID());
-        return st != null && st.disabledUntil > p.serverLevel().getGameTime();
+        return Specials17.powerBlocked(p) || (st != null && st.disabledUntil > p.serverLevel().getGameTime());
     }
 
     /** Lève une suspension en cours (menottes retirées). */
@@ -1354,6 +1392,7 @@ public final class AbilityEngine {
 
     /** Suspend le pouvoir du joueur "ticks" ticks (il se coupe et ne peut pas être réactivé). */
     public static void disable(ServerPlayer p, int ticks) {
+        if (Specials17.branchEscrowed(p)) { bar(p, "Une branche sous séquestre ne peut pas être scellée."); return; }
         allOff(p); // tous les pouvoirs du joueur
         St st = STATE.computeIfAbsent(p.getUUID(), k -> new St());
         st.disabledUntil = p.serverLevel().getGameTime() + ticks;
@@ -1388,7 +1427,8 @@ public final class AbilityEngine {
             boolean stanceOk = sv < 0 || power.stances.isEmpty() || sv == cur;
             boolean modeOk = mv.mode < 0 || power.modes.isEmpty() || (st != null && mv.mode == st.mode % power.modes.size()) || (st == null && mv.mode == 0);
             boolean tagOk = mv.showTag == null || p == null || (mv.showTag.startsWith("!") ? !p.getTags().contains(mv.showTag.substring(1)) : p.getTags().contains(mv.showTag));
-            if (stanceOk && modeOk && tagOk) out.add(i);
+            boolean borrowed = power.branchSource != null;
+            if ((borrowed || (stanceOk && modeOk && tagOk)) && (!borrowed || p == null || Specials17.borrowedMoveAllowed(p, power.branchSource, i))) out.add(i);
         }
         return out;
     }
@@ -1425,6 +1465,7 @@ public final class AbilityEngine {
 
     /** Coup de poing dans le vide : s'il traverse la paroi d'une barrière (pas la sienne), elle encaisse le coup. */
     public static void punch(ServerPlayer p) {
+        Specials17.onAttackAttempt(p);
         Vec3 eye = p.getEyePosition(), end = eye.add(p.getViewVector(1f).scale(4));
         double dmg = p.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE);
         for (Shell sh : SHELLS) {

@@ -57,6 +57,7 @@ public final class Superpowers {
 
     /** superpower remove unrp:<id> */
     public static void remove(ServerPlayer p, String id) {
+        if (id.equals(AbilityEngine.basePowerId(p)) && Specials17.branchEscrowed(p)) return;
         if (id.endsWith("_am")) {
             AbilityEngine.removeCopy(p, id.substring(0, id.length() - 3));
             return;
@@ -75,6 +76,7 @@ public final class Superpowers {
 
     /** Pouvoirs que le joueur détient (tags « unrp.has.* » du modèle). */
     public static Set<String> held(ServerPlayer p) {
+        if (Specials17.powerBlocked(p)) return Set.of();
         Set<String> out = new LinkedHashSet<>();
         String base = AbilityEngine.basePowerId(p);
         if (base != null && !revoked(p).contains(base)) out.add(base);

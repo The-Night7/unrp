@@ -144,6 +144,9 @@ public final class AmWheelBridge {
         boolean[] near = NEARBY.get(p.getUUID());
         if (near == null || !near[slot]) { bar(p, "§c§lLa cible n'est plus à portée."); return; }
         Entity target = findTarget(p, s);
+        if (target instanceof ServerPlayer escrowOwner && com.myriam.unrp.ability.Specials17.branchEscrowed(escrowOwner)) {
+            bar(p, "§6Cette capacité contient une branche sous séquestre : copie refusée."); return;
+        }
         if (target instanceof ServerPlayer tp && powerLevel(tp) > powerLevel(p) + 5) {
             bar(p, "§c§lLe niveau de puissance de la cible est trop élevé pour la copier !");
             return;

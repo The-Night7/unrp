@@ -56,6 +56,7 @@ public final class ClientEvents {
                     pr.addLayer(new com.myriam.unrp.pass.JokerEmberLayer(pr));
                     pr.addLayer(new com.myriam.unrp.pass.PassLayers.PredatorTrans(pr, event.getEntityModels()));
                     pr.addLayer(new com.myriam.unrp.pass.UnrpPowerLayers.HandBladesLayer(pr));
+                    pr.addLayer(new CovenantSignatureLayer(pr));
                     pr.addLayer(new com.myriam.unrp.pass.UnrpPowerLayers.SpectralClawLayer(pr));
                     pr.addLayer(new com.myriam.unrp.pass.UnrpPowerLayers.ArachnidLegsLayer(pr));
                     pr.addLayer(new com.myriam.unrp.uo.SarcophageTailsLayer(pr, event.getEntityModels()));

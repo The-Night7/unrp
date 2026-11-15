@@ -49,16 +49,18 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 /**
  * Covenant (Origin VII-I), capacité originale : un Souverain dont le Tribunal (rayon) lie tous ceux qui y entrent aux lois qu'il écrit.
  * Plan et choix : docs/PLAN_COVENANT.md. Fiche : docs/fidelite/covenant.md. Pas de modèle : conçue d'après la fiche de l'auteure.
- * Tout est en mémoire (un redémarrage rend tout aux victimes) sauf les objets confisqués, sauvegardés chez le Souverain.
+ * Ledger, Courts, Constitutions, signatures, collateral, accepted Pacts and pending remote offers are world-saved.
  */
 public final class Specials17 {
     private Specials17() {}
 
     private static final Set<String> ALL = Set.of("cv_enact", "cv_terms", "cv_fine", "cv_foreclose", "cv_pact", "cv_endow", "cv_proxy",
-            "cv_appropriate", "cv_immunity", "cv_indemnity", "cv_escrow", "cv_arbitrate");
-    private static final double[] RADIUS = {10, 30, 75, 150};
-    private static final int[] LAW_CAP = {2, 5, Integer.MAX_VALUE, Integer.MAX_VALUE};
-    private static final String[] STAT = {"Puissance", "Défense", "Récupération", "Ruse", "Vitesse"};
+            "cv_appropriate", "cv_immunity", "cv_indemnity", "cv_escrow", "cv_arbitrate", "cv_exile",
+            "cv_constitution", "cv_retroactive", "cv_forfeit", "cv_class_action", "cv_sovereign_pact", "cv_due",
+            "cv_jurisdiction", "cv_message", "cv_ledger", "cv_return", "cv_spend", "cv_summon");
+    private static final double[] RADIUS = {10, 30, 75, 150, 500};
+    private static final int[] LAW_CAP = {2, 5, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};
+    private static final String[] STAT = {"Power", "Defense", "Recovery", "Trick", "Speed"};
     private static final UUID SOUL_MOD = UUID.fromString("c0a1e7a2-7a11-4c0d-9e60-2d1b0a5e0c01");
     private static final String VAULT = "unrp_cv_vault";
 
@@ -68,15 +70,22 @@ public final class Specials17 {
 
     // ------------------------------------------------------------------ données
     private static final class Court {
+        UUID id = UUID.randomUUID();
         UUID owner;
-        ResourceKey<Level> dim;
+        String dim = "minecraft:overworld";
         Vec3 center;
         double radius;
-        boolean follow = true;
+        boolean follow = true, constitutional, district;
+        String name = "Court";
+        long expires = Long.MAX_VALUE;
+        final List<Act> history = new ArrayList<>();
+        final Map<String, Long> lastRecorded = new HashMap<>();
         final List<LawRec> laws = new ArrayList<>();
         int next = 1;
+        double ownerLevel = 1;
         final Set<Term> terms = EnumSet.noneOf(Term.class);
         final Set<UUID> inside = new HashSet<>();
+        final Set<UUID> physical = new HashSet<>();
         final Set<UUID> exiled = new HashSet<>();
         final Map<UUID, Integer> breaches = new HashMap<>();
         final Map<UUID, Long> lastBreach = new HashMap<>();
@@ -92,15 +101,21 @@ public final class Specials17 {
         Law law;
         boolean hidden;
         long activeAt;
+        final Map<UUID, Long> grace = new HashMap<>();
     }
 
     /** Un gage : ce qui a été pris à quelqu'un. */
     private static final class Coll {
+        UUID id = UUID.randomUUID();
+        UUID court;
+        int tier;
+        int[] originalStats = new int[] {1, 1, 1, 1, 1};
         Pen pen;
         int amt = 1;
         UUID from;
         String fromName;
         String power;
+        double originalLevel = 1;
         int move = -1;
         String memo = "";
         boolean permanent;
@@ -110,8 +125,8 @@ public final class Specials17 {
         boolean higher;
 
         String label() {
-            String s = pen.label() + (pen.kind() == Kind.STAT && amt > 1 ? " ×" + amt : "") + " de " + fromName;
-            if (pen.kind() == Kind.BRANCH && power != null) s = "branche " + (move + 1) + " de " + power + " de " + fromName;
+            String s = pen.label() + (pen.kind() == Kind.STAT && amt > 1 ? " ×" + amt : "") + " from " + fromName;
+            if (pen.kind() == Kind.BRANCH && power != null) s = "branch " + (move + 1) + " from " + power + " from " + fromName;
             if (pen.kind() == Kind.MEMORY && !memo.isEmpty()) s += " (« " + memo + " »)";
             return s;
         }
@@ -120,18 +135,39 @@ public final class Specials17 {
     private static final class Sov {
         Court court;
         Court sealed;
+        int selectedCourt = -1;
+        Court constitution;
+        final List<Court> jurisdictions = new ArrayList<>();
+        final Map<UUID, Long> signatures = new HashMap<>();
+        final Map<UUID, Subject> subjects = new HashMap<>();
+        final Map<UUID, List<String>> handMail = new HashMap<>();
+        final List<PactRec> pacts = new ArrayList<>();
+        Pen tribute;
+        long tributeAt;
+        int escrowBranch = -1;
         final List<Coll> stock = new ArrayList<>();
         boolean bound;
-        int sel;
+        int sel, branchSelection, nextLaw = 1;
         int escrow = -1;
         long indemUntil, proxyUntil, daily;
-        UUID proxy;
+        UUID proxy, proxyCourt, target;
         LawRec dailyLaw;
     }
 
-    private record Offer(UUID by, Pen give, Pen take, long until) {}
+    private record Offer(UUID by, Pen give, Pen take, long until, boolean sovereign, UUID reserved, String text) {}
+    private record Act(UUID actor, Viol violation, long at) {}
+    private record PactRec(UUID target, String text, long at) {}
+    private record VaultEntry(UUID court, UUID owner, UUID from, String item, boolean released) {}
+    private static final class Lease {
+        UUID collateral, holder;
+        String power;
+        int move;
+        int[] stats;
+        double originalLevel = 1;
+        boolean full, ownedBefore;
+    }
 
-    private enum Await { LAW, TERMS, PACT }
+    private enum Await { LAW, TERMS, PACT, CONSTITUTION, RETROACTIVE, FORFEIT, SOVEREIGN_PACT, TRIBUTE, MESSAGE, JURISDICTION }
 
     private record Pending(Await what, long until, UUID target) {}
 
@@ -144,7 +180,14 @@ public final class Specials17 {
     private static final Map<UUID, UUID> ARB = new HashMap<>();
     private static final Map<UUID, String> LAST_CHAT = new HashMap<>();
     private static final Map<UUID, Long> CD = new HashMap<>();
-    private static final Map<UUID, Boolean> SOUL_SEEN = new HashMap<>();
+    private static final List<Lease> LEASES = new ArrayList<>();
+    private static final List<VaultEntry> VAULT_ITEMS = new ArrayList<>();
+    private static final Map<String, Long> PACT_IMMUNITY = new HashMap<>();
+    private static final Map<String, Long> COLLECTION_GATE = new HashMap<>();
+    private static final Set<UUID> DIRTY_PLAYERS = new HashSet<>();
+    private static final Set<UUID> PROXY_DAMAGE = new HashSet<>();
+    private static MinecraftServer activeServer;
+
 
     private static Sov sov(UUID id) {
         return SOV.computeIfAbsent(id, k -> new Sov());
@@ -172,7 +215,7 @@ public final class Specials17 {
 
     private static boolean pay(ServerPlayer p, int cost) {
         if (AbilityEngine.aura(p) < cost) {
-            bar(p, "§cIl faut " + cost + " d'aura.");
+            bar(p, "§cRequires " + cost + " aura.");
             return false;
         }
         AbilityEngine.spendAura(p, cost);
@@ -190,8 +233,14 @@ public final class Specials17 {
         return pr.level;
     }
 
+    private static double courtLevelOf(ServerPlayer player) {
+        double level = levelOf(player);
+        for (Lease lease : LEASES) if (lease.holder.equals(player.getUUID()) && "covenant".equals(lease.power)) level = Math.max(level, lease.originalLevel);
+        return level;
+    }
+
     static int tierOf(double level) {
-        return level < 4 ? 0 : level < 7 ? 1 : level < 9 ? 2 : 3;
+        return CovenantRules.tier(level);
     }
 
     // ------------------------------------------------------------------ stats (lues par AbilityEngine.statDelta)
@@ -209,7 +258,10 @@ public final class Specials17 {
     /** La capacité (slot de barre) est-elle suspendue par une branche prise ? */
     public static boolean branchBlocked(ServerPlayer p, int slot) {
         if (APPLIED.isEmpty()) return false;
-        String pid = AbilityEngine.basePowerId(p);
+        return branchBlocked(p, AbilityEngine.basePowerId(p), slot);
+    }
+
+    public static boolean branchBlocked(ServerPlayer p, String pid, int slot) {
         for (Coll c : APPLIED) if (c.from.equals(p.getUUID()) && c.pen.kind() == Kind.BRANCH && c.move == slot && c.power != null && c.power.equals(pid)) return true;
         return false;
     }
@@ -220,15 +272,16 @@ public final class Specials17 {
         if (s.court != null) return s.court;
         Court c = new Court();
         c.owner = p.getUUID();
-        c.dim = p.serverLevel().dimension();
+        c.dim = p.serverLevel().dimension().location().toString();
         c.center = p.position();
-        c.tier = tierOf(levelOf(p));
+        c.ownerLevel = courtLevelOf(p);
+        c.tier = tierOf(c.ownerLevel);
         c.radius = RADIUS[c.tier];
         if (s.dailyLaw != null) { /* la loi du jour n'est pas une loi du Tribunal */ }
         s.court = c;
         p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.BELL_RESONATE, SoundSource.PLAYERS, 1f, 0.6f);
         Fx.wave(p.serverLevel(), p.position(), Math.min(c.radius, 14), 0xF2C94C, 24);
-        bar(p, "§6Tribunal ouvert : " + (int) c.radius + " m. Écris tes lois.");
+        bar(p, "§6Court opened: " + (int) c.radius + " m. Write your laws.");
         return c;
     }
 
@@ -249,31 +302,41 @@ public final class Specials17 {
         }
         c.parchments.clear();
         for (Coll k : APPLIED) {
-            if (!k.by.equals(c.owner) || k.until != Long.MAX_VALUE || k.permanent) continue;
-            k.until = now + (k.pen.kind() == Kind.SENSE || k.higher ? 12000 : 72000);
+            if (!k.court.equals(c.id) || k.until != Long.MAX_VALUE || k.permanent || k.tier >= 4) continue;
+            k.until = now + (k.pen.kind() == Kind.SENSE ? 12000 : CovenantRules.HOUR);
         }
+        for (int i = 0; i < VAULT_ITEMS.size(); i++) {
+            VaultEntry item = VAULT_ITEMS.get(i);
+            if (item.court.equals(c.id)) VAULT_ITEMS.set(i, new VaultEntry(item.court, item.owner, item.from, item.item, true));
+        }
+        returnItems(server);
         // objets confisqués : rendus à leur propriétaire s'il est là, sinon gardés dans le coffre (sauvegardé)
         returnVault(server, c.owner);
         // les prêts s'arrêtent
-        for (List<Coll> l : ENDOW.values()) l.removeIf(k -> k.by.equals(c.owner));
+        for (List<Coll> list : ENDOW.values()) for (Coll collateral : new ArrayList<>(list)) {
+            if (!collateral.court.equals(c.id)) continue;
+            list.remove(collateral); dropLease(server, collateral.id); collateral.holder = null;
+            if (!s.stock.contains(collateral)) s.stock.add(collateral);
+        }
         for (UUID id : c.inside) {
             ServerPlayer v = server.getPlayerList().getPlayer(id);
-            if (v != null) bar(v, "§7Le Tribunal se ferme.");
+            if (v != null) bar(v, "§7The Court closes.");
         }
         c.inside.clear();
         ARB.values().removeIf(o -> o.equals(c.owner));
         Sov so = SOV.get(c.owner);
-        if (so != null) so.proxy = null;
+        if (so != null && c.id.equals(so.proxyCourt)) so.proxy = null;
     }
 
     private static boolean insideOf(Court c, ServerPlayer v) {
-        return v.serverLevel().dimension().equals(c.dim) && v.position().distanceTo(c.center) <= c.radius;
+        return v.serverLevel().dimension().location().toString().equals(c.dim) && (c.district
+                ? v.position().multiply(1, 0, 1).distanceTo(c.center.multiply(1, 0, 1)) <= c.radius
+                : v.position().distanceTo(c.center) <= c.radius);
     }
 
     private static List<Court> courtsOf(ServerPlayer v) {
         List<Court> out = new ArrayList<>();
-        for (Sov s : SOV.values()) if (s.court != null && s.court.inside.contains(v.getUUID())) out.add(s.court);
-        for (Court c : SEALED) if (c.inside.contains(v.getUUID())) out.add(c);
+        for (Court c : allCourts()) if (subject(c, v)) out.add(c);
         return out;
     }
 
@@ -283,6 +346,7 @@ public final class Specials17 {
             case STAT, MOVE -> true;
             case BRANCH, SENSE -> tier >= 2;
             case MEMORY, SOUL -> tier >= 3;
+            case ABILITY, NONE -> tier >= 4;
             case LIFE -> false;
         };
     }
@@ -290,20 +354,35 @@ public final class Specials17 {
     private static Coll makeColl(Court c, ServerPlayer v, Pen pen, boolean pact) {
         Sov sv = sov(c.owner);
         Pen use = pen;
+        if (use.kind() == Kind.NONE || !allowed(c.tier, use.kind())) return null;
+        if (use.kind() == Kind.ABILITY && AbilityEngine.basePowerId(v) == null) return null;
+        if (use.kind() == Kind.STAT) {
+            int[] remaining = AbilityEngine.currentStats(v);
+            if (remaining == null || remaining[Integer.parseInt(use.key())] <= 1) return null;
+        }
+        if (use.kind() == Kind.MOVE || use.kind() == Kind.SENSE || use.kind() == Kind.ABILITY) {
+            Pen requested = use;
+            if (APPLIED.stream().anyMatch(k -> k.from.equals(v.getUUID()) && k.pen.equals(requested))) return null;
+        }
+        if (use.kind() == Kind.ABILITY && branchEscrowed(v)) return null;
+        if (use.kind() == Kind.SOUL && APPLIED.stream().anyMatch(k -> k.from.equals(v.getUUID()) && k.pen.kind() == Kind.SOUL)) return null;
         if (use.kind() == Kind.STAT && sov(v.getUUID()).escrow == Integer.parseInt(use.key())) return null; // Escrow
         if (use.kind() == Kind.BRANCH) {
-            long held = sv.stock.stream().filter(k -> k.pen.kind() == Kind.BRANCH).count();
+            long held = APPLIED.stream().filter(k -> k.by.equals(c.owner) && k.pen.kind() == Kind.BRANCH).count();
             AbilityPower pw = UnodexData.get().powerFor(AbilityEngine.basePowerId(v));
             List<Integer> idx = new ArrayList<>();
             if (pw != null) {
-                for (int i = 0; i < pw.moves.size() && i < 12; i++) {
+                for (int i = 0; i < pw.moves.size() && i < AbilityEngine.MAX_MOVES; i++) {
+                    if (sov(v.getUUID()).escrowBranch == i) continue;
                     if ("stance_next".equals(pw.moves.get(i).special) || "mode_next".equals(pw.moves.get(i).special)) continue;
                     boolean taken = false;
                     for (Coll k : APPLIED) if (k.from.equals(v.getUUID()) && k.pen.kind() == Kind.BRANCH && k.move == i) taken = true;
-                    if (!taken) idx.add(i);
+                    boolean matches = use.key().isBlank() || use.key().equals(String.valueOf(i + 1))
+                            || CovenantParse.norm(pw.moves.get(i).name).contains(CovenantParse.norm(use.key()));
+                    if (!taken && matches) idx.add(i);
                 }
             }
-            if (held >= 5 || idx.isEmpty()) use = new Pen(Kind.STAT, "4"); // plus de branche à prendre : on retombe sur une stat
+            if ((c.tier < 4 && held >= 5) || idx.isEmpty()) return null;
             else {
                 Coll k = base(c, v, use, pact);
                 k.power = AbilityEngine.basePowerId(v);
@@ -318,11 +397,18 @@ public final class Specials17 {
     private static Coll base(Court c, ServerPlayer v, Pen pen, boolean pact) {
         Coll k = new Coll();
         k.pen = pen;
+        k.court = c.id;
+        k.tier = c.tier;
+        int[] sourceStats = AbilityEngine.currentStats(v);
+        if (sourceStats != null) k.originalStats = sourceStats.clone();
+        k.originalLevel = levelOf(v);
         k.from = v.getUUID();
         k.fromName = v.getGameProfile().getName();
         k.by = c.owner;
         k.permanent = pact && pen.kind() == Kind.SOUL && c.tier >= 3;
-        k.higher = levelOfSafe(v) > levelOfOwner(v.server, c.owner);
+        k.higher = c.tier < 4 && levelOfSafe(v) > c.ownerLevel;
+        if (pen.kind() == Kind.BRANCH && k.higher) k.until = v.server.overworld().getGameTime() + 12_000;
+        if (pen.kind() == Kind.ABILITY) k.power = AbilityEngine.basePowerId(v);
         if (pen.kind() == Kind.MEMORY) k.memo = LAST_CHAT.getOrDefault(v.getUUID(), "");
         return k;
     }
@@ -336,59 +422,87 @@ public final class Specials17 {
         return o == null ? 0 : levelOf(o);
     }
 
-    private static void collectUnit(Court c, ServerPlayer v, Pen pen, boolean pact, boolean announce) {
+    private static boolean collectUnit(Court c, ServerPlayer v, Pen pen, boolean pact, boolean announce) {
         Sov sv = sov(c.owner);
         Coll k = makeColl(c, v, pen, pact);
-        if (k == null) return;
+        if (k == null) return false;
         APPLIED.add(k);
         sv.stock.add(k);
+        DIRTY_PLAYERS.add(k.from); DIRTY_PLAYERS.add(k.by);
         if (k.pen.kind() == Kind.MEMORY) {
             v.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160, 0));
             AbilityEngine.spendAura(v, (int) (AbilityEngine.aura(v) * 0.4));
         }
         ServerPlayer owner = v.server.getPlayerList().getPlayer(c.owner);
         if (announce) {
-            bar(v, "§6Manquement. Prélevé : " + k.pen.label());
-            if (owner != null) bar(owner, "§6Gage reçu : " + k.label());
+            bar(v, "§6Breach. Collected: " + k.pen.label());
+            if (owner != null) bar(owner, "§6Collateral received: " + k.label());
         }
+        if (k.pen.kind() == Kind.ABILITY) AbilityEngine.allOff(v);
+        if (k.pen.kind() == Kind.BRANCH) AbilityEngine.suspendBranch(v, k.power, k.move);
         v.serverLevel().playSound(null, v.blockPosition(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.8f, 0.6f);
         Vfx.glow(v.serverLevel(), Vfx.SPARKS, 0xF2C94C, v.position().add(0, 1, 0), new Vec3(0.4, 0.6, 0.4), 8, 0.05);
+        return true;
     }
 
     /** Un manquement : chaque loi qui correspond prélève son gage, le reste de la peine devient une dette. */
-    private static void breach(ServerPlayer v, Viol viol) {
-        for (Court c : courtsOf(v)) {
+    private static void breach(ServerPlayer v, Viol viol) { breach(v, viol, null); }
+
+    private static void breach(ServerPlayer v, Viol viol, Court boundary) {
+        long now = v.server.overworld().getGameTime();
+        for (Court c : allCourts()) {
+            if (boundary != null && c != boundary) continue;
+            if (!subject(c, v) && !(viol == Viol.LEAVE && c.inside.contains(v.getUUID()))) continue;
+            if (!c.constitutional && (insideOf(c, v) || (viol == Viol.LEAVE && c.inside.contains(v.getUUID())))) {
+                String actionKey = v.getUUID() + ":" + viol;
+                if (now - c.lastRecorded.getOrDefault(actionKey, -20L) >= 20) {
+                    c.history.add(new Act(v.getUUID(), viol, now)); c.lastRecorded.put(actionKey, now);
+                }
+            }
             Sov so = SOV.get(c.owner);
-            if (c.owner.equals(v.getUUID()) && (so == null || !so.bound)) continue;
-            long now = v.serverLevel().getGameTime();
-            for (LawRec l : c.laws) {
-                if (l.law.viol() != viol || now < l.activeAt) continue;
-                String key = v.getUUID() + "#" + l.id;
-                if (now < c.gate.getOrDefault(key, 0L)) continue;
-                c.gate.put(key, now + 20);
-                collectUnit(c, v, l.law.pen(), false, true);
-                c.breaches.merge(v.getUUID(), 1, Integer::sum);
-                c.lastBreach.put(v.getUUID(), now);
-                List<Pen> d = c.debt.computeIfAbsent(v.getUUID(), k -> new ArrayList<>());
-                d.add(l.law.pen());
-                d.add(l.law.pen());
-                revokeEndow(v);
+            for (LawRec law : new ArrayList<>(c.laws)) {
+                boolean self = c.owner.equals(v.getUUID());
+                if (self && (so == null || !so.bound) && (so == null || so.dailyLaw == null || so.dailyLaw.id != law.id || c.tier >= 4)) continue;
+                if (law.law.viol() != viol || now < law.activeAt || now < law.grace.getOrDefault(v.getUUID(), 0L)) continue;
+                String key = c.owner + ":" + v.getUUID() + "#" + law.id;
+                if (now < COLLECTION_GATE.getOrDefault(key, 0L)) continue;
+                COLLECTION_GATE.put(key, now + 20);
+                collectBreach(c, v, law.law.pen(), now);
             }
         }
     }
 
+    private static void collectBreach(Court c, ServerPlayer victim, Pen penalty, long now) {
+        boolean paid = collectUnit(c, victim, penalty, false, true);
+        c.breaches.merge(victim.getUUID(), 1, Integer::sum);
+        c.lastBreach.put(victim.getUUID(), now);
+        // Debt is unpaid collateral, never an invented extra penalty on an already paid clause.
+        if (!paid) c.debt.computeIfAbsent(victim.getUUID(), k -> new ArrayList<>()).add(penalty);
+        revokeEndow(victim);
+    }
+
     private static void revokeEndow(ServerPlayer v) {
-        List<Coll> e = ENDOW.remove(v.getUUID());
+        revokeEndow(v.server, v.getUUID());
+    }
+
+    private static void revokeEndow(MinecraftServer server, UUID id) {
+        List<Coll> e = ENDOW.remove(id);
         if (e == null) return;
+        DIRTY_PLAYERS.add(id);
         for (Coll k : e) {
+            DIRTY_PLAYERS.add(k.by);
             k.holder = null;
+            dropLease(server, k.id);
             Sov s = SOV.get(k.by);
             if (s != null) s.stock.add(k);
         }
-        bar(v, "§cTu as enfreint une loi : le prêt est retiré.");
+        ServerPlayer player = server.getPlayerList().getPlayer(id);
+        if (player != null) bar(player, "§cYou broke a law: your endowment has been revoked.");
     }
 
     // ------------------------------------------------------------------ événements de jeu (branchés par AbilityEvents)
+    public static void onAttackAttempt(ServerPlayer player) { breach(player, Viol.ATTACK); }
+
     public static void onCast(ServerPlayer p) {
         if (!SOV.isEmpty() || !SEALED.isEmpty()) breach(p, Viol.ABILITY);
     }
@@ -419,6 +533,7 @@ public final class Specials17 {
         String text = e.getRawText();
         UUID id = p.getUUID();
         long now = p.serverLevel().getGameTime();
+        if (controlChat(p, text)) { e.setCanceled(true); return; }
         Offer offer = OFFERS.get(id);
         if (offer != null) {
             String n = CovenantParse.norm(text).trim();
@@ -431,7 +546,9 @@ public final class Specials17 {
             } else if (n.startsWith("refus") || n.equals("non") || n.equals("no") || n.startsWith("decline")) {
                 e.setCanceled(true);
                 OFFERS.remove(id);
-                bar(p, "§7Offre refusée.");
+                if (offer.sovereign) PACT_IMMUNITY.put(offer.by + ":" + id, now + CovenantRules.HOUR);
+                saveState(p.server);
+                bar(p, offer.sovereign ? "§7Offer refused: immune to their Pacts for one hour." : "§7Offer refused.");
                 return;
             }
         }
@@ -448,71 +565,104 @@ public final class Specials17 {
         breach(p, Viol.SPEAK);
     }
 
-    private static void finish(ServerPlayer p, Pending pd, String text) {
-        Sov s = sov(p.getUUID());
-        Court c = s.court;
-        if (c == null) {
-            bar(p, "§7Le Tribunal est fermé.");
-            return;
-        }
-        switch (pd.what) {
-            case LAW -> {
+    private static void finish(ServerPlayer p, Pending pending, String text) {
+        Sov state = sov(p.getUUID());
+        Court court = editingCourt(state);
+        if (court == null) { bar(p, "§7The Court is closed."); return; }
+        long now = p.server.overworld().getGameTime();
+        switch (pending.what) {
+            case LAW, RETROACTIVE, FORFEIT -> {
                 Law law = CovenantParse.law(text);
-                if (law == null) {
-                    p.sendSystemMessage(Component.literal("§cLoi non comprise. Écris : §fPersonne ne court. Pénalité : sa Vitesse"));
-                    p.sendSystemMessage(Component.literal("§7Infractions : courir, sauter, attaquer, pouvoir, parler, voler, casser, poser, s'accroupir, sortir. Peines : puissance, défense, récupération, ruse, vitesse, mouvement, vue, toucher, branche, mémoire, âme."));
-                    return;
+                if (law == null || !allowed(court.tier, law.pen().kind())) {
+                    bar(p, "§7Unrecognized law or penalty unavailable at this level. Example: No running. Penalty: Speed"); return;
                 }
-                if (!allowed(c.tier, law.pen().kind())) {
-                    bar(p, "§cTon niveau ne permet pas encore cette peine (" + law.pen().label() + ").");
-                    return;
+                if (pending.what == Await.FORFEIT && law.pen().kind() != Kind.ABILITY) {
+                    bar(p, "§7Total Forfeit: use 'Penalty: whole ability'."); return;
                 }
-                if (c.laws.size() >= LAW_CAP[c.tier]) {
-                    bar(p, "§cTu as déjà " + LAW_CAP[c.tier] + " lois (accroupi + Enact : en abroger une).");
-                    return;
-                }
+                if (court.laws.size() >= LAW_CAP[court.tier]) { bar(p, "§7Law limit reached."); return; }
                 if (!pay(p, 10)) return;
-                LawRec r = new LawRec();
-                r.id = c.next++;
-                r.text = text.length() > 70 ? text.substring(0, 70) : text;
-                r.law = law;
-                r.activeAt = p.serverLevel().getGameTime() + (c.tier == 0 ? 60 : 0);
-                c.laws.add(r);
-                announce(p, c, "§6Nouvelle loi §e#" + r.id + " : §f" + r.text);
-                rebuildParchments(p, c);
+                LawRec record = new LawRec(); record.id = state.nextLaw++; record.text = text.length() > 512 ? text.substring(0, 512) : text;
+                record.law = law; record.activeAt = now;
+                if (court.tier == 0) for (ServerPlayer person : p.server.getPlayerList().getPlayers()) {
+                    if (insideOf(court, person)) record.grace.put(person.getUUID(), now + 60);
+                }
+                court.laws.add(record);
+                announce(p, court, "§6Law #" + record.id + " : §f" + record.text);
+                rebuildParchments(p, court);
+                if (pending.what == Await.RETROACTIVE) {
+                    // Only actions recorded while physically inside this Court qualify.
+                    for (Act act : new ArrayList<>(court.history)) {
+                        if (!CovenantRules.retroactiveEligible(now, act.at, true) || act.violation != law.viol()) continue;
+                        ServerPlayer person = p.server.getPlayerList().getPlayer(act.actor);
+                        if (act.actor.equals(court.owner) && !state.bound) continue;
+                        if (person != null) collectBreach(court, person, law.pen(), now);
+                        else {
+                            boolean paid = collectOffline(p.server, court, act.actor, law.pen());
+                            court.breaches.merge(act.actor, 1, Integer::sum);
+                            List<Pen> debt = court.debt.computeIfAbsent(act.actor, key -> new ArrayList<>());
+                            if (!paid) debt.add(law.pen());
+                            revokeEndow(p.server, act.actor);
+                        }
+                    }
+                }
             }
             case TERMS -> {
-                var t = CovenantParse.terms(text);
-                if (t.isEmpty()) {
-                    bar(p, "§cTermes non compris : armes, armures, élytres, perles ou tout l'inventaire.");
-                    return;
-                }
+                Set<Term> terms = CovenantParse.terms(text);
+                if (terms.isEmpty()) { bar(p, "§7Terms: weapons, armor, elytra, pearls, inventory."); return; }
                 if (!pay(p, 8)) return;
-                c.terms.clear();
-                c.terms.addAll(t);
-                announce(p, c, "§6Termes d'entrée : §f" + t);
+                court.terms.clear(); court.terms.addAll(terms);
+                announce(p, court, "§6Terms of Entry: " + text);
             }
-            case PACT -> {
-                Pen[] pt = CovenantParse.pact(text);
-                ServerPlayer tgt = p.server.getPlayerList().getPlayer(pd.target);
-                if (pt == null || tgt == null) {
-                    bar(p, "§cPacte non compris. Écris : §fma vie contre ta branche §c(« je donne X contre Y »).");
-                    return;
+            case PACT, SOVEREIGN_PACT -> offerPact(p, pending, text, court);
+            case CONSTITUTION -> {
+                Court constitution = constitution(p.getUUID(), court);
+                if (constitution.laws.size() >= 5) { bar(p, "§7Maximum five Constitutions: use cv repeal <id> to repeal one."); return; }
+                LawRec record;
+                String number = text.trim().replace("#", "");
+                if (number.matches("[0-9]+")) {
+                    int id = Integer.parseInt(number);
+                    LawRec existing = court.laws.stream().filter(l -> l.id == id).findFirst().orElse(null);
+                    if (existing == null) { bar(p, "§7Unknown law."); return; }
+                    record = copyLaw(existing); court.laws.remove(existing); record.hidden = false;
+                } else {
+                    Law law = CovenantParse.law(text);
+                    if (law == null || !allowed(4, law.pen().kind())) { bar(p, "§7Unrecognized Constitution."); return; }
+                    record = new LawRec(); record.id = state.nextLaw++; record.text = text; record.law = law; record.activeAt = now;
                 }
-                if (!allowed(c.tier, pt[1].kind()) && pt[1].kind() != Kind.LIFE) {
-                    bar(p, "§cTon niveau ne permet pas de prendre : " + pt[1].label());
-                    return;
-                }
-                if (pt[0].kind() != Kind.LIFE && findStock(s, pt[0]) == null) {
-                    bar(p, "§cTu n'as pas ce gage à offrir : " + pt[0].label());
-                    return;
-                }
-                if (!pay(p, 12)) return;
-                OFFERS.put(tgt.getUUID(), new Offer(p.getUUID(), pt[0], pt[1], p.serverLevel().getGameTime() + 600));
-                tgt.sendSystemMessage(Component.literal("§6" + p.getGameProfile().getName() + " te propose un Pacte : il donne §f" + pt[0].label() + "§6 contre §f" + pt[1].label() + "§6. Réponds §faccepter§6 ou §frefuser§6 (30 s)."));
-                bar(p, "§7Offre envoyée à " + tgt.getGameProfile().getName() + ".");
+                constitution.laws.add(record);
+                rebuildParchments(p, court);
+                announce(p, court, "§6Constitution engraved #" + record.id + " : " + text);
             }
+            case TRIBUTE -> {
+                Pen penalty = CovenantParse.pen(text);
+                if (penalty == null || !allowed(4, penalty.kind()) || penalty.kind() == Kind.NONE) { bar(p, "§7Unrecognized tribute."); return; }
+                state.tribute = penalty;
+                constitution(p.getUUID(), court);
+                if (state.tributeAt == 0) state.tributeAt = now; // choosing again does not bypass the daily schedule
+                bar(p, "§6Sovereign's Due: " + penalty.label() + " once per day.");
+            }
+            case MESSAGE -> {
+                int separator = text.indexOf('|');
+                if (separator < 1) { bar(p, "§7Write: PlayerName | your message"); return; }
+                String name = text.substring(0, separator).trim();
+                ServerPlayer target = p.server.getPlayerList().getPlayerByName(name);
+                Subject known = target == null ? known(name) : remember(court, target);
+                if (known == null || !signed(p.getUUID(), known.id, now)) { bar(p, "§7This person is not a marked signer."); return; }
+                String message = p.getGameProfile().getName() + " : " + text.substring(separator + 1).trim();
+                if (target != null) {
+                    target.sendSystemMessage(Component.literal("§6On your hand: §f" + message));
+                    showPactParchment(target, "Covenant", message);
+                } else state.handMail.computeIfAbsent(known.id, id -> new ArrayList<>()).add(message);
+            }
+            case JURISDICTION -> jurisdiction(p, court, text);
         }
+        saveState(p.server);
+    }
+
+    private static void showPactParchment(ServerPlayer target, String from, String text) {
+        com.google.gson.JsonObject payload = new com.google.gson.JsonObject();
+        payload.addProperty("letter", from + " : " + text);
+        com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> target), new com.myriam.unrp.net.CovenantPacket(payload.toString()));
     }
 
     private static Coll findStock(Sov s, Pen want) {
@@ -523,35 +673,44 @@ public final class Specials17 {
     private static void acceptPact(ServerPlayer target, Offer o) {
         ServerPlayer by = target.server.getPlayerList().getPlayer(o.by);
         Sov s = SOV.get(o.by);
-        if (by == null || s == null || s.court == null) {
-            bar(target, "§7Le Souverain n'est plus là.");
+        if (s == null || (!o.sovereign && (by == null || s.court == null))) {
+            bar(target, "§7The Sovereign is no longer present.");
             return;
         }
-        Court c = s.court;
+        Court c = s.court != null ? s.court : s.constitution;
+        if (c == null) return;
+        if (!allowed(c.tier, o.take.kind()) && o.take.kind() != Kind.LIFE) return;
+        if (o.reserved != null && s.stock.stream().noneMatch(k -> k.id.equals(o.reserved))) {
+            bar(target, "§7The reserved consideration is no longer available: nothing is collected."); return;
+        }
+        // Validate the receiving penalty before committing either side.
+        Pen take = o.take.kind() == Kind.LIFE ? new Pen(Kind.SOUL, "") : o.take;
+        Coll incoming = take.kind() == Kind.NONE ? null : makeColl(c, target, take, true);
+        if (take.kind() != Kind.NONE && incoming == null) { bar(target, "§7This Pact cannot be fulfilled: neither party pays."); return; }
         // ce que le Souverain donne
         if (o.give.kind() == Kind.LIFE) {
             target.setHealth(target.getMaxHealth());
             target.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 2));
-            by.hurt(by.damageSources().magic(), Math.min(by.getHealth() - 1, by.getMaxHealth() * 0.25f));
+            if (by != null) by.hurt(by.damageSources().magic(), Math.max(0, Math.min(by.getHealth() - 1, by.getMaxHealth() * 0.25f)));
         } else {
-            Coll k = findStock(s, o.give);
-            if (k == null) {
-                bar(target, "§7Le Souverain n'a plus ce gage.");
-                return;
-            }
-            s.stock.remove(k);
-            k.holder = target.getUUID();
-            ENDOW.computeIfAbsent(target.getUUID(), x -> new ArrayList<>()).add(k);
+            Coll k = o.reserved == null ? null : s.stock.stream().filter(x -> x.id.equals(o.reserved)).findFirst().orElse(null);
+            if (k != null) {
+                if ((k.pen.kind() == Kind.BRANCH || k.pen.kind() == Kind.ABILITY) && !lendBranch(target, k)) return;
+                s.stock.remove(k); k.holder = target.getUUID();
+                if (k.from.equals(target.getUUID())) { returnCollateral(target.server, k); k = null; }
+                // Accepted consideration is a transfer, not a revocable Endowment loan.
+                if (k != null) { k.by = target.getUUID(); k.holder = null; sov(target.getUUID()).stock.add(k); }
+            } else if (c.tier < 4) return;
         }
-        // ce qu'il prend
-        if (o.take.kind() == Kind.LIFE) {
-            Pen soul = new Pen(Kind.SOUL, "");
-            collectUnit(c, target, soul, true, false);
-        } else {
-            collectUnit(c, target, o.take, true, false);
+        if (incoming != null) {
+            APPLIED.add(incoming); s.stock.add(incoming);
+            if (incoming.pen.kind() == Kind.ABILITY) AbilityEngine.allOff(target);
         }
-        target.sendSystemMessage(Component.literal("§6Pacte conclu. Il s'applique des deux côtés."));
-        bar(by, "§6Pacte conclu avec " + target.getGameProfile().getName() + ".");
+        s.pacts.add(new PactRec(target.getUUID(), o.text, target.server.overworld().getGameTime()));
+        if (c.tier >= 4) s.signatures.put(target.getUUID(), target.server.overworld().getGameTime() + CovenantRules.WEEK);
+        saveState(target.server);
+        target.sendSystemMessage(Component.literal("§6Pact accepted. Both parties are bound."));
+        if (by != null) bar(by, "§6Pact accepted with " + target.getGameProfile().getName() + ".");
         target.serverLevel().playSound(null, target.blockPosition(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 1f, 0.8f);
     }
 
@@ -569,7 +728,9 @@ public final class Specials17 {
 
     // ------------------------------------------------------------------ parchemins dans l'air
     private static void rebuildParchments(ServerPlayer owner, Court c) {
-        ServerLevel lv = owner.serverLevel();
+        ServerLevel lv = owner.server.getLevel(courtDimension(c));
+        if (lv == null) return;
+        Vec3 anchor = c.follow ? owner.position() : c.center;
         for (UUID id : c.parchments) {
             var e = lv.getEntity(id);
             if (e != null) e.discard();
@@ -577,10 +738,10 @@ public final class Specials17 {
         c.parchments.clear();
         int n = 0;
         for (LawRec l : c.laws) {
-            if (l.hidden || n >= 6) continue;
+            if (l.hidden) continue;
             ArmorStand st = EntityType.ARMOR_STAND.create(lv);
             if (st == null) continue;
-            st.moveTo(owner.getX(), owner.getY() + 2.6 + n * 0.28, owner.getZ(), 0, 0);
+            st.moveTo(anchor.x, anchor.y + 2.6 + (n % 12) * 0.28, anchor.z + (n / 12) * 1.2, 0, 0);
             st.setInvisible(true);
             st.setNoGravity(true);
             st.setInvulnerable(true);
@@ -626,11 +787,23 @@ public final class Specials17 {
             if (!to.getInventory().add(it)) to.drop(it, false);
         }
         root.put(VAULT, keep);
-        if (!keep.isEmpty()) bar(owner, "§7Des objets attendent leurs propriétaires absents : ils te sont rendus à leur retour.");
+        if (!keep.isEmpty()) bar(owner, "§7Confiscated items are held for their offline owners and returned when they reconnect.");
     }
 
     /** À la connexion d'un joueur : rend les objets qu'un Souverain avait gardés pour lui. */
     public static void onLogin(ServerPlayer joiner) {
+        start(joiner.server);
+        returnItems(joiner.server);
+        for (Sov state : SOV.values()) {
+            List<String> mail = state.handMail.remove(joiner.getUUID());
+            if (mail != null) for (String message : mail) {
+                joiner.sendSystemMessage(Component.literal("§6On your hand: §f" + message));
+                showPactParchment(joiner, "Covenant", message);
+            }
+        }
+        Offer pendingOffer = OFFERS.get(joiner.getUUID());
+        if (pendingOffer != null && pendingOffer.until > joiner.server.overworld().getGameTime()) deliverOffer(joiner, pendingOffer);
+        for (Lease lease : LEASES) if (lease.holder.equals(joiner.getUUID())) AbilityEngine.addCopy(joiner, lease.power);
         for (ServerPlayer o : joiner.server.getPlayerList().getPlayers()) {
             CompoundTag root = com.myriam.unrp.item.UnItems.persisted(o);
             if (!root.contains(VAULT)) continue;
@@ -659,8 +832,7 @@ public final class Specials17 {
     }
 
     private static void collectTerms(Court c, ServerPlayer v) {
-        ServerPlayer owner = v.server.getPlayerList().getPlayer(c.owner);
-        if (owner == null || c.terms.isEmpty()) return;
+        if (c.terms.isEmpty()) return;
         var inv = v.getInventory();
         int n = 0;
         for (int i = 0; i < inv.getContainerSize(); i++) {
@@ -672,13 +844,13 @@ public final class Specials17 {
                     || (c.terms.contains(Term.ELYTRA) && s.is(Items.ELYTRA))
                     || (c.terms.contains(Term.PEARLS) && s.is(Items.ENDER_PEARL));
             if (take) {
-                vaultAdd(owner, v.getUUID(), s.copy());
+                VAULT_ITEMS.add(new VaultEntry(c.id, c.owner, v.getUUID(), s.save(new CompoundTag()).toString(), false));
                 inv.setItem(i, ItemStack.EMPTY);
                 n++;
             }
         }
         if (n > 0) {
-            bar(v, "§6Termes d'entrée : " + n + " objet(s) confisqué(s), rendus à la fermeture.");
+            bar(v, "§6Terms of Entry: " + n + " item(s) confiscated, returned when the Court closes.");
             collectGage(c, v);
         }
     }
@@ -688,11 +860,15 @@ public final class Specials17 {
     // ------------------------------------------------------------------ capacités
     public static boolean run(ServerPlayer p, AbilityPower power, AbilityPower.Move m) {
         boolean sneak = p.isShiftKeyDown();
+        double level = moveLevel(p, "covenant", power.moves.indexOf(m));
+        if (level < CovenantRules.minimum(m.special)) {
+            bar(p, "§7Level " + CovenantRules.minimum(m.special) + " required."); return false;
+        }
         Sov s = sov(p.getUUID());
-        Court c = s.court;
+        Court c = editingCourt(s);
         long now = p.serverLevel().getGameTime();
         if (c == null && !m.special.equals("cv_immunity")) {
-            bar(p, "§7Le Tribunal n'est pas ouvert : active ton pouvoir (R).");
+            bar(p, "§7The Court is closed: activate your power (R).");
             return false;
         }
         switch (m.special) {
@@ -700,213 +876,319 @@ public final class Specials17 {
                 if (sneak) { // abroger la dernière loi
                     if (c.laws.isEmpty()) return false;
                     LawRec r = c.laws.remove(c.laws.size() - 1);
-                    announce(p, c, "§6Loi #" + r.id + " abrogée.");
+                    announce(p, c, "§6Law #" + r.id + " repealed.");
                     rebuildParchments(p, c);
                     return false;
                 }
                 PENDING.put(p.getUUID(), new Pending(Await.LAW, now + 600, null));
-                p.sendSystemMessage(Component.literal("§6Écris ta loi dans le chat (30 s) : §fPersonne ne court. Pénalité : sa Vitesse"));
+                p.sendSystemMessage(Component.literal("§6Write your law in chat (30 s): §fNo one may run. Penalty: their Speed"));
                 return false;
             }
             case "cv_terms" -> {
                 if (sneak) {
                     if (c.tier < 3) {
-                        bar(p, "§7Sceller un Tribunal demande le haut niveau.");
+                        bar(p, "§7Sealing a Court requires High tier.");
                         return false;
                     }
-                    if (s.sealed != null) SEALED.remove(s.sealed);
+                    if (s.sealed != null) { closeCourt(p.server, s.sealed, s); SEALED.remove(s.sealed); }
                     Court k = new Court();
                     k.owner = p.getUUID();
                     k.dim = c.dim;
                     k.center = p.position();
                     k.radius = c.radius;
                     k.follow = false;
-                    k.tier = c.tier;
-                    k.laws.addAll(c.laws);
+                    k.tier = c.tier; k.ownerLevel = c.ownerLevel;
+                    for (LawRec law : c.laws) k.laws.add(copyLaw(law));
                     k.terms.addAll(c.terms);
                     k.next = c.next;
                     s.sealed = k;
                     SEALED.add(k);
                     Fx.wave(p.serverLevel(), p.position(), 20, 0xF2C94C, 40);
-                    announce(p, c, "§6Tribunal scellé ici. Ses lois s'appliquent même en ton absence (jusqu'au redémarrage).");
+                    announce(p, c, "§6Court sealed here. Its laws apply even while you are absent (saved).");
                     return true;
                 }
                 PENDING.put(p.getUUID(), new Pending(Await.TERMS, now + 600, null));
-                p.sendSystemMessage(Component.literal("§6Écris les termes d'entrée (30 s) : §fQui entre abandonne ses armes"));
+                p.sendSystemMessage(Component.literal("§6Write the Terms of Entry (30 s): §fWhoever enters gives up their weapons"));
                 return false;
             }
             case "cv_fine" -> {
                 if (sneak) {
-                    for (LawRec l : c.laws) if (l.hidden) { l.hidden = false; announce(p, c, "§6Clause révélée : §f" + l.text); rebuildParchments(p, c); return true; }
-                    bar(p, "§7Aucune clause cachée.");
+                    for (LawRec l : c.laws) if (l.hidden) { l.hidden = false; announce(p, c, "§6Fine Print revealed: §f" + l.text); rebuildParchments(p, c); return true; }
+                    bar(p, "§7No hidden law.");
                     return false;
                 }
+                if (c.laws.stream().anyMatch(l -> l.hidden)) { bar(p, "§7Only one hidden law at a time; reveal it first."); return false; }
                 for (int i = c.laws.size() - 1; i >= 0; i--) {
                     LawRec l = c.laws.get(i);
                     if (!l.hidden) {
                         l.hidden = true;
                         rebuildParchments(p, c);
-                        bar(p, "§6Loi #" + l.id + " cachée : elle s'applique, sans s'afficher.");
+                        bar(p, "§6Law #" + l.id + " hidden: it applies without being displayed.");
                         return true;
                     }
                 }
                 return false;
             }
-            case "cv_foreclose" -> {
-                ServerPlayer t = playerAimed(p, 24);
-                if (t == null || !c.inside.contains(t.getUUID())) {
-                    bar(p, "§7Vise un signataire.");
+            case "cv_foreclose", "cv_exile" -> {
+                ServerPlayer t = target(p, c);
+                if (t == null || !subject(c, t)) {
+                    bar(p, "§7Target a signer.");
                     return false;
                 }
-                if (sneak) { // Exile
+                if (sneak || m.special.equals("cv_exile")) { // Exile
                     if (c.breaches.getOrDefault(t.getUUID(), 0) < 3) {
-                        bar(p, "§7Il faut 3 manquements pour l'exil (" + c.breaches.getOrDefault(t.getUUID(), 0) + ").");
+                        bar(p, "§7Exile requires three breaches (" + c.breaches.getOrDefault(t.getUUID(), 0) + ").");
                         return false;
                     }
                     if (!pay(p, 25)) return false;
                     c.exiled.add(t.getUUID());
                     c.inside.remove(t.getUUID());
-                    expel(c, t);
-                    announce(p, c, "§6" + t.getGameProfile().getName() + " est exilé du Tribunal.");
+                    if (insideOf(c, t)) expel(c, t);
+                    announce(p, c, "§6" + t.getGameProfile().getName() + " is exiled from the Court.");
                     return true;
                 }
                 List<Pen> d = c.debt.remove(t.getUUID());
                 if (d == null || d.isEmpty()) {
-                    bar(p, "§7Aucune dette à saisir.");
+                    bar(p, "§7No outstanding debt to foreclose.");
                     return false;
                 }
                 if (!pay(p, 20)) { c.debt.put(t.getUUID(), d); return false; }
                 int total = (int) Math.ceil(d.size() * 1.25);
-                for (int i = 0; i < total; i++) collectUnit(c, t, d.get(i % d.size()), false, i == 0);
-                bar(p, "§6Saisie : " + total + " unité(s), intérêts compris.");
+                List<Pen> unpaid = new ArrayList<>();
+                int taken = 0;
+                for (int i = 0; i < total; i++) {
+                    Pen penalty = d.get(i % d.size());
+                    if (collectUnit(c, t, penalty, false, i == 0)) taken++; else unpaid.add(penalty);
+                }
+                if (!unpaid.isEmpty()) c.debt.put(t.getUUID(), unpaid);
+                bar(p, "§6Foreclosure: " + taken + " unit(s), including interest. Unpaid: " + unpaid.size());
                 return true;
             }
             case "cv_pact" -> {
                 if (sneak) { // convoquer une âme
-                    Coll soul = null;
-                    for (Coll k : s.stock) if (k.pen.kind() == Kind.SOUL) { soul = k; break; }
+                    if (levelOf(p) < CovenantRules.HIGH) { bar(p, "§7The soul passive unlocks at level 5."); return false; }
+                    Coll soul = selectedStock(s, Kind.SOUL);
                     if (soul == null) {
-                        bar(p, "§7Tu ne détiens aucune âme.");
+                        bar(p, "§7You hold no souls.");
                         return false;
                     }
                     ServerPlayer v = p.server.getPlayerList().getPlayer(soul.from);
                     if (v == null) {
-                        bar(p, "§7Cette âme est hors du monde.");
+                        bar(p, "§7This soul is outside the world.");
                         return false;
                     }
                     if (!pay(p, 15)) return false;
                     v.teleportTo(p.serverLevel(), p.getX(), p.getY(), p.getZ(), v.getYRot(), v.getXRot());
-                    bar(v, "§6Ton âme est convoquée.");
+                    bar(v, "§6Your soul has been summoned.");
                     return true;
                 }
-                ServerPlayer t = playerAimed(p, 12);
+                ServerPlayer t = target(p, c);
                 if (t == null || t == p) {
-                    bar(p, "§7Vise la personne à qui tu offres un pacte.");
+                    bar(p, "§7Target the person receiving your Pact offer.");
                     return false;
                 }
                 PENDING.put(p.getUUID(), new Pending(Await.PACT, now + 600, t.getUUID()));
-                p.sendSystemMessage(Component.literal("§6Écris l'accord (30 s) : §fma vie contre ta branche §7(je donne X contre Y)"));
+                p.sendSystemMessage(Component.literal("§6Write the deal (30 s): §fmy life for your branch §7(I give X for Y)"));
                 return false;
             }
             case "cv_endow" -> {
                 List<Coll> free = new ArrayList<>();
-                for (Coll k : s.stock) if (k.holder == null) free.add(k);
+                for (Coll k : s.stock) if (k.holder == null && (k.pen.kind() == Kind.STAT || k.pen.kind() == Kind.BRANCH || k.pen.kind() == Kind.SOUL)) free.add(k);
                 if (free.isEmpty()) {
-                    bar(p, "§7Ton Gage est vide.");
+                    bar(p, "§7Your collateral stock is empty.");
                     return false;
                 }
-                s.sel = Math.floorMod(s.sel, free.size());
+                Coll chosen = s.stock.get(Math.floorMod(s.sel, s.stock.size()));
+                int position = free.indexOf(chosen);
+                if (position < 0) position = 0;
                 if (sneak) {
-                    s.sel = (s.sel + 1) % free.size();
-                    bar(p, "§6Gage choisi : §f" + free.get(s.sel).label());
-                    return false;
+                    Coll next = free.get((position + 1) % free.size());
+                    s.sel = s.stock.indexOf(next);
+                    bar(p, "§6Selected collateral: §f" + next.label()); return false;
                 }
-                ServerPlayer t = playerAimed(p, 16);
+                ServerPlayer t = target(p, c);
                 if (t == null || t == p) {
-                    bar(p, "§7Vise l'allié à doter.");
+                    bar(p, "§7Target the ally to endow.");
                     return false;
                 }
                 if (!pay(p, 8)) return false;
-                Coll k = free.get(s.sel);
+                Coll k = free.get(position);
+                DIRTY_PLAYERS.add(p.getUUID()); DIRTY_PLAYERS.add(t.getUUID());
                 s.stock.remove(k);
                 k.holder = t.getUUID();
                 ENDOW.computeIfAbsent(t.getUUID(), x -> new ArrayList<>()).add(k);
-                if (k.pen.kind() == Kind.BRANCH && k.power != null) AbilityEngine.setCopy(t, k.power, now + 6000);
-                bar(t, "§6Dotation : " + k.pen.label() + " (jusqu'à la fermeture, ou à ta première infraction).");
-                bar(p, "§6Dotation accordée à " + t.getGameProfile().getName() + ".");
+                if ((k.pen.kind() == Kind.BRANCH || k.pen.kind() == Kind.ABILITY) && !lendBranch(t, k)) {
+                    ENDOW.get(t.getUUID()).remove(k); k.holder = null; s.stock.add(k); return false;
+                }
+                bar(t, "§6Endowment: " + k.pen.label() + " (until the Court closes or your first breach).");
+                bar(p, "§6Endowment granted to " + t.getGameProfile().getName() + ".");
                 return true;
             }
             case "cv_proxy" -> {
                 if (sneak) {
                     s.proxy = null;
-                    bar(p, "§7Procuration levée.");
+                    bar(p, "§7Proxy released.");
                     return false;
                 }
-                ServerPlayer t = playerAimed(p, 20);
-                if (t == null || !c.inside.contains(t.getUUID())) {
-                    bar(p, "§7Vise un signataire.");
+                ServerPlayer t = target(p, c);
+                if (t == null || !subject(c, t)) {
+                    bar(p, "§7Target a signer.");
                     return false;
                 }
                 if (!pay(p, 25)) return false;
-                s.proxy = t.getUUID();
-                s.proxyUntil = now + 600;
-                bar(p, "§6Procuration : " + t.getGameProfile().getName() + " encaisse tes blessures (30 s).");
-                bar(t, "§cTu es lié à un Souverain : ses blessures sont les tiennes.");
+                s.proxy = t.getUUID(); s.proxyCourt = c.id;
+                s.proxyUntil = Long.MAX_VALUE;
+                bar(p, "§6Proxy: " + t.getGameProfile().getName() + " takes your wounds until the Court closes.");
+                bar(t, "§cYou are bound to a Sovereign: their wounds become yours.");
                 return true;
             }
             case "cv_appropriate" -> {
-                Coll k = null;
-                for (Coll x : s.stock) if (x.holder == null && x.pen.kind() == Kind.BRANCH) { k = x; break; }
-                if (k == null) {
-                    bar(p, "§7Aucune branche volée à dépenser.");
-                    return false;
-                }
-                if (!pay(p, 30)) return false;
-                s.stock.remove(k);
-                AbilityEngine.setCopy(p, k.power, now + 400);
-                bar(p, "§6Appropriation : le pouvoir de " + k.fromName + " est à toi 20 s (≈ copie entière).");
+                List<Coll> branches = s.stock.stream().filter(x -> (x.holder == null || (x.pen.kind() == Kind.ABILITY && p.getUUID().equals(x.holder))) && (x.pen.kind() == Kind.BRANCH || x.pen.kind() == Kind.ABILITY)).toList();
+                if (branches.isEmpty()) { bar(p, "§7No available branches."); return false; }
+                Coll selected = s.stock.isEmpty() ? null : s.stock.get(Math.floorMod(s.sel, s.stock.size()));
+                Coll collateral = selected != null && branches.contains(selected) ? selected : branches.get(0);
+                if (!lendBranch(p, collateral, true)) return false;
+                collateral.holder = p.getUUID();
+                bar(p, "§6Appropriation : " + collateral.label() + ". Only this branch is available, at its original strength.");
+                saveState(p.server);
                 return true;
             }
             case "cv_immunity" -> {
                 s.bound = !s.bound;
-                bar(p, s.bound ? "§cTu te lies à tes propres lois." : "§6Immunité souveraine : tu n'es lié par rien.");
+                if (s.bound && c != null && c.tier >= 4) s.signatures.put(p.getUUID(), now + CovenantRules.WEEK);
+                bar(p, s.bound ? "§cYou bind yourself to your own laws." : "§6Sovereign Immunity: your laws do not bind you.");
                 return false;
             }
             case "cv_indemnity" -> {
+                if (s.indemUntil == Long.MAX_VALUE && level >= 5) { s.indemUntil = 0; bar(p, "§7Indemnity lifted."); return false; }
                 if (!pay(p, 20)) return false;
-                s.indemUntil = now + 120;
+                s.indemUntil = CovenantRules.indemnityExpiry(level, now);
                 p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 1f, 1.4f);
                 Fx.shield(p.serverLevel(), p, 0xF2C94C, 1.6f, 120);
-                bar(p, "§6Indemnité : les blessures reçues (6 s) sont rayées du registre.");
+                bar(p, level >= 5 ? "§6Permanent Indemnity while your personal Court is active." : "§6Indemnity: wounds voided for 6 s.");
                 return true;
             }
             case "cv_escrow" -> {
+                if (sneak) {
+                    AbilityPower own = UnodexData.get().powerFor(AbilityEngine.basePowerId(p));
+                    s.escrow = -1;
+                    List<Integer> choices = new ArrayList<>();
+                    if (own != null) for (int i = 0; i < own.moves.size(); i++) {
+                        var move = own.moves.get(i);
+                        if (!"stance_next".equals(move.special) && !"mode_next".equals(move.special) && levelOf(p) >= move.minLevel
+                                && !Unlocks.locked(Unlocks.mask(p.server, p), own, i, Unlocks.mastered(p.server, p))) choices.add(i);
+                    }
+                    if (choices.isEmpty()) { s.escrowBranch = -1; return false; }
+                    s.escrowBranch = choices.get((choices.indexOf(s.escrowBranch) + 1) % choices.size());
+                    bar(p, "§6Escrowed branch: " + own.moves.get(s.escrowBranch).name); return false;
+                }
+                s.escrowBranch = -1;
                 s.escrow = s.escrow >= 4 ? -1 : s.escrow + 1;
-                bar(p, s.escrow < 0 ? "§7Aucune stat sous séquestre." : "§6Sous séquestre : " + STAT[s.escrow] + " (intouchable par les peines).");
+                bar(p, s.escrow < 0 ? "§7No stat in escrow." : "§6In escrow: " + STAT[s.escrow] + " (protected from penalties).");
                 return false;
             }
             case "cv_arbitrate" -> {
-                ServerPlayer t = playerAimed(p, 24);
+                ServerPlayer t = target(p, c);
                 if (t == null || c.debt.getOrDefault(t.getUUID(), List.of()).isEmpty()) {
-                    bar(p, "§7Vise quelqu'un qui a une dette.");
+                    bar(p, "§7Target someone with outstanding debt.");
                     return false;
                 }
+                if (branchEscrowed(t)) { bar(p, "§7An escrowed branch prevents whole-ability suspension."); return false; }
                 if (!pay(p, 20)) return false;
                 ARB.put(t.getUUID(), p.getUUID());
-                AbilityEngine.disable(t, 60);
-                bar(p, "§6Arbitrage : son pouvoir est suspendu tant qu'il doit.");
-                bar(t, "§cArbitrage : ton pouvoir est suspendu jusqu'au règlement de ta dette.");
+                AbilityEngine.allOff(t);
+                bar(p, "§6Arbitration: their power is suspended until their debt is paid.");
+                bar(t, "§cArbitration: your power is suspended until your debt is paid.");
                 return true;
             }
-            default -> {
+            case "cv_constitution", "cv_retroactive", "cv_forfeit", "cv_sovereign_pact", "cv_due", "cv_jurisdiction", "cv_message" -> {
+                Await action = switch (m.special) {
+                    case "cv_constitution" -> Await.CONSTITUTION;
+                    case "cv_retroactive" -> Await.RETROACTIVE;
+                    case "cv_forfeit" -> Await.FORFEIT;
+                    case "cv_sovereign_pact" -> Await.SOVEREIGN_PACT;
+                    case "cv_due" -> Await.TRIBUTE;
+                    case "cv_jurisdiction" -> Await.JURISDICTION;
+                    default -> Await.MESSAGE;
+                };
+                PENDING.put(p.getUUID(), new Pending(action, now + 1200, null));
+                String help = switch (action) {
+                    case SOVEREIGN_PACT -> "PlayerName | nothing for your branch";
+                    case MESSAGE -> "PlayerName | your message";
+                    case TRIBUTE -> "Speed / Recovery / memory / ...";
+                    case JURISDICTION -> "territory name, or here";
+                    case FORFEIT -> "No attacking. Penalty: whole ability";
+                    default -> "No running. Penalty: Speed";
+                };
+                p.sendSystemMessage(Component.literal("§6Write in chat: §f" + help));
                 return false;
             }
+            case "cv_class_action" -> {
+                int count = 0;
+                Set<UUID> charged = new HashSet<>();
+                for (Court ownCourt : allCourts()) {
+                    if (!ownCourt.owner.equals(p.getUUID())) continue;
+                    for (var entry : new ArrayList<>(ownCourt.debt.entrySet())) {
+                        if (entry.getValue().isEmpty() || charged.contains(entry.getKey())) continue;
+                        ServerPlayer debtor = p.server.getPlayerList().getPlayer(entry.getKey());
+                        boolean paid = debtor != null ? collectUnit(ownCourt, debtor, entry.getValue().get(0), false, true)
+                                : collectOffline(p.server, ownCourt, entry.getKey(), entry.getValue().get(0));
+                        if (paid) {
+                            entry.getValue().remove(0); charged.add(entry.getKey()); count++;
+                        }
+                    }
+                }
+                bar(p, "§6Class Action : " + count + " penalties collected simultaneously.");
+                saveState(p.server); return count > 0;
+            }
+            case "cv_ledger" -> { ledger(p); return false; }
+            case "cv_return", "cv_spend" -> {
+                if (s.stock.isEmpty()) { bar(p, "§7No collateral available."); return false; }
+                Coll collateral = s.stock.get(Math.floorMod(s.sel, s.stock.size()));
+                if (m.special.equals("cv_return")) returnCollateral(p.server, collateral);
+                else {
+                    if (OFFERS.values().stream().anyMatch(o -> collateral.id.equals(o.reserved))) { bar(p, "§7This collateral is reserved for a Pact."); return false; }
+                    // Spending consumes the held benefit, while the victim's return schedule remains intact.
+                    returnCollateral(p.server, collateral);
+                    var profile = ClaimData.get(p.server).profileOf(p.getUUID()).orElse(null);
+                    if (profile != null) { profile.aura += 20; ClaimData.get(p.server).setDirty(); }
+                    bar(p, "§6Collateral spent: +20 aura.");
+                }
+                saveState(p.server); return true;
+            }
+            case "cv_summon" -> {
+                List<Coll> souls = s.stock.stream().filter(k -> k.pen.kind() == Kind.SOUL).toList();
+                if (souls.isEmpty()) return false;
+                Coll soul = selectedStock(s, Kind.SOUL);
+                ServerPlayer target = p.server.getPlayerList().getPlayer(soul.from);
+                if (target == null) { bar(p, "§7This soul's owner is offline."); return false; }
+                target.teleportTo(p.serverLevel(), p.getX(), p.getY(), p.getZ(), target.getYRot(), target.getXRot());
+                return true;
+            }
+            default -> { return false; }
         }
     }
 
     public static void stop(ServerPlayer p, String special) {}
 
     public static void whileOn(ServerPlayer p, AbilityPower.Move m, long now) {}
+
+    private static ServerPlayer target(ServerPlayer player, Court court) {
+        Sov state = sov(player.getUUID());
+        if (state.target != null) {
+            ServerPlayer selected = player.server.getPlayerList().getPlayer(state.target);
+            if (selected != null && subject(court, selected)) return selected;
+        }
+        return playerAimed(player, Math.max(10, court.radius));
+    }
+
+    private static Coll selectedStock(Sov state, Kind kind) {
+        if (!state.stock.isEmpty()) {
+            Coll selected = state.stock.get(Math.floorMod(state.sel, state.stock.size()));
+            if (selected.pen.kind() == kind) return selected;
+        }
+        return state.stock.stream().filter(c -> c.pen.kind() == kind).findFirst().orElse(null);
+    }
 
     private static ServerPlayer playerAimed(ServerPlayer p, double range) {
         LivingEntity e = Specials.aimed(p, range);
@@ -920,111 +1202,704 @@ public final class Specials17 {
         v.teleportTo(v.serverLevel(), to.x, v.getY(), to.z, v.getYRot(), v.getXRot());
     }
 
+    private static List<Court> allCourts() {
+        List<Court> courts = new ArrayList<>();
+        for (Sov s : new ArrayList<>(SOV.values())) {
+            if (s.court != null) courts.add(s.court);
+            if (s.sealed != null) courts.add(s.sealed);
+            courts.addAll(s.jurisdictions);
+            if (s.constitution != null && !s.constitution.laws.isEmpty()) courts.add(s.constitution);
+        }
+        return courts;
+    }
+
+    private static boolean signed(UUID owner, UUID person, long now) {
+        Sov state = SOV.get(owner);
+        return state != null && state.signatures.getOrDefault(person, 0L) > now;
+    }
+
+    private static boolean subject(Court court, ServerPlayer player) {
+        long now = player.server.overworld().getGameTime();
+        if (court.expires <= now) return false;
+        if (player.getUUID().equals(court.owner)) {
+            Sov state = SOV.get(court.owner);
+            boolean inScope = court.constitutional || insideOf(court, player)
+                    || (court.tier >= 4 && signed(court.owner, player.getUUID(), now));
+            return inScope && state != null && (state.bound || (court.tier < 4 && state.dailyLaw != null));
+        }
+        if (court.constitutional) return signed(court.owner, player.getUUID(), now);
+        return insideOf(court, player) || (court.tier >= 4 && signed(court.owner, player.getUUID(), now));
+    }
+
+    private static Court editingCourt(Sov state) {
+        return state.selectedCourt >= 0 && state.selectedCourt < state.jurisdictions.size()
+                ? state.jurisdictions.get(state.selectedCourt) : state.court;
+    }
+
+    private static Court constitution(UUID owner, Court source) {
+        Sov state = sov(owner);
+        if (state.constitution == null) {
+            state.constitution = new Court();
+            state.constitution.owner = owner;
+            state.constitution.dim = source.dim;
+            state.constitution.center = source.center;
+            state.constitution.tier = 4;
+            state.constitution.radius = 0;
+            state.constitution.follow = false;
+            state.constitution.constitutional = true;
+        }
+        return state.constitution;
+    }
+
+    public static boolean protectedTrait(ServerPlayer player) {
+        Sov state = SOV.get(player.getUUID());
+        return state != null && (state.escrow >= 0 || state.escrowBranch >= 0);
+    }
+
+    public static boolean branchEscrowed(ServerPlayer player) {
+        Sov state = SOV.get(player.getUUID());
+        return state != null && state.escrowBranch >= 0;
+    }
+
+    public static boolean powerBlocked(ServerPlayer player) {
+        return APPLIED.stream().anyMatch(c -> c.from.equals(player.getUUID()) && c.pen.kind() == Kind.ABILITY)
+                || (ARB.containsKey(player.getUUID()) && allCourts().stream().anyMatch(c -> c.owner.equals(ARB.get(player.getUUID())) && !c.debt.getOrDefault(player.getUUID(), List.of()).isEmpty()));
+    }
+
+    static void upgradeCollateral(UUID owner, double level) {
+        if (level < CovenantRules.GOD) return;
+        for (Coll collateral : APPLIED) if (collateral.by.equals(owner)) {
+            collateral.tier = 4; collateral.higher = false; collateral.until = Long.MAX_VALUE;
+        }
+        Sov state = SOV.get(owner);
+        if (state != null) state.dailyLaw = null;
+    }
+
+    public static boolean hasLease(ServerPlayer player, String power) {
+        return LEASES.stream().anyMatch(l -> l.holder.equals(player.getUUID()) && l.power.equals(power));
+    }
+
+    public static boolean restrictedBorrow(ServerPlayer player, String power) {
+        if (power == null || power.equals(AbilityEngine.basePowerId(player))) return false;
+        List<Lease> leases = LEASES.stream().filter(l -> l.holder.equals(player.getUUID()) && power.equals(l.power)).toList();
+        return !leases.isEmpty() && leases.stream().noneMatch(l -> l.ownedBefore || l.full);
+    }
+
+    public static AbilityPower borrowedView(ServerPlayer player, String id, AbilityPower original) {
+        if (!restrictedBorrow(player, id)) return original;
+        return original.branchView(id);
+    }
+
+    public static double moveLevel(ServerPlayer player, String power, int move) {
+        for (Lease lease : LEASES) if (lease.holder.equals(player.getUUID()) && lease.power.equals(power)
+                && !lease.ownedBefore && (lease.full || lease.move == move)) return lease.originalLevel;
+        return levelOf(player);
+    }
+
+    public static boolean borrowedMoveAllowed(ServerPlayer player, String power, int move) {
+        List<Lease> leases = LEASES.stream().filter(l -> l.holder.equals(player.getUUID()) && l.power.equals(power)).toList();
+        if (leases.isEmpty() || power.equals(AbilityEngine.basePowerId(player))) return true;
+        Set<Integer> moves = leases.stream().map(l -> l.move).collect(java.util.stream.Collectors.toSet());
+        return CovenantRules.branchAllowed(leases.stream().anyMatch(l -> l.ownedBefore), leases.stream().anyMatch(l -> l.full), moves, move);
+    }
+
+    public static int[] borrowedMoveStats(ServerPlayer player, String power, int move, int[] fallback) {
+        for (Lease lease : LEASES) if (lease.holder.equals(player.getUUID()) && lease.power.equals(power)
+                && !lease.ownedBefore && (lease.full || lease.move == move)) return lease.stats.clone();
+        return fallback;
+    }
+
+    public static int[] borrowedStats(ServerPlayer player, String power, int[] fallback) {
+        for (Lease lease : LEASES) if (lease.holder.equals(player.getUUID()) && lease.power.equals(power) && !lease.ownedBefore) return lease.stats.clone();
+        return fallback;
+    }
+
+    private static boolean lendBranch(ServerPlayer holder, Coll collateral) { return lendBranch(holder, collateral, false); }
+
+    private static boolean lendBranch(ServerPlayer holder, Coll collateral, boolean branchOnly) {
+        if (collateral.power == null) return false;
+        int chosenMove = collateral.move;
+        if (branchOnly && collateral.pen.kind() == Kind.ABILITY) {
+            AbilityPower definition = UnodexData.get().powerFor(collateral.power);
+            if (definition == null) return false;
+            List<Integer> moves = new ArrayList<>();
+            for (int i = 0; i < definition.moves.size(); i++) {
+                String special = definition.moves.get(i).special;
+                if (!"stance_next".equals(special) && !"mode_next".equals(special)) moves.add(i);
+            }
+            if (moves.isEmpty()) return false;
+            chosenMove = moves.get(Math.floorMod(sov(holder.getUUID()).branchSelection, moves.size()));
+        }
+        final int branch = chosenMove;
+        long owned = LEASES.stream().filter(l -> l.holder.equals(holder.getUUID())).count();
+        if (owned >= CovenantRules.wieldCap(levelOf(holder))) {
+            bar(holder, "§7Simultaneous branch limit reached.");
+            return false;
+        }
+        if (LEASES.stream().anyMatch(l -> l.collateral.equals(collateral.id) && l.holder.equals(holder.getUUID()) && l.move == branch)) {
+            AbilityEngine.addCopy(holder, collateral.power); return true;
+        }
+        Lease lease = new Lease();
+        lease.collateral = collateral.id;
+        lease.holder = holder.getUUID();
+        lease.power = collateral.power;
+        lease.move = chosenMove;
+        lease.full = collateral.pen.kind() == Kind.ABILITY && !branchOnly;
+        lease.stats = collateral.originalStats.clone(); lease.originalLevel = collateral.originalLevel;
+        lease.ownedBefore = LEASES.stream().anyMatch(l -> l.holder.equals(holder.getUUID()) && l.power.equals(lease.power) && l.ownedBefore)
+                || (AbilityEngine.copies(holder).contains(lease.power) && LEASES.stream().noneMatch(l -> l.holder.equals(holder.getUUID()) && l.power.equals(lease.power)));
+        LEASES.add(lease);
+        AbilityEngine.addCopy(holder, lease.power);
+        return true;
+    }
+
+    private static void dropLease(MinecraftServer server, UUID collateral) {
+        List<Lease> removed = LEASES.stream().filter(l -> l.collateral.equals(collateral)).toList();
+        LEASES.removeIf(l -> l.collateral.equals(collateral));
+        for (Lease lease : removed) {
+            ServerPlayer holder = server.getPlayerList().getPlayer(lease.holder);
+            if (holder != null && !lease.ownedBefore && LEASES.stream().noneMatch(l -> l.holder.equals(lease.holder) && l.power.equals(lease.power))) {
+                AbilityEngine.removeCopy(holder, lease.power);
+            }
+        }
+    }
+
+    private static void returnCollateral(MinecraftServer server, Coll collateral) {
+        DIRTY_PLAYERS.add(collateral.from); DIRTY_PLAYERS.add(collateral.by);
+        if (collateral.holder != null) DIRTY_PLAYERS.add(collateral.holder);
+        dropLease(server, collateral.id);
+        APPLIED.removeIf(c -> c.id.equals(collateral.id));
+        for (Sov s : SOV.values()) s.stock.removeIf(c -> c.id.equals(collateral.id));
+        for (List<Coll> list : ENDOW.values()) list.removeIf(c -> c.id.equals(collateral.id));
+        ServerPlayer victim = server.getPlayerList().getPlayer(collateral.from);
+        if (victim != null) bar(victim, "§aCollateral returned: " + collateral.pen.label());
+    }
+
+    private static void ledger(ServerPlayer owner) {
+        Sov state = sov(owner.getUUID());
+        long now = owner.server.overworld().getGameTime();
+        owner.sendSystemMessage(Component.literal("§6COVENANT · " + state.stock.size() + " collateral items"));
+        for (int i = 0; i < state.stock.size(); i++) owner.sendSystemMessage(Component.literal("§e" + (i + 1) + ". §f" + state.stock.get(i).label()));
+        for (Court court : allCourts()) if (court.owner.equals(owner.getUUID())) {
+            for (LawRec law : court.laws) owner.sendSystemMessage(Component.literal("§6#" + law.id + (law.hidden ? " (hidden)" : "") + " : §f" + law.text));
+        }
+        if (levelOf(owner) < 5) { owner.sendSystemMessage(Component.literal("§7The signature registry unlocks at level 5.")); return; }
+        Set<UUID> people = new HashSet<>(state.signatures.keySet());
+        for (Court court : allCourts()) if (court.owner.equals(owner.getUUID())) people.addAll(court.inside);
+        for (UUID id : people) {
+            ServerPlayer person = owner.server.getPlayerList().getPlayer(id);
+            if (person == null) {
+                Subject last = state.subjects.get(id);
+                if (last != null) owner.sendSystemMessage(Component.literal("§6" + last.name + " §7(offline) · " + last.dimension + " " + (int) last.x + " " + (int) last.y + " " + (int) last.z));
+                continue;
+            }
+            List<Pen> debt = new ArrayList<>();
+            for (Court court : allCourts()) if (court.owner.equals(owner.getUUID())) debt.addAll(court.debt.getOrDefault(id, List.of()));
+            String location = levelOf(owner) >= CovenantRules.GOD ? " · " + person.serverLevel().dimension().location() + " " + person.blockPosition().toShortString() : "";
+            var profile = ClaimData.get(person.server).profileOf(id).orElse(null);
+            int[] stats = profile == null ? new int[] {1, 1, 1, 1, 1} : com.myriam.unrp.player.PlayerStateService.stats(person.server, id, profile, character(person));
+            owner.sendSystemMessage(Component.literal("§6" + person.getGameProfile().getName() + location
+                    + " §f· debt " + debt.stream().map(Pen::label).toList() + " · remaining " + java.util.Arrays.toString(stats)
+                    + " · power " + AbilityEngine.basePowerId(person) + " · collected " + APPLIED.stream().filter(c -> c.from.equals(id)).map(Coll::label).toList()
+                    + (levelOf(owner) >= 6 ? " · Pacts " + pactsOf(id) : "")));
+        }
+        for (int i = 0; i < state.jurisdictions.size(); i++) owner.sendSystemMessage(Component.literal("§6Jurisdiction " + (i + 1) + " : " + state.jurisdictions.get(i).name));
+        if (state.constitution != null) for (LawRec law : state.constitution.laws) owner.sendSystemMessage(Component.literal("§6Constitution #" + law.id + " : " + law.text));
+        owner.sendSystemMessage(Component.literal("§7Chat : cv select N · cv return N · cv repeal N · cv laws"));
+    }
+
+    private static com.myriam.unrp.data.Models.Character character(ServerPlayer player) {
+        var profile = ClaimData.get(player.server).profileOf(player.getUUID()).orElse(null);
+        return profile == null || profile.characterId == null ? null : UnodexData.get().characters.get(profile.characterId);
+    }
+
+    private static boolean controlChat(ServerPlayer player, String text) {
+        String normalized = CovenantParse.norm(text).trim();
+        if (normalized.equals("cv pay") || normalized.equals("cv payer")) {
+            int paid = 0;
+            for (Court court : allCourts()) {
+                List<Pen> debt = court.debt.get(player.getUUID());
+                while (debt != null && !debt.isEmpty() && collectUnit(court, player, debt.get(0), false, false)) {
+                    debt.remove(0); paid++;
+                }
+            }
+            bar(player, "§6Debt paid: " + paid + " unit(s). The remainder requires the corresponding resources.");
+            saveState(player.server); return true;
+        }
+        if (!normalized.startsWith("cv ") || !SOV.containsKey(player.getUUID())) return false;
+        Sov state = sov(player.getUUID());
+        String[] words = normalized.split("\\s+", 3);
+        switch (words[1]) {
+            case "ledger", "registre", "laws" -> ledger(player);
+            case "branch", "branche" -> {
+                try { state.branchSelection = Math.max(0, Integer.parseInt(words[2]) - 1); bar(player, "§6Branch to extract: " + (state.branchSelection + 1)); }
+                catch (RuntimeException e) { bar(player, "§7cv branch <usable branch number>"); }
+            }
+            case "target", "cible" -> {
+                if (words.length < 3 || words[2].equals("clear")) { state.target = null; bar(player, "§7Normal targeting restored."); }
+                else {
+                    ServerPlayer online = player.server.getPlayerList().getPlayerByName(words[2]);
+                    Court editing = editingCourt(state);
+                    Subject subject = online == null ? known(words[2]) : editing == null ? known(words[2]) : remember(editing, online);
+                    if (subject == null) bar(player, "§7Unknown person.");
+                    else { state.target = subject.id; bar(player, "§6Target: " + subject.name); }
+                }
+            }
+            case "court", "tribunal" -> {
+                try { state.selectedCourt = Integer.parseInt(words[2]) - 1; bar(player, "§6Selected Court (0 = personal): " + words[2]); }
+                catch (RuntimeException e) { bar(player, "§7cv court 0, or a jurisdiction number from the ledger"); }
+            }
+            case "select", "choisir" -> {
+                try { state.sel = Math.max(0, Integer.parseInt(words[2]) - 1); bar(player, "§6Selected collateral: " + (state.sel + 1)); }
+                catch (RuntimeException e) { bar(player, "§7cv select <collateral number>"); }
+            }
+            case "return", "rendre" -> {
+                try {
+                    int index = Integer.parseInt(words[2]) - 1;
+                    returnCollateral(player.server, state.stock.get(index));
+                } catch (RuntimeException e) { bar(player, "§7cv return <collateral number>"); }
+            }
+            case "repeal", "abroger" -> {
+                try {
+                    int id = Integer.parseInt(words[2]);
+                    for (Court court : allCourts()) if (court.owner.equals(player.getUUID())) court.laws.removeIf(l -> l.id == id);
+                    bar(player, "§6Law / Constitution #" + id + " repealed.");
+                } catch (RuntimeException e) { bar(player, "§7cv repeal <law number>"); }
+            }
+            default -> bar(player, "§7cv ledger · cv select N · cv return N · cv repeal N");
+        }
+        saveState(player.server);
+        return true;
+    }
+
+    private static void jurisdiction(ServerPlayer player, Court source, String text) {
+        Court fixed = new Court();
+        fixed.owner = player.getUUID(); fixed.follow = false; fixed.district = true; fixed.tier = 4;
+        fixed.dim = source.dim; fixed.center = player.position(); fixed.radius = 500;
+        fixed.expires = player.server.overworld().getGameTime() + CovenantRules.DAY;
+        String name = text.trim();
+        fixed.name = name;
+        var turf = com.myriam.unrp.social.SocialData.get(player.server).store.turfs.stream()
+                .filter(t -> t.name != null && t.name.equalsIgnoreCase(name)).findFirst().orElse(null);
+        if (turf != null) {
+            fixed.dim = turf.dim;
+            fixed.center = new Vec3(turf.x, player.getY(), turf.z); fixed.radius = turf.r;
+        } else if (!CovenantParse.norm(name).equals("here") && !CovenantParse.norm(name).equals("ici")) {
+            bar(player, "§7Unknown territory. Use its exact name or 'here' (500 m radius)."); return;
+        }
+        for (LawRec law : source.laws) fixed.laws.add(copyLaw(law));
+        fixed.terms.addAll(source.terms); fixed.next = source.next;
+        sov(player.getUUID()).jurisdictions.add(fixed);
+        rebuildParchments(player, fixed);
+        bar(player, "§6Jurisdiction declared for 24 hours: " + name);
+    }
+
+    private static LawRec copyLaw(LawRec law) {
+        LawRec copy = new LawRec(); copy.id = law.id; copy.text = law.text; copy.law = law.law;
+        copy.hidden = law.hidden; copy.activeAt = law.activeAt;
+        return copy;
+    }
+
+    private static final class Snapshot {
+        Map<UUID, Sov> sovereigns = new HashMap<>();
+        List<Coll> applied = new ArrayList<>();
+        List<Lease> leases = new ArrayList<>();
+        List<VaultEntry> vault = new ArrayList<>();
+        Map<UUID, Offer> offers = new HashMap<>();
+        Map<UUID, UUID> arbitration = new HashMap<>();
+        Map<String, Long> immunity = new HashMap<>();
+    }
+
+    private static final com.google.gson.Gson LEDGER_JSON = new com.google.gson.Gson();
+
+    private static ResourceKey<Level> courtDimension(Court court) {
+        return ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION, new net.minecraft.resources.ResourceLocation(court.dim));
+    }
+
+    public static void start(MinecraftServer server) {
+        if (activeServer == server) return;
+        clearState();
+        activeServer = server;
+        String json = CovenantStateData.get(server).read();
+        if (json.isBlank()) return;
+        restoreJson(json);
+    }
+
+    static void restoreJson(String json) {
+        clearState();
+        if (json.isBlank()) return;
+        Snapshot state = LEDGER_JSON.fromJson(json, Snapshot.class);
+        if (state == null) return;
+        SOV.putAll(state.sovereigns); APPLIED.addAll(state.applied); LEASES.addAll(state.leases);
+        VAULT_ITEMS.addAll(state.vault); OFFERS.putAll(state.offers); ARB.putAll(state.arbitration); PACT_IMMUNITY.putAll(state.immunity);
+        // Restore shared identity: a stock item and its applied penalty are one piece of collateral.
+        Map<UUID, Coll> canonical = new HashMap<>();
+        for (Coll collateral : APPLIED) canonical.put(collateral.id, collateral);
+        for (Sov sov : SOV.values()) {
+            for (int i = 0; i < sov.stock.size(); i++) sov.stock.set(i, canonical.getOrDefault(sov.stock.get(i).id, sov.stock.get(i)));
+            if (sov.sealed != null) SEALED.add(sov.sealed);
+        }
+        for (Court court : allCourts()) for (LawRec law : court.laws) {
+            Sov owner = sov(court.owner); owner.nextLaw = Math.max(owner.nextLaw, law.id + 1);
+        }
+        for (Coll collateral : APPLIED) if (collateral.holder != null && !collateral.holder.equals(collateral.by)) {
+            ENDOW.computeIfAbsent(collateral.holder, k -> new ArrayList<>()).add(collateral);
+        }
+    }
+
+    public static void saveState(MinecraftServer server) {
+        if (activeServer != server) return;
+        CovenantStateData.get(server).write(snapshotJson());
+    }
+
+    static String snapshotJson() {
+        Snapshot snapshot = new Snapshot();
+        snapshot.sovereigns.putAll(SOV); snapshot.applied.addAll(APPLIED); snapshot.leases.addAll(LEASES);
+        snapshot.vault.addAll(VAULT_ITEMS); snapshot.offers.putAll(OFFERS); snapshot.arbitration.putAll(ARB); snapshot.immunity.putAll(PACT_IMMUNITY);
+        return LEDGER_JSON.toJson(snapshot);
+    }
+
+    public static void shutdown(MinecraftServer server) {
+        saveState(server);
+        // SavedData is flushed by the server's normal shutdown save.
+        activeServer = null;
+        clearState();
+    }
+
+    private static void clearState() {
+        SOV.clear(); SEALED.clear(); APPLIED.clear(); ENDOW.clear(); PENDING.clear(); OFFERS.clear();
+        ARB.clear(); LAST_CHAT.clear(); CD.clear(); LEASES.clear(); VAULT_ITEMS.clear(); PACT_IMMUNITY.clear(); PROXY_DAMAGE.clear(); COLLECTION_GATE.clear(); DIRTY_PLAYERS.clear();
+    }
+
+    private static void returnItems(MinecraftServer server) {
+        Iterator<VaultEntry> items = VAULT_ITEMS.iterator();
+        while (items.hasNext()) {
+            VaultEntry item = items.next();
+            ServerPlayer target = server.getPlayerList().getPlayer(item.from);
+            if (!item.released || target == null) continue;
+            try {
+                ItemStack stack = ItemStack.of(net.minecraft.nbt.TagParser.parseTag(item.item));
+                if (!target.getInventory().add(stack)) target.drop(stack, false);
+                items.remove();
+            } catch (com.mojang.brigadier.exceptions.CommandSyntaxException error) {
+                throw new IllegalStateException("Invalid Covenant escrow item", error);
+            }
+        }
+    }
+
+    private static long heldSouls(UUID owner) {
+        return APPLIED.stream().filter(c -> c.by.equals(owner) && c.pen.kind() == Kind.SOUL).count();
+    }
+
+    private static List<String> pactsOf(UUID person) {
+        List<String> pacts = new ArrayList<>();
+        for (var owner : SOV.entrySet()) for (PactRec pact : owner.getValue().pacts) {
+            if (owner.getKey().equals(person) || pact.target.equals(person)) pacts.add(pact.text);
+        }
+        return pacts;
+    }
+
+    private static void syncSignatures(MinecraftServer server, long now) {
+        com.google.gson.JsonObject payload = new com.google.gson.JsonObject();
+        com.google.gson.JsonArray people = new com.google.gson.JsonArray();
+        List<Court> courts = allCourts();
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            UUID id = player.getUUID();
+            Sov own = SOV.get(id);
+            long souls = heldSouls(id);
+            boolean signature = courts.stream().anyMatch(c -> !c.owner.equals(id) && subject(c, player));
+            signature |= own != null && (own.bound || CovenantRules.soulBurden(levelOf(player), souls));
+            signature |= SOV.values().stream().anyMatch(state -> state.signatures.getOrDefault(id, 0L) > now);
+            boolean deaf = APPLIED.stream().anyMatch(c -> c.from.equals(id) && c.pen.kind() == Kind.SENSE && c.pen.key().equals("hearing"));
+            com.google.gson.JsonArray constitutions = new com.google.gson.JsonArray();
+            if (own != null && own.constitution != null) for (LawRec law : own.constitution.laws) constitutions.add(law.text);
+            com.google.gson.JsonObject person = new com.google.gson.JsonObject();
+            person.addProperty("entity", player.getId()); person.addProperty("signed", signature);
+            person.addProperty("souls", CovenantRules.soulBurden(levelOf(player), souls) ? souls : 0);
+            person.addProperty("deaf", deaf); person.add("constitutions", constitutions);
+            people.add(person);
+        }
+        payload.add("people", people);
+        com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.ALL.noArg(), new com.myriam.unrp.net.CovenantPacket(payload.toString()));
+        for (ServerPlayer sovereign : server.getPlayerList().getPlayers()) {
+            if (levelOf(sovereign) < 5 || !SOV.containsKey(sovereign.getUUID())) continue;
+            com.google.gson.JsonObject privateState = new com.google.gson.JsonObject();
+            com.google.gson.JsonArray markers = new com.google.gson.JsonArray();
+            for (ServerPlayer person : server.getPlayerList().getPlayers()) {
+                if (person == sovereign) continue;
+                boolean visible = courts.stream().anyMatch(c -> c.owner.equals(sovereign.getUUID()) && subject(c, person));
+                visible |= levelOf(sovereign) >= 6 && signed(sovereign.getUUID(), person.getUUID(), now);
+                if (!visible) continue;
+                int debt = courts.stream().filter(c -> c.owner.equals(sovereign.getUUID())).mapToInt(c -> c.debt.getOrDefault(person.getUUID(), List.of()).size()).sum();
+                com.google.gson.JsonObject marker = new com.google.gson.JsonObject();
+                marker.addProperty("name", person.getGameProfile().getName()); marker.addProperty("dimension", person.serverLevel().dimension().location().toString());
+                marker.addProperty("x", person.getX()); marker.addProperty("y", person.getY()); marker.addProperty("z", person.getZ()); marker.addProperty("debt", debt);
+                markers.add(marker);
+            }
+            privateState.add("markers", markers);
+            com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> sovereign), new com.myriam.unrp.net.CovenantPacket(privateState.toString()));
+        }
+    }
+
+    private static final class Subject {
+        UUID id;
+        String name, power, dimension, memory;
+        int[] stats = {1, 1, 1, 1, 1};
+        double level, x, y, z;
+    }
+
+    private static Subject remember(Court court, ServerPlayer person) {
+        Subject subject = new Subject();
+        subject.id = person.getUUID(); subject.name = person.getGameProfile().getName();
+        subject.power = AbilityEngine.basePowerId(person); subject.level = levelOf(person);
+        var profile = ClaimData.get(person.server).profileOf(person.getUUID()).orElse(null);
+        if (profile != null) subject.stats = com.myriam.unrp.player.PlayerStateService.stats(person.server, subject.id, profile, character(person));
+        subject.x = person.getX(); subject.y = person.getY(); subject.z = person.getZ();
+        subject.dimension = person.serverLevel().dimension().location().toString();
+        subject.memory = LAST_CHAT.getOrDefault(person.getUUID(), "");
+        sov(court.owner).subjects.put(subject.id, subject);
+        return subject;
+    }
+
+    private static Subject known(String name) {
+        for (Sov state : SOV.values()) for (Subject subject : state.subjects.values()) if (subject.name.equalsIgnoreCase(name)) return subject;
+        return null;
+    }
+
+    private static boolean collectOffline(MinecraftServer server, Court court, UUID id, Pen penalty) {
+        Subject person = sov(court.owner).subjects.get(id);
+        if (person == null || !allowed(court.tier, penalty.kind()) || penalty.kind() == Kind.NONE || penalty.kind() == Kind.LIFE) return false;
+        Sov escrow = SOV.get(id);
+        if (penalty.kind() == Kind.STAT && (person.stats[Integer.parseInt(penalty.key())] <= 1
+                || (escrow != null && escrow.escrow == Integer.parseInt(penalty.key())))) return false;
+        if (penalty.kind() == Kind.ABILITY && (person.power == null || (escrow != null && escrow.escrowBranch >= 0))) return false;
+        if (penalty.kind() != Kind.STAT && penalty.kind() != Kind.MEMORY && penalty.kind() != Kind.BRANCH
+                && APPLIED.stream().anyMatch(c -> c.from.equals(id) && c.pen.equals(penalty))) return false;
+        Coll collateral = new Coll(); collateral.court = court.id; collateral.tier = court.tier;
+        collateral.pen = penalty; collateral.from = id; collateral.fromName = person.name; collateral.power = person.power;
+        collateral.originalStats = person.stats.clone(); collateral.originalLevel = person.level; collateral.by = court.owner;
+        collateral.memo = person.memory == null ? "" : person.memory;
+        if (penalty.kind() == Kind.BRANCH) {
+            AbilityPower definition = UnodexData.get().powerFor(person.power);
+            if (definition == null) return false;
+            List<Integer> choices = new ArrayList<>();
+            for (int i = 0; i < definition.moves.size(); i++) {
+                final int index = i;
+                var move = definition.moves.get(i);
+                if ("stance_next".equals(move.special) || "mode_next".equals(move.special) || (escrow != null && escrow.escrowBranch == i)) continue;
+                if (!penalty.key().isBlank() && !penalty.key().equals(String.valueOf(i + 1)) && !CovenantParse.norm(move.name).contains(penalty.key())) continue;
+                if (APPLIED.stream().noneMatch(c -> c.from.equals(id) && c.pen.kind() == Kind.BRANCH && c.move == index && person.power.equals(c.power))) choices.add(i);
+            }
+            if (choices.isEmpty()) return false;
+            collateral.move = choices.get(0);
+        }
+        if (penalty.kind() == Kind.STAT) person.stats[Integer.parseInt(penalty.key())]--;
+        APPLIED.add(collateral); sov(court.owner).stock.add(collateral);
+        return true;
+    }
+
+    private static void offerPact(ServerPlayer owner, Pending pending, String text, Court court) {
+        Sov state = sov(owner.getUUID());
+        long now = owner.server.overworld().getGameTime();
+        boolean sovereign = pending.what == Await.SOVEREIGN_PACT;
+        ServerPlayer target;
+        Subject targetInfo;
+        String agreement = text;
+        if (sovereign) {
+            int separator = text.indexOf('|');
+            if (separator < 1) { bar(owner, "§7PlayerName | nothing for your branch"); return; }
+            String name = text.substring(0, separator).trim(); agreement = text.substring(separator + 1).trim();
+            target = owner.server.getPlayerList().getPlayerByName(name);
+            targetInfo = target == null ? known(name) : remember(court, target);
+        } else {
+            target = owner.server.getPlayerList().getPlayer(pending.target);
+            targetInfo = target == null ? null : remember(court, target);
+        }
+        Pen[] deal = CovenantParse.pact(agreement);
+        if (targetInfo == null || targetInfo.id.equals(owner.getUUID()) || deal == null) { bar(owner, "§7Unknown person or unrecognized deal."); return; }
+        if (!sovereign && (target == null || !subject(court, target))) { bar(owner, "§7A local Pact requires a signer inside the Court."); return; }
+        if (PACT_IMMUNITY.getOrDefault(owner.getUUID() + ":" + targetInfo.id, 0L) > now) { bar(owner, "§7This person is immune to your Pacts for one hour."); return; }
+        if (!allowed(court.tier, deal[1].kind()) && deal[1].kind() != Kind.LIFE) { bar(owner, "§7This penalty exceeds your level."); return; }
+        Coll offered = findStock(state, deal[0]);
+        boolean life = deal[0].kind() == Kind.LIFE && target != null && target.getHealth() < target.getMaxHealth();
+        if (court.tier < 4 && offered == null && !life) { bar(owner, "§7The Pact must offer real consideration."); return; }
+        if (court.tier >= 4 && offered == null && deal[0].kind() != Kind.NONE && deal[0].kind() != Kind.LIFE) {
+            bar(owner, "§7You may offer 'nothing', but cannot promise collateral you do not hold."); return;
+        }
+        if (offered != null && OFFERS.values().stream().anyMatch(o -> offered.id.equals(o.reserved))) { bar(owner, "§7This collateral is already reserved."); return; }
+        if (!pay(owner, 12)) return;
+        Offer offer = new Offer(owner.getUUID(), deal[0], deal[1], now + (sovereign ? CovenantRules.DAY : 600), sovereign,
+                offered == null ? null : offered.id, agreement);
+        OFFERS.put(targetInfo.id, offer);
+        if (sovereign) constitution(owner.getUUID(), court); // keeps the remote contract's authority if the personal Court closes
+        if (target != null) deliverOffer(target, offer);
+        bar(owner, "§6Private Pact sent to " + targetInfo.name + (target == null ? " (delivered on reconnect)." : "."));
+    }
+
+    private static void deliverOffer(ServerPlayer target, Offer offer) {
+        String name = "Souverain";
+        ServerPlayer by = target.server.getPlayerList().getPlayer(offer.by);
+        if (by != null) name = by.getGameProfile().getName();
+        target.sendSystemMessage(Component.literal("§6Parchment from " + name + " : " + offer.text + " §eReply accept / refuse."));
+        showPactParchment(target, name, offer.text);
+    }
+
     // ------------------------------------------------------------------ tick
     public static void onLogout(UUID id) {
         PENDING.remove(id);
-        OFFERS.remove(id);
+        Offer offer = OFFERS.get(id);
+        if (offer != null && !offer.sovereign) OFFERS.remove(id);
         LAST_CHAT.remove(id);
-        ARB.remove(id);
     }
 
     public static void tick(MinecraftServer server) {
+        start(server);
         long now = server.overworld().getGameTime();
         // tribunaux des Souverains en ligne
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
             Sov s = SOV.get(p.getUUID());
+            upgradeCollateral(p.getUUID(), levelOf(p));
             boolean active = on(p);
             if (active && (s == null || s.court == null)) open(p);
             else if (!active && s != null && s.court != null) {
                 close(p, server);
-                bar(p, "§7Tribunal fermé.");
+                bar(p, "§7Court closed.");
             }
         }
         // Souverains hors ligne : leur Tribunal se ferme
-        for (Sov s : SOV.values()) {
+        for (Sov s : new ArrayList<>(SOV.values())) {
             if (s.court != null && server.getPlayerList().getPlayer(s.court.owner) == null) {
                 closeCourt(server, s.court, s);
                 s.court = null;
             }
         }
-        for (Sov s : SOV.values()) if (s.court != null) tickCourt(server, s.court, now);
-        for (Court c : SEALED) tickCourt(server, c, now);
+        for (Sov state : new ArrayList<>(SOV.values())) {
+            state.signatures.entrySet().removeIf(e -> e.getValue() <= now);
+            for (Court expired : state.jurisdictions.stream().filter(c -> c.expires <= now).toList()) closeCourt(server, expired, state);
+            state.jurisdictions.removeIf(c -> c.expires <= now);
+        }
+        for (Court court : allCourts()) tickCourt(server, court, now);
+        if (now % 20 == 0) returnItems(server);
+        if (now % 20 == 0) {
+            for (Sov state : new ArrayList<>(SOV.values())) {
+                if (state.tribute != null && now >= state.tributeAt) {
+                    Court tributeCourt = state.court != null ? state.court : state.constitution;
+                    if (tributeCourt == null || tributeCourt.tier < 4) continue;
+                    for (UUID signer : new HashSet<>(state.signatures.keySet())) {
+                        ServerPlayer person = server.getPlayerList().getPlayer(signer);
+                        if (signed(tributeCourt.owner, signer, now)) {
+                            if (person != null) collectUnit(tributeCourt, person, state.tribute, false, false);
+                            else collectOffline(server, tributeCourt, signer, state.tribute);
+                        }
+                    }
+                    state.tributeAt = now + CovenantRules.DAY;
+                }
+            }
+        }
+        if (now % 100 == 0) {
+            PACT_IMMUNITY.entrySet().removeIf(e -> e.getValue() <= now);
+            COLLECTION_GATE.entrySet().removeIf(e -> e.getValue() <= now);
+            OFFERS.entrySet().removeIf(e -> e.getValue().until <= now);
+            for (Court court : allCourts()) court.history.removeIf(a -> a.at < now - CovenantRules.HOUR);
+            saveState(server);
+        }
         // gages arrivés à terme
         Iterator<Coll> it = APPLIED.iterator();
         while (it.hasNext()) {
             Coll k = it.next();
             if (now < k.until) continue;
             it.remove();
-            Sov s = SOV.get(k.by);
-            if (s != null) s.stock.remove(k);
+            dropLease(server, k.id);
+            for (Sov state : SOV.values()) state.stock.removeIf(x -> x.id.equals(k.id));
+            for (List<Coll> endowed : ENDOW.values()) endowed.removeIf(x -> x.id.equals(k.id));
             ServerPlayer v = server.getPlayerList().getPlayer(k.from);
-            if (v != null) bar(v, "§aTon gage te revient : " + k.pen.label() + ".");
+            if (v != null) bar(v, "§aYour collateral is returned: " + k.pen.label() + ".");
         }
         if (now % 10 == 0) effects(server, now);
-        if (now % 20 == 0) arbitration(server);
+        if (now % 20 == 0) {
+            arbitration(server);
+            for (UUID id : new HashSet<>(DIRTY_PLAYERS)) {
+                ServerPlayer player = server.getPlayerList().getPlayer(id);
+                if (player != null) com.myriam.unrp.player.PlayerStateService.send(player);
+            }
+            DIRTY_PLAYERS.clear();
+        }
+        if (now % 40 == 0) syncSignatures(server, now);
     }
 
     private static void tickCourt(MinecraftServer server, Court c, long now) {
         ServerPlayer owner = server.getPlayerList().getPlayer(c.owner);
         Sov so = sov(c.owner);
-        if (c.follow && owner != null) {
-            c.center = owner.position();
-            c.dim = owner.serverLevel().dimension();
-            c.tier = tierOf(levelOf(owner));
-            c.radius = RADIUS[c.tier];
+        if (owner != null && !c.constitutional) {
+            c.ownerLevel = courtLevelOf(owner); c.tier = tierOf(c.ownerLevel);
+            if (c.follow) {
+                c.center = owner.position(); c.dim = owner.serverLevel().dimension().location().toString();
+                c.radius = RADIUS[c.tier];
+            }
         }
-        ServerLevel lv = server.getLevel(c.dim);
+        ServerLevel lv = server.getLevel(courtDimension(c));
         if (lv == null) return;
+        if (!c.follow && !c.constitutional && now % 100 == 0) Fx.wave(lv, c.center, 3.2, 0xF2C94C, 30);
         for (ServerPlayer v : server.getPlayerList().getPlayers()) {
             if (v.getUUID().equals(c.owner)) continue;
-            if (v.isCreative() || v.isSpectator()) continue;
-            boolean in = insideOf(c, v);
+            if (v.isSpectator()) continue;
+            if (c.tier >= 4 && !c.constitutional && v.serverLevel() == lv && v.position().distanceToSqr(c.center) <= 96 * 96) {
+                Vec3 seal = c.center.add(0, 0.15, 0);
+                Vec3 direction = seal.subtract(v.getEyePosition()).normalize();
+                var sight = lv.clip(new net.minecraft.world.level.ClipContext(v.getEyePosition(), seal,
+                        net.minecraft.world.level.ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, v));
+                if (v.getViewVector(1).dot(direction) >= 0.35 && (sight.getType() == net.minecraft.world.phys.HitResult.Type.MISS
+                        || sight.getLocation().distanceToSqr(seal) < 1)) so.signatures.put(v.getUUID(), now + CovenantRules.WEEK);
+            }
+            boolean physical = !c.constitutional && insideOf(c, v);
+            boolean wasPhysical = c.physical.contains(v.getUUID());
+            boolean entered = physical && !wasPhysical;
+            if (wasPhysical && !physical) breach(v, Viol.LEAVE, c);
+            if (physical) c.physical.add(v.getUUID()); else c.physical.remove(v.getUUID());
+            boolean in = subject(c, v);
             boolean was = c.inside.contains(v.getUUID());
+            if (entered && !c.exiled.contains(v.getUUID())) collectTerms(c, v);
             if (in && !was) {
-                if (c.exiled.contains(v.getUUID())) {
+                if (c.exiled.contains(v.getUUID()) && physical) {
                     expel(c, v);
                     continue;
                 }
                 c.inside.add(v.getUUID());
-                collectTerms(c, v);
                 readLaws(v, c);
             } else if (!in && was) {
                 c.inside.remove(v.getUUID());
-                for (Viol x : new Viol[] {Viol.LEAVE}) {
-                    c.inside.add(v.getUUID()); // la sortie se juge dedans
-                    breach(v, x);
-                    c.inside.remove(v.getUUID());
-                }
             }
             if (in) {
+                if (now % 20 == 0) remember(c, v);
+                if (c.exiled.contains(v.getUUID()) && physical) { expel(c, v); continue; }
                 if (v.isSprinting()) breach(v, Viol.SPRINT);
                 if (v.isShiftKeyDown()) breach(v, Viol.SNEAK);
                 if (v.isFallFlying() || v.getAbilities().flying || Pal.soaring(v)) breach(v, Viol.FLY);
-                if (now % 10 == 0) Vfx.glow(lv, Vfx.SPARKS, 0xF2C94C, v.position().add(0, 0.9, 0), new Vec3(0.15, 0.1, 0.15), 1, 0.01); // signature sur la main
+                if (now % 10 == 0 && v.serverLevel() == lv) Vfx.glow(lv, Vfx.SPARKS, 0xF2C94C, v.position().add(0, 0.9, 0), new Vec3(0.15, 0.1, 0.15), 1, 0.01); // signature sur la main
             }
         }
+        // Debt can be paid in stationary/constitutional Courts even when the caster is absent.
+        if (now % 200 == 0) for (var entry : new ArrayList<>(c.debt.entrySet())) {
+            ServerPlayer person = server.getPlayerList().getPlayer(entry.getKey());
+            if (person != null && !entry.getValue().isEmpty() && subject(c, person)
+                    && collectUnit(c, person, entry.getValue().get(0), false, false)) entry.getValue().remove(0);
+        }
         if (owner != null && c.follow) {
+            if (so.indemUntil > now && now % 80 == 0) Fx.shield(lv, owner, 0xF2C94C, 1.6f, 100);
             if (now % 20 == 0) Vfx.glow(lv, Vfx.RING, 0xF2C94C, owner.position().add(0, 0.05, 0), new Vec3(3.2, 0, 0), 1, 0); // sceau d'or sous lui
             if (now % 100 == 0) Fx.wave(lv, owner.position(), Math.min(c.radius, 16), 0xF2C94C, 30);
             if (now % 10 == 0) moveParchments(lv, owner, c);
             if (so.proxy != null && now > so.proxyUntil) so.proxy = null;
-            // dettes : une unité prélevée toutes les 10 s tant qu'on reste dans le Tribunal
-            if (now % 200 == 0) {
-                for (var e : new ArrayList<>(c.debt.entrySet())) {
-                    ServerPlayer v = server.getPlayerList().getPlayer(e.getKey());
-                    if (v == null || e.getValue().isEmpty() || !c.inside.contains(v.getUUID())) continue;
-                    collectUnit(c, v, e.getValue().remove(0), false, false);
-                }
-            }
             // niveau 5 : le registre
             if (now % 40 == 0 && levelOf(owner) >= 5) registry(owner, c);
             // haut niveau : plus de 10 âmes, une loi du Tribunal s'applique à lui chaque jour
-            long souls = so.stock.stream().filter(k -> k.pen.kind() == Kind.SOUL).count();
-            if (souls > 10 && !c.laws.isEmpty()) {
+            long souls = heldSouls(c.owner);
+            if (!CovenantRules.soulBurden(levelOf(owner), souls)) so.dailyLaw = null;
+            if (CovenantRules.soulBurden(levelOf(owner), souls) && !c.laws.isEmpty()) {
                 if (now >= so.daily) {
                     so.dailyLaw = c.laws.get(owner.getRandom().nextInt(c.laws.size()));
-                    so.daily = now + 24000;
-                    bar(owner, "§cTes âmes te lient : la loi #" + so.dailyLaw.id + " s'applique à toi aujourd'hui.");
+                    so.daily = now + CovenantRules.DAY;
+                    bar(owner, "§cYour souls bind you: law #" + so.dailyLaw.id + " applies to you today.");
                 }
                 if (now % 10 == 0) Vfx.glow(lv, Vfx.SPARKS, 0xF2C94C, owner.position().add(0, 0.9, 0), new Vec3(0.2, 0.1, 0.2), 2, 0.01);
             }
@@ -1034,9 +1909,9 @@ public final class Specials17 {
     private static void readLaws(ServerPlayer v, Court c) {
         List<String> shown = new ArrayList<>();
         for (LawRec l : c.laws) if (!l.hidden) shown.add("§e#" + l.id + " §f" + l.text);
-        v.sendSystemMessage(Component.literal("§6Tu entres dans un Tribunal : tu as signé le Covenant."));
+        v.sendSystemMessage(Component.literal("§6You entered a Court: you have signed the Covenant."));
         for (String s : shown) v.sendSystemMessage(Component.literal(s));
-        if (c.tier == 0) bar(v, "§7Tu as 3 secondes pour lire avant que les nouvelles lois comptent.");
+        if (c.tier == 0) bar(v, "§7Laws are active; people already inside receive three seconds before a new law applies.");
     }
 
     private static void moveParchments(ServerLevel lv, ServerPlayer owner, Court c) {
@@ -1049,13 +1924,13 @@ public final class Specials17 {
     }
 
     private static void registry(ServerPlayer owner, Court c) {
-        StringBuilder b = new StringBuilder("§6Tribunal §f" + c.inside.size() + " §6signataires");
+        StringBuilder b = new StringBuilder("§6Court §f" + c.inside.size() + " §6signers");
         int shown = 0;
         for (var e : c.debt.entrySet()) {
             if (e.getValue().isEmpty() || shown >= 3) continue;
             ServerPlayer v = owner.server.getPlayerList().getPlayer(e.getKey());
             if (v == null) continue;
-            b.append(shown == 0 ? " §7| §cEn infraction : " : " §7, ").append("§f").append(v.getGameProfile().getName()).append(" §7(doit ").append(e.getValue().size()).append(")");
+            b.append(shown == 0 ? " §7| §cIn breach: " : " §7, ").append("§f").append(v.getGameProfile().getName()).append(" §7(owes ").append(e.getValue().size()).append(")");
             shown++;
         }
         bar(owner, b.toString());
@@ -1070,11 +1945,14 @@ public final class Specials17 {
             switch (k.pen.kind()) {
                 case MOVE -> {
                     if (k.pen.key().equals("sprint")) v.setSprinting(false);
-                    else if (k.pen.key().equals("walk")) v.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 1, true, false));
+                    else if (k.pen.key().equals("walk")) {
+                        v.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 255, true, false));
+                        v.setDeltaMovement(0, v.getDeltaMovement().y, 0); v.hurtMarked = true;
+                    }
                 }
                 case SENSE -> {
                     if (k.pen.key().equals("sight")) v.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 40, 0, true, false));
-                    else {
+                    else if (k.pen.key().equals("touch")) {
                         v.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 30, 1, true, false));
                         v.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 30, 0, true, false));
                     }
@@ -1105,12 +1983,13 @@ public final class Specials17 {
             var e = it.next();
             ServerPlayer v = server.getPlayerList().getPlayer(e.getKey());
             Sov s = SOV.get(e.getValue());
-            if (v == null || s == null || s.court == null || s.court.debt.getOrDefault(v.getUUID(), List.of()).isEmpty()) {
+            boolean owes = allCourts().stream().anyMatch(c -> c.owner.equals(e.getValue()) && !c.debt.getOrDefault(e.getKey(), List.of()).isEmpty());
+            if (s == null || !owes) {
                 it.remove();
-                if (v != null) bar(v, "§aTa dette est réglée : ton pouvoir revient.");
+                if (v != null) bar(v, "§aYour debt is paid: your power is restored.");
                 continue;
             }
-            AbilityEngine.disable(v, 60);
+            if (v != null) AbilityEngine.allOff(v);
         }
     }
 
@@ -1123,19 +2002,20 @@ public final class Specials17 {
         Sov s = SOV.get(p.getUUID());
         if (s == null) return;
         long now = p.serverLevel().getGameTime();
-        if (now < s.indemUntil) { // Indemnité : la blessure est rayée et retombe sur son auteur
+        if (on(p) && now < s.indemUntil) { // Indemnité : la blessure est rayée et retombe sur son auteur
             e.setCanceled(true);
             if (e.getSource().getEntity() instanceof ServerPlayer by && s.court != null && by != p) {
-                collectUnit(s.court, by, new Pen(Kind.STAT, String.valueOf(by.getRandom().nextInt(5))), false, true);
-                s.court.breaches.merge(by.getUUID(), 1, Integer::sum);
+                collectBreach(s.court, by, new Pen(Kind.STAT, String.valueOf(by.getRandom().nextInt(5))), now);
             }
             return;
         }
-        if (s.proxy != null && now < s.proxyUntil) { // Procuration : la blessure passe au lié
+        if (on(p) && s.proxy != null && now < s.proxyUntil && !PROXY_DAMAGE.contains(p.getUUID())) { // Procuration : la blessure passe au lié
             ServerPlayer t = p.server.getPlayerList().getPlayer(s.proxy);
             if (t != null && t.isAlive()) {
                 e.setCanceled(true);
-                t.hurt(t.damageSources().magic(), e.getAmount());
+                PROXY_DAMAGE.add(p.getUUID());
+                try { t.hurt(t.damageSources().magic(), e.getAmount()); }
+                finally { PROXY_DAMAGE.remove(p.getUUID()); }
             }
         }
     }

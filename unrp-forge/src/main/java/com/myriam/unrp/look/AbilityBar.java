@@ -124,8 +124,8 @@ public final class AbilityBar implements IGuiOverlay {
             boolean d = free && k != null && k.isDown();
             if (list != null && list[i] != Integer.MIN_VALUE) {
                 int e = list[i];
-                if (d && !down[i]) send(base + (e < 0 ? 0 : 100 + s.barMove[e]));
-                else if (!d && down[i] && e >= 0) send(base + 120 + s.barMove[e]);
+                if (d && !down[i]) send(base + (e < 0 ? 0 : com.myriam.unrp.ability.AbilityInputProtocol.press(s.barMove[e])));
+                else if (!d && down[i] && e >= 0) send(base + com.myriam.unrp.ability.AbilityInputProtocol.release(s.barMove[e]));
             }
             down[i] = d;
         }

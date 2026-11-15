@@ -7,6 +7,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 /** Branche les événements de combat sur le moteur de pouvoirs (barrières, riposte "thorns"). */
 public class AbilityEvents {
     @SubscribeEvent
+    public void onServerStart(net.minecraftforge.event.server.ServerStartedEvent event) { Specials17.start(event.getServer()); }
+
+    @SubscribeEvent
+    public void onServerStopping(net.minecraftforge.event.server.ServerStoppingEvent event) { Specials17.shutdown(event.getServer()); }
+
+    @SubscribeEvent
     public void onAttack(LivingAttackEvent e) {
         if (e.isCanceled()) return;
         AbilityEngine.onAttack(e);
@@ -30,6 +36,7 @@ public class AbilityEvents {
     /** Aura Transference : un coup à mains nues copie un trait. */
     @SubscribeEvent
     public void onAttackEntity(net.minecraftforge.event.entity.player.AttackEntityEvent e) {
+        if (e.getEntity() instanceof net.minecraft.server.level.ServerPlayer player) Specials17.onAttackAttempt(player);
     }
 
     /** Covenant : sauter, casser, poser et parler peuvent être des manquements ; le chat porte aussi les lois et les pactes. */
