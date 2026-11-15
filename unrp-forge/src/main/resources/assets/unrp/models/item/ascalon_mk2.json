@@ -1,7 +1,6 @@
 {
-  "parent": "unrp:item/ascalon",
+  "parent": "minecraft:item/handheld",
   "textures": {
-    "0": "unrp:item/ascalon_mk2",
-    "particle": "unrp:item/ascalon_mk2"
+    "layer0": "unrp:item/ascalon_mk2"
   }
 }

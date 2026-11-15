@@ -1,0 +1,779 @@
+{
+  "agent_leader_spawn_egg": {
+    "sheet": "books",
+    "cell": 14,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agent_spawn_egg": {
+    "sheet": "books",
+    "cell": 13,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_blazer": {
+    "sheet": "clothes",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_girl_blazer": {
+    "sheet": "clothes",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_girl_shirt": {
+    "sheet": "clothes",
+    "cell": 5,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_girl_shoes": {
+    "sheet": "clothes",
+    "cell": 7,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_girl_skirt": {
+    "sheet": "clothes",
+    "cell": 6,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_off_shoulder_blazer": {
+    "sheet": "clothes",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_one_shoulder_blazer": {
+    "sheet": "clothes",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_shirt": {
+    "sheet": "clothes",
+    "cell": 5,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_shoes": {
+    "sheet": "clothes",
+    "cell": 7,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "agwin_trousers": {
+    "sheet": "clothes",
+    "cell": 2,
+    "size": 64,
+    "hue": 142,
+    "saturation": 100
+  },
+  "amplifier": {
+    "sheet": "supplies",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "armament_burst": {
+    "sheet": "relics",
+    "cell": 13,
+    "size": 64,
+    "hue": 106,
+    "saturation": 100
+  },
+  "armament_diamond": {
+    "sheet": "relics",
+    "cell": 0,
+    "size": 64,
+    "hue": 96,
+    "saturation": 100
+  },
+  "armament_fang": {
+    "sheet": "relics",
+    "cell": 14,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "armament_gold": {
+    "sheet": "relics",
+    "cell": 0,
+    "size": 64,
+    "hue": 116,
+    "saturation": 100
+  },
+  "armament_iron": {
+    "sheet": "relics",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 45
+  },
+  "armament_netherite": {
+    "sheet": "relics",
+    "cell": 13,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "armament_oak": {
+    "sheet": "relics",
+    "cell": 12,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "armament_rot": {
+    "sheet": "relics",
+    "cell": 1,
+    "size": 64,
+    "hue": 102,
+    "saturation": 100
+  },
+  "armament_sear": {
+    "sheet": "relics",
+    "cell": 13,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "armament_stone": {
+    "sheet": "relics",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 0
+  },
+  "armament_warp": {
+    "sheet": "relics",
+    "cell": 15,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "ascalon": {
+    "sheet": "relics",
+    "cell": 1,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "ascalon_mk2": {
+    "sheet": "relics",
+    "cell": 1,
+    "size": 64,
+    "hue": 102,
+    "saturation": 100
+  },
+  "barrier_block": {
+    "sheet": "devices",
+    "cell": 5,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "barrier_block_am": {
+    "sheet": "devices",
+    "cell": 6,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "binding_link": {
+    "sheet": "relics",
+    "cell": 8,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "bone_charm": {
+    "sheet": "relics",
+    "cell": 10,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "carved_rune": {
+    "sheet": "relics",
+    "cell": 9,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "contract": {
+    "sheet": "supplies",
+    "cell": 9,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "contract_proposed": {
+    "sheet": "supplies",
+    "cell": 9,
+    "size": 64,
+    "hue": 96,
+    "saturation": 100
+  },
+  "contract_proposed_stamped": {
+    "sheet": "supplies",
+    "cell": 10,
+    "size": 64,
+    "hue": 96,
+    "saturation": 100
+  },
+  "contract_soul": {
+    "sheet": "supplies",
+    "cell": 11,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "contract_soul_stamped": {
+    "sheet": "supplies",
+    "cell": 11,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "contract_stamped": {
+    "sheet": "supplies",
+    "cell": 10,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "conversion_machine": {
+    "sheet": "devices",
+    "cell": 1,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "counterweight_shard": {
+    "sheet": "devices",
+    "cell": 8,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "crimson_mark_shard": {
+    "sheet": "devices",
+    "cell": 14,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "dealmaker_shard": {
+    "sheet": "devices",
+    "cell": 10,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "deamplifier": {
+    "sheet": "supplies",
+    "cell": 1,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "disabler": {
+    "sheet": "supplies",
+    "cell": 2,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "dragon_engine_shard": {
+    "sheet": "supplies",
+    "cell": 14,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "edict_shard": {
+    "sheet": "supplies",
+    "cell": 12,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "ember_leader_boots": {
+    "sheet": "clothes",
+    "cell": 14,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "ember_leader_coat": {
+    "sheet": "clothes",
+    "cell": 12,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "ember_leader_hat": {
+    "sheet": "clothes",
+    "cell": 13,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "ember_leader_pants": {
+    "sheet": "clothes",
+    "cell": 9,
+    "size": 64,
+    "hue": 100,
+    "saturation": 30
+  },
+  "hollow_mark_shard": {
+    "sheet": "devices",
+    "cell": 9,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "joker_mask": {
+    "sheet": "clothes",
+    "cell": 15,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "limit_breaker_shard": {
+    "sheet": "supplies",
+    "cell": 13,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "manuscript_aug": {
+    "sheet": "books",
+    "cell": 5,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "manuscript_con": {
+    "sheet": "books",
+    "cell": 8,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "manuscript_med": {
+    "sheet": "books",
+    "cell": 6,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "manuscript_proj": {
+    "sheet": "books",
+    "cell": 7,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "manuscript_qtm": {
+    "sheet": "books",
+    "cell": 9,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "music_disc_crown_match": {
+    "sheet": "books",
+    "cell": 11,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "music_disc_guardian": {
+    "sheet": "books",
+    "cell": 12,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "music_disc_surge": {
+    "sheet": "books",
+    "cell": 11,
+    "size": 64,
+    "hue": 113,
+    "saturation": 100
+  },
+  "music_disc_the_hunt": {
+    "sheet": "books",
+    "cell": 12,
+    "size": 64,
+    "hue": 70,
+    "saturation": 100
+  },
+  "music_disc_turf_war": {
+    "sheet": "books",
+    "cell": 10,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "music_disc_tyrant": {
+    "sheet": "books",
+    "cell": 10,
+    "size": 64,
+    "hue": 154,
+    "saturation": 100
+  },
+  "ossified_tail": {
+    "sheet": "relics",
+    "cell": 5,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "particle_block": {
+    "sheet": "devices",
+    "cell": 7,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "phylactery": {
+    "sheet": "devices",
+    "cell": 3,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "recovery_machine": {
+    "sheet": "devices",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "rewriter_serum": {
+    "sheet": "supplies",
+    "cell": 3,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "salt_block": {
+    "sheet": "devices",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "salt_spear": {
+    "sheet": "relics",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "sarcophage_shard": {
+    "sheet": "devices",
+    "cell": 11,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "school_uniform_boots": {
+    "sheet": "clothes",
+    "cell": 3,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "school_uniform_chestplate": {
+    "sheet": "clothes",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "school_uniform_leggings": {
+    "sheet": "clothes",
+    "cell": 2,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "singularity_shard": {
+    "sheet": "supplies",
+    "cell": 15,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "soul": {
+    "sheet": "relics",
+    "cell": 11,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "soul_sword": {
+    "sheet": "relics",
+    "cell": 2,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "spectre_bandana": {
+    "sheet": "clothes",
+    "cell": 11,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "spectre_boots": {
+    "sheet": "clothes",
+    "cell": 10,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "spectre_pants": {
+    "sheet": "clothes",
+    "cell": 9,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "spectre_spawn_egg": {
+    "sheet": "books",
+    "cell": 15,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "spectre_top": {
+    "sheet": "clothes",
+    "cell": 8,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "sunsteel_axe": {
+    "sheet": "relics",
+    "cell": 3,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "suppression_field": {
+    "sheet": "devices",
+    "cell": 2,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "syringe": {
+    "sheet": "supplies",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "syringe_amplifier": {
+    "sheet": "supplies",
+    "cell": 5,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "syringe_blood": {
+    "sheet": "supplies",
+    "cell": 7,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "syringe_deamplifier": {
+    "sheet": "supplies",
+    "cell": 6,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "syringe_disabler": {
+    "sheet": "supplies",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 0
+  },
+  "tome_aug": {
+    "sheet": "books",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "tome_con": {
+    "sheet": "books",
+    "cell": 3,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "tome_med": {
+    "sheet": "books",
+    "cell": 1,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "tome_proj": {
+    "sheet": "books",
+    "cell": 2,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "tome_qtm": {
+    "sheet": "books",
+    "cell": 4,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "tower_core": {
+    "sheet": "relics",
+    "cell": 6,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "unordinary_book": {
+    "sheet": "supplies",
+    "cell": 8,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "vertigo_shard": {
+    "sheet": "devices",
+    "cell": 13,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "vital_sand": {
+    "sheet": "relics",
+    "cell": 7,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_blazer": {
+    "sheet": "clothes",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_girl_blazer": {
+    "sheet": "clothes",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_girl_shirt": {
+    "sheet": "clothes",
+    "cell": 5,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_girl_shoes": {
+    "sheet": "clothes",
+    "cell": 7,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_girl_skirt": {
+    "sheet": "clothes",
+    "cell": 6,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_one_shoulder_blazer": {
+    "sheet": "clothes",
+    "cell": 0,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_seraphina_blazer": {
+    "sheet": "clothes",
+    "cell": 0,
+    "size": 64,
+    "hue": 112,
+    "saturation": 100
+  },
+  "wellstone_shirt": {
+    "sheet": "clothes",
+    "cell": 1,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_shoes": {
+    "sheet": "clothes",
+    "cell": 3,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "wellstone_trousers": {
+    "sheet": "clothes",
+    "cell": 2,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "xstatic_boots": {
+    "sheet": "clothes",
+    "cell": 10,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "xstatic_pants": {
+    "sheet": "clothes",
+    "cell": 9,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  },
+  "xstatic_top": {
+    "sheet": "clothes",
+    "cell": 8,
+    "size": 64,
+    "hue": 100,
+    "saturation": 100
+  }
+}

@@ -1,273 +1,129 @@
 package com.myriam.unrp.look;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.gui.components.PlayerFaceRenderer;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-import org.joml.Quaternionf;
 
-public class UnrpHudOverlay implements IGuiOverlay {
-   public static final UnrpHudOverlay INSTANCE = new UnrpHudOverlay();
-   private static final ResourceLocation BACK = new ResourceLocation("unrp", "textures/gui/hud/rpg_hud_back.png");
-   private static final ResourceLocation FRONT = new ResourceLocation("unrp", "textures/gui/hud/rpg_hud_front.png");
-   private static final ResourceLocation WHITE = new ResourceLocation("unrp", "textures/gui/ability_bars/white.png");
-   private static boolean headBroken;
-   private static final int HUD_X = 8;
-   private static final int HUD_Y = 8;
-   private static final int HUD_W = 192;
-   private static final int HUD_H = 124;
-   private static final int PNG_W = 200;
-   private static final int PNG_H = 80;
-   private static final int HP_FILL = -4708826;
-   private static final int HP_GHOST = -12969445;
-   private static final int AURA_FROM = -6928676;
-   private static final int AURA_TO = -10827536;
-   private static final int AURA_GHOST = -14269872;
-   private static final int AM_AURA_FROM = -15461352;
-   private static final int AM_AURA_TO = -9145218;
-   private static final int HUNGER_FILL = -2714072;
-   private static final int HUNGER_GHOST = -12965100;
-   private static final int ARMOR_FILL = -5920332;
-   private static final int ARMOR_GHOST = -13684683;
+/** A portrait-and-bars HUD with native pixel corners and restrained gold trim. */
+public final class UnrpHudOverlay implements IGuiOverlay {
+    public static final UnrpHudOverlay INSTANCE = new UnrpHudOverlay();
+    private static final int WIDTH = 196, HEIGHT = 78;
+    private static final int GOLD = 0xFFD6B570, INK = 0xED13171E, LIGHT = 0xFFF3E8D0;
+    private UnrpHudOverlay() {}
 
-   public void render(ForgeGui gui, GuiGraphics g, float partialTick, int screenWidth, int screenHeight) {
-      if (!Minecraft.getInstance().options.renderDebug) {
-         Minecraft mc = Minecraft.getInstance();
-         LocalPlayer p = mc.player;
-         if (p != null) {
-            if (!mc.options.hideGui) {
-               if (!p.isSpectator()) {
-                  if (StatClientCache.hudMode == 0) {
-                     float hs = ClientHudConfig.hudScale();
-                     int anchor = ClientHudConfig.hudAnchor();
-                     float tx = anchor != 1 && anchor != 3 ? (float)ClientHudConfig.hudOffX() : (float)screenWidth - 192.0F * hs - (float)ClientHudConfig.hudOffX();
-                     float ty = anchor != 2 && anchor != 3 ? (float)ClientHudConfig.hudOffY() : (float)screenHeight - 124.0F * hs - (float)ClientHudConfig.hudOffY();
-                     g.pose().pushPose();
-                     g.pose().translate(tx, ty, 0.0F);
-                     g.pose().scale(hs, hs, 1.0F);
-                     g.pose().translate(-8.0F, -8.0F, 0.0F);
-                     this.tex(g, BACK, 8, 8, 200, 80);
-                     float hp = p.getHealth();
-                     float hpMax = p.getMaxHealth();
-                     float hpFrac = hpMax > 0.0F ? hp / hpMax : 0.0F;
-                     this.bar(g, 77, 28, 197, 38, hpFrac, -4708826, -12969445, false, 0, 0);
-                     int aura = StatClientCache.aura;
-                     int auraMax = StatClientCache.auraMax;
-                     float auraFrac = auraMax > 0 ? (float)aura / (float)auraMax : 0.0F;
-                     int auraFrom = -6928676;
-                     int auraTo = -10827536;
-                     LocalPlayer lp = Minecraft.getInstance().player;
-                     if (lp != null) {
-                        if (ClientSettingsCache.isAM(lp.getUUID())) {
-                           auraFrom = -15461352;
-                           auraTo = -9145218;
-                        } else {
-                           int cc = ClientSettingsCache.getColor(lp.getUUID());
-                           if (cc != -1) {
-                              auraFrom = -16777216 | shade(cc, 0.72F);
-                              auraTo = -16777216 | shade(cc, 1.35F);
-                           }
-                        }
-                     }
+    @Override public void render(ForgeGui gui, GuiGraphics g, float partialTick, int sw, int sh) {
+        var mc = Minecraft.getInstance();
+        var p = mc.player;
+        if (p == null || p.isSpectator() || mc.options.hideGui || mc.options.renderDebug || !panelShown()) return;
+        g.pose().pushPose();
+        g.pose().translate(panelX(sw), panelY(sh), 0);
+        float scale = ClientHudConfig.hudScale();
+        g.pose().scale(scale, scale, 1);
+        // The stepped silhouette and isolated corner brackets replace the ornamental box.
+        g.fill(3, 0, WIDTH-3, HEIGHT, INK);
+        g.fill(0, 3, WIDTH, HEIGHT-3, INK);
+        corner(g, 2, 2, false, false);
+        corner(g, WIDTH-3, 2, true, false);
+        corner(g, 2, HEIGHT-3, false, true);
+        corner(g, WIDTH-3, HEIGHT-3, true, true);
+        g.fill(49, 10, 50, 67, 0xFF353843);
 
-                     this.bar(g, 77, 42, 196, 52, auraFrac, 0, -14269872, true, auraFrom, auraTo);
-                     int momentum = StatClientCache.momentum;
-                     if (momentum > 0) {
-                        float momFrac = Math.min(1.0F, (float)momentum / 100.0F);
-                        this.bar(g, 77, 53, 196, 56, momFrac, 0, -14019552, true, -5226370, -36928);
-                     }
+        g.fill(6, 13, 46, 53, 0xFF080C12);
+        g.fill(7, 14, 45, 52, 0xFF76623F);
+        PlayerFaceRenderer.draw(g, p.getSkinTextureLocation(), 8, 15, 36);
+        g.fill(9, 56, 43, 57, 0xFF665438);
+        g.fill(9, 56, 21, 57, GOLD);
+        // Small decorative identity mark, outside the skin, so hats remain readable.
+        g.fill(23, 60, 28, 61, GOLD);
+        g.fill(25, 58, 26, 63, GOLD);
 
-                     int food = p.getFoodData().getFoodLevel();
-                     this.bar(g, 77, 57, 133, 64, (float)food / 20.0F, -2714072, -12965100, false, 0, 0);
-                     int armor = p.getArmorValue();
-                     float armorFrac = (float)Math.min(armor, 20) / 20.0F;
-                     this.bar(g, 139, 57, 197, 64, armorFrac, -5920332, -13684683, false, 0, 0);
-                     Font font = mc.font;
-                     this.num(g, font, Math.round(hp) + " / " + (int)hpMax, 137, 33, 1.0F);
-                     if (auraMax > 0) {
-                        this.num(g, font, aura + " / " + auraMax, 136, 47, 1.0F);
-                     }
+        g.drawString(mc.font, mc.font.plainSubstrByWidth(p.getName().getString(), 132), 54, 7, LIGHT, true);
+        float maxHp = Math.max(1, p.getMaxHealth());
+        heart(g, 54, 24, 0xFFE0BB70);
+        meter(g, 66, 22, 120, 11, p.getHealth()/maxHp, 0xFFD2AC65);
+        if (p.getAbsorptionAmount() > 0) {
+            int w = Math.round(118*Math.min(1,p.getAbsorptionAmount()/maxHp));
+            g.fill(67, 23, 67+w, 25, 0xFFFFECC0);
+        }
+        centered(g, (int)Math.ceil(p.getHealth())+" / "+(int)maxHp, 126, 23);
 
-                     this.num(g, font, food + " / 20", 105, 60, 0.8F);
-                     this.num(g, font, String.valueOf(armor), 168, 60, 0.8F);
-                     this.tex(g, FRONT, 8, 8, 200, 80);
-                     g.pose().popPose();
-                     if (!headBroken) {
-                        try {
-                           this.head(g, p, screenWidth, screenHeight);
-                        } catch (Throwable var27) {
-                           headBroken = true;
-                        }
-                     }
+        int aura = StatClientCache.aura, maxAura = StatClientCache.auraMax;
+        int custom = ClientSettingsCache.getColor(p.getUUID());
+        int auraColor = custom == -1 ? 0xFF6AACA8 : 0xFF000000 | custom;
+        if (ClientSettingsCache.isAM(p.getUUID())) auraColor = 0xFFD9D4B1;
+        droplet(g,54,40,auraColor);
+        meter(g,66,39,120,10,maxAura>0?(float)aura/maxAura:0,auraColor);
+        centered(g,aura+" / "+maxAura,126,40);
 
-                  }
-               }
+        int food=p.getFoodData().getFoodLevel(), armor=p.getArmorValue();
+        foodIcon(g,54,58);
+        meter(g,66,56,48,10,food/20f,0xFFB98553);
+        centered(g,String.valueOf(food),90,57);
+        shield(g,123,57);
+        meter(g,135,56,51,10,Math.min(armor,20)/20f,0xFF879AAA);
+        centered(g,String.valueOf(armor),160,57);
+        if (StatClientCache.momentum>0) meter(g,54,70,132,3,StatClientCache.momentum/100f,GOLD);
+        g.pose().popPose();
+    }
+
+    private static void corner(GuiGraphics g,int x,int y,boolean right,boolean bottom) {
+        int dx=right?-1:1,dy=bottom?-1:1;
+        for(int i=0;i<8;i++) g.fill(x+dx*i,y,x+dx*i+1,y+1,GOLD);
+        for(int i=0;i<5;i++) g.fill(x,y+dy*i,x+1,y+dy*i+1,GOLD);
+    }
+    private static void heart(GuiGraphics g,int x,int y,int color) {
+        g.fill(x,y,x+3,y+3,color);g.fill(x+4,y,x+7,y+3,color);
+        g.fill(x+1,y+2,x+6,y+4,color);g.fill(x+2,y+4,x+5,y+5,color);g.fill(x+3,y+5,x+4,y+6,color);
+    }
+    private static void droplet(GuiGraphics g,int x,int y,int color) {
+        g.fill(x+3,y,x+4,y+2,color);g.fill(x+2,y+2,x+5,y+4,color);
+        g.fill(x+1,y+4,x+6,y+6,color);g.fill(x+2,y+6,x+5,y+7,color);
+    }
+    private static void foodIcon(GuiGraphics g,int x,int y) {
+        g.fill(x+1,y,x+5,y+4,0xFFC89B68);g.fill(x,y+1,x+6,y+3,0xFFC89B68);
+        g.fill(x+4,y+3,x+6,y+5,0xFFE0D6BF);g.fill(x+5,y+5,x+7,y+6,0xFFE0D6BF);
+    }
+    private static void shield(GuiGraphics g,int x,int y) {
+        g.fill(x,y,x+7,y+5,0xFF98A7B1);g.fill(x+1,y+5,x+6,y+6,0xFF98A7B1);g.fill(x+2,y+6,x+5,y+7,0xFF98A7B1);
+        g.fill(x+2,y+1,x+5,y+4,0xFF465666);
+    }
+    private static void centered(GuiGraphics g,String text,int x,int y) {
+        var font=Minecraft.getInstance().font;
+        g.drawString(font,text,x-font.width(text)/2,y,LIGHT,true);
+    }
+    private static void meter(GuiGraphics g,int x,int y,int w,int h,float fraction,int color) {
+        // Cut tips, a one-pixel rim and two discrete shade bands. No texture scaling.
+        g.fill(x+1,y-1,x+w-1,y+h+1,0xFF080B11);
+        g.fill(x,y,x+w,y+h,0xFF080B11);
+        g.fill(x+1,y,x+w-1,y+h,0xFF3A3D42);
+        g.fill(x+2,y+1,x+w-2,y+h-1,0xFF22272F);
+        int filled=Math.round((w-4)*Math.max(0,Math.min(1,fraction)));
+        if(filled>0) {
+            g.fill(x+2,y+1,x+2+filled,y+h-1,color);
+            if(h>4) {
+                g.fill(x+2,y+1,x+2+filled,y+2,shade(color,1.2f));
+                g.fill(x+2,y+h-3,x+2+filled,y+h-1,shade(color,.65f));
             }
-         }
-      }
-   }
-
-   public static void clearAll() {
-      headBroken = false;
-   }
-
-   public static float panelX(int screenWidth) {
-      int anchor = ClientHudConfig.hudAnchor();
-      float hs = ClientHudConfig.hudScale();
-      return anchor != 1 && anchor != 3 ? (float)ClientHudConfig.hudOffX() : (float)screenWidth - 192.0F * hs - (float)ClientHudConfig.hudOffX();
-   }
-
-   public static float panelY(int screenHeight) {
-      int anchor = ClientHudConfig.hudAnchor();
-      float hs = ClientHudConfig.hudScale();
-      return anchor != 2 && anchor != 3 ? (float)ClientHudConfig.hudOffY() : (float)screenHeight - 124.0F * hs - (float)ClientHudConfig.hudOffY();
-   }
-
-   public static float panelWidth() {
-      return 192.0F * ClientHudConfig.hudScale();
-   }
-
-   public static float panelHeight() {
-      return 124.0F * ClientHudConfig.hudScale();
-   }
-
-   public static boolean panelShown() {
-      return StatClientCache.hudMode == 0;
-   }
-
-   private void head(GuiGraphics g, LocalPlayer p, int screenWidth, int screenHeight) {
-      float hs = ClientHudConfig.hudScale();
-      int anchor = ClientHudConfig.hudAnchor();
-      float ox = anchor != 1 && anchor != 3 ? (float)ClientHudConfig.hudOffX() : (float)screenWidth - 192.0F * hs - (float)ClientHudConfig.hudOffX();
-      float oy = anchor != 2 && anchor != 3 ? (float)ClientHudConfig.hudOffY() : (float)screenHeight - 124.0F * hs - (float)ClientHudConfig.hudOffY();
-      int x0 = Math.round(ox + 13.0F * hs);
-      int y0 = Math.round(oy + 18.0F * hs);
-      int x1 = Math.round(ox + 59.0F * hs);
-      int y1 = Math.round(oy + 64.0F * hs);
-      int cx = (x0 + x1) / 2;
-      int scale = Math.round(55.0F * hs);
-      int anchorY = Math.round(oy + 117.0F * hs);
-      float rot = (float)(System.currentTimeMillis() % 8000L) / 8000.0F * 360.0F;
-      Quaternionf pose = (new Quaternionf()).rotateX((float)Math.toRadians(190.0D)).rotateY((float)Math.toRadians((double)rot));
-      float sHead = p.yHeadRot;
-      float sYRot = p.getYRot();
-      float sXRot = p.getXRot();
-      float sBodyO = p.yBodyRotO;
-      float sBody = p.yBodyRot;
-      p.yHeadRot = 180.0F;
-      p.setYRot(180.0F);
-      p.setXRot(0.0F);
-      p.yBodyRot = p.getYRot();
-      p.yBodyRotO = p.getYRot();
-      g.enableScissor(x0, y0, x1, y1);
-
-      try {
-         InventoryScreen.renderEntityInInventory(g, cx, anchorY, scale, pose, (Quaternionf)null, p);
-      } finally {
-         g.disableScissor();
-         p.yHeadRot = sHead;
-         p.setYRot(sYRot);
-         p.setXRot(sXRot);
-         p.yBodyRotO = sBodyO;
-         p.yBodyRot = sBody;
-      }
-
-   }
-
-   private void tex(GuiGraphics g, ResourceLocation t, int x, int y, int w, int h) {
-      RenderSystem.enableBlend();
-      RenderSystem.defaultBlendFunc();
-      g.blit(t, x, y, 0.0F, 0.0F, w, h, w, h);
-      RenderSystem.disableBlend();
-   }
-
-   private static int shade(int rgb, float factor) {
-      int r = Math.min(255, (int)((float)(rgb >> 16 & 255) * factor));
-      int gg = Math.min(255, (int)((float)(rgb >> 8 & 255) * factor));
-      int b = Math.min(255, (int)((float)(rgb & 255) * factor));
-      return r << 16 | gg << 8 | b;
-   }
-
-   private void bar(GuiGraphics g, int x0, int y0, int x1, int y1, float frac, int fill, int ghost, boolean grad, int gFrom, int gTo) {
-      if (frac < 0.0F) {
-         frac = 0.0F;
-      }
-
-      if (frac > 1.0F) {
-         frac = 1.0F;
-      }
-
-      this.rect(g, x0, y0, x1, y1, ghost);
-      int total = x1 - x0;
-      if (total > 0) {
-         if (!grad) {
-            int fw = Math.round((float)total * frac);
-            if (fw >= 2) {
-               this.rect(g, x0, y0, x0 + fw, y1, fill);
-            }
-
-         } else {
-            int fwe = Math.round((float)total * frac);
-            fwe -= fwe % 2;
-
-            for(int i = 0; i < fwe; i += 2) {
-               float t = total > 1 ? (float)i / (float)(total - 1) : 0.0F;
-               this.rect(g, x0 + i, y0, x0 + i + 2, y1, this.lerpColor(gFrom, gTo, t));
-            }
-
-         }
-      }
-   }
-
-   private void rect(GuiGraphics g, int x0, int y0, int x1, int y1, int argb) {
-      if (x1 <= x0) {
-         x1 = x0 + 1;
-      }
-
-      if (y1 <= y0) {
-         y1 = y0 + 1;
-      }
-
-      float a = (float)(argb >>> 24 & 255) / 255.0F;
-      float r = (float)(argb >>> 16 & 255) / 255.0F;
-      float gr = (float)(argb >>> 8 & 255) / 255.0F;
-      float b = (float)(argb & 255) / 255.0F;
-      if (a == 0.0F) {
-         a = 1.0F;
-      }
-
-      RenderSystem.enableBlend();
-      RenderSystem.defaultBlendFunc();
-      g.setColor(r, gr, b, a);
-      g.blit(WHITE, x0, y0, 0.0F, 0.0F, x1 - x0, y1 - y0, 8, 8);
-      g.setColor(1.0F, 1.0F, 1.0F, 1.0F);
-      RenderSystem.disableBlend();
-   }
-
-   private int lerpColor(int a, int b, float t) {
-      int ar = a >> 16 & 255;
-      int ag = a >> 8 & 255;
-      int ab = a & 255;
-      int br = b >> 16 & 255;
-      int bg = b >> 8 & 255;
-      int bb = b & 255;
-      int r = Math.round((float)ar + (float)(br - ar) * t);
-      int gg = Math.round((float)ag + (float)(bg - ag) * t);
-      int bl = Math.round((float)ab + (float)(bb - ab) * t);
-      return -16777216 | r << 16 | gg << 8 | bl;
-   }
-
-   private void num(GuiGraphics g, Font font, String s, int cx, int cy, float scale) {
-      float w = (float)font.width(s) * scale;
-      g.pose().pushPose();
-      g.pose().translate((float)cx - w / 2.0F, (float)cy - 9.0F * scale / 2.0F, 0.0F);
-      g.pose().scale(scale, scale, 1.0F);
-      g.drawString(font, s, 0, 0, -1, true);
-      g.pose().popPose();
-   }
+        }
+    }
+    private static int shade(int color,float factor) {
+        int r=Math.min(255,Math.round(((color>>16)&255)*factor));
+        int g=Math.min(255,Math.round(((color>>8)&255)*factor));
+        int b=Math.min(255,Math.round((color&255)*factor));
+        return 0xFF000000|r<<16|g<<8|b;
+    }
+    public static void clearAll() {}
+    public static float panelX(int sw) {
+        int anchor=ClientHudConfig.hudAnchor();
+        return anchor==1||anchor==3?sw-panelWidth()-ClientHudConfig.hudOffX():ClientHudConfig.hudOffX();
+    }
+    public static float panelY(int sh) {
+        int anchor=ClientHudConfig.hudAnchor();
+        return anchor==2||anchor==3?sh-panelHeight()-ClientHudConfig.hudOffY():ClientHudConfig.hudOffY();
+    }
+    public static float panelWidth() {return WIDTH*ClientHudConfig.hudScale();}
+    public static float panelHeight() {return HEIGHT*ClientHudConfig.hudScale();}
+    public static boolean panelShown() {return StatClientCache.hudMode==0;}
 }

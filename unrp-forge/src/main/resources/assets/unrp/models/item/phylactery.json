@@ -1,3 +1,6 @@
 {
-  "parent": "unrp:block/phylactery"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "unrp:item/phylactery"
+  }
 }

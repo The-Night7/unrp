@@ -176,7 +176,6 @@ public final class ClientEvents {
             var id = event.getOverlay().id();
             if (id.equals(net.minecraftforge.client.gui.overlay.VanillaGuiOverlay.PLAYER_HEALTH.id())
                     || id.equals(net.minecraftforge.client.gui.overlay.VanillaGuiOverlay.FOOD_LEVEL.id())
-                    || id.equals(net.minecraftforge.client.gui.overlay.VanillaGuiOverlay.AIR_LEVEL.id())
                     || id.equals(net.minecraftforge.client.gui.overlay.VanillaGuiOverlay.ARMOR_LEVEL.id())) {
                 event.setCanceled(true);
             }

@@ -1,5 +1,9 @@
 # Where is what
 
+[Item lore and visual references](ITEM_LORE.md) map the canon corrections and RP adaptations.
+
+The gold status HUD and original inventory icon sources are mapped in [VISUAL_STYLE.md](VISUAL_STYLE.md), with [HUD](unrp-hud-preview.svg) and [item](unrp-items-preview.svg) previews.
+
 ## School buildings and world generation
 
 All six schools have dedicated layouts. [SCHOOLS.md](SCHOOLS.md) covers unique seed-based sites, generation, saved versions, materials and preview commands. [Preview all six campuses](schools-preview.svg).
