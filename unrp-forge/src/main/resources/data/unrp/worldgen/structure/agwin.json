@@ -1,0 +1,8 @@
+{
+  "type": "unrp:school",
+  "school": "agwin",
+  "biomes": "#minecraft:is_overworld",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "none"
+}

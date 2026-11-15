@@ -1,5 +1,9 @@
 # Where is what
 
+## School buildings and world generation
+
+See [SCHOOLS.md](SCHOOLS.md) for the six procedural campuses, one natural site per school, the locate command and terrain behavior. [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) controls unique seed-based locations; [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) controls the buildings; [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java) controls blocks and palettes. [Preview the floor plans](schools-preview.svg). Use `/unrp school locate wellston` (or another school ID) to find a reserved Overworld site.
+
 ## Créer et modifier des capacités
 
 Voir [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) pour le guide complet : fichiers JSON et Java, chaîne d’exécution client/serveur, ajout d’un pouvoir, mouvements, animations, prérequis de l’arbre, effets visuels et tests en jeu. La référence détaillée des champs JSON reste dans [POUVOIRS.md](POUVOIRS.md).

@@ -23,6 +23,7 @@ public class UnrpMod {
 
     public UnrpMod() {
         Net.register();
+        com.myriam.unrp.worldgen.SchoolWorldgen.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.item.ModEffects.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.item.ModBlocks.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.deal.PowerParticles.PARTICLES.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus()); // particules du modèle (unrp:*)

@@ -457,5 +457,11 @@
   "key.unrp.move2": "Move 2",
   "key.unrp.move3": "Move 3",
   "key.unrp.move4": "Move 4",
-  "key.unrp.move5": "Move 5"
+  "key.unrp.move5": "Move 5",
+  "structure.unrp.wellston": "Wellston Campus",
+  "structure.unrp.agwin": "Agwin Campus",
+  "structure.unrp.new_bostin": "New Bostin Campus",
+  "structure.unrp.rowden": "Rowden Campus",
+  "structure.unrp.westview": "Westview Campus",
+  "structure.unrp.wellston_university": "Wellston University Campus"
 }

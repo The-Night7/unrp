@@ -90,6 +90,10 @@ public final class UnrpCommands {
                         .then(Commands.argument("n", IntegerArgumentType.integer(1, 5_000_000))
                                 .executes(ctx -> rollTest(ctx.getSource(), IntegerArgumentType.getInteger(ctx, "n")))))
                 .then(Commands.literal("school").requires(ADMIN)
+                        .then(Commands.literal("locate")
+                                .then(Commands.argument("id", StringArgumentType.word())
+                                        .suggests((c, b) -> SharedSuggestionProvider.suggest(com.myriam.unrp.worldgen.SchoolSites.SCHOOLS.stream().map(com.myriam.unrp.worldgen.SchoolSites.School::id), b))
+                                        .executes(ctx -> locateSchool(ctx.getSource(), StringArgumentType.getString(ctx, "id")))))
                         .then(Commands.literal("list").executes(ctx -> schoolList(ctx.getSource())))
                         .then(Commands.literal("info")
                                 .then(Commands.argument("id", StringArgumentType.word())
@@ -152,6 +156,17 @@ public final class UnrpCommands {
     }
 
     // ---------------------------------------------------------------- écoles
+    private static int locateSchool(CommandSourceStack source, String id) {
+        com.myriam.unrp.worldgen.SchoolSites.School school;
+        try { school = com.myriam.unrp.worldgen.SchoolSites.school(id); }
+        catch (IllegalArgumentException ex) { source.sendFailure(Component.literal(ex.getMessage())); return 0; }
+        var overworld = source.getServer().overworld();
+        var site = com.myriam.unrp.worldgen.SchoolSites.site(overworld.getSeed(), school);
+        source.sendSuccess(() -> Component.literal(school.name() + " campus site: Overworld X " + site.centerX()
+                + ", Z " + site.centerZ() + ". Generated when its terrain is first created; no retroactive placement in existing chunks."), false);
+        return 1;
+    }
+
     private static int schoolList(CommandSourceStack src) {
         UnodexData data = UnodexData.get();
         if (data.schools.isEmpty()) return fail(src, "Aucune école chargée.");

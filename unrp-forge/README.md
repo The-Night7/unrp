@@ -13,7 +13,7 @@ personnages, écoles, capacités, table de rareté. Tu modifies les données, pa
 - **création d'OC** : nom + école ; le serveur tire la rareté (niveau de départ) avec tes probabilités, puis une capacité dans un pool éditable (`ability_pool.json`), potentiels de stats tirés comme le modèle, stat = potentiel x ratio du niveau (le niveau évolue jusqu'à 10 par la maîtrise, l'aura dépensée) ;
 - commandes d'administration pour tout vérifier.
 
-Pouvoirs (phase 4) : 55 pouvoirs sur 55 reproduits d'après le mod modèle, avec déblocages par points, esquive, Masque du Joker, réserve de copies. Objets : les 88 objets et blocs du modèle existent (images, modèles et sons du modèle, copiés par `tools/import_model_assets.py`), seuls certains agissent, voir `docs/fidelite/objets.md`. Fiches de comparaison : `docs/fidelite/`. Pas encore fait : écoles et PNJ dans le monde (phase 3), les 6 pouvoirs restants (Particles, Aura Transference, Armament Dominion, Daystar, Salt Seraph, Black Lash).
+Pouvoirs (phase 4) : 55 pouvoirs sur 55 reproduits d'après le mod modèle, avec déblocages par points, esquive, Masque du Joker, réserve de copies. Objets : les 88 objets et blocs du modèle existent (images, modèles et sons du modèle, copiés par `tools/import_model_assets.py`), seuls certains agissent, voir `docs/fidelite/objets.md`. Fiches de comparaison : `docs/fidelite/`. Procedural school buildings now generate once per school in the Overworld; see [docs/SCHOOLS.md](docs/SCHOOLS.md). Still pending: school NPCs, les 6 pouvoirs restants (Particles, Aura Transference, Armament Dominion, Daystar, Salt Seraph, Black Lash).
 Voir `docs/ARCHITECTURE.md` pour le plan complet.
 
 ## Démarrage rapide
@@ -28,6 +28,7 @@ Voir **docs/SETUP.md** (commandes pour Fish).
 | [docs/ABILITY_DEVELOPMENT.md](docs/ABILITY_DEVELOPMENT.md) | code et données des capacités, ajout d’un pouvoir, mouvements, animations, arbre de prérequis et chaîne client/serveur |
 | [docs/where is what.md](docs/where%20is%20what.md) | emplacements des ressources, réglages du tirage, interface et JAR généré |
 | `docs/fidelite/` | une fiche par pouvoir : modèle contre notre version, ligne par ligne (✅ ≈ 🎨 ❌) |
+| [docs/SCHOOLS.md](docs/SCHOOLS.md) | Procedural schools, unique world-generation sites, locate commands and floor-plan previews |
 | [docs/COVENANT.md](docs/COVENANT.md) | Covenant: gameplay, God tier, stances, contracts and persistence |
 | `docs/ROLL.md` | probabilités, plages de niveau, hypothèses à valider |
 | `docs/ARCHITECTURE.md` | structure du code, choix techniques, compatibilité, feuille de route |

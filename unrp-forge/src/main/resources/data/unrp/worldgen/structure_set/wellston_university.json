@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "unrp:wellston_university",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 128,
+    "separation": 64,
+    "salt": 91827463
+  }
+}
