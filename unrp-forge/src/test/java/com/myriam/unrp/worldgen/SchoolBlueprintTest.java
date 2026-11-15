@@ -17,18 +17,17 @@ class SchoolBlueprintTest {
             for(var label:plan.labels()) assertTrue(plan.at(label.x(),label.y(),label.z())==SIGN || plan.at(label.x(),label.y(),label.z())==WALL_SIGN,"Label overwritten: "+label.text());
         }
     }
-    @Test void entranceCorridorsAndStairHeadroomStayOpenOnEveryFloor() {
+    @Test void legacyEntranceCorridorsAndStairHeadroomStayOpenOnEveryFloor() {
         for(var school:SchoolSites.SCHOOLS) {
-            if(school.id().equals("wellston") || school.id().equals("agwin")) continue;
-            var plan=SchoolBlueprint.create(school);
+            var plan=SchoolBlueprint.forVersion(school,1);
             assertEquals(DOOR_LOWER,plan.at(36,1,12));
             assertEquals(DOOR_UPPER,plan.at(36,2,12));
             assertEquals(AIR,plan.at(36,1,31));
-            for(int f=0;f<school.floors();f++) {
+            for(int f=0;f<SchoolBlueprint.schoolForVersion(school,1).floors();f++) {
                 assertEquals(AIR,plan.at(36,f*6+1,23));
                 assertEquals(AIR,plan.at(17,f*6+1,31));
                 assertEquals(AIR,plan.at(54,f*6+1,32));
-                if(f<school.floors()-1) for(int step=0;step<6;step++) {
+                if(f<SchoolBlueprint.schoolForVersion(school,1).floors()-1) for(int step=0;step<6;step++) {
                     int y=f*6+1+step,z=15+step;
                     assertEquals(STAIRS,plan.at(36,y,z));
                     assertEquals(AIR,plan.at(36,y+1,z),"Stair headroom at "+school.id()+" floor "+f);
@@ -37,10 +36,9 @@ class SchoolBlueprintTest {
             }
         }
     }
-    @Test void essentialRoomsAreFurnishedAndBedsHaveBothHalves() {
+    @Test void legacyEssentialRoomsAreFurnishedAndBedsHaveBothHalves() {
         for(var school:SchoolSites.SCHOOLS) {
-            if(school.id().equals("wellston") || school.id().equals("agwin")) continue;
-            var plan=SchoolBlueprint.create(school);
+            var plan=SchoolBlueprint.forVersion(school,1);
             assertEquals(BOOKS,plan.at(9,7,40));
             assertEquals(DESK,plan.at(12,1,36));
             assertEquals(FURNACE,plan.at(11,1,52));

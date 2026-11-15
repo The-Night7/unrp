@@ -39,7 +39,7 @@ The unique seed-based Agwin site is unchanged. There is still only one natural A
 /unrp school locate agwin
 ```
 
-The revised design is used for newly generated Agwin structure starts. Existing campus pieces with layout version 1 or 2 keep their 73 × 73 two-floor geometry and blue palette, including when their remaining chunks generate later. Wellston version 2 keeps its dedicated campus unchanged. New pieces use layout version 3.
+The revised design is used for newly generated Agwin structure starts. Existing campus pieces with layout version 1 or 2 keep their 73 × 73 two-floor geometry and blue palette, including when their remaining chunks generate later. Wellston version 2 keeps its dedicated campus unchanged. New pieces use layout version 4; existing Agwin version 3 stays unchanged.
 
 No explored buildings are overwritten or rebuilt. Use a fresh world with structures enabled to see the new Agwin design reliably. See [SCHOOLS.md](SCHOOLS.md) for the general generation rules and terrain limitations.
 

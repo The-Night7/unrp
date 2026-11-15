@@ -2,11 +2,18 @@
 
 ## School buildings and world generation
 
-Agwin has its own [canon-based campus guide](AGWIN.md), [north elevation and floor plans](agwin-preview.svg), and [AgwinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java). `SchoolBlueprint.forVersion` preserves saved layouts; `SchoolPiece.java` selects the block palette. Find its unique site with `/unrp school locate agwin`.
+All six schools have dedicated layouts. [SCHOOLS.md](SCHOOLS.md) covers unique seed-based sites, generation, saved versions, materials and preview commands. [Preview all six campuses](schools-preview.svg).
 
-Wellston has its own [canon-based campus guide](WELLSTON.md), [floor-by-floor preview](wellston-preview.svg) and [WellstonBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java). Its footprint and saved layout version are handled in `SchoolPiece.java`; Agwin has its own plan too; the remaining schools retain their original plans.
+| Campus | Guide | Layout code | Detailed preview |
+| --- | --- | --- | --- |
+| Wellston | [WELLSTON.md](WELLSTON.md) | [WellstonBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java) | [Floors](wellston-preview.svg) |
+| Agwin | [AGWIN.md](AGWIN.md) | [AgwinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java) | [Elevation/floors](agwin-preview.svg) |
+| New Bostin | [NEW_BOSTIN.md](NEW_BOSTIN.md) | [NewBostinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/NewBostinBlueprint.java) | [Floors](new-bostin-preview.svg) |
+| Rowden | [ROWDEN.md](ROWDEN.md) | [RowdenBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/RowdenBlueprint.java) | [Floors](rowden-preview.svg) |
+| Westview | [WESTVIEW.md](WESTVIEW.md) | [WestviewBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WestviewBlueprint.java) | [Floors](westview-preview.svg) |
+| University | [WELLSTON_UNIVERSITY.md](WELLSTON_UNIVERSITY.md) | [UniversityBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/UniversityBlueprint.java) | [Floors](wellston-university-preview.svg) |
 
-See [SCHOOLS.md](SCHOOLS.md) for the six procedural campuses, one natural site per school, the locate command and terrain behavior. [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) controls unique seed-based locations; [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) controls the buildings; [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java) controls blocks and palettes. [Preview the floor plans](schools-preview.svg). Use `/unrp school locate wellston` (or another school ID) to find a reserved Overworld site.
+[SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) decides the one natural site per school. [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) selects current/saved layouts. [CampusBuilder.java](../src/main/java/com/myriam/unrp/worldgen/CampusBuilder.java) supplies shared room/stair primitives for the four latest campuses. [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java) chooses block palettes and places them inside chunk bounds. Use `/unrp school locate <id>` to find a reserved Overworld site.
 
 ## Créer et modifier des capacités
 
