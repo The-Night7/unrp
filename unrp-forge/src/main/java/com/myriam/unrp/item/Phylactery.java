@@ -297,7 +297,7 @@ public final class Phylactery {
     /** PhylacteryBlock du modèle : orienté (FACING) vers le joueur à la pose. */
     public static final class PhylBlock extends ModBlocks.Facing {
         public PhylBlock(Properties p) {
-            super(p);
+            super(p.noOcclusion(), MachineShapes.of("phylactery"));
         }
 
         @Override

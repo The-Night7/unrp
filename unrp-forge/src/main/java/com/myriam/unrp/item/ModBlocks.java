@@ -29,16 +29,23 @@ public final class ModBlocks {
             .mapColor(MapColor.COLOR_MAGENTA).strength(-1.0f, 3600000.0f).noLootTable().sound(SoundType.AMETHYST).noOcclusion()
             .lightLevel(s -> s.getValue(com.myriam.unrp.uo.ParticleBlock.GLOW) ? 7 : 0).isValidSpawn((s, l, p, e) -> false)
             .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false))); // ParticleBlock du modèle
-    public static final RegistryObject<Block> CONVERSION_MACHINE = BLOCKS.register("conversion_machine", () -> new Facing(base(MapColor.METAL, 3.5f, SoundType.METAL)));
-    public static final RegistryObject<Block> RECOVERY_MACHINE = BLOCKS.register("recovery_machine", () -> new Facing(base(MapColor.METAL, 3.5f, SoundType.METAL)));
-    public static final RegistryObject<Block> SUPPRESSION_FIELD = BLOCKS.register("suppression_field", () -> new Lit(base(MapColor.COLOR_BLACK, 3.5f, SoundType.METAL)));
+    public static final RegistryObject<Block> CONVERSION_MACHINE = BLOCKS.register("conversion_machine", () -> new Facing(base(MapColor.METAL, 3.5f, SoundType.METAL).noOcclusion(), MachineShapes.of("conversion_machine")));
+    public static final RegistryObject<Block> RECOVERY_MACHINE = BLOCKS.register("recovery_machine", () -> new Facing(base(MapColor.METAL, 3.5f, SoundType.METAL).noOcclusion(), MachineShapes.of("recovery_machine")));
+    public static final RegistryObject<Block> SUPPRESSION_FIELD = BLOCKS.register("suppression_field", () -> new Lit(base(MapColor.COLOR_BLACK, 3.5f, SoundType.METAL).noOcclusion()));
     public static final RegistryObject<Block> PHYLACTERY = BLOCKS.register("phylactery", () -> new Phylactery.PhylBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(5f, 3600000f).sound(SoundType.AMETHYST).lightLevel(s -> 5).noLootTable()));
 
     /** Orientée vers le joueur à la pose (ConversionMachineBlock / RecoveryMachineBlock du modèle : FACING). */
     public static class Facing extends net.minecraft.world.level.block.HorizontalDirectionalBlock {
-        public Facing(BlockBehaviour.Properties p) {
-            super(p);
+        private final net.minecraft.world.phys.shapes.VoxelShape shape;
+        public Facing(BlockBehaviour.Properties p, net.minecraft.world.phys.shapes.VoxelShape shape) {
+            super(p); this.shape=shape;
             registerDefaultState(stateDefinition.any().setValue(FACING, net.minecraft.core.Direction.NORTH));
+        }
+        @Override public net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state,net.minecraft.world.level.BlockGetter level,net.minecraft.core.BlockPos pos,net.minecraft.world.phys.shapes.CollisionContext context) {
+            return MachineShapes.rotate(shape,state.getValue(FACING));
+        }
+        public Facing(BlockBehaviour.Properties p) {
+            this(p,net.minecraft.world.phys.shapes.Shapes.block());
         }
 
         @Override
@@ -57,6 +64,9 @@ public final class ModBlocks {
         public static final net.minecraft.world.level.block.state.properties.BooleanProperty LIT =
                 net.minecraft.world.level.block.state.properties.BlockStateProperties.LIT;
 
+        @Override public net.minecraft.world.phys.shapes.VoxelShape getShape(net.minecraft.world.level.block.state.BlockState state,net.minecraft.world.level.BlockGetter level,net.minecraft.core.BlockPos pos,net.minecraft.world.phys.shapes.CollisionContext context) {
+            return MachineShapes.of("suppression_field");
+        }
         public Lit(BlockBehaviour.Properties p) {
             super(p);
             registerDefaultState(stateDefinition.any().setValue(LIT, false));

@@ -190,18 +190,12 @@ def finish(im):
 
 def main():
     target=ASSETS/'textures/item';names=sorted(p.stem for p in target.glob('*.png'))
-    for name in names:draw(name).save(target/f'{name}.png')
-    sheet=Image.new('RGBA',(8*112,((len(names)+7)//8)*96+40),colour('#20252b'));d=ImageDraw.Draw(sheet);d.text((12,12),'UNRP / NATIVE 16 x 16 / nearest-neighbour preview',fill=colour('#d8bd82'))
-    for i,name in enumerate(names):
-        x=8+i%8*112;y=40+i//8*96
-        sheet.alpha_composite(draw(name).resize((64,64),Image.Resampling.NEAREST),(x+20,y))
-        short=name.replace('wellstone_','w.').replace('manuscript_','ms.').replace('armament_','arm.')
-        d.text((x,y+66),short[:18],fill=colour('#bdbbad'))
-    sheet.save(ROOT/'docs/unrp-items-preview.png')
-    (ROOT/'art/native-pixel-manifest.json').write_text(json.dumps({'size':16,'method':'integer-coordinate drawing; no image-generation masters','items':names},indent=2)+'\n')
-    # The existing doc URL remains useful and embeds the actual nearest-neighbour sheet.
-    payload=base64.b64encode((ROOT/'docs/unrp-items-preview.png').read_bytes()).decode()
-    (ROOT/'docs/unrp-items-preview.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="{sheet.width}" height="{sheet.height}"><image width="{sheet.width}" height="{sheet.height}" href="data:image/png;base64,{payload}"/></svg>')
+    for name in names:
+        item=json.loads((ASSETS/f'models/item/{name}.json').read_text())
+        if 'elements' not in item and 'loader' not in item and item.get('parent') in ('minecraft:item/generated','minecraft:item/handheld','item/generated','item/handheld'):
+            draw(name).save(target/f'{name}.png')
+    import subprocess
+    subprocess.run([sys.executable,str(ROOT/'tools/preview_equipment.py')],check=True)
     print(f'Drew {len(names)} native 16x16 icons.')
 
 if __name__=='__main__':main()

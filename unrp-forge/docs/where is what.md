@@ -1,5 +1,7 @@
 # Where is what
 
+Actual equipment assets: [design_equipment.py](../tools/design_equipment.py) builds placed/held models and worn UV sheets; [CosmeticLayer.java](../src/main/java/com/myriam/unrp/client/CosmeticLayer.java) renders garments. [preview_equipment.py](../tools/preview_equipment.py) renders those same production JSONs/PNGs; [asset preview](unrp-items-preview.png). Block items inherit their placed models, and clothing items use their worn textures.
+
 [Ability-level commands](LEVEL_COMMANDS.md): `/unrp level get`, `/unrp level set 5.0 [player]`, `/unrp level add 0.5 [player]`. Operator-only OC edits, persisted and synced immediately. Implementation: [LevelCommands.java](../src/main/java/com/myriam/unrp/command/LevelCommands.java).
 
 [Item lore and visual references](ITEM_LORE.md) map the canon corrections and RP adaptations.

@@ -1,8 +1,9 @@
 {
-  "parent": "block/block",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "unrp:block/barrier_block",
-    "particle": "unrp:block/barrier_block"
+    "surface": "unrp:block/barrier_block_surface",
+    "particle": "unrp:block/barrier_block_surface"
   },
   "elements": [
     {
@@ -17,35 +18,59 @@
         16
       ],
       "faces": {
-        "down": {
-          "texture": "#all",
-          "tintindex": 0,
-          "cullface": "down"
-        },
-        "up": {
-          "texture": "#all",
-          "tintindex": 0,
-          "cullface": "up"
-        },
         "north": {
-          "texture": "#all",
-          "tintindex": 0,
-          "cullface": "north"
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "south": {
-          "texture": "#all",
-          "tintindex": 0,
-          "cullface": "south"
-        },
-        "west": {
-          "texture": "#all",
-          "tintindex": 0,
-          "cullface": "west"
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
-          "texture": "#all",
-          "tintindex": 0,
-          "cullface": "east"
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         }
       }
     }

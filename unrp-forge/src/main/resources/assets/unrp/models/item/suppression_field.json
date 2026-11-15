@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "unrp:item/suppression_field"
-  }
+  "parent": "unrp:block/suppression_field"
 }

@@ -1,0 +1,688 @@
+{
+  "agent_leader_spawn_egg": {
+    "model": "models/item/agent_leader_spawn_egg.json",
+    "textures": {
+      "textures/item/agent_leader_spawn_egg.png": "8f85c3c412c447a01c12703c6e39cbbdfb342b7f339db9e37e36f7ec34c3a093"
+    }
+  },
+  "agent_spawn_egg": {
+    "model": "models/item/agent_spawn_egg.json",
+    "textures": {
+      "textures/item/agent_spawn_egg.png": "adc4871c64607e77312d57193c7d19205e0e5b3718cf33b2a6b65ede13fa25d4"
+    }
+  },
+  "agwin_blazer": {
+    "model": "models/item/agwin_blazer.json",
+    "textures": {
+      "textures/models/armor/agwin_uniform_layer_1.png": "ceba914c83d91a157ff88190659e2ccfa32e741bc7667263c2809e225aef8087"
+    }
+  },
+  "agwin_girl_blazer": {
+    "model": "models/item/agwin_girl_blazer.json",
+    "textures": {
+      "textures/models/armor/agwin_uniform_layer_1.png": "ceba914c83d91a157ff88190659e2ccfa32e741bc7667263c2809e225aef8087"
+    }
+  },
+  "agwin_girl_shirt": {
+    "model": "models/item/agwin_girl_shirt.json",
+    "textures": {
+      "textures/models/armor/agwin_shirt_layer_1.png": "ffec732530bf3161d8de5d74b83e030cce19e91ef1983574ae6bc92c828b554e"
+    }
+  },
+  "agwin_girl_shoes": {
+    "model": "models/item/agwin_girl_shoes.json",
+    "textures": {
+      "textures/models/armor/agwin_girl_uniform_layer_1.png": "ee3f3a9579330a08212d0b9bc8df1fd634c08cc601e4022b1f925aabbea09e8f"
+    }
+  },
+  "agwin_girl_skirt": {
+    "model": "models/item/agwin_girl_skirt.json",
+    "textures": {
+      "textures/models/armor/agwin_girl_uniform_layer_2.png": "7c6a2768236b9877be51acf2d74f60b8580e24dbe8a534c920320f349d16cbb6"
+    }
+  },
+  "agwin_off_shoulder_blazer": {
+    "model": "models/item/agwin_off_shoulder_blazer.json",
+    "textures": {
+      "textures/models/armor/agwin_off_shoulder_layer_1.png": "ceba914c83d91a157ff88190659e2ccfa32e741bc7667263c2809e225aef8087"
+    }
+  },
+  "agwin_one_shoulder_blazer": {
+    "model": "models/item/agwin_one_shoulder_blazer.json",
+    "textures": {
+      "textures/models/armor/agwin_one_shoulder_layer_1.png": "096aaf4c5174a6a9d78a031b58d74db8607bc6ee1208ce9967470079bf4ee9bb"
+    }
+  },
+  "agwin_shirt": {
+    "model": "models/item/agwin_shirt.json",
+    "textures": {
+      "textures/models/armor/agwin_shirt_layer_1.png": "ffec732530bf3161d8de5d74b83e030cce19e91ef1983574ae6bc92c828b554e"
+    }
+  },
+  "agwin_shoes": {
+    "model": "models/item/agwin_shoes.json",
+    "textures": {
+      "textures/models/armor/agwin_uniform_layer_1.png": "ceba914c83d91a157ff88190659e2ccfa32e741bc7667263c2809e225aef8087"
+    }
+  },
+  "agwin_trousers": {
+    "model": "models/item/agwin_trousers.json",
+    "textures": {
+      "textures/models/armor/agwin_uniform_layer_2.png": "152167ef80da832fde112d26183b0c6f36544d12abcbba304649eca8465313c6"
+    }
+  },
+  "amplifier": {
+    "model": "models/item/amplifier.json",
+    "textures": {
+      "textures/item/amplifier.png": "469bc7b44350fd5c384986e02ed01dd9fd46b38550917989eb35a48d59862edd"
+    }
+  },
+  "armament": {
+    "model": "models/item/armament.json",
+    "textures": {
+      "textures/item/armament_iron.png": "3e4c42add41f8979f9b8eabe129e0485ffca8a057d8c50c7ddf90c214bc86ac8"
+    }
+  },
+  "armament_burst": {
+    "model": "models/item/armament_burst.json",
+    "textures": {
+      "textures/item/armament_burst.png": "2c7fb1ef8acf946cb3191b09b29edb2af186484bda6feeb3a6c6b9f10219efcf"
+    }
+  },
+  "armament_diamond": {
+    "model": "models/item/armament_diamond.json",
+    "textures": {
+      "textures/item/armament_diamond.png": "2d75698746ba355d38a0a68c0ef0dedc9a72d748fe128eb4bd83a696aa8f85ca"
+    }
+  },
+  "armament_fang": {
+    "model": "models/item/armament_fang.json",
+    "textures": {
+      "textures/item/armament_fang.png": "edcfcab19f8f4bcadeb11a6b2a7e99c9699d58a509657a51ddb8f7c6d91709d0"
+    }
+  },
+  "armament_gold": {
+    "model": "models/item/armament_gold.json",
+    "textures": {
+      "textures/item/armament_gold.png": "3e84d05dfb380b978b750226c791823ce7b6be7927cdd08a830dd8c233db6a82"
+    }
+  },
+  "armament_iron": {
+    "model": "models/item/armament_iron.json",
+    "textures": {
+      "textures/item/armament_iron.png": "3e4c42add41f8979f9b8eabe129e0485ffca8a057d8c50c7ddf90c214bc86ac8"
+    }
+  },
+  "armament_netherite": {
+    "model": "models/item/armament_netherite.json",
+    "textures": {
+      "textures/item/armament_netherite.png": "6646456f848b96c49e9269d6729e080d2e81187cc25d71c6a2b2ddbd11900840"
+    }
+  },
+  "armament_oak": {
+    "model": "models/item/armament_oak.json",
+    "textures": {
+      "textures/item/armament_oak.png": "8547282a70e82e4e4713401913a5441d0e3cdbacfb30786c138d526744fa9422"
+    }
+  },
+  "armament_rot": {
+    "model": "models/item/armament_rot.json",
+    "textures": {
+      "textures/item/armament_rot.png": "727dcb334ccabef1f21044a883aecef5ebf75849821fee26ad4d8073be13fcc6"
+    }
+  },
+  "armament_sear": {
+    "model": "models/item/armament_sear.json",
+    "textures": {
+      "textures/item/armament_sear.png": "178a376d7b2dcd510f7dcdaff73777a1d3b91cb4f02c75b069eef764340034b1"
+    }
+  },
+  "armament_stone": {
+    "model": "models/item/armament_stone.json",
+    "textures": {
+      "textures/item/armament_stone.png": "9c52a732e012d2ced0326e5cc07bc9ad7953467e1f3877bbef4d87c11be9459c"
+    }
+  },
+  "armament_warp": {
+    "model": "models/item/armament_warp.json",
+    "textures": {
+      "textures/item/armament_warp.png": "5833c06975b8f77dfd31442f165ac24d326d1b9d60ea0cd0438bbffb57e991fd"
+    }
+  },
+  "ascalon": {
+    "model": "models/item/ascalon.json",
+    "textures": {
+      "textures/block/phylactery_shell.png": "0ef64c82f9638b36394367f62820185e324b9721cd223566ed82bf3a51e68a91",
+      "textures/item/ascalon.png": "1e15acd63430fde1cd0af51f65c013c1ef9ca91cdb1552d8a5a576178375fad9"
+    }
+  },
+  "ascalon_mk2": {
+    "model": "models/item/ascalon_mk2.json",
+    "textures": {
+      "textures/block/phylactery_shell.png": "0ef64c82f9638b36394367f62820185e324b9721cd223566ed82bf3a51e68a91",
+      "textures/item/ascalon_mk2.png": "afa4cec44499fa97d772c50929551b07ec0a72a50677d90b31d978c382ec8289"
+    }
+  },
+  "barrier_block": {
+    "model": "models/item/barrier_block.json",
+    "textures": {
+      "textures/block/barrier_block_surface.png": "74a1e7fdea46bba1e2abf92ef1b99d699e1e4963c03e3793a3371fba39d70732"
+    }
+  },
+  "barrier_block_am": {
+    "model": "models/item/barrier_block_am.json",
+    "textures": {
+      "textures/block/barrier_block_am_surface.png": "b60a2a2a0214f52fabb15669619ae18040f2b3a36be5cdd23059a06ddc2188a5"
+    }
+  },
+  "binding_link": {
+    "model": "models/item/binding_link.json",
+    "textures": {
+      "textures/item/binding_link.png": "1318cb3184f5d6e38a3a82d2324e393f10988ac2969b2406515054021986d671"
+    }
+  },
+  "bone_charm": {
+    "model": "models/item/bone_charm.json",
+    "textures": {
+      "textures/item/bone_charm.png": "c202e28a3c61cdfe7f7a22556525549682839262b9b4d1f34c4e60630ebfae3c"
+    }
+  },
+  "carved_rune": {
+    "model": "models/item/carved_rune.json",
+    "textures": {
+      "textures/item/carved_rune.png": "23cc87d33c94788d216c4d639dbacab5c6e7632d95e106c64e88bfdd98befa42"
+    }
+  },
+  "contract": {
+    "model": "models/item/contract.json",
+    "textures": {
+      "textures/item/contract.png": "281770a1ba87955caa64b1a33ea008f0b06b8540f5241671784ce467f6f99949"
+    }
+  },
+  "contract_proposed": {
+    "model": "models/item/contract_proposed.json",
+    "textures": {
+      "textures/item/contract_proposed.png": "36385f92b0c5ada2a8aa478c517d1f2463596f816537323b9b6db21c8cc1cbec"
+    }
+  },
+  "contract_proposed_stamped": {
+    "model": "models/item/contract_proposed_stamped.json",
+    "textures": {
+      "textures/item/contract_proposed_stamped.png": "df603d89aaf7a5bf45c713a9a56af32aad5fd4b14e65ffe69db868d255ab8ba2"
+    }
+  },
+  "contract_soul": {
+    "model": "models/item/contract_soul.json",
+    "textures": {
+      "textures/item/contract_soul.png": "9827a12a2df13a136d446cf39051bd68a49b9c271de40a996b33f9c220acee53"
+    }
+  },
+  "contract_soul_stamped": {
+    "model": "models/item/contract_soul_stamped.json",
+    "textures": {
+      "textures/item/contract_soul_stamped.png": "95b61e83c2549febc1ce1d0eea081d196daed91269c78c29c72314e2a691e015"
+    }
+  },
+  "contract_stamped": {
+    "model": "models/item/contract_stamped.json",
+    "textures": {
+      "textures/item/contract_stamped.png": "bff06b65c32e7d0320d43badec78215d413da4626de7eeec644a2a6c6f900312"
+    }
+  },
+  "conversion_machine": {
+    "model": "models/item/conversion_machine.json",
+    "textures": {
+      "textures/block/conversion_machine_glass.png": "e3623a4d3434c076095e1da4b13e4c359c6801a392b3901d723fd986291f41da",
+      "textures/block/conversion_machine_screen.png": "58118adecae501b064604963710404b89c1c4f9d6e13c6b0a3aa2ecfadd13359",
+      "textures/block/conversion_machine_shell.png": "27406b0c1d1d8c0e3625f0778eba660ea4655567ebed513d4ce07cd0985d190c",
+      "textures/block/conversion_machine_vent.png": "515d4bc1c070a3017aeb8d170aeed3d469e8db92e1a3365800ba4231da479dbe"
+    }
+  },
+  "counterweight_shard": {
+    "model": "models/item/counterweight_shard.json",
+    "textures": {
+      "textures/item/counterweight_shard.png": "350424df46ef747992f0f5b88429d66feb1501479f9faef0c5698572e1106f80"
+    }
+  },
+  "crimson_mark_shard": {
+    "model": "models/item/crimson_mark_shard.json",
+    "textures": {
+      "textures/item/crimson_mark_shard.png": "4230e9fe0805ecdf55764a3adf85e89e1faea1552b84dcbb8c87b23153c15737"
+    }
+  },
+  "dealmaker_shard": {
+    "model": "models/item/dealmaker_shard.json",
+    "textures": {
+      "textures/item/dealmaker_shard.png": "787d055272bc006c389ada44b4f222e068d0c6a536d339be46cb1bbd07646710"
+    }
+  },
+  "deamplifier": {
+    "model": "models/item/deamplifier.json",
+    "textures": {
+      "textures/item/deamplifier.png": "cca941ac2824fd680e2c5a2943e899dac4722f215649a852729984bf25f8a5cc"
+    }
+  },
+  "disabler": {
+    "model": "models/item/disabler.json",
+    "textures": {
+      "textures/item/disabler.png": "f080153cea4855050232defc43046903311d9bf9681a2df8e7724334b0e8ce61"
+    }
+  },
+  "dragon_engine_shard": {
+    "model": "models/item/dragon_engine_shard.json",
+    "textures": {
+      "textures/item/dragon_engine_shard.png": "485b6f736e179951262bbc55835f971d91b256db10dd38297586ee078fcfcea5"
+    }
+  },
+  "edict_shard": {
+    "model": "models/item/edict_shard.json",
+    "textures": {
+      "textures/item/edict_shard.png": "7131a4ef7215c4e12e4cbb23a3b368703724e8aee513f3b91ccefbdaa39fa125"
+    }
+  },
+  "ember_leader_boots": {
+    "model": "models/item/ember_leader_boots.json",
+    "textures": {
+      "textures/models/armor/ember_leader_layer_1.png": "1f3ab4917f406174aeb16fd32e2a3c22ba8792093ac0b86e1ddb943e6a9e2308"
+    }
+  },
+  "ember_leader_coat": {
+    "model": "models/item/ember_leader_coat.json",
+    "textures": {
+      "textures/models/armor/ember_leader_layer_1.png": "1f3ab4917f406174aeb16fd32e2a3c22ba8792093ac0b86e1ddb943e6a9e2308"
+    }
+  },
+  "ember_leader_hat": {
+    "model": "models/item/ember_leader_hat.json",
+    "textures": {
+      "textures/models/armor/ember_hat_layer_1.png": "2c3ff681898115943b0d3b6ada68a66f9254a1cfbb7c933f3e014bc3170e94a8"
+    }
+  },
+  "ember_leader_pants": {
+    "model": "models/item/ember_leader_pants.json",
+    "textures": {
+      "textures/models/armor/ember_leader_layer_2.png": "0a1e4e6ab2118e3f4fcc8874624aab2a0999f7fbd056ea058ca8a9c938ee0f08"
+    }
+  },
+  "hollow_mark_shard": {
+    "model": "models/item/hollow_mark_shard.json",
+    "textures": {
+      "textures/item/hollow_mark_shard.png": "0de773a4275283846231e2f00e838874151db9e8ca41c59403f10fb8ba3e120b"
+    }
+  },
+  "joker_mask": {
+    "model": "models/item/joker_mask.json",
+    "textures": {
+      "textures/models/armor/joker_mask_layer_1.png": "ca15c23a874c54959e34d09ebf5719027f835af676b69e10e91cbc6af8906ef8"
+    }
+  },
+  "limit_breaker_shard": {
+    "model": "models/item/limit_breaker_shard.json",
+    "textures": {
+      "textures/item/limit_breaker_shard.png": "b840ae4a43db70b932e4b876f38903431d00e3bb9c08df6417c1b324a5996fc2"
+    }
+  },
+  "manuscript_aug": {
+    "model": "models/item/manuscript_aug.json",
+    "textures": {
+      "textures/item/manuscript_aug.png": "c02ec6353e87b5574b65c50ee0be363a0b06a2a7547f648df575b77b8c271958"
+    }
+  },
+  "manuscript_con": {
+    "model": "models/item/manuscript_con.json",
+    "textures": {
+      "textures/item/manuscript_con.png": "d67840c6328d1e45063633ba6e9977d636a07bfae55e89e376ba215c31df1ca3"
+    }
+  },
+  "manuscript_med": {
+    "model": "models/item/manuscript_med.json",
+    "textures": {
+      "textures/item/manuscript_med.png": "c50cbb8a62e3e30c715fb6961912e4522327914e91d8d0479d3e74c2f0fe368b"
+    }
+  },
+  "manuscript_proj": {
+    "model": "models/item/manuscript_proj.json",
+    "textures": {
+      "textures/item/manuscript_proj.png": "2db6a747c2191fc4cf2fbb91a39177361f0c358d6cae28f4e94dcff16dec9953"
+    }
+  },
+  "manuscript_qtm": {
+    "model": "models/item/manuscript_qtm.json",
+    "textures": {
+      "textures/item/manuscript_qtm.png": "6e4d4aa23c7028071ddf846c46b9daf0a309105c55ac601b90aa6b2d3b7aeb9d"
+    }
+  },
+  "music_disc_crown_match": {
+    "model": "models/item/music_disc_crown_match.json",
+    "textures": {
+      "textures/item/music_disc_crown_match.png": "b8e54041700ca7199cd189c0d533c90f46fba714131bc9be68b65aba3963e6b7"
+    }
+  },
+  "music_disc_guardian": {
+    "model": "models/item/music_disc_guardian.json",
+    "textures": {
+      "textures/item/music_disc_guardian.png": "ffd728993d3f453403a4f92b3ba4dcac94fc93ebb383a88fba516d3992125310"
+    }
+  },
+  "music_disc_surge": {
+    "model": "models/item/music_disc_surge.json",
+    "textures": {
+      "textures/item/music_disc_surge.png": "17c4a1ec2664f7d33c18cce714ee5ffec7ae855a5f544e627e4548855b995937"
+    }
+  },
+  "music_disc_the_hunt": {
+    "model": "models/item/music_disc_the_hunt.json",
+    "textures": {
+      "textures/item/music_disc_the_hunt.png": "f54bc6153a588f19b2a179193d928ca0adab752b7b7355218fbe90f447c0d5eb"
+    }
+  },
+  "music_disc_turf_war": {
+    "model": "models/item/music_disc_turf_war.json",
+    "textures": {
+      "textures/item/music_disc_turf_war.png": "cdb3265d89eff6555c503ff9eb998aa97f5c89f42a68078c338924a8d84d21cc"
+    }
+  },
+  "music_disc_tyrant": {
+    "model": "models/item/music_disc_tyrant.json",
+    "textures": {
+      "textures/item/music_disc_tyrant.png": "9538e16caa7b7644d3ac786776ccb5e4afe6af7c3e6bf9c3855d8d788127d0ca"
+    }
+  },
+  "ossified_tail": {
+    "model": "models/item/ossified_tail.json",
+    "textures": {
+      "textures/item/ossified_tail.png": "b800e8c193382e5c2e701aff8a2b8a2ce36737850ef84901b0c5014a201887ff"
+    }
+  },
+  "particle_block": {
+    "model": "models/item/particle_block.json",
+    "textures": {
+      "textures/block/particle_block_surface.png": "2fd04e96989d29f189f3faf0f1eca9b326c6fb6a1f6ed15b9f1773049e71d426"
+    }
+  },
+  "phylactery": {
+    "model": "models/item/phylactery.json",
+    "textures": {
+      "textures/block/phylactery_glass.png": "d17921cecebe294fa54001421c1036a10f4b3277289ad618cc2a0726ad3e94f9",
+      "textures/block/phylactery_screen.png": "02bdebadb9bfa490c777a2accd42b93fa413f4376bdea7f97d430f3bfef8e8ba",
+      "textures/block/phylactery_shell.png": "0ef64c82f9638b36394367f62820185e324b9721cd223566ed82bf3a51e68a91",
+      "textures/block/phylactery_vent.png": "52ca16500b7742fb80620b82b20262f325bca9ac1f277c85c3c8a37dd58ca032"
+    }
+  },
+  "recovery_machine": {
+    "model": "models/item/recovery_machine.json",
+    "textures": {
+      "textures/block/recovery_machine_glass.png": "94be7e34606ca1eabfe4a72486114c4f5a5681da19c98767b8c1de47df77333c",
+      "textures/block/recovery_machine_screen.png": "3d1463865cfcac43acaf4ccd96a581bdfbfde55b9adf2e88d5f4723eca0f69d0",
+      "textures/block/recovery_machine_shell.png": "942340378a11a56700c3f9fc336d38d182e22696528ce2d1131c661eeecf8bee",
+      "textures/block/recovery_machine_vent.png": "9b076b2e7153df509c60a170d67acef5bd1f0cde3272881c48750c63923aaad3"
+    }
+  },
+  "rewriter_serum": {
+    "model": "models/item/rewriter_serum.json",
+    "textures": {
+      "textures/item/rewriter_serum.png": "9f0e3711d5f8e17db490e9f5341942d75a306fe47ec9c375546415798a0ac1fc"
+    }
+  },
+  "salt_block": {
+    "model": "models/item/salt_block.json",
+    "textures": {
+      "textures/block/salt_block_surface.png": "4599f5579794f48d49fb98073511a8ee169374829c48f86f453f25c95d45417f"
+    }
+  },
+  "salt_spear": {
+    "model": "models/item/salt_spear.json",
+    "textures": {
+      "textures/item/salt_spear.png": "2cf46ae0351c9c52848d053940fa14dc7c6b8a6091981534641d64d320ffcb19"
+    }
+  },
+  "sarcophage_shard": {
+    "model": "models/item/sarcophage_shard.json",
+    "textures": {
+      "textures/item/sarcophage_shard.png": "11eb4ded1669ae728d37dc174faf0009648812c11d67567154a7b8366036277e"
+    }
+  },
+  "school_uniform_boots": {
+    "model": "models/item/school_uniform_boots.json",
+    "textures": {
+      "textures/models/armor/wellstone_uniform_layer_1.png": "356cda53adc11e8e54210c8c4e20ffad121ad5a0e102f96293574766634bf0b4"
+    }
+  },
+  "school_uniform_chestplate": {
+    "model": "models/item/school_uniform_chestplate.json",
+    "textures": {
+      "textures/models/armor/wellstone_uniform_layer_1.png": "356cda53adc11e8e54210c8c4e20ffad121ad5a0e102f96293574766634bf0b4"
+    }
+  },
+  "school_uniform_leggings": {
+    "model": "models/item/school_uniform_leggings.json",
+    "textures": {
+      "textures/models/armor/wellstone_uniform_layer_2.png": "0a1e4e6ab2118e3f4fcc8874624aab2a0999f7fbd056ea058ca8a9c938ee0f08"
+    }
+  },
+  "singularity_shard": {
+    "model": "models/item/singularity_shard.json",
+    "textures": {
+      "textures/item/singularity_shard.png": "06bf471d29a469a87a96b8e35916633739300ddd2d99a999c0cc01c7068026b2"
+    }
+  },
+  "soul": {
+    "model": "models/item/soul.json",
+    "textures": {
+      "textures/item/soul.png": "47a95c522a3d526753759428ff6477a6814fcf98ef0fe8928ba55d2cc816c6ec"
+    }
+  },
+  "soul_sword": {
+    "model": "models/item/soul_sword.json",
+    "textures": {
+      "textures/item/soul_sword.png": "1707bf3f6835ef12f93f6f84b0a09b3dc72882a04bea47fb1709dda2a5eea628"
+    }
+  },
+  "spectre_bandana": {
+    "model": "models/item/spectre_bandana.json",
+    "textures": {
+      "textures/models/armor/spectre_layer_1.png": "dbb5373733e9369f0c80cae60934ab353967e7d126978400ab072004dab9b8c1"
+    }
+  },
+  "spectre_boots": {
+    "model": "models/item/spectre_boots.json",
+    "textures": {
+      "textures/models/armor/spectre_layer_1.png": "dbb5373733e9369f0c80cae60934ab353967e7d126978400ab072004dab9b8c1"
+    }
+  },
+  "spectre_pants": {
+    "model": "models/item/spectre_pants.json",
+    "textures": {
+      "textures/models/armor/spectre_layer_2.png": "0a1e4e6ab2118e3f4fcc8874624aab2a0999f7fbd056ea058ca8a9c938ee0f08"
+    }
+  },
+  "spectre_spawn_egg": {
+    "model": "models/item/spectre_spawn_egg.json",
+    "textures": {
+      "textures/item/spectre_spawn_egg.png": "870e799a16953d94ecf9d3e18e61a4bba0a9c2193add028b49518ff5ebd226af"
+    }
+  },
+  "spectre_top": {
+    "model": "models/item/spectre_top.json",
+    "textures": {
+      "textures/models/armor/spectre_layer_1.png": "dbb5373733e9369f0c80cae60934ab353967e7d126978400ab072004dab9b8c1"
+    }
+  },
+  "sunsteel_axe": {
+    "model": "models/item/sunsteel_axe.json",
+    "textures": {
+      "textures/item/sunsteel_axe.png": "b5bad2028328acec45ea3817459c621e771c00f6f8c1ba5551f793cd76ce6cf2"
+    }
+  },
+  "suppression_field": {
+    "model": "models/item/suppression_field.json",
+    "textures": {
+      "textures/block/suppression_field_glass.png": "070a05c9d0683fa069d6a66f3a1bad04ecc263bdbdb35ceaaef09e72d618e3a2",
+      "textures/block/suppression_field_screen.png": "21327d6355f9d14aa29f6161edf1b8bac900af99ceb3a29ce5c17452386f2160",
+      "textures/block/suppression_field_shell.png": "01c0aea0411b03b794f1721714c5c4319475a870335f2beb7cc13f931cf8b304",
+      "textures/block/suppression_field_vent.png": "e4875b564a7aade2cb6e4bdf2bb7cd6e3903a4821cc5b78e3283a4209c401b56"
+    }
+  },
+  "syringe": {
+    "model": "models/item/syringe.json",
+    "textures": {
+      "textures/item/syringe.png": "f505e2a1fc331fc7ac320aabbd47f8f637fb4910af0156fcb63b261c64d59daf"
+    }
+  },
+  "syringe_amplifier": {
+    "model": "models/item/syringe_amplifier.json",
+    "textures": {
+      "textures/item/syringe_amplifier.png": "baccba70787bb6943eb8fd0ef83688b13f2470d7dc7de60ba9cc001548d58ba7"
+    }
+  },
+  "syringe_blood": {
+    "model": "models/item/syringe_blood.json",
+    "textures": {
+      "textures/item/syringe_blood.png": "264f4347007d4392183b31678b4ab0cf309c863369452ad6c1fc71f5e82188cf"
+    }
+  },
+  "syringe_deamplifier": {
+    "model": "models/item/syringe_deamplifier.json",
+    "textures": {
+      "textures/item/syringe_deamplifier.png": "8e66b1e572cdceb4e3b5635b1d4eb9501c20be50022887c5b01668e06bc64c52"
+    }
+  },
+  "syringe_disabler": {
+    "model": "models/item/syringe_disabler.json",
+    "textures": {
+      "textures/item/syringe_disabler.png": "06147180990a67e5f22f97f1f12353bbb476714e0ac2fed7d21761778e93fc4b"
+    }
+  },
+  "tome_aug": {
+    "model": "models/item/tome_aug.json",
+    "textures": {
+      "textures/item/tome_aug.png": "211694b7049e175193329917a56eae996ffd5e9cdbe7c83b4b1ebf048a6dc685"
+    }
+  },
+  "tome_con": {
+    "model": "models/item/tome_con.json",
+    "textures": {
+      "textures/item/tome_con.png": "50e9437df0a56c43327a46d21c1ae3c6e7976831dacd44337df772b5fe16a2a9"
+    }
+  },
+  "tome_med": {
+    "model": "models/item/tome_med.json",
+    "textures": {
+      "textures/item/tome_med.png": "2d3253f54ce6818ce7d5388c362b08f5a591c0993f4d8448f3628b8505bf9bfb"
+    }
+  },
+  "tome_proj": {
+    "model": "models/item/tome_proj.json",
+    "textures": {
+      "textures/item/tome_proj.png": "7b193d124fdd08a738f51d3c7618ed09a5aefa6ee0de0b582fc68878c2900297"
+    }
+  },
+  "tome_qtm": {
+    "model": "models/item/tome_qtm.json",
+    "textures": {
+      "textures/item/tome_qtm.png": "9d7696e991645e4295eb3160f178c84c7adf663fafa8d9c6648adb1fac04d1f7"
+    }
+  },
+  "tower_core": {
+    "model": "models/item/tower_core.json",
+    "textures": {
+      "textures/item/tower_core.png": "0ac06d6f2e4d458dcba725b2cd889ba31452b226db366387f501506cf84e593a"
+    }
+  },
+  "unordinary_book": {
+    "model": "models/item/unordinary_book.json",
+    "textures": {
+      "textures/item/unordinary_book.png": "d836a0e2b02e41c09dd719f7c5ae0864f19a5d39988095d4f00205ea406d3751"
+    }
+  },
+  "vertigo_shard": {
+    "model": "models/item/vertigo_shard.json",
+    "textures": {
+      "textures/item/vertigo_shard.png": "2e20a8c64711039e5f73b5350febff03c698f2d8fd44b5b5df9736cc02a45ae8"
+    }
+  },
+  "vital_sand": {
+    "model": "models/item/vital_sand.json",
+    "textures": {
+      "textures/item/vital_sand.png": "c683c35708b8afc9ec1a3b63cad593899bea4d645325a8f55af8120cee0758df"
+    }
+  },
+  "wellstone_blazer": {
+    "model": "models/item/wellstone_blazer.json",
+    "textures": {
+      "textures/models/armor/wellstone_uniform_layer_1.png": "356cda53adc11e8e54210c8c4e20ffad121ad5a0e102f96293574766634bf0b4"
+    }
+  },
+  "wellstone_girl_blazer": {
+    "model": "models/item/wellstone_girl_blazer.json",
+    "textures": {
+      "textures/models/armor/wellstone_girl_uniform_layer_1.png": "4875e12aacb4afe5676dfa2d6af6889154b253befaca5ce8eb14b05b5334b126"
+    }
+  },
+  "wellstone_girl_shirt": {
+    "model": "models/item/wellstone_girl_shirt.json",
+    "textures": {
+      "textures/models/armor/wellstone_girl_shirt_layer_1.png": "8d5cfede00c405a71bb386c9e24a204b695dcfc1e998cbff767b1bf7035dc383"
+    }
+  },
+  "wellstone_girl_shoes": {
+    "model": "models/item/wellstone_girl_shoes.json",
+    "textures": {
+      "textures/models/armor/wellstone_girl_uniform_layer_1.png": "4875e12aacb4afe5676dfa2d6af6889154b253befaca5ce8eb14b05b5334b126"
+    }
+  },
+  "wellstone_girl_skirt": {
+    "model": "models/item/wellstone_girl_skirt.json",
+    "textures": {
+      "textures/models/armor/wellstone_girl_uniform_layer_2.png": "d3f32174dc046a435e9893a5d415a9dc586bc0276f25a3370e736752b37cf244"
+    }
+  },
+  "wellstone_one_shoulder_blazer": {
+    "model": "models/item/wellstone_one_shoulder_blazer.json",
+    "textures": {
+      "textures/models/armor/wellstone_one_shoulder_layer_1.png": "657c4bb655406f7764ef207b75dc330bed60007727c2572744c75458c3afc844"
+    }
+  },
+  "wellstone_seraphina_blazer": {
+    "model": "models/item/wellstone_seraphina_blazer.json",
+    "textures": {
+      "textures/models/armor/wellstone_seraphina_layer_1.png": "ff2d63212dc0a67c309c07445ec54e1141384bc0c3529278449a01ca2cc84f5d"
+    }
+  },
+  "wellstone_shirt": {
+    "model": "models/item/wellstone_shirt.json",
+    "textures": {
+      "textures/models/armor/wellstone_shirt_layer_1.png": "028b6480f7aa0367b493618d7baa9da92b85534b812a12b4d7e34b715865a1cd"
+    }
+  },
+  "wellstone_shoes": {
+    "model": "models/item/wellstone_shoes.json",
+    "textures": {
+      "textures/models/armor/wellstone_uniform_layer_1.png": "356cda53adc11e8e54210c8c4e20ffad121ad5a0e102f96293574766634bf0b4"
+    }
+  },
+  "wellstone_trousers": {
+    "model": "models/item/wellstone_trousers.json",
+    "textures": {
+      "textures/models/armor/wellstone_uniform_layer_2.png": "0a1e4e6ab2118e3f4fcc8874624aab2a0999f7fbd056ea058ca8a9c938ee0f08"
+    }
+  },
+  "xstatic_boots": {
+    "model": "models/item/xstatic_boots.json",
+    "textures": {
+      "textures/models/armor/xstatic_layer_1.png": "8060639146d378ba7b2f4390e7b14b3074a7ef325383ce74e90f2a6eb435154d"
+    }
+  },
+  "xstatic_pants": {
+    "model": "models/item/xstatic_pants.json",
+    "textures": {
+      "textures/models/armor/xstatic_layer_2.png": "0a1e4e6ab2118e3f4fcc8874624aab2a0999f7fbd056ea058ca8a9c938ee0f08"
+    }
+  },
+  "xstatic_top": {
+    "model": "models/item/xstatic_top.json",
+    "textures": {
+      "textures/models/armor/xstatic_layer_1.png": "8060639146d378ba7b2f4390e7b14b3074a7ef325383ce74e90f2a6eb435154d"
+    }
+  }
+}

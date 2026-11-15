@@ -1,6 +1,182 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "layer0": "unrp:item/wellstone_girl_shoes"
+    "wear": "unrp:models/armor/wellstone_girl_uniform_layer_1",
+    "particle": "unrp:models/armor/wellstone_girl_uniform_layer_1"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        2,
+        6
+      ],
+      "to": [
+        6,
+        6,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wear",
+          "uv": [
+            1.0,
+            7.0,
+            2.0,
+            8.0
+          ]
+        },
+        "south": {
+          "texture": "#wear",
+          "uv": [
+            3.0,
+            7.0,
+            4.0,
+            8.0
+          ]
+        },
+        "west": {
+          "texture": "#wear",
+          "uv": [
+            0.0,
+            7.0,
+            1.0,
+            8.0
+          ]
+        },
+        "east": {
+          "texture": "#wear",
+          "uv": [
+            2.0,
+            7.0,
+            3.0,
+            8.0
+          ]
+        },
+        "up": {
+          "texture": "#wear",
+          "uv": [
+            1.0,
+            6.0,
+            2.0,
+            7.0
+          ]
+        },
+        "down": {
+          "texture": "#wear",
+          "uv": [
+            2.0,
+            6.0,
+            3.0,
+            7.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        2,
+        6
+      ],
+      "to": [
+        14,
+        6,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#wear",
+          "uv": [
+            5.0,
+            15.0,
+            6.0,
+            16.0
+          ]
+        },
+        "south": {
+          "texture": "#wear",
+          "uv": [
+            7.0,
+            15.0,
+            8.0,
+            16.0
+          ]
+        },
+        "west": {
+          "texture": "#wear",
+          "uv": [
+            4.0,
+            15.0,
+            5.0,
+            16.0
+          ]
+        },
+        "east": {
+          "texture": "#wear",
+          "uv": [
+            6.0,
+            15.0,
+            7.0,
+            16.0
+          ]
+        },
+        "up": {
+          "texture": "#wear",
+          "uv": [
+            5.0,
+            14.0,
+            6.0,
+            15.0
+          ]
+        },
+        "down": {
+          "texture": "#wear",
+          "uv": [
+            6.0,
+            14.0,
+            7.0,
+            15.0
+          ]
+        }
+      }
+    }
+  ],
+  "display": {
+    "gui": {
+      "rotation": [
+        15,
+        25,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.85,
+        0.85,
+        0.85
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -25,
+        0
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ],
+      "scale": [
+        0.8,
+        0.8,
+        0.8
+      ]
+    }
   }
 }

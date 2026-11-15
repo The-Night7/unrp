@@ -1,6 +1,6 @@
 # Item artwork and lore
 
-The pack stays on a native **16 × 16** grid. Lore changes affect inventory artwork, not item mechanics. [Current texture sheet](unrp-items-preview.png).
+The pack uses native pixel materials: 16px block/item materials and 64 × 64 humanoid UV sheets. Equipment inventory models, placed geometry and worn garments now use their production assets together. [Current texture sheet](unrp-items-preview.png).
 
 ## Supported visual corrections
 
@@ -9,11 +9,11 @@ The pack stays on a native **16 × 16** grid. Lore changes affect inventory artw
 | Joker's mask | Black cloth balaclava, dark eye openings, no ivory face plate, golden inlay or permanently glowing eyes | [Joker's Mask](https://unordinary.fandom.com/wiki/Joker%27s_Mask) |
 | Wellston clothing | Teal jackets; white shirts; navy ties/bows; grey vest beneath the jacket; black trousers; navy skirts and dark socks/shoes. Shoulder variants retain this palette. No invented gold breast badge. | [Wellston uniform](https://unordinary.fandom.com/wiki/Wellston_Private_High_School) |
 | Agwin clothing | Brown jacket with dark trim; white shirt and red tie; dark brown trousers/pleated skirt and brown socks. No burgundy school blazer or gold badge. | [Agwin uniform](https://unordinary.fandom.com/wiki/Agwin_High_School) |
-| X-Static clothing | Grey top with brown upper-arm bands and utility belt/pouches, black trousers, brown shoes. No cyan-trim streetwear jacket. | [Rei's appearance](https://unordinary.fandom.com/wiki/Rei) |
+| X-Static clothing | Grey top with brown upper-arm bands and utility belt/pouches, black trousers, brown shoes. No cyan-trim streetwear jacket; the worn sheet and 3D inventory garment share the same grey/brown materials. | [Rei's appearance](https://unordinary.fandom.com/wiki/Rei) |
 | Disabler and filled syringe | Light-blue liquid in medical glass/injection equipment, not grey serum. Exact glass shape and a few pixels of shading are adaptations. | [Ability Disabler](https://unordinary.fandom.com/wiki/Ability_Disabler) |
-| Recovery machine inventory icon | Hospital-style bed with an adjacent instrument screen, replacing a compact glowing-liquid reactor. The 16px bed/monitor arrangement is adapted. | [Recovery machine](https://unordinary.fandom.com/wiki/Recovery_machine) |
+| Recovery machine inventory icon | Hospital-style bed with an adjacent instrument screen, replacing the compact glowing-liquid reactor in both the item and placed block. The 16px bed/monitor arrangement is adapted. | [Recovery machine](https://unordinary.fandom.com/wiki/Recovery_machine) |
 
-These references are secondary descriptions of the webtoon. The icons simplify those descriptions into sixteen pixels; they are not exact panel reproductions. Existing worn Wellston/Agwin textures already use teal/brown palettes; they are retained. The placed recovery block remains the existing block model: this change does not turn it into a multiblock bed or add treatment mechanics.
+These references are secondary descriptions of the webtoon. The icons simplify those descriptions into sixteen pixels; they are not exact panel reproductions. Worn Wellston/Agwin UV sheets are now rebuilt with these palettes, collars, ties, vest/pleats and separate sleeve regions. Recovery is now a compact medical couch/monitor model both placed and in inventory, with matching selection/collision geometry. It remains a single-block adaptation and does not add treatment mechanics.
 
 ## Canon objects with incomplete visual verification
 
@@ -30,4 +30,4 @@ The gold HUD is a UNRP interface choice, not an object shown in the story. New a
 
 ## Editing
 
-[design_unrp_items.py](../tools/design_unrp_items.py) contains `lore_outfit`, the mask drawing, liquid palettes, plain book and recovery icon. Run `python3 unrp-forge/tools/design_unrp_items.py` after edits. It regenerates all 111 native icons and the preview without AI-image input.
+[design_equipment.py](../tools/design_equipment.py) owns actual block/item meshes, worn sheets and clothing item meshes. [design_unrp_items.py](../tools/design_unrp_items.py) owns ordinary sprite items. [preview_equipment.py](../tools/preview_equipment.py) renders the actual resulting item model graph and texture UVs, without substituting the former icon drawings. See [VISUAL_STYLE.md](VISUAL_STYLE.md) for generation and consistency checks.

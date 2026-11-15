@@ -1,14 +1,15 @@
 {
-  "parent": "block/block",
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "unrp:block/particle_block",
-    "particle": "unrp:block/particle_block"
+    "surface": "unrp:block/particle_block_surface",
+    "particle": "unrp:block/particle_block_surface"
   },
   "elements": [
     {
       "from": [
         0,
-        13,
+        0,
         0
       ],
       "to": [
@@ -17,29 +18,59 @@
         16
       ],
       "faces": {
-        "down": {
-          "texture": "#all",
-          "tintindex": 0
-        },
-        "up": {
-          "texture": "#all",
-          "tintindex": 0
-        },
         "north": {
-          "texture": "#all",
-          "tintindex": 0
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "south": {
-          "texture": "#all",
-          "tintindex": 0
-        },
-        "west": {
-          "texture": "#all",
-          "tintindex": 0
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         },
         "east": {
-          "texture": "#all",
-          "tintindex": 0
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "west": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#surface",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
         }
       }
     }

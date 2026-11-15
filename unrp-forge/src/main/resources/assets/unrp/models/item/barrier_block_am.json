@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "unrp:item/barrier_block_am"
-  }
+  "parent": "unrp:block/barrier_block_am"
 }
