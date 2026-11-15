@@ -27,7 +27,7 @@ class CovenantDefinitionTest {
             assertTrue(Files.exists(Path.of("src/main/resources/assets/unrp").resolve(icon.substring("unrp:".length()))));
         }
         assertTrue(special.containsAll(Set.of("cv_constitution", "cv_retroactive", "cv_forfeit", "cv_class_action", "cv_sovereign_pact", "cv_due", "cv_jurisdiction", "cv_message")));
-        for (int count : counts) assertTrue(count + 1 <= 5, "Stance switch plus moves must fit five keys");
+        for (int count : counts) assertTrue(count + 1 <= 5, "Four stance actions and the power toggle must fit the main page");
         assertTrue(UnodexData.NOT_ROLLABLE.contains("covenant"));
     }
 }

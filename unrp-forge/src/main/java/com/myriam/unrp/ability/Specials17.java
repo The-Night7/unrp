@@ -565,6 +565,44 @@ public final class Specials17 {
         breach(p, Viol.SPEAK);
     }
 
+    public static void cancelWriting(ServerPlayer player) { PENDING.remove(player.getUUID()); }
+
+    /** Commands and the bar prompt share the same authoritative enforcement path. */
+    public static boolean submitWriting(ServerPlayer player, String action, String text) {
+        if (!on(player) || AbilityEngine.disabled(player)) {
+            player.sendSystemMessage(Component.literal("§7Activate Covenant first using R or the power toggle on its bar."));
+            return false;
+        }
+        Await what = switch (action) {
+            case "law" -> Await.LAW;
+            case "terms" -> Await.TERMS;
+            case "constitution" -> Await.CONSTITUTION;
+            case "retroactive" -> Await.RETROACTIVE;
+            case "forfeit" -> Await.FORFEIT;
+            case "tribute" -> Await.TRIBUTE;
+            case "jurisdiction" -> Await.JURISDICTION;
+            case "message" -> Await.MESSAGE;
+            case "sovereign_pact" -> Await.SOVEREIGN_PACT;
+            default -> null;
+        };
+        if (what == null || text.isBlank() || text.length() > 512) return false;
+        if (what != Await.LAW && what != Await.TERMS && levelOf(player) < CovenantRules.GOD) {
+            player.sendSystemMessage(Component.literal("§7This action requires God tier (6.0).")); return false;
+        }
+        open(player); // Do not depend on the next server tick to establish the personal Court.
+        onCast(player);
+        if (!on(player) || AbilityEngine.disabled(player)) return false;
+        PENDING.remove(player.getUUID());
+        finish(player, new Pending(what, player.server.overworld().getGameTime(), null), text);
+        return true;
+    }
+
+    private static void writingPrompt(ServerPlayer player, String action) {
+        com.google.gson.JsonObject payload = new com.google.gson.JsonObject();
+        payload.addProperty("writing", "/unrp covenant " + action + " ");
+        com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> player), new com.myriam.unrp.net.CovenantPacket(payload.toString()));
+    }
+
     private static void finish(ServerPlayer p, Pending pending, String text) {
         Sov state = sov(p.getUUID());
         Court court = editingCourt(state);
@@ -865,6 +903,7 @@ public final class Specials17 {
             bar(p, "§7Level " + CovenantRules.minimum(m.special) + " required."); return false;
         }
         Sov s = sov(p.getUUID());
+        if (s.court == null && on(p)) open(p);
         Court c = editingCourt(s);
         long now = p.serverLevel().getGameTime();
         if (c == null && !m.special.equals("cv_immunity")) {
@@ -881,7 +920,8 @@ public final class Specials17 {
                     return false;
                 }
                 PENDING.put(p.getUUID(), new Pending(Await.LAW, now + 600, null));
-                p.sendSystemMessage(Component.literal("§6Write your law in chat (30 s): §fNo one may run. Penalty: their Speed"));
+                p.sendSystemMessage(Component.literal("§6Write a law: §fNo one may run. Penalty: their Speed"));
+                writingPrompt(p, "law");
                 return false;
             }
             case "cv_terms" -> {
@@ -908,7 +948,8 @@ public final class Specials17 {
                     return true;
                 }
                 PENDING.put(p.getUUID(), new Pending(Await.TERMS, now + 600, null));
-                p.sendSystemMessage(Component.literal("§6Write the Terms of Entry (30 s): §fWhoever enters gives up their weapons"));
+                p.sendSystemMessage(Component.literal("§6Write the Terms of Entry: §fWhoever enters gives up their weapons"));
+                writingPrompt(p, "terms");
                 return false;
             }
             case "cv_fine" -> {
@@ -1121,6 +1162,10 @@ public final class Specials17 {
                     default -> "No running. Penalty: Speed";
                 };
                 p.sendSystemMessage(Component.literal("§6Write in chat: §f" + help));
+                writingPrompt(p, switch (action) {
+                    case CONSTITUTION -> "constitution"; case RETROACTIVE -> "retroactive"; case FORFEIT -> "forfeit";
+                    case SOVEREIGN_PACT -> "sovereign_pact"; case TRIBUTE -> "tribute"; case JURISDICTION -> "jurisdiction"; default -> "message";
+                });
                 return false;
             }
             case "cv_class_action" -> {
@@ -1737,7 +1782,7 @@ public final class Specials17 {
     }
 
     private static void deliverOffer(ServerPlayer target, Offer offer) {
-        String name = "Souverain";
+        String name = "Sovereign";
         ServerPlayer by = target.server.getPlayerList().getPlayer(offer.by);
         if (by != null) name = by.getGameProfile().getName();
         target.sendSystemMessage(Component.literal("§6Parchment from " + name + " : " + offer.text + " §eReply accept / refuse."));

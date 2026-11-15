@@ -7861,7 +7861,8 @@
           "pose": "og_command",
           "min_level": 0,
           "icon": "unrp:textures/icons/covenant_posture.png",
-          "bar_color": "yellow"
+          "bar_color": "yellow",
+          "bar_slot": 5
         },
         {
           "name": "Enact",

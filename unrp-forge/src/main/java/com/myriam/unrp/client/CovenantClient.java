@@ -29,6 +29,10 @@ public final class CovenantClient {
     public static Hand hand(int entity) { return System.currentTimeMillis() - receivedAt < 6000 ? HANDS.get(entity) : null; }
     public static void receive(String json) {
         var root = JsonParser.parseString(json).getAsJsonObject();
+        if (root.has("writing")) {
+            Minecraft mc = Minecraft.getInstance();
+            if (mc.player != null && mc.screen == null) mc.setScreen(new net.minecraft.client.gui.screens.ChatScreen(root.get("writing").getAsString()));
+        }
         if (root.has("people")) {
             HANDS.clear(); receivedAt = System.currentTimeMillis();
             for (var element : root.getAsJsonArray("people")) {
@@ -76,7 +80,7 @@ public final class CovenantClient {
         var buffer = mc.renderBuffers().bufferSource();
         for (Marker marker : MARKERS) {
             if (!marker.dimension.equals(mc.level.dimension().location().toString())) continue;
-            String text = "✦ " + marker.name + (marker.debt > 0 ? " · dette " + marker.debt : " · signed");
+            String text = "✦ " + marker.name + (marker.debt > 0 ? " · debt " + marker.debt : " · signed");
             pose.pushPose(); pose.translate(marker.x - position.x, marker.y + 2.3 - position.y, marker.z - position.z);
             pose.mulPose(camera.rotation()); pose.scale(-0.025f, -0.025f, 0.025f);
             mc.font.drawInBatch(text, -mc.font.width(text) / 2f, 0, marker.debt > 0 ? 0xFFFFB66A : UiSkin.GOLD,
@@ -88,7 +92,7 @@ public final class CovenantClient {
     @SubscribeEvent public static void parchment(RenderGuiEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.options.hideGui || mc.screen != null) return;
-        String title = "Parchemin du Covenant", text = System.currentTimeMillis() < letterUntil ? letter : "";
+        String title = "Covenant Parchment", text = System.currentTimeMillis() < letterUntil ? letter : "";
         if (text.isEmpty() && mc.hitResult instanceof EntityHitResult hit && mc.player.distanceToSqr(hit.getEntity()) <= 64) {
             Hand hand = hand(hit.getEntity().getId());
             if (hand != null && !hand.constitutions.isEmpty()) {

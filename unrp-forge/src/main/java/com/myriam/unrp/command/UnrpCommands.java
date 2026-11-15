@@ -38,9 +38,23 @@ public final class UnrpCommands {
 
     private UnrpCommands() {}
 
+    private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> covenantWritingCommands() {
+        var root = Commands.literal("covenant");
+        for (String action : java.util.List.of("law", "terms", "constitution", "retroactive", "forfeit", "tribute", "jurisdiction", "message", "sovereign_pact")) {
+            root.then(Commands.literal(action).then(Commands.argument("text", StringArgumentType.greedyString())
+                    .executes(ctx -> com.myriam.unrp.ability.Specials17.submitWriting(
+                            ctx.getSource().getPlayerOrException(), action, StringArgumentType.getString(ctx, "text")) ? 1 : 0)));
+        }
+        root.then(Commands.literal("cancel").executes(ctx -> {
+            com.myriam.unrp.ability.Specials17.cancelWriting(ctx.getSource().getPlayerOrException()); return 1;
+        }));
+        return root;
+    }
+
     public static void register(CommandDispatcher<CommandSourceStack> d) {
         d.register(Commands.literal("unrp")
                 .then(Commands.literal("menu").executes(ctx -> menu(ctx.getSource())))
+                .then(covenantWritingCommands())
                 .then(Commands.literal("undress").executes(ctx -> {
                     var p = ctx.getSource().getPlayerOrException();
                     com.myriam.unrp.item.Cosmetics.clear(p);

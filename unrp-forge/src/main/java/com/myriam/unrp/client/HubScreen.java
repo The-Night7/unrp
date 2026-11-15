@@ -46,6 +46,8 @@ public class HubScreen extends Screen {
     private int tab;
     private int abilityNode = -1, treeScroll, treeScrollMax, detailScroll, detailScrollMax;
     private String treeIdentity = "";
+    private double treePanX, treeZoom = 1;
+    private boolean treeDragging;
     private Region treeViewport, detailViewport;
     /** échelle d'affichage : le hub est conçu en MAX_W x MAX_H et réduit en bloc si l'écran est plus petit */
     private float ui = 1f;
@@ -283,6 +285,7 @@ public class HubScreen extends Screen {
         tab = i;
         abilityNode = -1;
         treeScroll = detailScroll = 0;
+        treePanX = 0; treeZoom = 1; treeDragging = false;
         selected = "";
         scroll = 0;
         box.setValue("");
@@ -469,6 +472,7 @@ public class HubScreen extends Screen {
             treeIdentity = identity;
             abilityNode = -1;
             treeScroll = detailScroll = 0;
+        treePanX = 0; treeZoom = 1; treeDragging = false;
         }
         text(g, font.plainSubstrByWidth(identity, cw - 185), cx, cy + 2, UiSkin.HEAD);
         text(g, "PA " + ps.abilityPts + "   PS " + num(obj(st, "train"), "points"), cx + cw - 98, cy + 2, ACCENT);
@@ -484,22 +488,22 @@ public class HubScreen extends Screen {
             ranks[i] = num(move, "rank");
         }
         var layout = HubGraphLayout.tree(parents, ranks, treeW - 12);
-        treeScrollMax = Math.max(0, layout.height() + 18 - height);
+        treeScrollMax = Math.max(0, (int) Math.ceil(layout.height() * treeZoom) + 18 - height);
         treeScroll = Math.max(0, Math.min(treeScroll, treeScrollMax));
-        int rootX = cx + 6, rootY = bottom - 30 + treeScroll;
+        int rootX = cx + 6 + (int) Math.round(treePanX), rootY = bottom - 30 + treeScroll;
         treeViewport = new Region(cx + 2, top + 2, treeW - 4, height - 4, () -> {});
         clip(g, cx + 2, top + 2, treeW - 4, height - 4);
         for (int i = 0; i < moves.size(); i++) {
             JsonObject move = moves.get(i).getAsJsonObject();
             int parent = parents[i] >= 0 && parents[i] < moves.size() && parents[i] != i ? parents[i] + 1 : 0;
             var a = layout.nodes().get(parent); var b = layout.nodes().get(i + 1);
-            line(g, rootX + Math.round(a.x()), rootY + Math.round(a.y()), rootX + Math.round(b.x()), rootY + Math.round(b.y()),
+            line(g, rootX + (int) Math.round(a.x() * treeZoom), rootY + (int) Math.round(a.y() * treeZoom), rootX + (int) Math.round(b.x() * treeZoom), rootY + (int) Math.round(b.y() * treeZoom),
                     bool(move, "locked") ? UiSkin.BORDER_DIM : UiSkin.BORDER);
         }
         for (int node = 0; node < layout.nodes().size(); node++) {
             int index = node - 1;
             var point = layout.nodes().get(node);
-            int nx = rootX + Math.round(point.x()), ny = rootY + Math.round(point.y());
+            int nx = rootX + (int) Math.round(point.x() * treeZoom), ny = rootY + (int) Math.round(point.y() * treeZoom);
             JsonObject move = index < 0 ? null : moves.get(index).getAsJsonObject();
             boolean locked = bool(move, "locked"), selectedNode = abilityNode == index;
             List<HubGraphLayout.Point> hex = new ArrayList<>();
@@ -518,18 +522,18 @@ public class HubScreen extends Screen {
                 String name = font.plainSubstrByWidth(identity, treeW - 12);
                 text(g, name, nx - font.width(name) / 2, ny + 18, UiSkin.HEAD);
             }
-            if (ny - 15 >= top + 2 && ny + 15 <= bottom - 2) {
+            if (ny - 15 >= top + 2 && ny + 15 <= bottom - 2 && nx - 16 >= cx + 2 && nx + 16 <= cx + treeW - 2) {
                 final int selectedIndex = index;
                 regions.add(new Region(nx - 16, ny - 16, 32, 32, () -> { abilityNode = selectedIndex; detailScroll = 0; }));
                 if (Math.abs(mx - nx) <= 16 && Math.abs(my - ny) <= 16) {
                     tooltip.add(move == null ? identity : str(move, "name"));
-                    tooltip.add(locked ? "Verrouillé · sélectionner pour les conditions" : "Appris · sélectionner pour les détails");
+                    tooltip.add(locked ? "Locked · select for requirements" : "Learned · select for details");
                 }
             }
         }
         g.disableScissor();
         if (treeScrollMax > 0) {
-            text(g, "Molette : parcourir l'arbre", cx + 7, top + 6, DIM);
+            text(g, "Drag to pan · Ctrl + wheel to zoom", cx + 7, top + 6, DIM);
             int track = height - 28, thumb = Math.max(12, track * height / (height + treeScrollMax));
             int thumbY = top + 20 + (track - thumb) * (treeScrollMax - treeScroll) / treeScrollMax;
             g.fill(cx + treeW - 5, top + 20, cx + treeW - 3, bottom - 8, UiSkin.BORDER_DIM);
@@ -1052,6 +1056,8 @@ public class HubScreen extends Screen {
     @Override
     public boolean mouseClicked(double rawX, double rawY, int button) {
         double mouseX = rawX / ui, mouseY = rawY / ui;
+        boolean overTree = tab == 1 && !feedOpen && treeViewport != null && treeViewport.in(mouseX, mouseY);
+        if (overTree && (button == 1 || button == 2)) { treeDragging = true; return true; }
         if (button == 0) {
             for (int i = regions.size() - 1; i >= 0; i--) {
                 Region r = regions.get(i);
@@ -1064,16 +1070,23 @@ public class HubScreen extends Screen {
                 }
             }
         }
+        if (overTree && button == 0) { treeDragging = true; return true; }
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public boolean mouseReleased(double rawX, double rawY, int button) {
+        if (treeDragging) { treeDragging = false; return true; }
         return super.mouseReleased(rawX / ui, rawY / ui, button);
     }
 
     @Override
     public boolean mouseDragged(double rawX, double rawY, int button, double dx, double dy) {
+        if (treeDragging && tab == 1 && !feedOpen) {
+            treePanX += dx / ui;
+            treeScroll = Math.max(0, Math.min(treeScrollMax, treeScroll + (int) Math.round(dy / ui)));
+            return true;
+        }
         return super.mouseDragged(rawX / ui, rawY / ui, button, dx / ui, dy / ui);
     }
 
@@ -1082,6 +1095,16 @@ public class HubScreen extends Screen {
         if (tab == 1 && !feedOpen) {
             double x = rawX / ui, y = rawY / ui;
             if (treeViewport != null && treeViewport.in(x, y)) {
+                if (hasControlDown()) {
+                    double previous = treeZoom;
+                    treeZoom = Math.max(0.5, Math.min(2.0, treeZoom * Math.pow(1.15, delta)));
+                    double ratio = treeZoom / previous;
+                    double rootX = cx + 6 + treePanX;
+                    double rootY = y0 + winH - 73 + treeScroll;
+                    treePanX += (x - rootX) * (1 - ratio);
+                    treeScroll = Math.max(0, (int) Math.round(treeScroll + (y - rootY) * (1 - ratio)));
+                    return true;
+                }
                 treeScroll = Math.max(0, Math.min(treeScrollMax, treeScroll + (int) Math.round(delta * 24)));
                 return true;
             }

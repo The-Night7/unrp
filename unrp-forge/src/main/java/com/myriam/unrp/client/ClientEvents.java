@@ -39,6 +39,7 @@ public final class ClientEvents {
     public static final class ModBus {
         @SubscribeEvent
         public static void onKeys(RegisterKeyMappingsEvent event) {
+            event.register(ABILITY_KEY);
             event.register(HUB_KEY); // les touches des pouvoirs sont celles de Palladium (look/AbilityBar), comme dans le modèle
         }
 
@@ -185,6 +186,9 @@ public final class ClientEvents {
         public static void onClientTick(TickEvent.ClientTickEvent event) {
             if (event.phase != TickEvent.Phase.END) return;
             Minecraft mc = Minecraft.getInstance();
+            while (ABILITY_KEY.consumeClick()) {
+                if (mc.player != null && mc.screen == null) act(0);
+            }
             while (HUB_KEY.consumeClick()) {
                 if (mc.player == null || mc.screen != null) continue;
                 if (ClientState.get().hasProfile) {

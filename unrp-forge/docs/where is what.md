@@ -6,6 +6,8 @@ Voir [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) pour le guide complet : fi
 
 ## Covenant
 
+Rule entry: activate Covenant with R, then press Enact to open its command prompt, or use `/unrp covenant law No running. Penalty: Speed` directly. Command registration lives in `UnrpCommands.java`; both input paths use `Specials17.finish`.
+
 - [COVENANT_SPEC.md](COVENANT_SPEC.md): full author specification, God tier and permanent Indemnity from 5.0.
 - [COVENANT.md](COVENANT.md): implemented rules, six stances, chat controls, persistence and Minecraft representations.
 - [CovenantRules.java](../src/main/java/com/myriam/unrp/ability/CovenantRules.java), [Specials17.java](../src/main/java/com/myriam/unrp/ability/Specials17.java), [CovenantParse.java](../src/main/java/com/myriam/unrp/ability/CovenantParse.java): tiers, gameplay and law grammar.
@@ -30,6 +32,8 @@ Toutes les ressources du mod utilisent le namespace `unrp` :
 | Apparence du hub | [client/UiSkin.java](../src/main/java/com/myriam/unrp/client/UiSkin.java) : palette or et ambre, panneaux et bordures ; [HubScreen.java](../src/main/java/com/myriam/unrp/client/HubScreen.java) : disposition et widgets |
 
 Le radar de l’onglet Pouvoir et l’arbre cliquable de l’onglet Capacités sont dessinés dans `HubScreen.java`, avec la géométrie dans [HubGraphLayout.java](../src/main/java/com/myriam/unrp/client/HubGraphLayout.java). Les branches reprennent les champs `requires` et `unlock` de [ability_powers.json](../src/main/resources/data/unrp/unodex/ability_powers.json), envoyés au client par [SocialService.java](../src/main/java/com/myriam/unrp/social/SocialService.java). Les achats restent contrôlés par le serveur (`Unlocks.buy`).
+
+Ability-tree controls: drag empty space with the left button, or drag anywhere with the right/middle button, to pan; wheel scrolls vertically and Ctrl + wheel zooms. Covenant’s stance switch is on its second ability-bar page (default list key X), leaving all four main actions reachable. The power toggle also has a dedicated R binding in Controls.
 
 Les tags d’intégration à Minecraft et Forge restent dans `data/minecraft/` et `data/forge/`.
 Les identifiants persistants, objectifs de score et tags du mod utilisent également `unrp`.

@@ -24,7 +24,7 @@ Durations use server ticks at 20 ticks/second: one hour = 72,000 ticks, one day 
 
 ## Stances and controls
 
-Assign the ability to an eligible OC with `/unrp giveability <player> covenant`. It remains assignment-only, excluded from the normal ability roll. Activate it with the configured power toggle. The first move changes stance; each stance has four additional moves.
+Assign the ability to an eligible OC with `/unrp giveability <player> covenant`. It remains assignment-only, excluded from the normal ability roll. Activate it with the configured power toggle. The main bar page contains the power toggle and four stance actions. Use the configured ability-list key (default X) to reach the second page, then press its Change Stance action. It has its own bar slot and does not replace Enact. Each stance has four actions.
 
 | Stance | Moves / behavior |
 | --- | --- |
@@ -35,9 +35,21 @@ Assign the ability to an eligible OC with `/unrp giveability <player> covenant`.
 | Sovereignty — God | **Jurisdiction**: enter a registered territory name, or `here`, for a 24-hour autonomous Court. **Sovereign Pact**: offer a private agreement to a named person without a range restriction; known offline people receive it on reconnect. **Sovereign's Due**: set daily tribute. **Writing on the Hand**: send a private message to a marked signer at any distance; messages can wait for reconnect. |
 | Registry | **Ledger**: list collateral and laws; the level-five passive adds debts and remaining resources, God adds locations and all recorded Pacts. **Return Collateral**: restore the selected item to its original owner. **Spend Collateral**: restore 20 aura while relinquishing the selected collateral and releasing its penalty. **Summon Soul**: summon the selected soul's online owner from any dimension. |
 
+Drag empty space with the left mouse button, or drag anywhere with the right/middle button, to pan the ability tree. Scroll to move vertically; Ctrl + scroll zooms.
+
 Use your current configured ability keys; the bar follows Palladium's key mappings. Caster and recipients do not need to stand together for God-tier marked-person actions. The named-target control below is available when aiming is impractical.
 
 ## Writing laws and Pacts
+
+Activate Covenant with R. On the main bar page, press Enact: a chat command prompt opens automatically. Complete it and press Enter, for example:
+
+```text
+/unrp covenant law No one may run. Penalty: their Speed
+/unrp covenant terms Whoever enters gives up their weapons
+```
+
+These commands also work directly, without first pressing Enact and without a 30-second deadline. They require active Covenant and retain the same aura costs, tier restrictions and law caps. God-tier writing commands are `constitution`, `retroactive`, `forfeit`, `tribute`, `jurisdiction`, `message` and `sovereign_pact`, each followed by its text. `/unrp covenant cancel` clears a pending chat capture.
+
 
 Enact, Terms, Pact and God-tier writing moves capture the next chat message. Inputs are parsed by explicit keywords, **not unrestricted natural-language reasoning**. Unrecognized laws or unavailable penalty types are rejected rather than silently invented.
 
