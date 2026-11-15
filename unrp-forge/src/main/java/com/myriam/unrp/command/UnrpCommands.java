@@ -55,6 +55,7 @@ public final class UnrpCommands {
         d.register(Commands.literal("unrp")
                 .then(Commands.literal("menu").executes(ctx -> menu(ctx.getSource())))
                 .then(covenantWritingCommands())
+                .then(LevelCommands.tree())
                 .then(Commands.literal("undress").executes(ctx -> {
                     var p = ctx.getSource().getPlayerOrException();
                     com.myriam.unrp.item.Cosmetics.clear(p);

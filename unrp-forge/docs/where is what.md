@@ -1,6 +1,10 @@
 # Where is what
 
+[Ability-level commands](LEVEL_COMMANDS.md): `/unrp level get`, `/unrp level set 5.0 [player]`, `/unrp level add 0.5 [player]`. Operator-only OC edits, persisted and synced immediately. Implementation: [LevelCommands.java](../src/main/java/com/myriam/unrp/command/LevelCommands.java).
+
 [Item lore and visual references](ITEM_LORE.md) map the canon corrections and RP adaptations.
+
+The active HUD uses the original [background PNG](../src/main/resources/assets/unrp/textures/gui/hud/rpg_hud_back.png) and [foreground PNG](../src/main/resources/assets/unrp/textures/gui/hud/rpg_hud_front.png), both 200 × 80. Edit them directly or regenerate them with [design_hud_textures.py](../tools/design_hud_textures.py). [UnrpHudOverlay.java](../src/main/java/com/myriam/unrp/look/UnrpHudOverlay.java) retains the original 3D portrait and meter layout.
 
 The gold status HUD and original inventory icon sources are mapped in [VISUAL_STYLE.md](VISUAL_STYLE.md), with [HUD](unrp-hud-preview.svg) and [item](unrp-items-preview.svg) previews.
 
