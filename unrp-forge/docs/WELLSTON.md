@@ -37,7 +37,7 @@ The monthly cake special is advertised on a sign. It is not an unlimited permane
 ## Code
 
 - [WellstonBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java): the dedicated buildings, rooms, stairs and furnishings.
-- [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java): dispatches Wellston to its dedicated plan; the other schools retain their original layouts.
+- [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java): dispatches Wellston to its dedicated plan; Agwin also has a dedicated plan; the remaining schools retain their original layouts.
 - [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java): material mapping, dynamic footprint, saved layout version and chunk clipping.
 - [SchoolStructure.java](../src/main/java/com/myriam/unrp/worldgen/SchoolStructure.java): terrain sampling and structure height use the selected plan's dimensions.
 - [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java): unchanged unique site algorithm; Wellston selects its own palette and three teaching floors.

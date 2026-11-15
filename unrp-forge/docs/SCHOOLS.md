@@ -4,7 +4,7 @@ UNRP generates six furnished campuses directly from Java: **Wellston, Agwin, New
 
 There is **one natural generation site for each school per Overworld**, not a repeating school every few regions. The sites are fixed by the world seed, independently of exploration order, chunk-generation threads, saves and restarts. No manual building, NBT template or additional scripting mod is required.
 
-Wellston now has a [dedicated canon-based layout](WELLSTON.md): three teaching blocks, separate dormitories, Room 224, the press room and an accessible fenced rooftop. Its exact dimensions and room adjacencies are adaptations. The other four secondary schools retain the original two-floor layouts; Wellston University retains its original three-floor design. The private school no longer has the invented clock tower.
+Wellston now has a [dedicated canon-based layout](WELLSTON.md): three teaching blocks, separate dormitories, Room 224, the press room and an accessible fenced rooftop. Its exact dimensions and room adjacencies are adaptations. Agwin has its own [Episode 374-based five-storey building](AGWIN.md), including its pastel façade, canopy, windowed corridors and classroom 2-3. The other three secondary schools retain their original two-floor layouts; Wellston University retains its original three-floor design. The private school no longer has the invented clock tower.
 
 [View the ground-floor plans](schools-preview.svg).
 
@@ -29,7 +29,7 @@ Existing worlds can generate a school only if its reserved starting chunk has no
 
 ## Buildings
 
-The five original campuses occupy 73 × 73 blocks. Wellston occupies 129 × 129 blocks, with three teaching floors and separate two-floor dormitories. Its layout is documented separately in [WELLSTON.md](WELLSTON.md).
+The four original campuses occupy 73 × 73 blocks. Wellston occupies 129 × 129 blocks, with three teaching floors and separate two-floor dormitories. Agwin occupies 97 × 97 blocks and has five teaching floors. Their layouts and reference limits are documented in [WELLSTON.md](WELLSTON.md) and [AGWIN.md](AGWIN.md).
 
 The original campus design includes:
 
@@ -49,6 +49,7 @@ The site is not discarded because it falls in an ocean or on a slope: the campus
 | Purpose | Location |
 | --- | --- |
 | Six school IDs, fixed regions and seed-derived unique sites | [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) |
+| Dedicated Agwin layout and canon notes | [AgwinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java), [AGWIN.md](AGWIN.md) |
 | Dedicated Wellston layout and canon notes | [WellstonBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java), [WELLSTON.md](WELLSTON.md) |
 | Building geometry and furniture | [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) |
 | World-generation entry point and terrain height | [SchoolStructure.java](../src/main/java/com/myriam/unrp/worldgen/SchoolStructure.java) |
@@ -75,10 +76,13 @@ javac -encoding UTF-8 -d /tmp/unrp-school-preview \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolSites.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java \
+  unrp-forge/src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java \
   unrp-forge/tools/SchoolPreview.java \
-  unrp-forge/tools/WellstonPreview.java
+  unrp-forge/tools/WellstonPreview.java \
+  unrp-forge/tools/AgwinPreview.java
 java -cp /tmp/unrp-school-preview SchoolPreview unrp-forge/docs/schools-preview.svg
 java -cp /tmp/unrp-school-preview WellstonPreview unrp-forge/docs/wellston-preview.svg
+java -cp /tmp/unrp-school-preview AgwinPreview unrp-forge/docs/agwin-preview.svg
 ```
 
 Automated tests cover vanilla placement agreement, a single eligible location in a grid of candidate regions, unique school sites, data coverage, geometry bounds, unobstructed entrances and stair headroom, signs and essential furnishings. A live Minecraft world-generation and visual playtest is still required, especially for terrain joins, extreme landscapes and interactions with other world-generation mods.

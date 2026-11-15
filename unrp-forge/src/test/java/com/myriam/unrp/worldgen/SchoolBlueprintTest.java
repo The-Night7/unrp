@@ -19,7 +19,7 @@ class SchoolBlueprintTest {
     }
     @Test void entranceCorridorsAndStairHeadroomStayOpenOnEveryFloor() {
         for(var school:SchoolSites.SCHOOLS) {
-            if(school.id().equals("wellston")) continue;
+            if(school.id().equals("wellston") || school.id().equals("agwin")) continue;
             var plan=SchoolBlueprint.create(school);
             assertEquals(DOOR_LOWER,plan.at(36,1,12));
             assertEquals(DOOR_UPPER,plan.at(36,2,12));
@@ -39,7 +39,7 @@ class SchoolBlueprintTest {
     }
     @Test void essentialRoomsAreFurnishedAndBedsHaveBothHalves() {
         for(var school:SchoolSites.SCHOOLS) {
-            if(school.id().equals("wellston")) continue;
+            if(school.id().equals("wellston") || school.id().equals("agwin")) continue;
             var plan=SchoolBlueprint.create(school);
             assertEquals(BOOKS,plan.at(9,7,40));
             assertEquals(DESK,plan.at(12,1,36));

@@ -28,6 +28,7 @@ Voir **docs/SETUP.md** (commandes pour Fish).
 | [docs/ABILITY_DEVELOPMENT.md](docs/ABILITY_DEVELOPMENT.md) | code et données des capacités, ajout d’un pouvoir, mouvements, animations, arbre de prérequis et chaîne client/serveur |
 | [docs/where is what.md](docs/where%20is%20what.md) | emplacements des ressources, réglages du tirage, interface et JAR généré |
 | `docs/fidelite/` | une fiche par pouvoir : modèle contre notre version, ligne par ligne (✅ ≈ 🎨 ❌) |
+| [docs/AGWIN.md](docs/AGWIN.md) | Episode 374-based Agwin campus, reference limits, saved-layout compatibility and elevation/floor previews |
 | [docs/WELLSTON.md](docs/WELLSTON.md) | Canon-based Wellston campus, reference sources, layout adaptations and floor-by-floor preview |
 | [docs/SCHOOLS.md](docs/SCHOOLS.md) | Procedural schools, unique world-generation sites, locate commands and floor-plan previews |
 | [docs/COVENANT.md](docs/COVENANT.md) | Covenant: gameplay, God tier, stances, contracts and persistence |

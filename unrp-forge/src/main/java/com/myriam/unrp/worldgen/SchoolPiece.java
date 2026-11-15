@@ -32,7 +32,7 @@ public final class SchoolPiece extends StructurePiece {
     private SchoolPiece(String id, BlockPos origin, int minY, SchoolBlueprint.Plan plan) {
         super(SchoolWorldgen.CAMPUS.get(),0,new BoundingBox(origin.getX(),minY,origin.getZ(),
                 origin.getX()+plan.size()-1,origin.getY()+plan.height(),origin.getZ()+plan.size()-1));
-        schoolId=id; this.origin=origin.immutable(); layoutVersion=2;
+        schoolId=id; this.origin=origin.immutable(); layoutVersion=SchoolBlueprint.CURRENT_LAYOUT_VERSION;
     }
     SchoolPiece(StructurePieceSerializationContext context, CompoundTag tag) {
         super(SchoolWorldgen.CAMPUS.get(),tag);
@@ -46,11 +46,8 @@ public final class SchoolPiece extends StructurePiece {
     @Override public void postProcess(WorldGenLevel level, StructureManager manager, ChunkGenerator generator,
                                      RandomSource random, BoundingBox clip, ChunkPos chunk, BlockPos pivot) {
         if (!level.getLevel().dimension().equals(Level.OVERWORLD)) return;
-        var design=SchoolSites.school(schoolId);
-        var school=design;
-        boolean legacy=layoutVersion<2;
-        var plan=PLANS.computeIfAbsent(schoolId+":"+layoutVersion,id -> legacy?SchoolBlueprint.legacy(design):SchoolBlueprint.create(design));
-        if(legacy && schoolId.equals("wellston")) school=new SchoolSites.School(schoolId,school.name(),school.regionX(),school.regionZ(),2,"gold");
+        var school=SchoolBlueprint.schoolForVersion(SchoolSites.school(schoolId),layoutVersion);
+        var plan=PLANS.computeIfAbsent(schoolId+":"+layoutVersion,id -> SchoolBlueprint.forVersion(school,layoutVersion));
         int minX=Math.max(boundingBox.minX(),clip.minX()), maxX=Math.min(boundingBox.maxX(),clip.maxX());
         int minZ=Math.max(boundingBox.minZ(),clip.minZ()), maxZ=Math.min(boundingBox.maxZ(),clip.maxZ());
         BlockPos.MutableBlockPos pos=new BlockPos.MutableBlockPos();
@@ -93,7 +90,7 @@ public final class SchoolPiece extends StructurePiece {
     }
     private static BlockState state(SchoolBlueprint.Material material, SchoolSites.School school) {
         Block accent=switch(school.palette()) {
-            case "wellston" -> Blocks.SMOOTH_SANDSTONE; case "blue" -> Blocks.BLUE_TERRACOTTA; case "green" -> Blocks.GREEN_TERRACOTTA;
+            case "agwin" -> Blocks.LIGHT_GRAY_CONCRETE; case "wellston" -> Blocks.SMOOTH_SANDSTONE; case "blue" -> Blocks.BLUE_TERRACOTTA; case "green" -> Blocks.GREEN_TERRACOTTA;
             case "red" -> Blocks.RED_TERRACOTTA; case "cyan" -> Blocks.CYAN_TERRACOTTA;
             case "purple" -> Blocks.PURPLE_TERRACOTTA; default -> Blocks.YELLOW_TERRACOTTA;
         };
@@ -103,10 +100,10 @@ public final class SchoolPiece extends StructurePiece {
             case PAVING -> Blocks.SMOOTH_STONE.defaultBlockState();
             case GRASS -> Blocks.GRASS_BLOCK.defaultBlockState();
             case WALL -> (school.id().equals("wellston") && school.palette().equals("wellston")?Blocks.TERRACOTTA:school.palette().equals("red")?Blocks.STONE_BRICKS:school.palette().equals("green")?Blocks.BRICKS:Blocks.SMOOTH_QUARTZ).defaultBlockState();
-            case FLOOR -> Blocks.BIRCH_PLANKS.defaultBlockState();
-            case ROOF -> (school.palette().equals("wellston")?Blocks.LIGHT_GRAY_CONCRETE:school.palette().equals("green")?Blocks.DARK_OAK_PLANKS:Blocks.DEEPSLATE_TILES).defaultBlockState();
+            case FLOOR -> (school.palette().equals("agwin")?Blocks.SMOOTH_STONE:Blocks.BIRCH_PLANKS).defaultBlockState();
+            case ROOF -> (school.palette().equals("agwin")?Blocks.GRAY_CONCRETE:school.palette().equals("wellston")?Blocks.LIGHT_GRAY_CONCRETE:school.palette().equals("green")?Blocks.DARK_OAK_PLANKS:Blocks.DEEPSLATE_TILES).defaultBlockState();
             case ACCENT -> accent.defaultBlockState();
-            case GLASS -> Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState();
+            case GLASS -> (school.palette().equals("agwin")?Blocks.LIGHT_GRAY_STAINED_GLASS:Blocks.LIGHT_BLUE_STAINED_GLASS).defaultBlockState();
             case FENCE -> Blocks.IRON_BARS.defaultBlockState();
             case LEAVES -> Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT,true);
             case LOG -> Blocks.OAK_LOG.defaultBlockState();
@@ -118,17 +115,17 @@ public final class SchoolPiece extends StructurePiece {
             case DESK -> Blocks.OAK_SLAB.defaultBlockState().setValue(SlabBlock.TYPE,net.minecraft.world.level.block.state.properties.SlabType.TOP);
             case CHAIR -> Blocks.OAK_STAIRS.defaultBlockState().setValue(StairBlock.FACING,Direction.NORTH);
             case STAIRS -> Blocks.QUARTZ_STAIRS.defaultBlockState().setValue(StairBlock.FACING,Direction.SOUTH);
-            case DOOR_LOWER -> Blocks.OAK_DOOR.defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.LOWER);
-            case DOOR_UPPER -> Blocks.OAK_DOOR.defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.UPPER);
+            case DOOR_LOWER -> (school.palette().equals("agwin")?Blocks.BIRCH_DOOR:Blocks.OAK_DOOR).defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.LOWER);
+            case DOOR_UPPER -> (school.palette().equals("agwin")?Blocks.BIRCH_DOOR:Blocks.OAK_DOOR).defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.UPPER);
             case BED_HEAD -> Blocks.WHITE_BED.defaultBlockState().setValue(BedBlock.PART,BedPart.HEAD).setValue(BedBlock.FACING,Direction.SOUTH);
             case BED_FOOT -> Blocks.WHITE_BED.defaultBlockState().setValue(BedBlock.PART,BedPart.FOOT).setValue(BedBlock.FACING,Direction.SOUTH);
             case COUNTER -> Blocks.SMOOTH_STONE.defaultBlockState();
             case FURNACE -> Blocks.SMOKER.defaultBlockState();
             case CAULDRON -> Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL,3);
-            case BOARD -> Blocks.BLACK_CONCRETE.defaultBlockState();
+            case BOARD -> (school.palette().equals("agwin")?Blocks.GREEN_CONCRETE:Blocks.BLACK_CONCRETE).defaultBlockState();
             case SIGN -> Blocks.OAK_SIGN.defaultBlockState();
             case WALL_SIGN -> Blocks.OAK_WALL_SIGN.defaultBlockState().setValue(WallSignBlock.FACING,Direction.NORTH);
-            case TRIM -> Blocks.SMOOTH_SANDSTONE.defaultBlockState();
+            case TRIM -> (school.palette().equals("agwin")?Blocks.LIGHT_GRAY_CONCRETE:Blocks.SMOOTH_SANDSTONE).defaultBlockState();
             case PARTITION -> Blocks.SMOOTH_QUARTZ.defaultBlockState();
             case LOCKER -> Blocks.IRON_BLOCK.defaultBlockState();
             case COMPUTER -> Blocks.BLACK_CONCRETE.defaultBlockState();
@@ -137,6 +134,15 @@ public final class SchoolPiece extends StructurePiece {
             case CAFETERIA_CHAIR -> Blocks.PURPUR_STAIRS.defaultBlockState().setValue(StairBlock.FACING,Direction.NORTH);
             case CAFETERIA_COUNTER -> Blocks.PRISMARINE_BRICKS.defaultBlockState();
             case CAFETERIA_WALL -> Blocks.YELLOW_CONCRETE.defaultBlockState();
+            case AGWIN_YELLOW -> Blocks.SMOOTH_SANDSTONE.defaultBlockState();
+            case AGWIN_PINK -> Blocks.WHITE_TERRACOTTA.defaultBlockState();
+            case CENTRE_PANEL -> Blocks.QUARTZ_BRICKS.defaultBlockState();
+            case WINDOW_FRAME -> Blocks.POLISHED_BLACKSTONE.defaultBlockState();
+            case WINDOW_MULLION -> Blocks.BLACK_STAINED_GLASS_PANE.defaultBlockState().setValue(IronBarsBlock.EAST,true).setValue(IronBarsBlock.WEST,true);
+            case HALL_TRIM -> Blocks.PRISMARINE_BRICKS.defaultBlockState();
+            case SIDE_DOOR_LOWER -> Blocks.BIRCH_DOOR.defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.LOWER).setValue(DoorBlock.FACING,Direction.EAST);
+            case SIDE_DOOR_UPPER -> Blocks.BIRCH_DOOR.defaultBlockState().setValue(DoorBlock.HALF,DoubleBlockHalf.UPPER).setValue(DoorBlock.FACING,Direction.EAST);
+            case STAIRS_NORTH -> Blocks.QUARTZ_STAIRS.defaultBlockState().setValue(StairBlock.FACING,Direction.NORTH);
         };
     }
     private static final class BlockTagsAdapter {

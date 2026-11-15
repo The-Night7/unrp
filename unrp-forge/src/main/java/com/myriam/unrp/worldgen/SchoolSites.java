@@ -13,7 +13,7 @@ public final class SchoolSites {
     }
     public static final List<School> SCHOOLS = List.of(
             new School("wellston", "Wellston", 0, 0, 3, "wellston"),
-            new School("agwin", "Agwin", -1, 0, 2, "blue"),
+            new School("agwin", "Agwin", -1, 0, 5, "agwin"),
             new School("new_bostin", "New Bostin", 0, -1, 2, "green"),
             new School("rowden", "Rowden", -1, -1, 2, "red"),
             new School("westview", "Westview", 1, 0, 2, "cyan"),
