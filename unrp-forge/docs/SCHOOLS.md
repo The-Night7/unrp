@@ -123,3 +123,7 @@ java -cp /tmp/unrp-school-preview CampusPreview wellston_university unrp-forge/d
 Tests cover unique eligible sites, vanilla placement agreement, source-data coverage, geometry bounds, signs, stair headroom, usable entrances, furniture, all new room signs/building floors reachable from the front gate, and compatibility with earlier saved layouts. Wellston and Agwin's established dedicated layouts are checked for changes.
 
 A live Minecraft world-generation and visual playtest remains necessary, especially for terrain joins, extreme landscapes, actual block-model behavior and interactions with other world-generation mods.
+
+## Sign initialization during generation
+
+School sign text is initialized by `SchoolSignText` through block-entity NBT loading. Protochunk sign entities can have no attached `Level`; calling live sign text/wax setters there causes a `SignBlockEntity.markUpdated` null-pointer crash during feature placement. Both faces and waxing are saved without broadcasting a live block update. A regression test checks both faces contain four JSON text messages and the waxed flag.

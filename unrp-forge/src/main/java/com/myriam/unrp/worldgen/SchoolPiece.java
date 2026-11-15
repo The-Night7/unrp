@@ -3,7 +3,6 @@ package com.myriam.unrp.worldgen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -76,15 +75,7 @@ public final class SchoolPiece extends StructurePiece {
             BlockPos at=origin.offset(label.x(),label.y(),label.z());
             if(!clip.isInside(at)) continue;
             if(level.getBlockEntity(at) instanceof SignBlockEntity sign) {
-                var text=sign.getFrontText();
-                String[] words=label.text().split(" ");
-                StringBuilder line=new StringBuilder(); int row=0;
-                for(String word:words) {
-                    if(line.length()+word.length()+1>16 && row<3) { text=text.setMessage(row++,Component.literal(line.toString())); line.setLength(0); }
-                    if(!line.isEmpty()) line.append(' '); line.append(word);
-                }
-                text=text.setMessage(row,Component.literal(line.toString()));
-                sign.setText(text,true); sign.setText(text,false); sign.setWaxed(true); sign.setChanged();
+                SchoolSignText.initialize(sign,label.text());
             }
         }
     }
