@@ -31,7 +31,11 @@ public final class CovenantClient {
         var root = JsonParser.parseString(json).getAsJsonObject();
         if (root.has("writing")) {
             Minecraft mc = Minecraft.getInstance();
-            if (mc.player != null && mc.screen == null) mc.setScreen(new net.minecraft.client.gui.screens.ChatScreen(root.get("writing").getAsString()));
+            if (mc.player != null && mc.screen == null) {
+                String prompt=root.get("writing").getAsString();
+                if(prompt.trim().equals("/unrp covenant law"))mc.setScreen(new CovenantLawScreen(root.has("level")?root.get("level").getAsDouble():1));
+                else mc.setScreen(new net.minecraft.client.gui.screens.ChatScreen(prompt));
+            }
         }
         if (root.has("people")) {
             HANDS.clear(); receivedAt = System.currentTimeMillis();

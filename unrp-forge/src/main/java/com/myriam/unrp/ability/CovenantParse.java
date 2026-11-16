@@ -65,7 +65,7 @@ public final class CovenantParse {
         if (has(s, "jump", "saut", "bond")) return Viol.JUMP;
         if (has(s, "ability", "power", "pouvoir", "capacit", "magic", "magie", "cast")) return Viol.ABILITY;
         if (has(s, "attack", "fight", "hit", "strike", "violen", "combat", "frapp", "attaqu", "bagarr", "harm", "blesser")) return Viol.ATTACK;
-        if (has(s, "speak", "talk", "lie", "lying", "parl", "ment", "bavard", "silence", "chat", "voice")) return Viol.SPEAK;
+        if (has(s, "speak", "talk", "parl", "bavard", "silence", "chat", "voice") || s.matches(".*\\b(lie|lies|lying|mentir|ment|mentent|mensonge|mensonges)\\b.*")) return Viol.SPEAK;
         if (has(s, "fly", "flight", "vol", "plan")) return Viol.FLY;
         if (has(s, "break", "mine", "dig", "casse", "miner", "creus", "destroy", "detruire")) return Viol.BREAK;
         if (has(s, "place", "build", "pose", "constru", "batir")) return Viol.PLACE;

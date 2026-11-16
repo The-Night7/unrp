@@ -597,9 +597,14 @@ public final class Specials17 {
         return true;
     }
 
+    public static boolean openLawEditor(ServerPlayer player) {
+        if(!on(player)){bar(player,"§cActivate Covenant before enacting a law.");return false;}
+        writingPrompt(player,"law");return true;
+    }
     private static void writingPrompt(ServerPlayer player, String action) {
         com.google.gson.JsonObject payload = new com.google.gson.JsonObject();
         payload.addProperty("writing", "/unrp covenant " + action + " ");
+        payload.addProperty("level",courtLevelOf(player));
         com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> player), new com.myriam.unrp.net.CovenantPacket(payload.toString()));
     }
 

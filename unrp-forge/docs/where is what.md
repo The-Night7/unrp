@@ -37,7 +37,7 @@ Voir [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) pour le guide complet : fi
 
 ## Covenant
 
-Rule entry: activate Covenant with R, then press Enact to open its command prompt, or use `/unrp covenant law No running. Penalty: Speed` directly. Command registration lives in `UnrpCommands.java`; both input paths use `Specials17.finish`.
+Rule entry: activate Covenant with R, then press Enact (or `/unrp covenant law`) for the action/penalty form. [CovenantLawScreen.java](../src/main/java/com/myriam/unrp/client/CovenantLawScreen.java) owns that screen; [CovenantLawChoices.java](../src/main/java/com/myriam/unrp/ability/CovenantLawChoices.java) owns its tested choices. Advanced input remains available with `/unrp covenant law No running. Penalty: Speed`. Command registration lives in `UnrpCommands.java`; both input paths use `Specials17.finish`.
 
 - [COVENANT_SPEC.md](COVENANT_SPEC.md): full author specification, God tier and permanent Indemnity from 5.0.
 - [COVENANT.md](COVENANT.md): implemented rules, six stances, chat controls, persistence and Minecraft representations.

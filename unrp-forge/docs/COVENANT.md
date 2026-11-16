@@ -28,7 +28,7 @@ Assign the ability to an eligible OC with `/unrp giveability <player> covenant`.
 
 | Stance | Moves / behavior |
 | --- | --- |
-| Legislation | **Enact**: next chat message writes a law and penalty; crouch to repeal the latest law. **Terms of Entry**: next message selects confiscated item categories; crouch at High+ to seal a persistent building Court. **Fine Print**: hide one law; crouch to reveal it. **Foreclosure**: collect unpaid collateral plus 25% interest, rounded up; crouch for **Exile** after three breaches. |
+| Legislation | **Enact**: opens a click-to-create law form; choose an action and a penalty, then press Enact. Crouch to repeal the latest law. **Terms of Entry**: next message selects confiscated item categories; crouch at High+ to seal a persistent building Court. **Fine Print**: hide one law; crouch to reveal it. **Foreclosure**: collect unpaid collateral plus 25% interest, rounded up; crouch for **Exile** after three breaches. |
 | Contracts | **Pact**: offer a private agreement to the targeted signer, accepted/refused in chat; crouch at 5.0+ to summon a held soul. **Endowment**: lend a stat, branch or soul to an ally; crouch cycles collateral. Loans end on Court closure or the ally's breach. **Proxy**: transfer wounds to a signer until Court closure; crouch releases them. **Appropriation**: wield a stolen branch at its recorded original owner's strength, without granting unrelated moves or base-power passives. |
 | Immunity | **Sovereign Immunity**: opt into/out of the user's own laws. **Indemnity**: cancel wounds and collect a breach from their author; six seconds below 5.0, permanent while the personal Court is active from 5.0, and press again to lift it. **Escrow**: cycle a protected stat; crouch cycles an available protected branch. **Arbitration**: suspend a debtor's ability until the debt is paid. |
 | Constitution — God | **Constitution**: enter a law, or an existing law's number, to make it permanent for signed people inside and outside the Court. **Retroactive Law**: enter a law applied to recorded acts from the preceding hour. **Total Forfeit**: write a law with a whole-ability penalty. **Class Action**: collect one outstanding penalty from each debtor, including known offline signers. |
@@ -41,7 +41,9 @@ Use your current configured ability keys; the bar follows Palladium's key mappin
 
 ## Writing laws and Pacts
 
-Activate Covenant with R. On the main bar page, press Enact: a chat command prompt opens automatically. Complete it and press Enter, for example:
+Activate Covenant with R, then press Enact. The law form opens: click the forbidden **Action**, choose its **Penalty**, then click **Enact**. Available penalties follow your tier. Nothing needs to be typed. A sentence preview shows the exact rule that will be sent to the server. Cancel/ESC also clears the pending law capture, so your next normal chat message is not accidentally treated as a law.
+
+`/unrp covenant law` with no text also opens this form. **Advanced...** switches to the existing command prompt. Written commands still work directly, for example:
 
 ```text
 /unrp covenant law No one may run. Penalty: their Speed
@@ -51,7 +53,7 @@ Activate Covenant with R. On the main bar page, press Enact: a chat command prom
 These commands also work directly, without first pressing Enact and without a 30-second deadline. They require active Covenant and retain the same aura costs, tier restrictions and law caps. God-tier writing commands are `constitution`, `retroactive`, `forfeit`, `tribute`, `jurisdiction`, `message` and `sovereign_pact`, each followed by its text. `/unrp covenant cancel` clears a pending chat capture.
 
 
-Enact, Terms, Pact and God-tier writing moves capture the next chat message. Inputs are parsed by explicit keywords, **not unrestricted natural-language reasoning**. Unrecognized laws or unavailable penalty types are rejected rather than silently invented.
+The advanced/legacy chat path for Enact, and the Terms/Pact/God-tier writing moves, can capture a chat message. Written inputs are parsed by explicit keywords, **not unrestricted natural-language reasoning**. Unrecognized laws or unavailable penalty types are rejected rather than silently invented.
 
 Examples:
 
@@ -193,3 +195,7 @@ Regenerate with `python3 unrp-forge/tools/design_covenant.py`. The former `make_
 The scene is sent every two seconds and expires client-side after six seconds without an update. It is limited to eight nearby physical Courts per viewer, with three public cards each; boundary marks only query loaded client terrain. Existing private registry markers remain restricted to the Sovereign. Match client/server mod versions for these visuals.
 
 The visual redesign does not alter laws, penalties, range, collateral, acceptance of Pacts, cooldowns or tier unlocks. New tests cover hidden-law filtering, complete bounded paging and preservation of stored law text. OpenGL appearance, first-person item poses and multiplayer visual interactions still need a live Minecraft check.
+
+## Simple law form
+
+[CovenantLawScreen.java](../src/main/java/com/myriam/unrp/client/CovenantLawScreen.java) provides the action/penalty buttons, tier-filtered options, pagination and create/cancel controls. [CovenantLawChoices.java](../src/main/java/com/myriam/unrp/ability/CovenantLawChoices.java) supplies fixed phrases that are tested against the actual server parser for every combination. The form sends the existing `unrp covenant law ...` command; server checks still enforce active Covenant, aura costs, law caps and eligible penalty types. Opening the form does not bypass those checks. This simplifies Enact; other contract/territory writing controls retain their current input flow.
