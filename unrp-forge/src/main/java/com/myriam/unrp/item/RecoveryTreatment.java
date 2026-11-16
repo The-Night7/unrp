@@ -1,12 +1,10 @@
 package com.myriam.unrp.item;
 
-/** Medical-bed aura recovery per second, in addition to ordinary regeneration. */
+/** Progress towards restoring a disabled ability. Rates are percentage points per treatment second. */
 public final class RecoveryTreatment {
     private RecoveryTreatment() {}
-    public static int nextAura(int current,int maximum) {
-        return nextAura(current,maximum,1);
-    }
-    public static int nextAura(int current,int maximum,double rate) {
-        return (int)Math.min(maximum,(long)current+Math.max(1,(long)Math.floor(maximum*rate/50)));
+    public static double advance(double progress,double rate) {
+        if(!Double.isFinite(progress)||!Double.isFinite(rate)||rate<=0)throw new IllegalArgumentException("Invalid recovery progress or rate");
+        return Math.min(100,Math.max(0,progress)+rate);
     }
 }

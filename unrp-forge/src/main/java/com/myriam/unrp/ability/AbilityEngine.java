@@ -1384,6 +1384,30 @@ public final class AbilityEngine {
         return Specials17.powerBlocked(p) || (st != null && st.disabledUntil > p.serverLevel().getGameTime());
     }
 
+    /** A recoverable suspension, distinct from another Sovereign still holding an ability as collateral. */
+    public static boolean hasRecoverableDisable(ServerPlayer p) {
+        St state=STATE.get(p.getUUID());
+        return state!=null&&state.disabledUntil>p.serverLevel().getGameTime();
+    }
+
+    /** Medical recovery advances only during treatment; a new disable starts a fresh course. */
+    public static double recoverDisabledAbility(ServerPlayer p,double percentPerSecond) {
+        St state=STATE.get(p.getUUID());
+        if(state==null||state.disabledUntil<=p.serverLevel().getGameTime())return 100;
+        var data=com.myriam.unrp.item.UnItems.persisted(p);
+        long episode=data.getLong("unrp_recovery_episode");
+        double previous=episode==state.disabledUntil?data.getDouble("unrp_recovery_progress"):0;
+        double progress=com.myriam.unrp.item.RecoveryTreatment.advance(previous,percentPerSecond);
+        data.putLong("unrp_recovery_episode",state.disabledUntil);
+        data.putDouble("unrp_recovery_progress",progress);
+        if(progress>=100) {
+            undisable(p);
+            com.myriam.unrp.uo.ModelEnv.sync(p);
+            com.myriam.unrp.player.PlayerStateService.send(p);
+        }
+        return progress;
+    }
+
     /** Lève une suspension en cours (menottes retirées). */
     public static void undisable(ServerPlayer p) {
         St st = STATE.get(p.getUUID());
@@ -1396,6 +1420,9 @@ public final class AbilityEngine {
         allOff(p); // tous les pouvoirs du joueur
         St st = STATE.computeIfAbsent(p.getUUID(), k -> new St());
         st.disabledUntil = p.serverLevel().getGameTime() + ticks;
+        var recovery=com.myriam.unrp.item.UnItems.persisted(p);
+        recovery.putLong("unrp_recovery_episode",st.disabledUntil);
+        recovery.putDouble("unrp_recovery_progress",0);
         bar(p, "Pouvoir suspendu");
     }
 

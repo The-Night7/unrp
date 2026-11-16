@@ -1,10 +1,6 @@
 package com.myriam.unrp.item;
 
 import com.myriam.unrp.UnrpMod;
-import com.myriam.unrp.data.ClaimData;
-import com.myriam.unrp.data.Models;
-import com.myriam.unrp.data.UnodexData;
-import com.myriam.unrp.player.PlayerStateService;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -61,9 +57,6 @@ public final class RecoveryBedBlock extends BedBlock {
             double next=current<.5?.5:current<1?1:current<2?2:current<5?5:.25;
             RecoveryBeds.setRate((ServerPlayer)player,head,next);return InteractionResult.CONSUME;
         }
-        if(!RecoveryBeds.powered(server,settings)) {
-            player.displayClientMessage(Component.literal("This bed's source ability is inactive. Treatment is paused."),true);return InteractionResult.CONSUME;
-        }
         if(pillow.getValue(OCCUPIED)) {
             player.displayClientMessage(Component.literal("This recovery bed is occupied."),true);return InteractionResult.CONSUME;
         }
@@ -75,7 +68,7 @@ public final class RecoveryBedBlock extends BedBlock {
         }
         // Bypass night, monster and dimension restrictions; this is treatment, never a spawn-setting bed.
         player.startSleeping(head);
-        player.displayClientMessage(Component.literal("Recovery started. Leave the bed at any time to stop treatment."),true);
+        player.displayClientMessage(Component.literal("Ability recovery started. Leave the bed at any time to pause treatment."),true);
         return InteractionResult.CONSUME;
     }
     public static boolean resting(Player player) {
@@ -89,21 +82,19 @@ public final class RecoveryBedBlock extends BedBlock {
         if(player.tickCount%20!=0)return;
         var head=player.getSleepingPos().orElseThrow();
         var settings=RecoveryBeds.get(player.serverLevel()).settings(player.serverLevel(),head);
-        if(!RecoveryBeds.powered(player.serverLevel(),settings)) {
-            player.displayClientMessage(Component.literal("Treatment paused: the owner has disabled the source ability."),true);return;
+        if(settings==null) {
+            player.displayClientMessage(Component.literal("This bed has no registered owner."),true);return;
         }
-        player.heal((float)settings.rate());
-        ClaimData data=ClaimData.get(player.server);
-        var profile=data.profileOf(player.getUUID()).orElse(null);
-        if(profile!=null) {
-            Models.Character character=ClaimData.Profile.CHARACTER.equals(profile.kind)?UnodexData.get().characters.get(profile.characterId):null;
-            int maximum=PlayerStateService.maxAura(PlayerStateService.stats(player.server,player.getUUID(),profile,character));
-            if(profile.abilityOf(character)!=null&&!profile.lifelong&&profile.aura>=0&&profile.aura<maximum
-                    &&!com.myriam.unrp.ability.AbilityEngine.blocksRegen(player.getUUID())) {
-                profile.aura=RecoveryTreatment.nextAura(profile.aura,maximum,settings.rate());
-                data.setDirty();PlayerStateService.send(player);
-            }
+        if(!com.myriam.unrp.ability.AbilityEngine.hasRecoverableDisable(player)) {
+            String message=com.myriam.unrp.ability.AbilityEngine.disabled(player)
+                    ?"Recovery cannot release an ability held or actively suppressed by another power."
+                    :"Your ability is available. Leave the bed when ready.";
+            player.displayClientMessage(Component.literal(message),true);return;
         }
-        player.displayClientMessage(Component.literal("Recovery bed · Health "+(int)Math.ceil(player.getHealth())+" / "+(int)Math.ceil(player.getMaxHealth())+" · Leave bed to stop"),true);
+        double progress=com.myriam.unrp.ability.AbilityEngine.recoverDisabledAbility(player,settings.rate());
+        String message=progress>=100
+                ?"Ability recovered. You can activate it again."
+                :String.format(java.util.Locale.ROOT,"Ability recovery: %.1f%% · Rate: %.2f%% / second",progress,settings.rate());
+        player.displayClientMessage(Component.literal(message),true);
     }
 }

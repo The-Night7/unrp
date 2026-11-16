@@ -4,26 +4,28 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecoveryTreatmentTest {
-    @Test void exhaustedPatientNeedsManySecondsOfTreatment() {
-        int aura=0;
-        for(int seconds=0;seconds<10;seconds++)aura=RecoveryTreatment.nextAura(aura,300);
-        assertEquals(60,aura);
-        assertTrue(aura<300);
-        for(int seconds=10;seconds<50;seconds++)aura=RecoveryTreatment.nextAura(aura,300);
-        assertEquals(300,aura);
+    @Test void defaultRateRequiresOneHundredTreatmentSeconds() {
+        double progress=0;
+        for(int seconds=0;seconds<99;seconds++)progress=RecoveryTreatment.advance(progress,1);
+        assertEquals(99,progress);
+        assertEquals(100,RecoveryTreatment.advance(progress,1));
     }
-    @Test void recoveryCapsAtCapacityWithoutOverflow() {
-        assertEquals(300,RecoveryTreatment.nextAura(299,300));
-        assertEquals(300,RecoveryTreatment.nextAura(300,300));
-        assertEquals(Integer.MAX_VALUE,RecoveryTreatment.nextAura(Integer.MAX_VALUE-1,Integer.MAX_VALUE));
+    @Test void ownersRateControlsTimeToFullAbilityRecovery() {
+        double slow=0,fast=0;
+        for(int seconds=0;seconds<20;seconds++) {
+            slow=RecoveryTreatment.advance(slow,.5);
+            fast=RecoveryTreatment.advance(fast,5);
+        }
+        assertEquals(10,slow);assertEquals(100,fast);
     }
-    @Test void ownersRateControlsRecoveryWithoutExceedingCapacity() {
-        assertEquals(3,RecoveryTreatment.nextAura(0,300,.5));
-        assertEquals(12,RecoveryTreatment.nextAura(0,300,2));
-        assertEquals(300,RecoveryTreatment.nextAura(299,300,20));
+    @Test void fractionalProgressSurvivesChangingRateAndDoesNotOverflow() {
+        assertEquals(35.5,RecoveryTreatment.advance(35,.5));
+        assertEquals(40.5,RecoveryTreatment.advance(35.5,5));
+        assertEquals(100,RecoveryTreatment.advance(99.5,5));
+        assertEquals(100,RecoveryTreatment.advance(100,1));
     }
-    @Test void smallAuraPoolsStillRecover() {
-        assertEquals(1,RecoveryTreatment.nextAura(0,20));
-        assertEquals(20,RecoveryTreatment.nextAura(19,20));
+    @Test void invalidRatesCannotInstantlyRestoreAnAbility() {
+        for(double rate:new double[]{0,-1,Double.NaN,Double.POSITIVE_INFINITY})
+            assertThrows(IllegalArgumentException.class,()->RecoveryTreatment.advance(0,rate));
     }
 }

@@ -75,7 +75,7 @@ public final class RecoveryBeds extends SavedData {
         }
         if(!Double.isFinite(rate)||rate<.1||rate>20)return false;
         data.beds.put(key(level,head(level,pos)),new Settings(settings.owner,settings.power,rate));data.setDirty();
-        player.displayClientMessage(Component.literal("Recovery rate: "+rate+" health points per second."),true);return true;
+        player.displayClientMessage(Component.literal("Recovery rate: "+rate+" % ability recovery per second."),true);return true;
     }
     public static int commandRate(ServerPlayer player,double rate) {
         var hit=player.pick(5,0,false);

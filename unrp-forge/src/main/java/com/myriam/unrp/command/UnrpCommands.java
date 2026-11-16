@@ -60,9 +60,9 @@ public final class UnrpCommands {
                 .then(covenantWritingCommands())
                 .then(LevelCommands.tree())
                 .then(Commands.literal("recoverybed").then(Commands.literal("rate")
-                        .then(Commands.argument("health_per_second",com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg(.1,20))
+                        .then(Commands.argument("percent_per_second",com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg(.1,20))
                                 .executes(ctx->com.myriam.unrp.item.RecoveryBeds.commandRate(ctx.getSource().getPlayerOrException(),
-                                        com.mojang.brigadier.arguments.DoubleArgumentType.getDouble(ctx,"health_per_second"))))))
+                                        com.mojang.brigadier.arguments.DoubleArgumentType.getDouble(ctx,"percent_per_second"))))))
                 .then(Commands.literal("undress").executes(ctx -> {
                     var p = ctx.getSource().getPlayerOrException();
                     com.myriam.unrp.item.Cosmetics.clear(p);
