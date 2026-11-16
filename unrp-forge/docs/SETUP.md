@@ -77,3 +77,21 @@ mets-les dans le dossier `mods/` de l'instance avec le jar `unrp`. Voir `docs/AR
 - `No Java environment is set as default` : refaire l'étape 1.
 - `Could not create an instance of type ...LoomProblemReporter` : tu es sur un Gradle 9, utilise `./gradlew`.
 - Erreur de compilation : copie la sortie complète, surtout les premières lignes `error:`.
+
+## Forge Maven metadata timeout
+
+If configuration fails while resolving `log4j-api:2.11.+` or `modlauncher:10.0.+` with `Read timed out`, the Forge Maven metadata request has failed before compilation. The Gradle build rewrites those two transitive ranges to fixed versions: Log4j API 2.19.0 (Minecraft 1.20.1's API) and ModLauncher 10.0.9. This does not globally force an older Log4j version or disable network access.
+
+When the dependencies and client assets have already been downloaded, use the local cache. From `unrp-forge/`, in fish:
+
+```fish
+./gradlew build --offline; and ./gradlew runClient --offline
+```
+
+In bash:
+
+```bash
+./gradlew build --offline && ./gradlew runClient --offline
+```
+
+Offline mode cannot fetch missing dependencies or game assets. A first setup still needs working access to the configured repositories. Do not delete the Gradle cache or use `--refresh-dependencies` to work around a repository timeout; those actions require more downloads. The MixinGradle APT notice and Gradle deprecation messages are separate from this metadata failure.
