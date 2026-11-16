@@ -29,3 +29,7 @@ The seed-based single campus site is unchanged:
 ```
 
 New structure starts use layout version **5**. Saved version 4 keeps the original 97 × 97 H-shaped campus through [WestviewV4Blueprint.java](../src/main/java/com/myriam/unrp/worldgen/WestviewV4Blueprint.java), including its former palette. Versions 1–3 retain the generic cyan template. Explored buildings are not replaced; use a fresh world for the complete revised campus. See [SCHOOLS.md](SCHOOLS.md) for generation rules and preview commands.
+
+## Layout 6 update
+
+The current generator retains this school’s architecture and adds facade depth, landscaping, lighting and an eight-block terrain apron around the previous footprint. New starts use version 6; the dimensions and version notes above describe the original dedicated design. See [SCHOOLS.md](SCHOOLS.md) for current total footprints, compatibility and [exterior views](schools-exterior-preview.png). Already generated schools are not automatically replaced.

@@ -48,3 +48,7 @@ The monthly cake special is advertised on a sign. It is not an unlimited permane
 This updates future generation. It does not overwrite an explored campus. Existing saved pieces without a layout version retain the old 73 × 73 plan and palette, including when their remaining chunks generate later, so an old building is not partly replaced by the larger plan. Use a fresh world for the revised Wellston. Locate its reserved site using `/unrp school locate wellston`.
 
 Tests check required locations and labels, furniture, stairs all the way to the roof, two-block headroom, footprint bounds and routes from the front gate to the key facilities and both dormitories. A live Minecraft visual and terrain-generation check is still needed.
+
+## Layout 6 update
+
+The current generator retains this school’s architecture and adds facade depth, landscaping, lighting and an eight-block terrain apron around the previous footprint. New starts use version 6; the dimensions and version notes above describe the original dedicated design. See [SCHOOLS.md](SCHOOLS.md) for current total footprints, compatibility and [exterior views](schools-exterior-preview.png). Already generated schools are not automatically replaced.

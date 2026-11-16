@@ -21,3 +21,7 @@ Its one reserved site per Overworld is unchanged:
 ```
 
 Layout version 4 affects new starts. Existing versions 1–3 keep their former two-floor design and red palette. See [SCHOOLS.md](SCHOOLS.md) for shared generation and verification details.
+
+## Layout 6 update
+
+The current generator retains this school’s architecture and adds facade depth, landscaping, lighting and an eight-block terrain apron around the previous footprint. New starts use version 6; the dimensions and version notes above describe the original dedicated design. See [SCHOOLS.md](SCHOOLS.md) for current total footprints, compatibility and [exterior views](schools-exterior-preview.png). Already generated schools are not automatically replaced.

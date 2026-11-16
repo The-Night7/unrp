@@ -25,3 +25,7 @@ Its one seed-based site per Overworld remains unchanged:
 ```
 
 New starts use layout version 4. Existing versions 1–3 retain the former 73 × 73 three-floor purple-accented campus, rather than being partly replaced by towers when adjacent chunks load. See [SCHOOLS.md](SCHOOLS.md) for the full generation and verification workflow.
+
+## Layout 6 update
+
+The current generator retains this school’s architecture and adds facade depth, landscaping, lighting and an eight-block terrain apron around the previous footprint. New starts use version 6; the dimensions and version notes above describe the original dedicated design. See [SCHOOLS.md](SCHOOLS.md) for current total footprints, compatibility and [exterior views](schools-exterior-preview.png). Already generated schools are not automatically replaced.

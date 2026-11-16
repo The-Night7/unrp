@@ -26,7 +26,7 @@ public class WestviewPreview {
             for(int y=height-1;y>=0;y--) {var at=materials[cells[x+z*size+y*layer]];if(visible(at)){m=at;break;}}
             rect(svg,80+x*scale,370+z*scale,scale,SchoolPreview.color(m,school));
         }
-        svg.append("<text x='30' y='1340' font-size='13'>177 × 177 blocks · eight buildings · one natural Westview site per Overworld</text><text x='30' y='1364' font-size='12'>Geometry projection, not an in-game screenshot. Scale and furnished interiors are adaptations.</text></svg>");
+        svg.append("<text x='30' y='1340' font-size='13'>193 × 193 blocks · eight buildings · one natural Westview site per Overworld</text><text x='30' y='1364' font-size='12'>Geometry projection, not an in-game screenshot. Scale and furnished interiors are adaptations.</text></svg>");
         Files.writeString(Path.of(args[0]),svg);
     }
     private static boolean visible(SchoolBlueprint.Material m) {return m!=SchoolBlueprint.Material.AIR && m!=SchoolBlueprint.Material.SIGN && m!=SchoolBlueprint.Material.WALL_SIGN;}

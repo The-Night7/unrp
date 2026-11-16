@@ -52,3 +52,7 @@ No explored buildings are overwritten or rebuilt. Use a fresh world with structu
 - [AgwinPreview.java](../tools/AgwinPreview.java): north elevation and six floor slices rendered from the actual blueprint.
 
 Tests cover the façade materials, classroom 2-3, stair headroom across all five storeys, routes through the raised entrance to the main rooms and roof, rear-garden access, structure bounds and saved-version compatibility. A live Minecraft terrain-generation and visual check remains necessary.
+
+## Layout 6 update
+
+The current generator retains this school’s architecture and adds facade depth, landscaping, lighting and an eight-block terrain apron around the previous footprint. New starts use version 6; the dimensions and version notes above describe the original dedicated design. See [SCHOOLS.md](SCHOOLS.md) for current total footprints, compatibility and [exterior views](schools-exterior-preview.png). Already generated schools are not automatically replaced.

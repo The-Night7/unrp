@@ -21,7 +21,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class SchoolPiece extends StructurePiece {
-    private static final Map<String, SchoolBlueprint.Plan> PLANS = new ConcurrentHashMap<>();
+    private record Compiled(SchoolBlueprint.Plan plan, SchoolPlanGrid grid) {}
+    private static final Map<String, Compiled> PLANS = new ConcurrentHashMap<>();
     private final String schoolId;
     private final BlockPos origin;
     private final int layoutVersion;
@@ -46,29 +47,55 @@ public final class SchoolPiece extends StructurePiece {
                                      RandomSource random, BoundingBox clip, ChunkPos chunk, BlockPos pivot) {
         if (!level.getLevel().dimension().equals(Level.OVERWORLD)) return;
         var school=SchoolBlueprint.schoolForVersion(SchoolSites.school(schoolId),layoutVersion);
-        var plan=PLANS.computeIfAbsent(schoolId+":"+layoutVersion,id -> SchoolBlueprint.forVersion(school,layoutVersion));
+        var compiled=PLANS.computeIfAbsent(schoolId+":"+layoutVersion,id -> {
+            var p=SchoolBlueprint.forVersion(school,layoutVersion);return new Compiled(p,new SchoolPlanGrid(p));
+        });
+        var plan=compiled.plan();var grid=compiled.grid();
         int minX=Math.max(boundingBox.minX(),clip.minX()), maxX=Math.min(boundingBox.maxX(),clip.maxX());
         int minZ=Math.max(boundingBox.minZ(),clip.minZ()), maxZ=Math.min(boundingBox.maxZ(),clip.maxZ());
         BlockPos.MutableBlockPos pos=new BlockPos.MutableBlockPos();
-        // Solid foundations extend through air/water to the terrain. Never write into a neighboring chunk.
-        for(int x=minX;x<=maxX;x++) for(int z=minZ;z<=maxZ;z++) {
-            for(int y=origin.getY()-2;y>level.getMinBuildHeight();y--) {
-                pos.set(x,y,z);
-                BlockState old=level.getBlockState(pos);
-                if(!old.isAir() && old.getFluidState().isEmpty() && !old.is(BlockTagsAdapter.LEAVES)) break;
-                level.setBlock(pos,Blocks.STONE_BRICKS.defaultBlockState(),2);
-            }
-        }
         var palette=new java.util.EnumMap<SchoolBlueprint.Material,BlockState>(SchoolBlueprint.Material.class);
         for(var material:SchoolBlueprint.Material.values()) palette.put(material,state(material,school));
-        for(var box:plan.boxes()) {
-            int x1=Math.max(origin.getX()+box.x1(),minX), x2=Math.min(origin.getX()+box.x2(),maxX);
-            int z1=Math.max(origin.getZ()+box.z1(),minZ), z2=Math.min(origin.getZ()+box.z2(),maxZ);
-            int y1=Math.max(origin.getY()+box.y1(),Math.max(clip.minY(),level.getMinBuildHeight()));
-            int y2=Math.min(origin.getY()+box.y2(),Math.min(clip.maxY(),level.getMaxBuildHeight()-1));
-            BlockState state=palette.get(box.material());
-            for(int x=x1;x<=x2;x++) for(int z=z1;z<=z2;z++) for(int y=y1;y<=y2;y++) {
-                pos.set(x,y,z); level.setBlock(pos,state,2);
+        // Clear each column once. Do not leave slices of a cut hillside suspended above roofs.
+        for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++) {
+            int lx=x-origin.getX(),lz=z-origin.getZ();
+            int natural=level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE_WG,x,z)-1;
+            int edge=Math.min(Math.min(lx,lz),Math.min(plan.size()-1-lx,plan.size()-1-lz));
+            boolean apron=layoutVersion>=6&&edge<SchoolPolish.APRON;
+            int grade=apron?SchoolTerrain.apronHeight(natural,origin.getY(),edge,SchoolPolish.APRON):origin.getY();
+            int top=Math.min(level.getMaxBuildHeight()-1,Math.max(natural,origin.getY()+plan.height()-1));
+            for(int y=grade+1;y<=top;y++) {pos.set(x,y,z);level.setBlock(pos,Blocks.AIR.defaultBlockState(),2);}
+            for(int y=grade-1;y>level.getMinBuildHeight();y--) {
+                pos.set(x,y,z);BlockState old=level.getBlockState(pos);
+                if(y<grade-4&&!old.isAir()&&old.getFluidState().isEmpty()&&!old.is(BlockTagsAdapter.LEAVES))break;
+                level.setBlock(pos,y>=grade-4?Blocks.DIRT.defaultBlockState():Blocks.STONE.defaultBlockState(),2);
+            }
+            if(apron) {
+                pos.set(x,grade,z);
+                boolean entrance=lx>=plan.size()/2-4&&lx<=plan.size()/2+4&&lz<SchoolPolish.APRON;
+                level.setBlock(pos,palette.get(entrance?SchoolBlueprint.Material.PATH_TILE:SchoolBlueprint.Material.GRASS),2);
+            }
+        }
+        // Final solid cells first, attached/two-part blocks second. No transient furniture is placed and erased.
+        for(int phase=0;phase<2;phase++) for(int x=minX;x<=maxX;x++)for(int z=minZ;z<=maxZ;z++) {
+            int lx=x-origin.getX(),lz=z-origin.getZ();
+            int edge=Math.min(Math.min(lx,lz),Math.min(plan.size()-1-lx,plan.size()-1-lz));
+            if(layoutVersion>=6&&edge<SchoolPolish.APRON)continue;
+            for(int y=-1;y<plan.height();y++) {
+                var material=grid.at(lx,y,lz);
+                if(material==SchoolBlueprint.Material.AIR||deferred(material)!=(phase==1))continue;
+                int wy=origin.getY()+y;
+                if(wy<clip.minY()||wy>clip.maxY()||wy<level.getMinBuildHeight()||wy>=level.getMaxBuildHeight())continue;
+                pos.set(x,wy,z);BlockState block=palette.get(material);
+                if(block.getBlock() instanceof IronBarsBlock) {
+                    for(Direction direction:Direction.Plane.HORIZONTAL) {
+                        var neighbor=palette.get(grid.at(lx+direction.getStepX(),y,lz+direction.getStepZ()));
+                        boolean attach=neighbor.getBlock() instanceof IronBarsBlock||neighbor.canOcclude()||neighbor.getBlock() instanceof AbstractGlassBlock;
+                        var property=switch(direction) {case NORTH -> IronBarsBlock.NORTH;case SOUTH -> IronBarsBlock.SOUTH;case WEST -> IronBarsBlock.WEST;default -> IronBarsBlock.EAST;};
+                        block=block.setValue(property,attach);
+                    }
+                }
+                level.setBlock(pos,block,2);
             }
         }
         for(var label:plan.labels()) {
@@ -78,6 +105,12 @@ public final class SchoolPiece extends StructurePiece {
                 SchoolSignText.initialize(sign,label.text());
             }
         }
+    }
+    private static boolean deferred(SchoolBlueprint.Material material) {
+        return switch(material) {
+            case SIGN,WALL_SIGN,DOOR_LOWER,DOOR_UPPER,SIDE_DOOR_LOWER,SIDE_DOOR_UPPER,BED_HEAD,BED_FOOT,FENCE,GATE_EW,GATE_NS,WINDOW_MULLION,BREWING_STAND,FLOWER,WATER,PENDANT,STREET_LANTERN -> true;
+            default -> false;
+        };
     }
     private static BlockState state(SchoolBlueprint.Material material, SchoolSites.School school) {
         Block accent=switch(school.palette()) {
@@ -146,6 +179,20 @@ public final class SchoolPiece extends StructurePiece {
             case MURAL_GREEN -> Blocks.GREEN_CONCRETE.defaultBlockState();
             case MURAL_LIGHT -> Blocks.LIME_TERRACOTTA.defaultBlockState();
             case FLAG_CYAN -> Blocks.CYAN_CONCRETE.defaultBlockState();
+            case WINDOW_SILL -> Blocks.SMOOTH_QUARTZ_SLAB.defaultBlockState().setValue(SlabBlock.TYPE,net.minecraft.world.level.block.state.properties.SlabType.TOP);
+            case CORNICE -> Blocks.SMOOTH_STONE_SLAB.defaultBlockState().setValue(SlabBlock.TYPE,net.minecraft.world.level.block.state.properties.SlabType.BOTTOM);
+            case PATH_EDGE -> Blocks.STONE_BRICKS.defaultBlockState();
+            case PATH_TILE -> Blocks.SMOOTH_STONE.defaultBlockState();
+            case PLANTER_SOIL -> Blocks.COARSE_DIRT.defaultBlockState();
+            case SHRUB -> Blocks.AZALEA_LEAVES.defaultBlockState().setValue(LeavesBlock.PERSISTENT,true);
+            case FLOWER -> Blocks.DANDELION.defaultBlockState();
+            case FACADE_BASE -> (school.id().equals("wellston")?Blocks.SMOOTH_SANDSTONE:Blocks.POLISHED_ANDESITE).defaultBlockState();
+            case FACADE_PIER -> (school.id().equals("wellston")?Blocks.SMOOTH_SANDSTONE:school.id().equals("westview")?Blocks.WHITE_CONCRETE:Blocks.SMOOTH_QUARTZ).defaultBlockState();
+            case FLOOR_INLAY -> (java.util.Set.of("wellston","rowden").contains(school.id())?Blocks.DARK_OAK_PLANKS:Blocks.POLISHED_ANDESITE).defaultBlockState();
+            case PENDANT -> Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING,true);
+            case STREET_POST -> Blocks.DARK_OAK_FENCE.defaultBlockState();
+            case STREET_LANTERN -> Blocks.LANTERN.defaultBlockState();
+            case ROOF_VENT -> Blocks.STONE_BRICK_SLAB.defaultBlockState();
         };
     }
     private static final class BlockTagsAdapter {

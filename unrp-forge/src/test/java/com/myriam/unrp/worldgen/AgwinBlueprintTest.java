@@ -9,7 +9,7 @@ import static com.myriam.unrp.worldgen.SchoolBlueprint.Material.*;
 
 class AgwinBlueprintTest {
     @Test void depictedFacadeAndClassroomReplaceTheGenericBlueCampus() {
-        var plan=SchoolBlueprint.create(SchoolSites.school("agwin"));
+        var plan=SchoolBlueprint.forVersion(SchoolSites.school("agwin"),5);
         assertEquals(97,plan.size());assertEquals(5,SchoolSites.school("agwin").floors());
         assertEquals("agwin",SchoolSites.school("agwin").palette());
         assertEquals(AGWIN_YELLOW,plan.at(11,10,22));assertEquals(AGWIN_PINK,plan.at(65,10,22));

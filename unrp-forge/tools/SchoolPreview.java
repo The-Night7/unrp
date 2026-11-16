@@ -6,7 +6,7 @@ import java.nio.file.Path;
 /** Standalone vector previews from the exact procedural geometry. */
 public class SchoolPreview {
     public static void main(String[] args) throws Exception {
-        StringBuilder svg=new StringBuilder("<svg xmlns='http://www.w3.org/2000/svg' width='1100' height='860' viewBox='0 0 1100 860'><rect width='1100' height='860' fill='#17140e'/><style>rect{shape-rendering:crispEdges}text{font-family:monospace;fill:#f1d586}</style><text x='28' y='30' font-size='21'>UNRP — procedural school campuses</text><text x='28' y='52' font-size='12'>Distinct campuses · one natural site per school · footprints from 97 × 97 to 177 × 177 blocks</text>");
+        StringBuilder svg=new StringBuilder("<svg xmlns='http://www.w3.org/2000/svg' width='1100' height='860' viewBox='0 0 1100 860'><rect width='1100' height='860' fill='#17140e'/><style>rect{shape-rendering:crispEdges}text{font-family:monospace;fill:#f1d586}</style><text x='28' y='30' font-size='21'>UNRP — procedural school campuses</text><text x='28' y='52' font-size='12'>Distinct campuses · one natural site per school · footprints from 113 × 113 to 193 × 193 blocks</text>");
         int index=0;
         for(var school:SchoolSites.SCHOOLS) {
             var plan=SchoolBlueprint.create(school);
@@ -83,6 +83,8 @@ public class SchoolPreview {
             case SIDE_DOOR_LOWER,SIDE_DOOR_UPPER -> "#d7d7c9";case STAIRS_NORTH -> "#b1a799";
             case TOWER_WALL -> "#c8cdce";case TOWER_GLASS -> "#7e8c94";case BREWING_STAND -> "#c4b66c";
             case ROAD_DARK -> "#45464b";case PLAZA_PAVERS -> "#a3a7a7";case GATE_EW,GATE_NS -> "#aab1b3";case MURAL_GREEN -> "#44733d";case MURAL_LIGHT -> "#7b8b43";case FLAG_CYAN -> "#25888a";
+            case WINDOW_SILL,CORNICE -> "#cbc9bc";case PATH_EDGE -> "#81817a";case PATH_TILE -> "#aaa9a3";case PLANTER_SOIL -> "#6b533d";case SHRUB -> "#56824b";case FLOWER -> "#e1bd42";case FACADE_BASE -> "#858781";case FACADE_PIER -> "#d2ccba";case FLOOR_INLAY -> "#6c6355";case PENDANT -> "#edba63";
+            case STREET_POST -> "#5b4b38";case STREET_LANTERN -> "#e7bc69";case ROOF_VENT -> "#7d807c";
             case SOFA -> "#a0aca6";case COMPUTER -> "#212f39";default -> "#4e4e50";
         };
     }

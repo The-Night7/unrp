@@ -4,14 +4,14 @@ All six UNRP schools now have dedicated Java-generated campus layouts. No manual
 
 | School | Footprint | Main / maximum floors | Guide |
 | --- | --- | --- | --- |
-| Wellston | 129 × 129 | Three teaching floors, two dormitory floors | [WELLSTON.md](WELLSTON.md) |
-| Agwin | 97 × 97 | Five | [AGWIN.md](AGWIN.md) |
-| New Bostin | 97 × 97 | Three | [NEW_BOSTIN.md](NEW_BOSTIN.md) |
-| Rowden | 97 × 97 | Three in main block, two in pavilions | [ROWDEN.md](ROWDEN.md) |
-| Westview | 177 × 177 | One-floor pavilions, three/four-floor teaching blocks | [WESTVIEW.md](WESTVIEW.md) |
-| Wellston University | 161 × 161 | Three in lower halls, seven/eight in towers | [WELLSTON_UNIVERSITY.md](WELLSTON_UNIVERSITY.md) |
+| Wellston | 145 × 145 | Three teaching floors, two dormitory floors | [WELLSTON.md](WELLSTON.md) |
+| Agwin | 113 × 113 | Five | [AGWIN.md](AGWIN.md) |
+| New Bostin | 113 × 113 | Three | [NEW_BOSTIN.md](NEW_BOSTIN.md) |
+| Rowden | 113 × 113 | Three in main block, two in pavilions | [ROWDEN.md](ROWDEN.md) |
+| Westview | 193 × 193 | One-floor pavilions, three/four-floor teaching blocks | [WESTVIEW.md](WESTVIEW.md) |
+| Wellston University | 177 × 177 | Three in lower halls, seven/eight in towers | [WELLSTON_UNIVERSITY.md](WELLSTON_UNIVERSITY.md) |
 
-[View all six ground-floor plans](schools-preview.svg).
+[Exterior geometry previews](schools-exterior-preview.png) · [Ground-floor plans](schools-preview.svg). The exterior previews use the production layouts; material colours and partial-block shapes are simplified. They are not Minecraft screenshots, and the runtime terrain apron follows the local landscape.
 
 Canon references guide the depicted features of Wellston, Agwin, New Bostin and the university. Exact dimensions and unseen room arrangements remain adaptations. Rowden's architecture is original because the consulted references do not map its campus. Westview is an original UNRP school with architecture adapted from the author’s three campus photographs. The individual guides identify references and limits.
 
@@ -49,6 +49,7 @@ Saved piece layouts and palettes are retained, including when a building's remai
 | 3 | Dedicated Wellston and Agwin; original templates for the remaining four |
 | 4 | All six dedicated layouts, including the former H-shaped Westview |
 | 5 | Photo-inspired Westview; the other five designs retained |
+| 6 | All six retain their architecture with an eight-block terrain apron, facade depth, roof details, warm lighting, floor inlays and planted courts |
 
 Current changes do not overwrite explored campuses. A fresh world is the reliable way to see every revised layout.
 
@@ -58,7 +59,7 @@ Each design is furnished and has stairs between its usable floors, readable Engl
 
 This adds physical buildings, not NPC students/teachers, lesson schedules, automatic social-territory claims, assigned character beds, laptop software, school-specific combat systems or recovery-machine gameplay.
 
-A site is not discarded merely because it lies over water or uneven terrain. The campus platform sits above sampled terrain, with foundations extending through air/water to solid blocks. This preserves the single reserved site, but can produce a raised campus on slopes or an island-like platform over water. The university is larger and contains substantially more blocks than the secondary schools.
+A site is not discarded because of water or uneven terrain. New starts sample an 81-point terrain grid and fit their platform to a robust grade rather than lifting the whole campus onto one high sample. An eight-block exterior apron blends that grade into the terrain column by column. Hills are cut back above the buildings; fills use dirt near the surface and stone below. Steep mountains and deep water can still produce substantial earthworks; the fixed unique site is retained. The apron is terrain-dependent, so its exact slopes are not represented by the flat source-layout preview.
 
 ## Code and data
 
@@ -95,6 +96,9 @@ mkdir -p /tmp/unrp-school-preview
 javac -encoding UTF-8 -d /tmp/unrp-school-preview \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolSites.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java \
+  unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolPlanGrid.java \
+  unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolPolish.java \
+  unrp-forge/src/main/java/com/myriam/unrp/worldgen/SchoolTerrain.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/CampusBuilder.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/WellstonBlueprint.java \
   unrp-forge/src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java \
@@ -107,7 +111,8 @@ javac -encoding UTF-8 -d /tmp/unrp-school-preview \
   unrp-forge/tools/WellstonPreview.java \
   unrp-forge/tools/AgwinPreview.java \
   unrp-forge/tools/CampusPreview.java \
-  unrp-forge/tools/WestviewPreview.java
+  unrp-forge/tools/WestviewPreview.java \
+  unrp-forge/tools/SchoolExteriorExport.java
 java -cp /tmp/unrp-school-preview SchoolPreview unrp-forge/docs/schools-preview.svg
 java -cp /tmp/unrp-school-preview WellstonPreview unrp-forge/docs/wellston-preview.svg
 java -cp /tmp/unrp-school-preview AgwinPreview unrp-forge/docs/agwin-preview.svg
@@ -127,3 +132,20 @@ A live Minecraft world-generation and visual playtest remains necessary, especia
 ## Sign initialization during generation
 
 School sign text is initialized by `SchoolSignText` through block-entity NBT loading. Protochunk sign entities can have no attached `Level`; calling live sign text/wax setters there causes a `SignBlockEntity.markUpdated` null-pointer crash during feature placement. Both faces and waxing are saved without broadcasting a live block update. A regression test checks both faces contain four JSON text messages and the waxed flag.
+
+## Generation and exterior improvements (layout 6)
+
+`SchoolPlanGrid` compiles ordered geometry into final cells once. Placement clears terrain columns, installs final support blocks, then places attached/two-part fixtures. This avoids repeatedly placing and removing temporary doors, beds and signs. Iron bars and glass panes derive their connection states from the complete plan, including across chunk boundaries, so rails no longer rely on missing generation neighbour updates. The sign NBT initialization fix remains in place.
+
+`SchoolPolish` preserves the earlier architectural identities and room assignments. It adds projected window sills/cornices, door canopies where applicable, facade base/pier bands, floor-edge inlays, hanging lanterns, slimmer outdoor lamps, native path edging, roof service details and planted courtyards. Existing tree crowns are trimmed to a less rectangular silhouette. Source versions 1–5 are retained.
+
+The terrain/placement changes do not rebuild already explored buildings. Use a fresh world, or a reserved site whose starting chunk has not generated, for a complete layout-6 campus. There is no automatic destructive replacement of saved buildings.
+
+[SchoolExteriorExport.java](../tools/SchoolExteriorExport.java) exports the exact production material grid; [preview_school_exteriors.py](../tools/preview_school_exteriors.py) renders it with simplified block colours/shapes. Compile the exporter with the pure-Java source list above and `SchoolPreview.java`, then run:
+
+```bash
+java -cp /tmp/unrp-school-preview SchoolExteriorExport /tmp/unrp-school-views
+python3 unrp-forge/tools/preview_school_exteriors.py /tmp/unrp-school-views
+```
+
+New checks compare the compiled grid with ordered source painting, validate cut/fill interpolation and height limits, and check access to every room sign across all six new layouts. High entrance nameplates are checked for readability from a reachable nearby position. These tests do not replace a live Minecraft terrain/visual playtest.

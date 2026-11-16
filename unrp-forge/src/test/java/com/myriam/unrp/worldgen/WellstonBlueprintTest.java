@@ -9,7 +9,7 @@ import static com.myriam.unrp.worldgen.SchoolBlueprint.Material.*;
 
 class WellstonBlueprintTest {
     @Test void canonLocationsReplaceTheGenericCampusAndRemainInsideTheFootprint() {
-        var plan=SchoolBlueprint.create(SchoolSites.school("wellston"));
+        var plan=SchoolBlueprint.forVersion(SchoolSites.school("wellston"),5);
         assertEquals(129,plan.size());
         Set<String> labels=plan.labels().stream().map(SchoolBlueprint.Label::text).collect(Collectors.toSet());
         assertTrue(labels.containsAll(Set.of("Wallik Hall","Whesley Hall","Manner Hall","Safe House - Room 224",

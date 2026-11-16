@@ -23,14 +23,14 @@ public final class SchoolStructure extends Structure {
         int x=context.chunkPos().getMiddleBlockX(), z=context.chunkPos().getMiddleBlockZ();
         var plan=SchoolBlueprint.create(school);
         int half=plan.size()/2;
-        int floor=context.chunkGenerator().getSeaLevel()+1;
-        // Fit a level campus above the local terrain, rather than silently skipping its only site.
-        for(int dx:new int[]{-half,-half/2,0,half/2,half}) for(int dz:new int[]{-half,-half/2,0,half/2,half}) {
-            floor=Math.max(floor,context.chunkGenerator().getBaseHeight(x+dx,z+dz, Heightmap.Types.WORLD_SURFACE_WG,
-                    context.heightAccessor(),context.randomState()));
+        // A robust grade avoids lifting the entire campus onto the highest hill sample.
+        int[] samples=new int[81];int sample=0;
+        for(int ix=0;ix<9;ix++)for(int iz=0;iz<9;iz++) {
+            int sx=x-half+ix*(plan.size()-1)/8,sz=z-half+iz*(plan.size()-1)/8;
+            samples[sample++]=context.chunkGenerator().getBaseHeight(sx,sz,Heightmap.Types.WORLD_SURFACE_WG,context.heightAccessor(),context.randomState());
         }
         int min=context.heightAccessor().getMinBuildHeight();
-        floor=Math.min(floor,context.heightAccessor().getMaxBuildHeight()-plan.height()-2);
+        int floor=SchoolTerrain.floor(context.chunkGenerator().getSeaLevel(),samples,min+2,context.heightAccessor().getMaxBuildHeight()-plan.height()-2);
         BlockPos origin=new BlockPos(x-half,floor,z-half);
         return Optional.of(new GenerationStub(new BlockPos(x,floor,z), builder -> builder.addPiece(new SchoolPiece(schoolId,origin,min))));
     }

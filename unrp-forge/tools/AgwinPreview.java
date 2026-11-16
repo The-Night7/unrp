@@ -28,7 +28,7 @@ public class AgwinPreview {
             svg.append("<text x='").append(x).append("' y='").append(y).append("' font-size='14'>").append(names[i]).append("</text>");
             SchoolPreview.floor(svg,plan,school,2+i*6,x,y+14,292);
         }
-        svg.append("<text x='26' y='1281' font-size='12'>97 × 97 blocks · one Agwin campus per Overworld · dimensions and unseen interiors are adapted</text><text x='26' y='1302' font-size='12'>Support rooms and roof access are gameplay choices; no invented royal arena, beacon spire or Wellston club.</text></svg>");
+        svg.append("<text x='26' y='1281' font-size='12'>113 × 113 blocks · one Agwin campus per Overworld · dimensions and unseen interiors are adapted</text><text x='26' y='1302' font-size='12'>Support rooms and roof access are gameplay choices; no invented royal arena, beacon spire or Wellston club.</text></svg>");
         Files.writeString(Path.of(args[0]),svg);
     }
 }

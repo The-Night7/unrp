@@ -1,5 +1,7 @@
 # Where is what
 
+School generation fixes and layout 6: [SchoolPolish.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPolish.java) adds architectural/landscape details; [SchoolTerrain.java](../src/main/java/com/myriam/unrp/worldgen/SchoolTerrain.java) fits the site and apron; [SchoolPlanGrid.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPlanGrid.java) compiles final cells for safe placement. [Exterior previews](schools-exterior-preview.png) show the source geometry. Full changes apply to new school starts; old saved layouts are retained.
+
 Actual equipment assets: [design_equipment.py](../tools/design_equipment.py) builds placed/held models and worn UV sheets; [CosmeticLayer.java](../src/main/java/com/myriam/unrp/client/CosmeticLayer.java) renders garments. [preview_equipment.py](../tools/preview_equipment.py) renders those same production JSONs/PNGs; [asset preview](unrp-items-preview.png). Block items inherit their placed models, and clothing items use their worn textures.
 
 [Ability-level commands](LEVEL_COMMANDS.md): `/unrp level get`, `/unrp level set 5.0 [player]`, `/unrp level add 0.5 [player]`. Operator-only OC edits, persisted and synced immediately. Implementation: [LevelCommands.java](../src/main/java/com/myriam/unrp/command/LevelCommands.java).

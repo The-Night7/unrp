@@ -7,7 +7,7 @@ import java.nio.file.Path;
 public class WellstonPreview {
     public static void main(String[] args) throws Exception {
         var school=SchoolSites.school("wellston");var plan=SchoolBlueprint.create(school);
-        StringBuilder svg=new StringBuilder("<svg xmlns='http://www.w3.org/2000/svg' width='1180' height='1320'><rect width='1180' height='1320' fill='#17140e'/><style>rect{shape-rendering:crispEdges}text{font-family:monospace;fill:#f1d586}</style><text x='26' y='32' font-size='23'>Wellston Private High School — Minecraft campus</text><text x='26' y='56' font-size='13'>Canon-based locations · adapted room arrangement · 129 × 129 blocks · north at top</text>");
+        StringBuilder svg=new StringBuilder("<svg xmlns='http://www.w3.org/2000/svg' width='1180' height='1320'><rect width='1180' height='1320' fill='#17140e'/><style>rect{shape-rendering:crispEdges}text{font-family:monospace;fill:#f1d586}</style><text x='26' y='32' font-size='23'>Wellston Private High School — Minecraft campus</text><text x='26' y='56' font-size='13'>Canon-based locations · adapted room arrangement · 145 × 145 blocks · north at top</text>");
         String[] names={"Ground floor / dormitory ground floor","Second floor / dormitory upper floor","Third floor","Accessible main rooftop"};
         String[] notes={"Infirmary, headmaster, library, cafeteria, separate boys/girls dormitories","Safe House: Room 224 · Wellston Weekly press room","Classrooms and study rooms · main stairs continue to roof","Flat roof, safety fence and service hut · no clock tower"};
         for(int i=0;i<4;i++) {

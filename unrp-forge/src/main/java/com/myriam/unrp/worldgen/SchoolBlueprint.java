@@ -5,7 +5,7 @@ import java.util.List;
 
 /** Procedural campus geometry. Ordered boxes are painted from first to last; no Minecraft state. */
 public final class SchoolBlueprint {
-    public static final int SIZE = 73, CURRENT_LAYOUT_VERSION = 5;
+    public static final int SIZE = 73, CURRENT_LAYOUT_VERSION = 6;
     public enum Material { AIR, FOUNDATION, PAVING, GRASS, WALL, FLOOR, ROOF, ACCENT, GLASS,
         FENCE, LEAVES, LOG, LIGHT, WATER, WHITE, COURT, BOOKS, DESK, CHAIR, STAIRS,
         DOOR_LOWER, DOOR_UPPER, BED_HEAD, BED_FOOT, COUNTER, FURNACE, CAULDRON, BOARD, SIGN,
@@ -13,7 +13,7 @@ public final class SchoolBlueprint {
         CAFETERIA_TABLE, CAFETERIA_CHAIR, CAFETERIA_COUNTER, CAFETERIA_WALL,
         AGWIN_YELLOW, AGWIN_PINK, CENTRE_PANEL, WINDOW_FRAME, WINDOW_MULLION, HALL_TRIM,
         SIDE_DOOR_LOWER, SIDE_DOOR_UPPER, STAIRS_NORTH, TOWER_WALL, TOWER_GLASS, BREWING_STAND,
-        ROAD_DARK, PLAZA_PAVERS, GATE_EW, GATE_NS, MURAL_GREEN, MURAL_LIGHT, FLAG_CYAN }
+        ROAD_DARK, PLAZA_PAVERS, GATE_EW, GATE_NS, MURAL_GREEN, MURAL_LIGHT, FLAG_CYAN, WINDOW_SILL, CORNICE, PATH_EDGE, PATH_TILE, PLANTER_SOIL, SHRUB, FLOWER, FACADE_BASE, FACADE_PIER, FLOOR_INLAY, PENDANT, STREET_POST, STREET_LANTERN, ROOF_VENT }
     public record Box(Material material, int x1, int y1, int z1, int x2, int y2, int z2) {
         public Box {
             if (x1 > x2 || y1 > y2 || z1 > z2) throw new IllegalArgumentException("Inverted box");
@@ -37,6 +37,7 @@ public final class SchoolBlueprint {
     private SchoolBlueprint(SchoolSites.School school) { this.school = school; }
     public static Plan create(SchoolSites.School school) { return forVersion(school,CURRENT_LAYOUT_VERSION); }
     public static Plan forVersion(SchoolSites.School school,int version) {
+        if(version>=6)return SchoolPolish.apply(school,forVersion(school,5));
         if(school.id().equals("wellston") && version>=2) return WellstonBlueprint.create();
         if(school.id().equals("agwin") && version>=3) return AgwinBlueprint.create();
         if(version>=4) return switch(school.id()) {

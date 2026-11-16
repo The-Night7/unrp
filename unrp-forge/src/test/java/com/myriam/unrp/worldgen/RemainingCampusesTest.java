@@ -13,7 +13,7 @@ class RemainingCampusesTest {
     @Test void everySchoolNowHasItsOwnLayoutInsteadOfTheLegacyTemplate() {
         Set<String> layouts=new java.util.HashSet<>();
         for(var school:SchoolSites.SCHOOLS) {
-            var plan=SchoolBlueprint.create(school);
+            var plan=SchoolBlueprint.forVersion(school,5);
             assertNotEquals(SchoolBlueprint.legacy(school),plan,school.id());
             assertTrue(layouts.add(plan.boxes().toString()),"Duplicate campus geometry: "+school.id());
         }
@@ -46,7 +46,7 @@ class RemainingCampusesTest {
     }
     @Test void stairHeadroomRemainsOpenInEveryNewBuilding() {
         for(String id:IDS) {
-            var plan=SchoolBlueprint.create(SchoolSites.school(id));
+            var plan=SchoolBlueprint.forVersion(SchoolSites.school(id),5);
             for(var b:buildings(id)) for(int f=0;f<(b.roofAccess()?b.floors():b.floors()-1);f++) for(int step=0;step<6;step++) {
                 int y=f*6+1+step,z=b.z1()+3+step;
                 assertEquals(STAIRS,plan.at(b.midX(),y,z),id+" "+b.name());
@@ -57,7 +57,7 @@ class RemainingCampusesTest {
     }
     @Test void allRoomSignsAndEveryBuildingFloorAreReachableFromTheFrontGate() {
         for(String id:IDS) {
-            var plan=SchoolBlueprint.create(SchoolSites.school(id));
+            var plan=SchoolBlueprint.forVersion(SchoolSites.school(id),5);
             boolean[] reached=reachable(plan);int size=plan.size(),layer=size*size;
             for(var label:plan.labels()) assertTrue(reached[label.x()+label.z()*size+label.y()*layer],id+" inaccessible: "+label.text());
             for(var b:buildings(id)) for(int f=0;f<b.floors();f++)
@@ -73,7 +73,7 @@ class RemainingCampusesTest {
                 assertEquals(id.equals("wellston_university")?3:2,SchoolBlueprint.schoolForVersion(school,version).floors());
             }
         }
-        for(String id:List.of("wellston","agwin")) assertEquals(SchoolBlueprint.forVersion(SchoolSites.school(id),3),SchoolBlueprint.create(SchoolSites.school(id)));
+        for(String id:List.of("wellston","agwin")) assertEquals(SchoolBlueprint.forVersion(SchoolSites.school(id),3),SchoolBlueprint.forVersion(SchoolSites.school(id),5));
     }
     private static Set<String> names(SchoolBlueprint.Plan plan) {return plan.labels().stream().map(SchoolBlueprint.Label::text).collect(Collectors.toSet());}
     private static List<CampusBuilder.Building> buildings(String id) {

@@ -21,3 +21,7 @@ The unique world-generation site is unchanged:
 ```
 
 New structure starts use layout version 4. Saved versions 1–3 retain the former two-floor green-accented campus. See [SCHOOLS.md](SCHOOLS.md) for generation, old-world behavior, tests and preview commands.
+
+## Layout 6 update
+
+The current generator retains this school’s architecture and adds facade depth, landscaping, lighting and an eight-block terrain apron around the previous footprint. New starts use version 6; the dimensions and version notes above describe the original dedicated design. See [SCHOOLS.md](SCHOOLS.md) for current total footprints, compatibility and [exterior views](schools-exterior-preview.png). Already generated schools are not automatically replaced.
