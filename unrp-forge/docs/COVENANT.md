@@ -205,3 +205,7 @@ The visual redesign does not alter laws, penalties, range, collateral, acceptanc
 Activating Terms of Entry opens category toggles for weapons, armor, elytra, pearls and the whole inventory. Pact opens selectors for what you give and receive; aim at the intended recipient before activating a local Pact. Sovereign Pact includes an online recipient selector. The recipient still has to accept, and the server checks consideration and available collateral.
 
 Constitution and Retroactive Law use the action/penalty form. Total Forfeit fixes the penalty to the whole ability. Sovereign's Due selects a daily tribute; Jurisdiction selects `here` or a registered territory. Writing on the Hand provides a recipient selector and a message field. Click selectors to cycle their values. Advanced input remains available for offline recipients, promoting an existing law by number, or custom text. Cancel closes the form and clears pending writing.
+
+### Court visual effects
+
+The ground seal has a fine segmented gold inlay and twelve registration marks. The actual Court boundary uses short gold strokes with signature markers; breached Courts switch to amber. Indemnity glyphs orbit the Sovereign. Law parchments float gently and fade between 18 and 24 blocks. Disable screen effects to stop the pulsing, orbit and floating animation. Delivered parchment overlays include a wax seal and a remaining display-time indicator. All effects use native textures and geometry; hidden laws remain filtered by the server.

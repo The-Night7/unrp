@@ -110,15 +110,25 @@ public final class CovenantClient {
         if (text.isEmpty()) return;
         int width = Math.min(290, mc.getWindow().getGuiScaledWidth() - 20);
         var lines = mc.font.split(Component.literal(text), width - 28);
-        int height = Math.min(mc.getWindow().getGuiScaledHeight() - 24, 30 + lines.size() * 10);
+        int height = Math.min(mc.getWindow().getGuiScaledHeight() - 24, 43 + lines.size() * 10);
         int x = mc.getWindow().getGuiScaledWidth() - width - 10, y = 12;
         var g = event.getGuiGraphics();
+        g.fill(x+3,y+3,x+width+3,y+height+3,0x550E1116);
         g.blit(CovenantEffects.PARCHMENT,x,y,width,height,0,0,32,48,32,48);
+        // Crisp gold framing and a small wax seal distinguish an actual delivered contract.
+        g.fill(x+8,y+4,x+width-8,y+5,0xFFC6A15A);
+        g.fill(x+width-22,y+height-14,x+width-13,y+height-5,0xFF763D35);
+        g.fill(x+width-21,y+height-13,x+width-14,y+height-7,0xFFAD5A45);
+        g.fill(x+width-19,y+height-12,x+width-17,y+height-8,0xFFF0CB78);
+        if(System.currentTimeMillis()<letterUntil) {
+            int remaining=(int)((width-20)*Math.min(1,(letterUntil-System.currentTimeMillis())/15000.0));
+            g.fill(x+10,y+height-3,x+10+remaining,y+height-2,0xFFC6A15A);
+        }
         g.drawString(mc.font, title, x + 12, y + 7, 0xFF59412A, false);
         g.fill(x+12,y+19,x+width-12,y+20,0xFFBBA071);
         int lineY = y + 23;
         for (var line : lines) {
-            if (lineY + 9 > y + height - 4) break;
+            if (lineY + 9 > y + height - 17) break;
             g.drawString(mc.font, line, x + 12, lineY, 0xFF392C23, false); lineY += 10;
         }
     }

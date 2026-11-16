@@ -2672,7 +2672,9 @@
    "type": "origin",
    "nature": null,
    "description": "Stepping into his court is signing his contract. The Sovereign writes laws and collects their penalties as Collateral. Court range: 10–500 m. Permanent Indemnity from 5.0. God tier (6.0+): Constitutions, Retroactive Laws, whole-ability forfeiture, 24-hour jurisdiction and one-week remote signatures. See docs/COVENANT.md.",
-   "users": [],
+   "users": [
+    "myriam"
+   ],
    "level_min": 1.0,
    "level_max": 10.0,
    "wave": 0,
