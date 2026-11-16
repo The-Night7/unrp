@@ -4,7 +4,20 @@
   "package": "com.myriam.unrp.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "unrp.refmap.json",
-  "mixins": [],
-  "client": ["PlayerModelMixin", "ClientExplosionMixin", "EntityTintMixin", "LivingHeldMixin", "ItemInHandMoveMixin", "PlayerHandPoseMixin", "PlayerLeanMixin"],
-  "injectors": { "defaultRequire": 1 }
+  "mixins": [
+    "RecoverySleepStatusMixin",
+    "RecoveryRestMixin"
+  ],
+  "client": [
+    "PlayerModelMixin",
+    "ClientExplosionMixin",
+    "EntityTintMixin",
+    "LivingHeldMixin",
+    "ItemInHandMoveMixin",
+    "PlayerHandPoseMixin",
+    "PlayerLeanMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

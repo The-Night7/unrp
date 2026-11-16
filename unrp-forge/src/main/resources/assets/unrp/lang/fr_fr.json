@@ -104,5 +104,6 @@
   "item.unrp.music_disc_surge.desc": "SharkMos - Surge",
   "item.unrp.music_disc_the_hunt.desc": "SharkMos - The Hunt",
   "item.unrp.music_disc_turf_war.desc": "SharkMos - Turf War",
-  "item.unrp.music_disc_tyrant.desc": "SharkMos - Tyrant"
+  "item.unrp.music_disc_tyrant.desc": "SharkMos - Tyrant",
+  "block.unrp.recovery_bed": "Recovery Bed"
 }

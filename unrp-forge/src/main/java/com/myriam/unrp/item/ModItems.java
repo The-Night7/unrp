@@ -126,6 +126,7 @@ public final class ModItems {
     public static final RegistryObject<Item> PARTICLE_BLOCK_ITEM = block("particle_block", ModBlocks.PARTICLE_BLOCK, new Item.Properties());
     public static final RegistryObject<Item> CONVERSION_MACHINE_ITEM = block("conversion_machine", ModBlocks.CONVERSION_MACHINE, new Item.Properties());
     public static final RegistryObject<Item> RECOVERY_MACHINE_ITEM = block("recovery_machine", ModBlocks.RECOVERY_MACHINE, new Item.Properties());
+    public static final RegistryObject<Item> RECOVERY_BED_ITEM = block("recovery_bed", ModBlocks.RECOVERY_BED, new Item.Properties().stacksTo(1));
     public static final RegistryObject<Item> SUPPRESSION_FIELD_ITEM = block("suppression_field", ModBlocks.SUPPRESSION_FIELD, new Item.Properties());
 
     // --- vêtements cosmétiques (aucune protection)
@@ -189,6 +190,7 @@ public final class ModItems {
             out.accept(CONVERSION_MACHINE_ITEM.get());
             out.accept(SUPPRESSION_FIELD_ITEM.get());
             out.accept(RECOVERY_MACHINE_ITEM.get());
+            out.accept(RECOVERY_BED_ITEM.get());
             out.accept(AGENT_SPAWN_EGG.get());
             out.accept(AGENT_LEADER_SPAWN_EGG.get());
             out.accept(SPECTRE_SPAWN_EGG.get());
