@@ -137,3 +137,5 @@ Dans [tools/](../tools/) :
 - [make_particle_textures.py](../tools/make_particle_textures.py) : textures de particules.
 - [make_item_textures.py](../tools/make_item_textures.py) : textures d’objets.
 - [import_model_assets.py](../tools/import_model_assets.py) : import des ressources d’un dossier `assets/<namespace>` dans `unrp`, avec adaptation des références. Usage : `python3 tools/import_model_assets.py /chemin/vers/assets/<namespace>` ; les fichiers UNRP existants sont conservés par défaut.
+
+Covenant's other writing forms are in `src/main/java/com/myriam/unrp/client/CovenantWritingScreen.java`: entry conditions, local/remote Pact proposals, tribute, jurisdiction and hand messages. `CovenantLawScreen.java` also handles Constitution, Retroactive Law and Total Forfeit. `Specials17.writingPrompt` supplies online names and registered territories; `submitWriting` validates commands and preserves the aimed recipient of local Pacts. Advanced input supports offline recipients and existing law numbers. See `COVENANT.md` for controls.

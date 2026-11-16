@@ -12,11 +12,15 @@ import java.util.List;
 /** Click-to-enact form. The server still validates the generated command and every tier/cost limit. */
 public final class CovenantLawScreen extends Screen {
     private final double level;
+    private final String command;
     private final List<CovenantLawChoices.Penalty> penalties;
     private int action=0,penalty=0,page=0,actionPage=0,left,top,w,h,rows,perPage;
     private boolean submitted;
     public CovenantLawScreen(double level) {
-        super(Component.literal("Covenant — Enact"));this.level=level;penalties=CovenantLawChoices.available(level);
+        this(level,"law");
+    }
+    public CovenantLawScreen(double level,String command) {
+        super(Component.literal("Covenant — " + switch(command){case "constitution" -> "Constitution";case "retroactive" -> "Retroactive Law";case "forfeit" -> "Total Forfeit";default -> "Enact";}));this.command=command;this.level=level;penalties=command.equals("forfeit")?CovenantLawChoices.PENALTIES.stream().filter(p->p.kind()==com.myriam.unrp.ability.CovenantParse.Kind.ABILITY).toList():CovenantLawChoices.available(level);
     }
     @Override protected void init() {
         clearWidgets();w=Math.min(480,width-16);h=Math.min(238,height-12);left=(width-w)/2;top=(height-h)/2;
@@ -41,9 +45,9 @@ public final class CovenantLawScreen extends Screen {
         if(pages>1) addRenderableWidget(Button.builder(Component.literal((page+1)+" / "+pages+" >"),b->{page=(page+1)%pages;init();})
                 .bounds(left+w-74,top+25,64,16).build());
         int footer=(w-28)/3;
-        addRenderableWidget(Button.builder(Component.literal("Enact").withStyle(ChatFormatting.GOLD),b->submit())
+        addRenderableWidget(Button.builder(Component.literal("Confirm").withStyle(ChatFormatting.GOLD),b->submit())
                 .bounds(left+10,top+h-27,footer,20).build());
-        addRenderableWidget(Button.builder(Component.literal("Advanced..."),b->{submitted=true;minecraft.setScreen(new ChatScreen("/unrp covenant law "));})
+        addRenderableWidget(Button.builder(Component.literal("Advanced..."),b->{submitted=true;minecraft.setScreen(new ChatScreen("/unrp covenant "+command+" "));})
                 .bounds(left+14+footer,top+h-27,footer,20).build());
         addRenderableWidget(Button.builder(Component.literal("Cancel"),b->onClose())
                 .bounds(left+18+footer*2,top+h-27,footer,20).build());
@@ -52,7 +56,7 @@ public final class CovenantLawScreen extends Screen {
     private void submit() {
         if(minecraft.player==null)return;
         submitted=true;
-        minecraft.player.connection.sendCommand("unrp covenant law "+CovenantLawChoices.text(CovenantLawChoices.ACTIONS.get(action),penalties.get(penalty)));
+        minecraft.player.connection.sendCommand("unrp covenant "+command+" "+CovenantLawChoices.text(CovenantLawChoices.ACTIONS.get(action),penalties.get(penalty)));
         minecraft.setScreen(null);
     }
     @Override public void onClose() {

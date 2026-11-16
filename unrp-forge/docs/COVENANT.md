@@ -199,3 +199,9 @@ The visual redesign does not alter laws, penalties, range, collateral, acceptanc
 ## Simple law form
 
 [CovenantLawScreen.java](../src/main/java/com/myriam/unrp/client/CovenantLawScreen.java) provides the action/penalty buttons, tier-filtered options, pagination and create/cancel controls. [CovenantLawChoices.java](../src/main/java/com/myriam/unrp/ability/CovenantLawChoices.java) supplies fixed phrases that are tested against the actual server parser for every combination. The form sends the existing `unrp covenant law ...` command; server checks still enforce active Covenant, aura costs, law caps and eligible penalty types. Opening the form does not bypass those checks. This simplifies Enact; other contract/territory writing controls retain their current input flow.
+
+### Other writing forms
+
+Activating Terms of Entry opens category toggles for weapons, armor, elytra, pearls and the whole inventory. Pact opens selectors for what you give and receive; aim at the intended recipient before activating a local Pact. Sovereign Pact includes an online recipient selector. The recipient still has to accept, and the server checks consideration and available collateral.
+
+Constitution and Retroactive Law use the action/penalty form. Total Forfeit fixes the penalty to the whole ability. Sovereign's Due selects a daily tribute; Jurisdiction selects `here` or a registered territory. Writing on the Hand provides a recipient selector and a message field. Click selectors to cycle their values. Advanced input remains available for offline recipients, promoting an existing law by number, or custom text. Cancel closes the form and clears pending writing.

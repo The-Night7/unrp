@@ -33,8 +33,10 @@ public final class CovenantClient {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null && mc.screen == null) {
                 String prompt=root.get("writing").getAsString();
-                if(prompt.trim().equals("/unrp covenant law"))mc.setScreen(new CovenantLawScreen(root.has("level")?root.get("level").getAsDouble():1));
-                else mc.setScreen(new net.minecraft.client.gui.screens.ChatScreen(prompt));
+                String action=prompt.trim().substring(prompt.trim().lastIndexOf(' ')+1);
+                double level=root.has("level")?root.get("level").getAsDouble():1;
+                if(List.of("law","constitution","retroactive","forfeit").contains(action)) mc.setScreen(new CovenantLawScreen(level,action));
+                else mc.setScreen(new CovenantWritingScreen(action,level,root));
             }
         }
         if (root.has("people")) {

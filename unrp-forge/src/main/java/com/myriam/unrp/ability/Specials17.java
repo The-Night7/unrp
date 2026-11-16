@@ -575,6 +575,7 @@ public final class Specials17 {
         }
         Await what = switch (action) {
             case "law" -> Await.LAW;
+            case "pact" -> Await.PACT;
             case "terms" -> Await.TERMS;
             case "constitution" -> Await.CONSTITUTION;
             case "retroactive" -> Await.RETROACTIVE;
@@ -586,14 +587,16 @@ public final class Specials17 {
             default -> null;
         };
         if (what == null || text.isBlank() || text.length() > 512) return false;
-        if (what != Await.LAW && what != Await.TERMS && levelOf(player) < CovenantRules.GOD) {
+        if (what == Await.PACT && courtLevelOf(player) < CovenantRules.MID) return false;
+        if (what != Await.LAW && what != Await.TERMS && what != Await.PACT && levelOf(player) < CovenantRules.GOD) {
             player.sendSystemMessage(Component.literal("§7This action requires God tier (6.0).")); return false;
         }
         open(player); // Do not depend on the next server tick to establish the personal Court.
         onCast(player);
         if (!on(player) || AbilityEngine.disabled(player)) return false;
-        PENDING.remove(player.getUUID());
-        finish(player, new Pending(what, player.server.overworld().getGameTime(), null), text);
+        Pending previous = PENDING.remove(player.getUUID());
+        if (what == Await.PACT && (previous == null || previous.what != Await.PACT || previous.until < player.server.overworld().getGameTime())) return false;
+        finish(player, new Pending(what, player.server.overworld().getGameTime(), what == Await.PACT ? previous.target : null), text);
         return true;
     }
 
@@ -605,6 +608,12 @@ public final class Specials17 {
         com.google.gson.JsonObject payload = new com.google.gson.JsonObject();
         payload.addProperty("writing", "/unrp covenant " + action + " ");
         payload.addProperty("level",courtLevelOf(player));
+        com.google.gson.JsonArray players = new com.google.gson.JsonArray();
+        for (ServerPlayer person : player.server.getPlayerList().getPlayers()) if (person != player) players.add(person.getGameProfile().getName());
+        payload.add("players", players);
+        com.google.gson.JsonArray territories = new com.google.gson.JsonArray(); territories.add("here");
+        for (var turf : com.myriam.unrp.social.SocialData.get(player.server).store.turfs) if (turf.name != null) territories.add(turf.name);
+        payload.add("territories", territories);
         com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> player), new com.myriam.unrp.net.CovenantPacket(payload.toString()));
     }
 
@@ -1019,7 +1028,7 @@ public final class Specials17 {
                     return false;
                 }
                 PENDING.put(p.getUUID(), new Pending(Await.PACT, now + 600, t.getUUID()));
-                p.sendSystemMessage(Component.literal("§6Write the deal (30 s): §fmy life for your branch §7(I give X for Y)"));
+                writingPrompt(p, "pact");
                 return false;
             }
             case "cv_endow" -> {

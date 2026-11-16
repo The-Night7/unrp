@@ -40,7 +40,7 @@ public final class UnrpCommands {
 
     private static com.mojang.brigadier.builder.LiteralArgumentBuilder<CommandSourceStack> covenantWritingCommands() {
         var root = Commands.literal("covenant");
-        for (String action : java.util.List.of("law", "terms", "constitution", "retroactive", "forfeit", "tribute", "jurisdiction", "message", "sovereign_pact")) {
+        for (String action : java.util.List.of("law", "pact", "terms", "constitution", "retroactive", "forfeit", "tribute", "jurisdiction", "message", "sovereign_pact")) {
             var entry=Commands.literal(action);
             if(action.equals("law"))entry.executes(ctx->com.myriam.unrp.ability.Specials17.openLawEditor(ctx.getSource().getPlayerOrException())?1:0);
             entry.then(Commands.argument("text", StringArgumentType.greedyString())
