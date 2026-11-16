@@ -17,6 +17,11 @@ class RecoveryTreatmentTest {
         assertEquals(300,RecoveryTreatment.nextAura(300,300));
         assertEquals(Integer.MAX_VALUE,RecoveryTreatment.nextAura(Integer.MAX_VALUE-1,Integer.MAX_VALUE));
     }
+    @Test void ownersRateControlsRecoveryWithoutExceedingCapacity() {
+        assertEquals(3,RecoveryTreatment.nextAura(0,300,.5));
+        assertEquals(12,RecoveryTreatment.nextAura(0,300,2));
+        assertEquals(300,RecoveryTreatment.nextAura(299,300,20));
+    }
     @Test void smallAuraPoolsStillRecover() {
         assertEquals(1,RecoveryTreatment.nextAura(0,20));
         assertEquals(20,RecoveryTreatment.nextAura(19,20));

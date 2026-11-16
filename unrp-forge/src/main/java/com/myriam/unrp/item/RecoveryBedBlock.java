@@ -38,12 +38,32 @@ public final class RecoveryBedBlock extends BedBlock {
                 MachineShapes.rotate(net.minecraft.world.level.block.Block.box(11,9,0,16,20,3),state.getValue(FACING)));
         return shape;
     }
+    @Override public void setPlacedBy(Level level,BlockPos pos,BlockState state,net.minecraft.world.entity.LivingEntity placer,net.minecraft.world.item.ItemStack stack) {
+        super.setPlacedBy(level,pos,state,placer,stack);
+        if(placer instanceof ServerPlayer owner)RecoveryBeds.get(owner.serverLevel()).placed(owner,pos.relative(state.getValue(FACING)));
+    }
+    @Override public void onRemove(BlockState state,Level level,BlockPos pos,BlockState replacement,boolean moving) {
+        if(!state.is(replacement.getBlock())&&state.getValue(PART)==BedPart.HEAD&&level instanceof net.minecraft.server.level.ServerLevel server)
+            RecoveryBeds.get(server).remove(server,pos);
+        super.onRemove(state,level,pos,replacement,moving);
+    }
+    @Override public boolean canEntityDestroy(BlockState state,net.minecraft.world.level.BlockGetter level,BlockPos pos,net.minecraft.world.entity.Entity entity) {return false;}
     @Override public InteractionResult use(BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit) {
         if(level.isClientSide)return InteractionResult.SUCCESS;
         if(player.isSpectator()||!player.isAlive()||player.isSleeping())return InteractionResult.CONSUME;
         BlockPos head=state.getValue(PART)==BedPart.HEAD?pos:pos.relative(state.getValue(FACING));
         BlockState pillow=level.getBlockState(head);
         if(!pillow.is(this))return InteractionResult.CONSUME;
+        var server=(net.minecraft.server.level.ServerLevel)level;
+        var settings=RecoveryBeds.get(server).settings(server,head);
+        if(player.isShiftKeyDown()) {
+            double current=settings==null?1:settings.rate();
+            double next=current<.5?.5:current<1?1:current<2?2:current<5?5:.25;
+            RecoveryBeds.setRate((ServerPlayer)player,head,next);return InteractionResult.CONSUME;
+        }
+        if(!RecoveryBeds.powered(server,settings)) {
+            player.displayClientMessage(Component.literal("This bed's source ability is inactive. Treatment is paused."),true);return InteractionResult.CONSUME;
+        }
         if(pillow.getValue(OCCUPIED)) {
             player.displayClientMessage(Component.literal("This recovery bed is occupied."),true);return InteractionResult.CONSUME;
         }
@@ -67,8 +87,12 @@ public final class RecoveryBedBlock extends BedBlock {
     @SubscribeEvent public static void treatment(TickEvent.PlayerTickEvent event) {
         if(event.phase!=TickEvent.Phase.END||!(event.player instanceof ServerPlayer player)||!resting(player)||!player.isAlive())return;
         if(player.tickCount%20!=0)return;
-        // One heart every two seconds, rather than an instant full heal.
-        player.heal(1.0f);
+        var head=player.getSleepingPos().orElseThrow();
+        var settings=RecoveryBeds.get(player.serverLevel()).settings(player.serverLevel(),head);
+        if(!RecoveryBeds.powered(player.serverLevel(),settings)) {
+            player.displayClientMessage(Component.literal("Treatment paused: the owner has disabled the source ability."),true);return;
+        }
+        player.heal((float)settings.rate());
         ClaimData data=ClaimData.get(player.server);
         var profile=data.profileOf(player.getUUID()).orElse(null);
         if(profile!=null) {
@@ -76,7 +100,7 @@ public final class RecoveryBedBlock extends BedBlock {
             int maximum=PlayerStateService.maxAura(PlayerStateService.stats(player.server,player.getUUID(),profile,character));
             if(profile.abilityOf(character)!=null&&!profile.lifelong&&profile.aura>=0&&profile.aura<maximum
                     &&!com.myriam.unrp.ability.AbilityEngine.blocksRegen(player.getUUID())) {
-                profile.aura=RecoveryTreatment.nextAura(profile.aura,maximum);
+                profile.aura=RecoveryTreatment.nextAura(profile.aura,maximum,settings.rate());
                 data.setDirty();PlayerStateService.send(player);
             }
         }

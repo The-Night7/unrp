@@ -31,7 +31,7 @@ public final class ModBlocks {
             .isRedstoneConductor((s, l, p) -> false).isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false))); // ParticleBlock du modèle
     public static final RegistryObject<Block> CONVERSION_MACHINE = BLOCKS.register("conversion_machine", () -> new Facing(base(MapColor.METAL, 3.5f, SoundType.METAL).noOcclusion(), MachineShapes.of("conversion_machine")));
     public static final RegistryObject<Block> RECOVERY_MACHINE = BLOCKS.register("recovery_machine", () -> new Facing(base(MapColor.METAL, 3.5f, SoundType.METAL).noOcclusion(), MachineShapes.of("recovery_machine")));
-    public static final RegistryObject<Block> RECOVERY_BED = BLOCKS.register("recovery_bed", () -> new RecoveryBedBlock(base(MapColor.METAL, 3.5f, SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Block> RECOVERY_BED = BLOCKS.register("recovery_bed", () -> new RecoveryBedBlock(base(MapColor.METAL, 3.5f, SoundType.METAL).explosionResistance(3600000f).pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK).noOcclusion()));
     public static final RegistryObject<Block> SUPPRESSION_FIELD = BLOCKS.register("suppression_field", () -> new Lit(base(MapColor.COLOR_BLACK, 3.5f, SoundType.METAL).noOcclusion()));
     public static final RegistryObject<Block> PHYLACTERY = BLOCKS.register("phylactery", () -> new Phylactery.PhylBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(5f, 3600000f).sound(SoundType.AMETHYST).lightLevel(s -> 5).noLootTable()));
 
