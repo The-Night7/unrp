@@ -67,6 +67,5 @@ def make(name):
 
 
 if __name__ == '__main__':
-    OUT.mkdir(parents=True, exist_ok=True)
-    for name in NAMES: make(name).save(OUT / f'covenant_{name}.png')
-    print(f'Covenant icons generated: {len(NAMES)}')
+    import runpy
+    runpy.run_path(str(Path(__file__).with_name('design_covenant.py')),run_name='__main__')

@@ -774,26 +774,11 @@ public final class Specials17 {
             if (e != null) e.discard();
         }
         c.parchments.clear();
-        int n = 0;
-        for (LawRec l : c.laws) {
-            if (l.hidden) continue;
-            ArmorStand st = EntityType.ARMOR_STAND.create(lv);
-            if (st == null) continue;
-            st.moveTo(anchor.x, anchor.y + 2.6 + (n % 12) * 0.28, anchor.z + (n / 12) * 1.2, 0, 0);
-            st.setInvisible(true);
-            st.setNoGravity(true);
-            st.setInvulnerable(true);
-            st.setCustomNameVisible(true);
-            st.setCustomName(Component.literal("§6§l#" + l.id + " §r§f" + l.text));
-            st.addTag("unrp.cv_law");
-            CompoundTag t = new CompoundTag();
-            st.saveWithoutId(t);
-            t.putBoolean("Marker", true);
-            st.load(t);
-            lv.addFreshEntity(st);
-            c.parchments.add(st.getUUID());
-            n++;
-        }
+        // Public law cards are now rendered from the server-owned visual packet.
+        // Remove loaded legacy name-tag stands from an older version of this Court.
+        for (ArmorStand stand : lv.getEntitiesOfClass(ArmorStand.class,
+                new net.minecraft.world.phys.AABB(anchor.subtract(8, 2, 8), anchor.add(8, 12, 8)), e -> e.getTags().contains("unrp.cv_law"))) stand.discard();
+
     }
 
     // ------------------------------------------------------------------ coffre d'objets confisqués (sauvegardé)
@@ -1105,7 +1090,7 @@ public final class Specials17 {
                 if (!pay(p, 20)) return false;
                 s.indemUntil = CovenantRules.indemnityExpiry(level, now);
                 p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 1f, 1.4f);
-                Fx.shield(p.serverLevel(), p, 0xF2C94C, 1.6f, 120);
+                Vfx.glow(p.serverLevel(), Vfx.SPARKS, 0xF2C94C, p.position().add(0,1,0), new Vec3(.4,.5,.4), 5,.02);
                 bar(p, level >= 5 ? "§6Permanent Indemnity while your personal Court is active." : "§6Indemnity: wounds voided for 6 s.");
                 return true;
             }
@@ -1648,6 +1633,13 @@ public final class Specials17 {
         com.google.gson.JsonObject payload = new com.google.gson.JsonObject();
         com.google.gson.JsonArray people = new com.google.gson.JsonArray();
         List<Court> courts = allCourts();
+        // Retire loaded legacy floating name tags, including saved sealed Courts restored after restart.
+        for(Court court:courts) {
+            ServerLevel level=server.getLevel(courtDimension(court));
+            if(level==null||court.constitutional)continue;
+            var area=new net.minecraft.world.phys.AABB(court.center.subtract(16,2,16),court.center.add(16,12,16));
+            for(ArmorStand stand:level.getEntitiesOfClass(ArmorStand.class,area,e->e.getTags().contains("unrp.cv_law")))stand.discard();
+        }
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             UUID id = player.getUUID();
             Sov own = SOV.get(id);
@@ -1666,6 +1658,30 @@ public final class Specials17 {
         }
         payload.add("people", people);
         com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.ALL.noArg(), new com.myriam.unrp.net.CovenantPacket(payload.toString()));
+        for (ServerPlayer viewer : server.getPlayerList().getPlayers()) {
+            var scene = new com.google.gson.JsonObject();var visuals = new com.google.gson.JsonArray();
+            for (Court court : courts) {
+                if (visuals.size() >= 8) break;
+                if (court.constitutional || court.expires <= now || viewer.serverLevel() != server.getLevel(courtDimension(court))) continue;
+                if (viewer.position().distanceToSqr(court.center) > Math.pow(court.radius+48,2)) continue;
+                ServerPlayer owner=server.getPlayerList().getPlayer(court.owner);
+                var visual=new com.google.gson.JsonObject();
+                visual.addProperty("dimension",courtDimension(court).location().toString());
+                visual.addProperty("entity",owner==null?-1:owner.getId());visual.addProperty("follow",court.follow);visual.addProperty("district",court.district);
+                visual.addProperty("x",court.center.x);visual.addProperty("y",court.center.y);visual.addProperty("z",court.center.z);
+                visual.addProperty("radius",court.radius);visual.addProperty("tier",court.tier);
+                visual.addProperty("breach",!court.debt.getOrDefault(viewer.getUUID(),List.of()).isEmpty());
+                Sov sovereign=SOV.get(court.owner);visual.addProperty("covered",sovereign!=null&&sovereign.indemUntil>now&&court.follow);
+                var publicLaws=court.laws.stream().map(law->new CovenantPresentation.Law(law.id,law.text,law.hidden)).toList();
+                var laws=new com.google.gson.JsonArray();
+                for(var law:CovenantPresentation.visiblePage(publicLaws,now)) {
+                    var card=new com.google.gson.JsonObject();card.addProperty("id",law.id());card.addProperty("text",law.text());laws.add(card);
+                }
+                visual.add("laws",laws);visual.addProperty("total",publicLaws.stream().filter(law->!law.hidden()).count());visuals.add(visual);
+            }
+            scene.add("courts",visuals);
+            com.myriam.unrp.net.Net.CHANNEL.send(net.minecraftforge.network.PacketDistributor.PLAYER.with(()->viewer),new com.myriam.unrp.net.CovenantPacket(scene.toString()));
+        }
         for (ServerPlayer sovereign : server.getPlayerList().getPlayers()) {
             if (levelOf(sovereign) < 5 || !SOV.containsKey(sovereign.getUUID())) continue;
             com.google.gson.JsonObject privateState = new com.google.gson.JsonObject();
@@ -1884,7 +1900,7 @@ public final class Specials17 {
         }
         ServerLevel lv = server.getLevel(courtDimension(c));
         if (lv == null) return;
-        if (!c.follow && !c.constitutional && now % 100 == 0) Fx.wave(lv, c.center, 3.2, 0xF2C94C, 30);
+        // Stationary and following Courts share the dedicated textured client seal.
         for (ServerPlayer v : server.getPlayerList().getPlayers()) {
             if (v.getUUID().equals(c.owner)) continue;
             if (v.isSpectator()) continue;
@@ -1930,9 +1946,9 @@ public final class Specials17 {
                     && collectUnit(c, person, entry.getValue().get(0), false, false)) entry.getValue().remove(0);
         }
         if (owner != null && c.follow) {
-            if (so.indemUntil > now && now % 80 == 0) Fx.shield(lv, owner, 0xF2C94C, 1.6f, 100);
-            if (now % 20 == 0) Vfx.glow(lv, Vfx.RING, 0xF2C94C, owner.position().add(0, 0.05, 0), new Vec3(3.2, 0, 0), 1, 0); // sceau d'or sous lui
-            if (now % 100 == 0) Fx.wave(lv, owner.position(), Math.min(c.radius, 16), 0xF2C94C, 30);
+            // Indemnity uses the dedicated shield glyphs in the visual scene.
+            // The dedicated client seal follows the interpolated owner instead of intermittent generic rings.
+
             if (now % 10 == 0) moveParchments(lv, owner, c);
             if (so.proxy != null && now > so.proxyUntil) so.proxy = null;
             // niveau 5 : le registre

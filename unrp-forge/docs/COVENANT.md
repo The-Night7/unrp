@@ -164,3 +164,32 @@ The prototype's internal aura costs and cooldowns remain game balancing values. 
 The ability system now supports 32 indexed moves without overlapping press/release codes; Covenant uses 25 moves across six stances. The player-state decoder no longer truncates a large multi-power bar at 64 entries and misreads the remaining packet. The changed network protocol requires matching client/server builds.
 
 Automated checks cover tier boundaries, permanent Indemnity at 5.0, removed God-tier caps/burden, retroactive bounds, parsing, persistence, world-state isolation, branch access/passive isolation, move reachability and packet round trips. Visuals and multiplayer Court/contract interactions still require an in-game check.
+
+## Dedicated pixel-art visuals
+
+[Production texture sheet](covenant-visuals.png). This sheet shows the exact PNGs used by the renderers; it is not a Minecraft screenshot.
+
+- **Court:** a native 64px gold judicial seal with a crowned signature, stepped concentric rings and twelve witness marks. The small central seal follows the interpolated owner or stays at a sealed Court's position. Its ground height is sampled locally rather than floating at the owner's jump height.
+- **Boundary:** sparse gold ground marks sample the Court's real radius. Nearby loaded terrain is used for height; spherical Courts account for vertical offset, while district jurisdiction keeps its horizontal radius. Only the local portion is rendered for large Courts. Copper tint indicates that the viewing player owes a penalty.
+- **Laws:** real textured parchment cards replace invisible armor-stand name tags. Public laws page three at a time, every eight seconds. Their displayed text is capped at 512 characters for visual packet/render bounds; the stored law and enforcement text are unchanged. Fine Print is filtered server-side before the public visual packet is assembled. Private Pact letters and Constitution inspection use the same parchment PNG with readable dark ink.
+- **Signatures:** the actual hand layer and existing first-person arm hook use a native gold signature PNG. Placement is above the cosmetic sleeve surface, so the stamp is not hidden inside clothing. Soul-related growth retains the previous limit. Constitution rows use a separate native ink-band texture, with full text still available through inspection.
+- **Indemnity:** three small shield glyphs surround the owner while the server reports the personal Court as covered. They replace the repeated generic shield bubble; activation still has a short sparkle cue.
+- **Move icons:** the existing 25 native 16px glyphs receive selective shadow depth. The ability bar/tree paths stay unchanged.
+
+### Sources
+
+| Part | File |
+| --- | --- |
+| Actual seal, parchment, boundary and protection rendering | [CovenantEffects.java](../src/main/java/com/myriam/unrp/client/CovenantEffects.java) |
+| Hand and body textures | [CovenantSignatureLayer.java](../src/main/java/com/myriam/unrp/client/CovenantSignatureLayer.java) |
+| Private/inspection parchment GUI and visual packet routing | [CovenantClient.java](../src/main/java/com/myriam/unrp/client/CovenantClient.java) |
+| Server-owned visual scene | `syncSignatures` in [Specials17.java](../src/main/java/com/myriam/unrp/ability/Specials17.java) |
+| Bounded, hidden-law-safe visual paging | [CovenantPresentation.java](../src/main/java/com/myriam/unrp/ability/CovenantPresentation.java) |
+| Actual texture files | [textures/covenant](../src/main/resources/assets/unrp/textures/covenant) |
+| Native texture generator and real-texture preview | [design_covenant.py](../tools/design_covenant.py) |
+
+Regenerate with `python3 unrp-forge/tools/design_covenant.py`. The former `make_covenant_icons.py` entry point delegates to this generator, so it cannot silently restore an older icon pass. No generated illustration is used.
+
+The scene is sent every two seconds and expires client-side after six seconds without an update. It is limited to eight nearby physical Courts per viewer, with three public cards each; boundary marks only query loaded client terrain. Existing private registry markers remain restricted to the Sovereign. Match client/server mod versions for these visuals.
+
+The visual redesign does not alter laws, penalties, range, collateral, acceptance of Pacts, cooldowns or tier unlocks. New tests cover hidden-law filtering, complete bounded paging and preservation of stored law text. OpenGL appearance, first-person item poses and multiplayer visual interactions still need a live Minecraft check.

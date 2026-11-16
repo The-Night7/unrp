@@ -43,6 +43,7 @@ public final class CovenantClient {
                         person.get("souls").getAsInt(), person.get("deaf").getAsBoolean(), laws));
             }
         }
+        if (root.has("courts")) CovenantEffects.receive(root.getAsJsonArray("courts"));
         if (root.has("markers")) {
             MARKERS.clear(); markersAt = System.currentTimeMillis();
             for (var element : root.getAsJsonArray("markers")) {
@@ -53,7 +54,7 @@ public final class CovenantClient {
         }
         if (root.has("letter")) { letter = root.get("letter").getAsString(); letterUntil = System.currentTimeMillis() + 15000; }
     }
-    @SubscribeEvent public static void logout(ClientPlayerNetworkEvent.LoggingOut event) { HANDS.clear(); MARKERS.clear(); letter = ""; }
+    @SubscribeEvent public static void logout(ClientPlayerNetworkEvent.LoggingOut event) { HANDS.clear(); MARKERS.clear(); letter = ""; CovenantEffects.clear(); }
     @SubscribeEvent public static void firstPerson(net.minecraftforge.client.event.RenderArmEvent event) {
         var mc = Minecraft.getInstance();
         if (mc.player == null || event.getArm() != net.minecraft.world.entity.HumanoidArm.RIGHT) return;
@@ -102,17 +103,17 @@ public final class CovenantClient {
         }
         if (text.isEmpty()) return;
         int width = Math.min(290, mc.getWindow().getGuiScaledWidth() - 20);
-        var lines = mc.font.split(Component.literal(text), width - 16);
+        var lines = mc.font.split(Component.literal(text), width - 28);
         int height = Math.min(mc.getWindow().getGuiScaledHeight() - 24, 30 + lines.size() * 10);
         int x = mc.getWindow().getGuiScaledWidth() - width - 10, y = 12;
         var g = event.getGuiGraphics();
-        g.fill(x - 1, y - 1, x + width + 1, y + height + 1, UiSkin.GOLD);
-        g.fill(x, y, x + width, y + height, 0xF02F2411);
-        g.drawString(mc.font, title, x + 8, y + 7, UiSkin.HEAD);
+        g.blit(CovenantEffects.PARCHMENT,x,y,width,height,0,0,32,48,32,48);
+        g.drawString(mc.font, title, x + 12, y + 7, 0xFF59412A, false);
+        g.fill(x+12,y+19,x+width-12,y+20,0xFFBBA071);
         int lineY = y + 23;
         for (var line : lines) {
             if (lineY + 9 > y + height - 4) break;
-            g.drawString(mc.font, line, x + 8, lineY, UiSkin.TEXT, false); lineY += 10;
+            g.drawString(mc.font, line, x + 12, lineY, 0xFF392C23, false); lineY += 10;
         }
     }
 }
