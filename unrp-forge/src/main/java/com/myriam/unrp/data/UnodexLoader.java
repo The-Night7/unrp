@@ -36,6 +36,7 @@ public class UnodexLoader extends SimplePreparableReloadListener<UnodexData> {
         Map<String, AbilityPower> powers = new LinkedHashMap<>();
         Map<String, String> aliases = new LinkedHashMap<>();
         Map<String, Integer> pool = new LinkedHashMap<>();
+        java.util.Set<String> loreAbilities = new java.util.LinkedHashSet<>();
         Map<String, double[][]> ranges = new LinkedHashMap<>();
 
         Map<ResourceLocation, Resource> files = manager.listResources(ROOT,
@@ -66,6 +67,8 @@ public class UnodexLoader extends SimplePreparableReloadListener<UnodexData> {
                         }
                     }
                 } else if (path.equals("ability_pool.json")) {
+                    if (root.has("lore_abilities"))
+                        for (JsonElement id : root.getAsJsonArray("lore_abilities")) loreAbilities.add(id.getAsString());
                     for (Map.Entry<String, JsonElement> pe : root.getAsJsonObject("pool").entrySet()) pool.put(pe.getKey(), pe.getValue().getAsInt());
                 } else if (path.equals("stat_ranges.json")) {
                     for (Map.Entry<String, JsonElement> re : root.getAsJsonObject("ranges").entrySet()) {
@@ -90,6 +93,7 @@ public class UnodexLoader extends SimplePreparableReloadListener<UnodexData> {
         data.powers.putAll(powers);
         data.aliases.putAll(aliases);
         data.pool.putAll(pool);
+        for (String id : loreAbilities) data.loreAbilities.add(data.canon(id));
         data.ranges.putAll(ranges);
         return data;
     }

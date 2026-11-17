@@ -42,3 +42,11 @@ Training and ability-rank points are earned from level, with at least one point 
 A stage adds up to 0.5 potential. There are four stages per stat, costing 1, 2, 3 and 4 points. Potential stops at 10.0; a stage near the cap adds only the remaining amount. Refunding restores the stage's actual cost and removes its actual gain. Old training formats are reset rather than interpreted as the new stage system.
 
 Use `/unrp rolltest 100000` to inspect rarity frequencies, or `/unrp rollability <player>` for an administrative ability reroll. The implementation is in `RarityTable`, `UnodexData`, `ClaimData`, `Mastery` and `Training`.
+
+## Lore-only OC ability rolls
+
+Only powers listed in `ability_pool.json` → `lore_abilities` can be rolled by an OC. The list uses canonical IDs; aliases such as the two Phase Shift forms share eligibility and ownership. Positive weight, a runtime definition and availability are still required. An absent or empty list enables no rolls.
+
+This filter also applies to administrative rerolls and automatic assignment of an OC's missing ability. Increasing an original power's weight cannot make it rollable. Aura Transference, Armament Dominion, Daystar, Salt Seraph and Black Lash have zero weights and are absent from the list. Origin powers and Covenant remain excluded separately. Direct administrative assignment is unchanged, as are powers already held by existing characters.
+
+Character categories are not used to decide this: several webtoon characters are categorised as `rp` in the project data. Review the explicit lore list when adding a power.

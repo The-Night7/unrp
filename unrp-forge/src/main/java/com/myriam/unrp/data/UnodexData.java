@@ -23,6 +23,7 @@ public class UnodexData {
     public final Map<String, String> aliases = new LinkedHashMap<>();
 
     public final Map<String, Integer> pool = new LinkedHashMap<>();
+    public final java.util.Set<String> loreAbilities = new java.util.LinkedHashSet<>();
 
     public final Map<String, double[][]> ranges = new LinkedHashMap<>();
 
@@ -51,17 +52,23 @@ public class UnodexData {
     public static final java.util.Set<String> NOT_ROLLABLE = java.util.Set.of("sarcophage", "edict", "wyrm_engine", "singularity", "limit_breaker",
             "dealmaker", "counterweight", "crimson_mark", "hollow_mark", "nadir", "chained_one", "covenant");
 
+    public boolean isLoreRollable(String abilityId) {
+        String id = canon(abilityId);
+        return id != null && loreAbilities.contains(id) && !NOT_ROLLABLE.contains(id)
+                && powerFor(abilityId) != null;
+    }
+
     public String rollAbility(java.util.Random rng) {
         return rollAbility(rng, java.util.Set.of());
     }
 
     public String rollAbility(java.util.Random rng, java.util.Set<String> taken) {
         int total = 0;
-        for (Map.Entry<String, Integer> e : pool.entrySet()) if (e.getValue() > 0 && !NOT_ROLLABLE.contains(canon(e.getKey())) && powerFor(e.getKey()) != null && !taken.contains(canon(e.getKey()))) total += e.getValue();
+        for (Map.Entry<String, Integer> e : pool.entrySet()) if (e.getValue() > 0 && isLoreRollable(e.getKey()) && !taken.contains(canon(e.getKey()))) total += e.getValue();
         if (total <= 0) return null;
         int r = rng.nextInt(total);
         for (Map.Entry<String, Integer> e : pool.entrySet()) {
-            if (e.getValue() <= 0 || NOT_ROLLABLE.contains(canon(e.getKey())) || powerFor(e.getKey()) == null || taken.contains(canon(e.getKey()))) continue;
+            if (e.getValue() <= 0 || !isLoreRollable(e.getKey()) || taken.contains(canon(e.getKey()))) continue;
             r -= e.getValue();
             if (r < 0) return e.getKey();
         }

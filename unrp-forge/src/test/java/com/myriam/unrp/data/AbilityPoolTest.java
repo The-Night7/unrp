@@ -15,6 +15,7 @@ class AbilityPoolTest {
         d.powers.put("a", new AbilityPower());
         d.powers.put("b", new AbilityPower());
         d.pool.putAll(pool);
+        d.loreAbilities.addAll(java.util.Set.of("a", "b"));
         return d;
     }
 
@@ -63,5 +64,36 @@ class AbilityPoolTest {
         d.powers.put("a_variant", d.powers.get("a"));
         Random rng = new Random(3);
         for (int i = 0; i < 500; i++) assertEquals("b", d.rollAbility(rng, java.util.Set.of("a")));
+    }
+    @Test
+    void originalPowersCannotEnterRollsThroughWeightsOrAliases() {
+        UnodexData d = data(Map.of("a", 1, "original", 10000, "original_alias", 10000));
+        d.powers.put("original", new AbilityPower());
+        d.aliases.put("original_alias", "original");
+        Random rng = new Random(17);
+        for (int i = 0; i < 500; i++) assertEquals("a", d.rollAbility(rng));
+    }
+
+    @Test
+    void missingLoreAllowlistDoesNotFallBackToUnrestrictedRolls() {
+        UnodexData d = data(Map.of("a", 1));
+        d.loreAbilities.clear();
+        assertNull(d.rollAbility(new Random(1)));
+    }
+
+    @Test
+    void loreAliasCanBeDrawnAndSharesItsOwnersExclusion() {
+        UnodexData d = data(Map.of("a_variant", 1));
+        d.aliases.put("a_variant", "a");
+        assertEquals("a_variant", d.rollAbility(new Random(1)));
+        assertNull(d.rollAbility(new Random(1), java.util.Set.of("a")));
+    }
+
+    @Test
+    void originExclusionStillAppliesEvenIfAddedToLoreAllowlist() {
+        UnodexData d = data(Map.of("covenant", 1));
+        d.powers.put("covenant", new AbilityPower());
+        d.loreAbilities.add("covenant");
+        assertNull(d.rollAbility(new Random(1)));
     }
 }

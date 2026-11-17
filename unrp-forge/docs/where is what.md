@@ -153,3 +153,7 @@ Recovery Bed has separate **ceiling** and **speed** controls: `/unrp recoverybed
 ## Non-Origin animation and texture audit
 
 `tools/check_ability_visuals.py` checks animation IDs, legacy pose keys, player-model hooks, icons and renderer resources. The build runs it through `verifyAbilityVisuals`. [The report](generated/ABILITY_VISUALS.md) and [move checklist](generated/ability-visual-checklist.csv) show coverage and explicitly leave in-game review pending. Shared icon assignments are recorded in `tools/overrides/shared_visual_icons.json`.
+
+## Lore-only OC rolls
+
+`data/unrp/unodex/ability_pool.json` contains `lore_abilities` and the weights. `UnodexLoader` loads the list; `UnodexData.isLoreRollable` checks it after alias resolution. All random ability assignments use `rollAbility`. Direct admin assignments remain separate.
