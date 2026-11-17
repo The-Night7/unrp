@@ -28,4 +28,21 @@ class RecoveryTreatmentTest {
         for(double rate:new double[]{0,-1,Double.NaN,Double.POSITIVE_INFINITY})
             assertThrows(IllegalArgumentException.class,()->RecoveryTreatment.advance(0,rate));
     }
+    @Test void ownerCeilingStopsTheCourseBeforeFullRestoration() {
+        double progress=0;
+        for(int seconds=0;seconds<1000;seconds++)progress=RecoveryTreatment.advance(progress,3,50);
+        assertEquals(50,progress);
+        assertEquals(30,RecoveryTreatment.advance(29,5,30));
+    }
+    @Test void raisingCeilingAllowsFurtherTreatmentButLoweringDoesNotStealRecoveredStrength() {
+        assertEquals(51,RecoveryTreatment.advance(50,1,75));
+        assertEquals(50,RecoveryTreatment.advance(50,1,25));
+    }
+    @Test void partialRestorationChangesActualStatsAndFullRecoveryPreservesThem() {
+        assertEquals(5,RecoveryTreatment.effectiveStat(9,50));
+        assertEquals(9,RecoveryTreatment.effectiveStat(9,100));
+        assertEquals(1,RecoveryTreatment.effectiveStat(1,50));
+        assertEquals(0,RecoveryTreatment.effectiveStat(0,50));
+    }
+
 }

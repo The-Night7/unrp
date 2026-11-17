@@ -53,9 +53,9 @@ public final class RecoveryBedBlock extends BedBlock {
         var server=(net.minecraft.server.level.ServerLevel)level;
         var settings=RecoveryBeds.get(server).settings(server,head);
         if(player.isShiftKeyDown()) {
-            double current=settings==null?1:settings.rate();
-            double next=current<.5?.5:current<1?1:current<2?2:current<5?5:.25;
-            RecoveryBeds.setRate((ServerPlayer)player,head,next);return InteractionResult.CONSUME;
+            double current=settings==null?50:settings.ceiling();
+            double next=current<25?25:current<50?50:current<75?75:current<100?100:25;
+            RecoveryBeds.setCeiling((ServerPlayer)player,head,next);return InteractionResult.CONSUME;
         }
         if(pillow.getValue(OCCUPIED)) {
             player.displayClientMessage(Component.literal("This recovery bed is occupied."),true);return InteractionResult.CONSUME;
@@ -91,10 +91,10 @@ public final class RecoveryBedBlock extends BedBlock {
                     :"Your ability is available. Leave the bed when ready.";
             player.displayClientMessage(Component.literal(message),true);return;
         }
-        double progress=com.myriam.unrp.ability.AbilityEngine.recoverDisabledAbility(player,settings.rate());
-        String message=progress>=100
-                ?"Ability recovered. You can activate it again."
-                :String.format(java.util.Locale.ROOT,"Ability recovery: %.1f%% · Rate: %.2f%% / second",progress,settings.rate());
+        double progress=com.myriam.unrp.ability.AbilityEngine.recoverDisabledAbility(player,settings.rate(),settings.ceiling());
+        String message=progress>=settings.ceiling()
+                ?String.format(java.util.Locale.ROOT,"Treatment complete: %.1f%% ability restored. Owner ceiling: %.1f%%.",progress,settings.ceiling())
+                :String.format(java.util.Locale.ROOT,"Ability recovery: %.1f%% / %.1f%% · Speed: %.2f%% / second",progress,settings.ceiling(),settings.rate());
         player.displayClientMessage(Component.literal(message),true);
     }
 }

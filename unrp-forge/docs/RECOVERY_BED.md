@@ -2,9 +2,14 @@
 
 `unrp:recovery_bed` is a two-block machine for restoring a disabled ability. Right-click either half to lie down using Minecraft's synchronized sleeping pose. It does not provide bonus health healing or aura regeneration.
 
-The placing player owns the bed. Only that owner can choose its rate, expressed in **percentage points of ability recovery per second**. The default is 1% per second: a complete course takes 100 seconds. At 5%, a complete course takes 20 seconds. Sneak-right-click with an empty hand cycles presets, or look at the bed and use `/unrp recoverybed rate <percent per second>` for an exact rate from 0.1 to 20.
+The placing player owns the bed. Only that owner can change its two independent settings:
 
-Recovery advances each second while the patient is lying in the bed. At 100%, the patient's timed ability disable is lifted, allowing them to activate their ability again. It does not automatically activate the power. Use **Leave Bed** to pause treatment; returning resumes progress for the same disable episode. A new disable resets the course. A suspension can also expire naturally before treatment finishes. Other powers retaining an ability as collateral or actively enforcing suppression are separate constraints: the bed does not steal back collateral or override their authority.
+- **Ceiling**: the fraction of the original ability restored. Default: **50%**. Sneak-right-click with an empty hand cycles 25%, 50%, 75%, 100%. While looking at the bed, `/unrp recoverybed cap 30` sets an exact ceiling between 1% and 100%.
+- **Speed**: percentage points recovered per second. Default: 1. `/unrp recoverybed rate 2` changes the speed, without changing the ceiling.
+
+At a speed of 1 and a ceiling of 50%, treatment completes at 50% after 50 treatment seconds. Existing beds without a saved ceiling also default to 50%.
+
+Recovery advances each second while the patient is lying in the bed. At the chosen ceiling, the patient's timed disable is lifted and their ability becomes usable at the restored fraction. Effective level, common move level gates, body stats and aura capacity reflect this partial restoration; the original character/OC profile is not permanently rewritten. It does not automatically activate the power. Use **Leave Bed** to pause treatment; returning resumes progress for the same disable episode. A new disable resets the course. A suspension can also expire naturally before a first course finishes. Once partial restoration completes, its restored fraction persists after leaving the bed, through reconnects and the former suspension deadline; it does not automatically become 100%. A higher-ceiling bed can provide further treatment. Lowering a ceiling does not take away strength already restored, and a ceiling change is not retroactive on someone already fully recovered. Other powers retaining an ability as collateral or actively enforcing suppression are separate constraints: the bed does not steal back collateral or override their authority.
 
 The bed continues working when its owner's source ability is inactive or disabled, so the owner can also recover their own ability. The owner's presence is not required. Owner UUID, source ability and rate are saved in `data/unrp_recovery_beds.dat`; treatment progress is stored with the patient.
 

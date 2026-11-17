@@ -82,7 +82,7 @@ public final class ModelEnv {
     }
 
     static int powerLevel(ServerPlayer p) {
-        return (int) Math.round(com.myriam.unrp.data.ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level * 10).orElse(0.0));
+        return (int) Math.round(com.myriam.unrp.data.ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level * 10 * AbilityEngine.restoredPercent(p)/100).orElse(0.0));
     }
 
     /** Avant tout le code du modèle (abonné en phase END) : état à jour. */

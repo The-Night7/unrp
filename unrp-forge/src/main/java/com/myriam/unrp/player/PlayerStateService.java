@@ -86,6 +86,11 @@ public final class PlayerStateService {
             base = fromPotential(potentialBase(pr, c), bonus, pr.level);
         }
         for (int i = 0; i < 5; i++) base[i] = Math.max(0, base[i] + mode[i]);
+        var player=server.getPlayerList().getPlayer(id);
+        if(player!=null) {
+            double restored=com.myriam.unrp.ability.AbilityEngine.restoredPercent(player);
+            for(int i=0;i<base.length;i++)base[i]=com.myriam.unrp.item.RecoveryTreatment.effectiveStat(base[i],restored);
+        }
         return base;
     }
 
@@ -108,6 +113,11 @@ public final class PlayerStateService {
         s.name = c != null ? c.name : (pr.ocName != null ? pr.ocName : String.valueOf(pr.characterId));
         s.tier = c != null && c.tier != null ? c.tier : (pr.tier == null ? "unknown" : pr.tier);
         Double lvl = c != null ? c.level : Double.valueOf(pr.level);
+        double restored=com.myriam.unrp.ability.AbilityEngine.restoredPercent(player);
+        if(lvl!=null&&restored<100) {
+            lvl=lvl*restored/100;
+            s.tier=lvl>=7.5?"exo_god":lvl>=6?"god":lvl>=5?"high":lvl>=3.5?"elite":lvl>=2?"mid":"low";
+        }
         s.level = lvl == null ? "?" : String.format(Locale.ROOT, "%.1f", lvl);
 
         claims.ensureOcAbility(pr);

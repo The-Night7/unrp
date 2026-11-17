@@ -230,9 +230,9 @@ public final class Specials17 {
         if (pr == null) return 1;
         if (ClaimData.Profile.CHARACTER.equals(pr.kind)) {
             var c = UnodexData.get().characters.get(pr.characterId);
-            return c != null && c.level != null ? c.level : 10;
+            return (c != null && c.level != null ? c.level : 10)*AbilityEngine.restoredPercent(p)/100;
         }
-        return pr.level;
+        return pr.level*AbilityEngine.restoredPercent(p)/100;
     }
 
     private static double courtLevelOf(ServerPlayer player) {

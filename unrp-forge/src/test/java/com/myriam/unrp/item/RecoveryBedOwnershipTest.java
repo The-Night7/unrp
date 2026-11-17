@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RecoveryBedOwnershipTest {
     private final UUID owner=UUID.randomUUID(),other=UUID.randomUUID();
-    private final RecoveryBeds.Settings bed=new RecoveryBeds.Settings(owner,"covenant",.5);
+    private final RecoveryBeds.Settings bed=new RecoveryBeds.Settings(owner,"covenant",.5,50);
     @Test void onlyOwnerMayChangeRate() {
         assertTrue(bed.mayEdit(owner));assertFalse(bed.mayEdit(other));
     }

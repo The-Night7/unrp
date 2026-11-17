@@ -1384,27 +1384,33 @@ public final class AbilityEngine {
         return Specials17.powerBlocked(p) || (st != null && st.disabledUntil > p.serverLevel().getGameTime());
     }
 
-    /** A recoverable suspension, distinct from another Sovereign still holding an ability as collateral. */
+    /** Fraction actually restored by medical treatment; this persists independently of the disable timer. */
+    public static double restoredPercent(ServerPlayer p) {
+        var data=com.myriam.unrp.item.UnItems.persisted(p);
+        if(!data.getBoolean("unrp_recovery_partial")||!java.util.Objects.equals(data.getString("unrp_recovery_partial_power"),basePowerId(p)))return 100;
+        return Math.max(1,Math.min(100,data.getDouble("unrp_recovery_progress")));
+    }
     public static boolean hasRecoverableDisable(ServerPlayer p) {
         St state=STATE.get(p.getUUID());
-        return state!=null&&state.disabledUntil>p.serverLevel().getGameTime();
+        return restoredPercent(p)<100||(state!=null&&state.disabledUntil>p.serverLevel().getGameTime());
     }
-
-    /** Medical recovery advances only during treatment; a new disable starts a fresh course. */
-    public static double recoverDisabledAbility(ServerPlayer p,double percentPerSecond) {
+    /** Finishing a course restores the selected fraction, never a hidden automatic 100%. */
+    public static double recoverDisabledAbility(ServerPlayer p,double percentPerSecond,double ceiling) {
         St state=STATE.get(p.getUUID());
-        if(state==null||state.disabledUntil<=p.serverLevel().getGameTime())return 100;
+        boolean partial=restoredPercent(p)<100;
+        if(!partial&&(state==null||state.disabledUntil<=p.serverLevel().getGameTime()))return 100;
         var data=com.myriam.unrp.item.UnItems.persisted(p);
-        long episode=data.getLong("unrp_recovery_episode");
-        double previous=episode==state.disabledUntil?data.getDouble("unrp_recovery_progress"):0;
-        double progress=com.myriam.unrp.item.RecoveryTreatment.advance(previous,percentPerSecond);
-        data.putLong("unrp_recovery_episode",state.disabledUntil);
-        data.putDouble("unrp_recovery_progress",progress);
-        if(progress>=100) {
+        long episode=state==null?0:state.disabledUntil;
+        double previous=partial||data.getLong("unrp_recovery_episode")==episode?data.getDouble("unrp_recovery_progress"):0;
+        double progress=com.myriam.unrp.item.RecoveryTreatment.advance(previous,percentPerSecond,ceiling);
+        data.putLong("unrp_recovery_episode",episode);data.putDouble("unrp_recovery_progress",progress);
+        if(progress>=ceiling) {
+            data.putBoolean("unrp_recovery_partial",progress<100);
+            data.putString("unrp_recovery_partial_power",java.util.Objects.toString(basePowerId(p),""));
             undisable(p);
-            com.myriam.unrp.uo.ModelEnv.sync(p);
-            com.myriam.unrp.player.PlayerStateService.send(p);
         }
+        com.myriam.unrp.uo.ModelEnv.sync(p);
+        com.myriam.unrp.player.PlayerStateService.send(p);
         return progress;
     }
 
@@ -1423,6 +1429,7 @@ public final class AbilityEngine {
         var recovery=com.myriam.unrp.item.UnItems.persisted(p);
         recovery.putLong("unrp_recovery_episode",st.disabledUntil);
         recovery.putDouble("unrp_recovery_progress",0);
+        recovery.putBoolean("unrp_recovery_partial",false);
         bar(p, "Pouvoir suspendu");
     }
 

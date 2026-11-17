@@ -23,7 +23,7 @@ import java.util.UUID;
 /** Persistent owner, source ability and treatment rate, keyed by dimension and bed head. */
 @Mod.EventBusSubscriber(modid=UnrpMod.MOD_ID)
 public final class RecoveryBeds extends SavedData {
-    public record Settings(UUID owner,String power,double rate) {
+    public record Settings(UUID owner,String power,double rate,double ceiling) {
         public boolean mayEdit(UUID actor) {return owner.equals(actor);}
         public boolean mayRemove(UUID actor,boolean sourceActive) {return mayEdit(actor)&&!sourceActive;}
     }
@@ -35,13 +35,13 @@ public final class RecoveryBeds extends SavedData {
         var data=new RecoveryBeds();
         for(Tag entry:tag.getList("beds",Tag.TAG_COMPOUND)) {
             var bed=(CompoundTag)entry;
-            if(bed.hasUUID("owner"))data.beds.put(bed.getString("key"),new Settings(bed.getUUID("owner"),bed.getString("power"),Math.max(.1,Math.min(20,bed.getDouble("rate")))));
+            if(bed.hasUUID("owner"))data.beds.put(bed.getString("key"),new Settings(bed.getUUID("owner"),bed.getString("power"),Math.max(.1,Math.min(20,bed.getDouble("rate"))),bed.contains("ceiling")?Math.max(1,Math.min(100,bed.getDouble("ceiling"))):50));
         }
         return data;
     }
     @Override public CompoundTag save(CompoundTag tag) {
         var list=new ListTag();beds.forEach((key,value)->{
-            var entry=new CompoundTag();entry.putString("key",key);entry.putUUID("owner",value.owner);entry.putString("power",value.power);entry.putDouble("rate",value.rate);list.add(entry);
+            var entry=new CompoundTag();entry.putString("key",key);entry.putUUID("owner",value.owner);entry.putString("power",value.power);entry.putDouble("rate",value.rate);entry.putDouble("ceiling",value.ceiling);list.add(entry);
         });tag.put("beds",list);return tag;
     }
     private static String key(ServerLevel level,BlockPos head){return level.dimension().location()+"/"+head.asLong();}
@@ -52,7 +52,7 @@ public final class RecoveryBeds extends SavedData {
     public Settings settings(ServerLevel level,BlockPos pos){return beds.get(key(level,head(level,pos)));}
     public void placed(ServerPlayer owner,BlockPos head) {
         String power=AbilityEngine.basePowerId(owner);
-        beds.put(key(owner.serverLevel(),head),new Settings(owner.getUUID(),power==null?"":power,1));setDirty();
+        beds.put(key(owner.serverLevel(),head),new Settings(owner.getUUID(),power==null?"":power,1,50));setDirty();
     }
     public void remove(ServerLevel level,BlockPos head){if(beds.remove(key(level,head))!=null)setDirty();}
     public static boolean powered(ServerLevel level,Settings settings) {
@@ -74,8 +74,23 @@ public final class RecoveryBeds extends SavedData {
             player.displayClientMessage(Component.literal("Only this bed's owner can change its rate."),true);return false;
         }
         if(!Double.isFinite(rate)||rate<.1||rate>20)return false;
-        data.beds.put(key(level,head(level,pos)),new Settings(settings.owner,settings.power,rate));data.setDirty();
+        data.beds.put(key(level,head(level,pos)),new Settings(settings.owner,settings.power,rate,settings.ceiling));data.setDirty();
         player.displayClientMessage(Component.literal("Recovery rate: "+rate+" % ability recovery per second."),true);return true;
+    }
+    public static boolean setCeiling(ServerPlayer player,BlockPos pos,double ceiling) {
+        var level=player.serverLevel();var data=get(level);var settings=data.settings(level,pos);
+        if(settings==null||!settings.mayEdit(player.getUUID())) {
+            player.displayClientMessage(Component.literal("Only this bed's owner can change its recovery ceiling."),true);return false;
+        }
+        if(!Double.isFinite(ceiling)||ceiling<1||ceiling>100)return false;
+        data.beds.put(key(level,head(level,pos)),new Settings(settings.owner,settings.power,settings.rate,ceiling));data.setDirty();
+        player.displayClientMessage(Component.literal("Recovery ceiling: "+ceiling+"% of the original ability."),true);return true;
+    }
+    public static int commandCeiling(ServerPlayer player,double ceiling) {
+        var hit=player.pick(5,0,false);
+        if(hit instanceof net.minecraft.world.phys.BlockHitResult block&&player.level().getBlockState(block.getBlockPos()).getBlock() instanceof RecoveryBedBlock)
+            return setCeiling(player,block.getBlockPos(),ceiling)?1:0;
+        player.displayClientMessage(Component.literal("Look at your recovery bed first."),true);return 0;
     }
     public static int commandRate(ServerPlayer player,double rate) {
         var hit=player.pick(5,0,false);
