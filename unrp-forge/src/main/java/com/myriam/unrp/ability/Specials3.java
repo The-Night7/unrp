@@ -58,7 +58,7 @@ public final class Specials3 {
 
     // ------------------------------------------------------------------ outils
     private static float level(ServerPlayer p) {
-        double l = ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level).orElse(1.0);
+        double l = com.myriam.unrp.player.PlayerStateService.effectiveLevel(p);
         return (float) Math.max(1, Math.min(10, l));
     }
 

@@ -74,7 +74,7 @@ public final class Specials8 {
 
     // ------------------------------------------------------------------ outils
     private static float sf(ServerPlayer p) {
-        double lvl = ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level).orElse(1.1);
+        double lvl = com.myriam.unrp.player.PlayerStateService.effectiveLevel(p);
         return (float) Math.max(0, Math.min(1, (lvl * 10 - 11) / 89.0));
     }
 
@@ -139,7 +139,7 @@ public final class Specials8 {
 
     // ------------------------------------------------------------------ Conjure Disks
     private static int maxDisks(ServerPlayer p) {
-        double lvl10 = ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level * 10).orElse(11.0);
+        double lvl10 = com.myriam.unrp.player.PlayerStateService.effectiveLevel(p) * 10;
         return lvl10 < 30 ? 3 : lvl10 < 60 ? 4 : lvl10 < 85 ? 5 : 6;
     }
 

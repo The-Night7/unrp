@@ -69,7 +69,7 @@ public final class Specials9 {
     // ------------------------------------------------------------------ outils
 
     private static int lvl(ServerPlayer p) {
-        return (int) Math.round(ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level * 10).orElse(11.0));
+        return (int) Math.round(com.myriam.unrp.player.PlayerStateService.effectiveLevel(p) * 10);
     }
 
     private static float sf(ServerPlayer p) {

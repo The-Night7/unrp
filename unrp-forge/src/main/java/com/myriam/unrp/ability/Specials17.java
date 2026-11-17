@@ -241,14 +241,7 @@ public final class Specials17 {
 
     // ------------------------------------------------------------------ level
     static double levelOf(ServerPlayer p) {
-        var pr = ClaimData.get(p.server).profileOf(p.getUUID()).orElse(null);
-        if (pr == null)
-            return 1;
-        if (ClaimData.Profile.CHARACTER.equals(pr.kind)) {
-            var c = UnodexData.get().characters.get(pr.characterId);
-            return (c != null && c.level != null ? c.level : 10) * AbilityEngine.restoredPercent(p) / 100;
-        }
-        return pr.level * AbilityEngine.restoredPercent(p) / 100;
+        return com.myriam.unrp.player.PlayerStateService.effectiveLevel(p);
     }
 
     private static double courtLevelOf(ServerPlayer player) {

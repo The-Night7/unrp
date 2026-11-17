@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecoveryTreatmentTest {
+    @Test void recoveryFractionDeterminesEffectiveLevel() {
+        assertEquals(3, RecoveryTreatment.effectiveLevel(10, 30), 1e-9);
+        assertEquals(2.4, RecoveryTreatment.effectiveLevel(8, 30), 1e-9);
+        assertEquals(8, RecoveryTreatment.effectiveLevel(8, 100), 1e-9);
+    }
     @Test void defaultRateRequiresOneHundredTreatmentSeconds() {
         double progress=0;
         for(int seconds=0;seconds<99;seconds++)progress=RecoveryTreatment.advance(progress,1);

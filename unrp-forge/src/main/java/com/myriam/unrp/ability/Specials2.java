@@ -464,7 +464,7 @@ public final class Specials2 {
         String pid = AbilityEngine.basePowerId(sp);
         if (pid == null) return 3;
         if ("catalyst_ray".equals(pid)) return Integer.MAX_VALUE;
-        double lvl = ClaimData.get(sp.server).profileOf(sp.getUUID()).map(pr -> pr.level).orElse(0.0);
+        double lvl = com.myriam.unrp.player.PlayerStateService.effectiveLevel(sp);
         return Math.max(3, (int) Math.max(1.1, lvl));
     }
 
@@ -538,7 +538,7 @@ public final class Specials2 {
                     if (pr.ocName != null) name = pr.ocName;
                     tier = pr.tier == null ? "-" : pr.tier;
                 }
-                level = String.format(java.util.Locale.ROOT, "%.1f", pr.level);
+                level = String.format(java.util.Locale.ROOT, "%.1f", PlayerStateService.effectiveLevel(tp));
                 int[] s = PlayerStateService.stats(p.server, tp.getUUID(), pr, ch);
                 String[] names = {"Power", "Defense", "Recovery", "Trick", "Speed"};
                 int bi = 0;

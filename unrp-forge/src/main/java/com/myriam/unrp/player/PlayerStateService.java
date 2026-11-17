@@ -20,6 +20,16 @@ public final class PlayerStateService {
 
     private PlayerStateService() {}
 
+    public static double effectiveLevel(ServerPlayer player) {
+        ClaimData.Profile profile = ClaimData.get(player.server).profileOf(player.getUUID()).orElse(null);
+        if (profile == null) return 1;
+        Models.Character character = ClaimData.Profile.CHARACTER.equals(profile.kind)
+                ? UnodexData.get().characters.get(profile.characterId) : null;
+        double original = character != null && character.level != null ? character.level : profile.level;
+        return com.myriam.unrp.item.RecoveryTreatment.effectiveLevel(original,
+                com.myriam.unrp.ability.AbilityEngine.restoredPercent(player));
+    }
+
     public static int maxAura(int[] stats) {
         return 100 + 10 * (stats[3] + stats[2]);
     }
@@ -104,7 +114,7 @@ public final class PlayerStateService {
         Double lvl = c != null ? c.level : Double.valueOf(pr.level);
         double restored=com.myriam.unrp.ability.AbilityEngine.restoredPercent(player);
         if(lvl!=null&&restored<100) {
-            lvl=lvl*restored/100;
+            lvl=effectiveLevel(player);
             s.tier=lvl>=7.5?"exo_god":lvl>=6?"god":lvl>=5?"high":lvl>=3.5?"elite":lvl>=2?"mid":"low";
         }
         s.level = lvl == null ? "?" : String.format(Locale.ROOT, "%.1f", lvl);

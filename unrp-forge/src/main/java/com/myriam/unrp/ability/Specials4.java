@@ -80,7 +80,7 @@ public final class Specials4 {
 
     // ------------------------------------------------------------------ outils
     private static double level(ServerPlayer p) {
-        return ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level).orElse(1.1);
+        return com.myriam.unrp.player.PlayerStateService.effectiveLevel(p);
     }
 
     private static float sf(ServerPlayer p) {
