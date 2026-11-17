@@ -2,7 +2,6 @@ package com.myriam.unrp.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-/** Réglages d'affichage du joueur (onglet Style du hub). Fichier : config/unrp-client.toml */
 public final class UnrpClientConfig {
     public static final ForgeConfigSpec SPEC;
     public static final ForgeConfigSpec.BooleanValue HUD_VISIBLE;
@@ -12,22 +11,22 @@ public final class UnrpClientConfig {
     public static final ForgeConfigSpec.BooleanValue HUB_SOUNDS;
     public static final ForgeConfigSpec.BooleanValue SCREEN_EFFECTS;
 
-    public static final String[] CORNERS = {"Bas gauche", "Bas droite", "Haut gauche", "Haut droite"};
-    public static final String[] SCALES = {"Petit", "Normal", "Grand"};
+    public static final String[] CORNERS = {"Bottom left", "Bottom right", "Top left", "Top right"};
+    public static final String[] SCALES = {"Small", "Normal", "Large"};
     public static final float[] SCALE_VALUES = {0.75f, 1.0f, 1.25f};
-    public static final String[] COLOR_NAMES = {"Violet", "Cyan", "Rouge", "Vert", "Or", "Blanc"};
+    public static final String[] COLOR_NAMES = {"Purple", "Cyan", "Red", "Green", "Gold", "White"};
     public static final int[] COLOR_VALUES = {0x8A4DFF, 0x33C3FF, 0xFF5A5A, 0x55E08A, 0xFFC94D, 0xFFFFFF};
 
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
         b.push("hud");
-        HUD_VISIBLE = b.comment("Afficher le HUD du personnage").define("visible", true);
-        HUD_SCALE = b.comment("Taille : 0 petit, 1 normal, 2 grand").defineInRange("scale", 1, 0, 2);
-        HUD_CORNER = b.comment("Coin : 0 bas gauche (sous le chat), 1 bas droite, 2 haut gauche (minimap), 3 haut droite (effets)")
+        HUD_VISIBLE = b.comment("Show the character HUD").define("visible", true);
+        HUD_SCALE = b.comment("Size: 0 small, 1 normal, 2 large").defineInRange("scale", 1, 0, 2);
+        HUD_CORNER = b.comment("Corner: 0 bottom left (below chat), 1 bottom right, 2 top left (minimap), 3 top right (effects)")
                 .defineInRange("corner", 2, 0, 3);
-        AURA_COLOR = b.comment("Couleur de la barre d'aura (index)").defineInRange("aura_color", 0, 0, COLOR_VALUES.length - 1);
-        HUB_SOUNDS = b.comment("Sons de clic dans le hub").define("hub_sounds", true);
-        SCREEN_EFFECTS = b.comment("Effets d'écran des pouvoirs : flash, voile gris (screenEffects du modèle)").define("screen_effects", true);
+        AURA_COLOR = b.comment("Aura bar colour index").defineInRange("aura_color", 0, 0, COLOR_VALUES.length - 1);
+        HUB_SOUNDS = b.comment("Hub click sounds").define("hub_sounds", true);
+        SCREEN_EFFECTS = b.comment("Ability screen effects: flashes and grayscale overlays").define("screen_effects", true);
         b.pop();
         SPEC = b.build();
     }

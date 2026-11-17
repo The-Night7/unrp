@@ -3,7 +3,6 @@ package com.myriam.unrp.uo;
 import com.myriam.unrp.deal.Fx;
 import com.myriam.unrp.anim.MoveAnim;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -141,7 +140,7 @@ public class AuraTransferEvents {
             }
          }
 
-         for(String tag : target.getTags()) { // pouvoirs Palladium du joueur : nos tags « unrp.has.* »
+         for(String tag : target.getTags()) {
             if (tag.startsWith("unrp.has.")) {
                return CastFxEvents.baseOf(tag.substring("unrp.has.".length()));
             }
@@ -162,7 +161,7 @@ public class AuraTransferEvents {
                   String short_ = resolveTargetPower(target);
                   if (short_ != null) {
                      if (target instanceof ServerPlayer escrowOwner && com.myriam.unrp.ability.Specials17.protectedTrait(escrowOwner)) {
-                        bar(player, "§6Une branche est sous séquestre : ce trait ne peut pas être copié.");
+                        bar(player, "§6A branch is in escrow. This trait cannot be copied.");
                      } else if (SgRules.outside(target)) {
                         bar(player, "§8There's nothing of theirs to take.");
                      } else if (!player.getMainHandItem().isEmpty()) {

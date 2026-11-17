@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/** Poses tenues du modèle à la première personne (power_animations.js : bras seulement, X x 0,35, Z x 0,3). */
 @Mixin(PlayerRenderer.class)
 public abstract class PlayerHandPoseMixin {
     @Inject(method = "renderHand", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/geom/ModelPart;render(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;II)V", ordinal = 0), require = 0, expect = 0)

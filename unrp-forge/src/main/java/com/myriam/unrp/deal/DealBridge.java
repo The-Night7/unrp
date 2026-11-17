@@ -28,14 +28,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Ce que Dealmaker (DealmakerEvents, PactEnforcement, PactFate, SoulEvents...) lisait dans le reste du modèle,
- * servi par le mod. Les commandes « superpower add/remove » passent par {@link Superpowers}.
- */
 public final class DealBridge {
     private DealBridge() {}
 
-    // ------------------------------------------------------------------ recette (ModRecipes du modèle)
     private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, "unrp");
     public static final RegistryObject<RecipeSerializer<SoulBindRecipe>> SOUL_BIND =
             SERIALIZERS.register("soul_bind", () -> new SimpleCraftingRecipeSerializer<>(SoulBindRecipe::new));
@@ -52,7 +47,6 @@ public final class DealBridge {
         return ORIGIN_POWERS.contains(s);
     }
 
-    /** Sièges d'Origine attribués à distance dans le modèle (RemoteTags) : aucun ici. */
     public static Map<String, Integer> seats() {
         return Map.of();
     }
@@ -66,7 +60,6 @@ public final class DealBridge {
         return s.equals("soul_bound") || s.equals("disguise") || s.equals("boon_projection") || s.equals("boon_travel");
     }
 
-    /** MoveGovernor.MoveInfo : une capacité d'un pouvoir. */
     public static class MoveInfo {
         public final String power;
         public final int slot;
@@ -83,7 +76,6 @@ public final class DealBridge {
         }
     }
 
-    /** Pouvoirs qu'un contrat peut accorder : les pouvoirs jouables, hors pouvoirs système. */
     public static List<String> grantablePowers(MinecraftServer server) {
         List<String> out = new ArrayList<>();
         for (String k : UnodexData.get().powers.keySet()) if (!systemPower(k) && !k.endsWith("_am")) out.add(k);
@@ -91,7 +83,6 @@ public final class DealBridge {
         return out;
     }
 
-    /** Capacités de chaque pouvoir (leur numéro de case, nom, recharge). */
     public static Map<String, List<MoveInfo>> table(MinecraftServer server) {
         Map<String, List<MoveInfo>> out = new LinkedHashMap<>();
         for (Map.Entry<String, AbilityPower> e : UnodexData.get().powers.entrySet()) {
@@ -105,7 +96,6 @@ public final class DealBridge {
         return out;
     }
 
-    /** Commande du modèle : « superpower add|remove unrp:<id> <joueur> » va vers Superpowers, le reste est exécuté. */
     public static int run(MinecraftServer server, String cmd) {
         String[] w = cmd.trim().split("\\s+");
         if (w.length == 4 && w[0].equals("superpower") && w[2].startsWith("unrp:")) {
@@ -119,7 +109,6 @@ public final class DealBridge {
         return server.getCommands().performPrefixedCommand(server.createCommandSourceStack().withSuppressedOutput(), cmd);
     }
 
-    /** AmPass.lend : une copie prêtée est montrée tout de suite. */
     public static void lend(ServerPlayer p, String power) {
         p.addTag("unrp.am_shown." + power);
     }
@@ -134,8 +123,6 @@ public final class DealBridge {
         return com.myriam.unrp.ability.OriginGrowth.level(p);
     }
 
-    // ------------------------------------------------------------------ réglages du joueur (SettingsManager)
-    /** Réglages au format du modèle (AuraColor, EyeColor) tirés de l'onglet Style. */
     public static CompoundTag settingsGet(ServerPlayer p) {
         var s = com.myriam.unrp.style.StyleService.get(p.server, p.getUUID());
         CompoundTag t = new CompoundTag();
@@ -155,7 +142,6 @@ public final class DealBridge {
         com.myriam.unrp.style.StyleService.save(p, s);
     }
 
-    // ------------------------------------------------------------------ systèmes du modèle pas (encore) présents ici
     public static void invalidateGear(Object... a) {}
     public static boolean inFight(Object... a) { return false; }
     public static boolean myWorldMoving(Object... a) { return false; }
@@ -168,7 +154,6 @@ public final class DealBridge {
     public static int sgStageOf(Object... a) { return 0; }
     public static boolean titanHolds(Object... a) { return false; }
 
-    /** OriginLooks / OriginLookPacket : apparences des Origines scellées, prêtées, arrachées. */
     public static void look_seal(Object... a) {}
     public static void look_borrowed(Object... a) {}
     public static void look_imbue(Object... a) {}
@@ -196,7 +181,6 @@ public final class DealBridge {
         return c == -1 ? fallback : c;
     }
 
-    /** CustomEyesLayer.DEFAULTS : couleur des yeux de chaque pouvoir. */
     public static final Map<String, Integer> EYE_DEFAULTS;
 
     static {

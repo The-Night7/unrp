@@ -21,12 +21,6 @@ import net.threetag.palladium.client.screen.AbilityBarRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * La barre de capacités de Palladium (AbilityBarRenderer) que le modèle utilise, avec sa texture
- * (unrp:textures/gui/ability_bars/unrp_powers.png), ses touches (V B N M , et X pour changer de liste)
- * et son réglage de position. Une liste = 5 cases ; case 0 = l'interrupteur du pouvoir ; plusieurs capacités sur une
- * case : la première, remplacée par une autre si elle est verrouillée et l'autre non (posture, mode, déblocage).
- */
 @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid = "unrp", value = net.minecraftforge.api.distmarker.Dist.CLIENT)
 public final class AbilityBar implements IGuiOverlay {
     public static final AbilityBar INSTANCE = new AbilityBar();
@@ -34,9 +28,8 @@ public final class AbilityBar implements IGuiOverlay {
     static final String[] COLORS = {"white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
             "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black"};
 
-    /** Une case affichée : -1 = interrupteur du pouvoir de la liste, sinon rang dans la barre envoyée. */
     static int[][] lists = new int[0][];
-    /** pouvoir (rang parmi les pouvoirs détenus) de chaque liste */
+
     static int[] listPower = new int[0];
     static int selected = 0;
     private static final boolean[] down = new boolean[5];
@@ -48,11 +41,10 @@ public final class AbilityBar implements IGuiOverlay {
         return e >= 0 && (e >= s.barLocked.length || s.barLocked[e]);
     }
 
-    /** AbilityBarRenderer.getAbilityLists, pour le pouvoir en main. */
     static void rebuild(PlayerStatePacket s) {
         List<int[]> out = new ArrayList<>();
         List<Integer> owners = new ArrayList<>();
-        for (int pi = 0; pi < s.powName.length; pi++) { // AbilityBarRenderer.getAbilityLists : les listes de chaque pouvoir
+        for (int pi = 0; pi < s.powName.length; pi++) {
             if (s.powName[pi] == null || s.powName[pi].isEmpty()) continue;
             int maxSlot = 0;
             for (int k = 0; k < s.barSlot.length; k++) if (s.barPower[k] == pi) maxSlot = Math.max(maxSlot, s.barSlot[k]);
@@ -108,7 +100,7 @@ public final class AbilityBar implements IGuiOverlay {
         boolean free = mc.player != null && mc.screen == null;
         KeyMapping sw = PalladiumKeyMappings.SWITCH_ABILITY_LIST;
         boolean sd = free && sw != null && sw.isDown();
-        if (sd && !switchDown && lists.length > 0) { // AbilityBarRenderer.scroll (accroupi : en arrière)
+        if (sd && !switchDown && lists.length > 0) {
             boolean back = mc.player.isCrouching();
             int next = selected + (back ? -1 : 1);
             if (next >= lists.length) next = 0;
@@ -118,7 +110,7 @@ public final class AbilityBar implements IGuiOverlay {
         switchDown = sd;
         int sel = Math.min(selected, Math.max(0, lists.length - 1));
         int[] list = lists.length == 0 ? null : lists[sel];
-        int base = lists.length == 0 ? 0 : (listPower[sel] + 1) * 1000; // l'action vise le pouvoir de la liste
+        int base = lists.length == 0 ? 0 : (listPower[sel] + 1) * 1000;
         for (int i = 0; i < 5; i++) {
             KeyMapping k = PalladiumKeyMappings.ABILITY_KEYS == null || i >= PalladiumKeyMappings.ABILITY_KEYS.length ? null : PalladiumKeyMappings.ABILITY_KEYS[i];
             boolean d = free && k != null && k.isDown();
@@ -131,7 +123,7 @@ public final class AbilityBar implements IGuiOverlay {
         }
     }
 
-    // ------------------------------------------------------------------ rendu (AbilityBarRenderer)
+    // ------------------------------------------------------------------ rendering (AbilityBarRenderer)
     @Override
     public void render(ForgeGui gui, GuiGraphics g, float partialTick, int width, int height) {
         Minecraft mc = Minecraft.getInstance();

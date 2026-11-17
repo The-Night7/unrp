@@ -9,12 +9,6 @@ import net.minecraft.server.level.ServerPlayer;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-/**
- * Les « superpouvoirs » de Palladium tels que le modèle les manipule (commande superpower add/remove) :
- * pouvoirs accordés en plus du sien (pactes, âmes, soul_bound), pouvoir de base scellé (retiré par un pacte),
- * copies « _am » (réserve d'Aura Manipulation). Enregistré sur le joueur ; les tags « unrp.has.<pouvoir> »
- * du modèle en découlent.
- */
 public final class Superpowers {
     private Superpowers() {}
 
@@ -74,7 +68,6 @@ public final class Superpowers {
         AbilityEngine.removeCopy(p, id);
     }
 
-    /** Pouvoirs que le joueur détient (tags « unrp.has.* » du modèle). */
     public static Set<String> held(ServerPlayer p) {
         if (Specials17.powerBlocked(p)) return Set.of();
         Set<String> out = new LinkedHashSet<>();
@@ -85,7 +78,6 @@ public final class Superpowers {
         return out;
     }
 
-    /** Pose / retire les tags « unrp.has.<pouvoir> » (appelé chaque tick par PassSync). */
     public static void syncTags(ServerPlayer p) {
         Set<String> held = held(p);
         for (String t : Set.copyOf(p.getTags()))

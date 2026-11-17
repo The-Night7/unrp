@@ -1,6 +1,4 @@
-"""Dessine les particules du mod (en blanc : le jeu les teinte avec la couleur du pouvoir).
-Sortie : src/main/resources/assets/unrp/textures/particle/ et assets/unrp/particles/*.json
-Relance : python3 tools/make_particle_textures.py   (dessins originaux)"""
+"""Generate white particle sprites that are tinted at runtime."""
 import json, math, random, pathlib
 from PIL import Image
 
@@ -16,7 +14,6 @@ def put(px, x, y, v, size):
         px[x, y] = (255, 255, 255, a)
 
 def arc(seed, size=16):
-    """Petit éclair : ligne brisée avec un halo plus pâle."""
     random.seed(seed)
     im = Image.new("RGBA", (size, size), (0, 0, 0, 0)); px = im.load()
     pts = [(1, random.randint(4, 11))]
@@ -58,7 +55,6 @@ def flare(arm, size=16):
     return im
 
 def hexa(fill, size=16):
-    """Hexagone (éclat de barrière) : contour net, intérieur léger."""
     im = Image.new("RGBA", (size, size), (0, 0, 0, 0)); px = im.load()
     c, R = (size - 1) / 2, size / 2 - 1.5
     def inside(x, y, r):
@@ -89,7 +85,7 @@ def ember(seed, size=16):
     """Langue de flamme : large en bas, pointue en haut."""
     random.seed(seed); im, px = blank(size); c = (size - 1) / 2
     for y in range(size):
-        t = y / (size - 1)               # 0 en haut, 1 en bas
+        t = y / (size - 1)
         half = (0.5 + 5.5 * t ** 0.8) * (1 - 0.35 * max(0, t - 0.8) / 0.2)
         off = math.sin(t * 5 + seed) * 1.2 * (1 - t)
         for x in range(size):
@@ -99,7 +95,6 @@ def ember(seed, size=16):
     return im
 
 def shard(seed, size=16):
-    """Éclat de cristal : losange allongé avec une arête claire."""
     random.seed(seed); im, px = blank(size); c = (size - 1) / 2
     ang = random.uniform(-0.6, 0.6)
     for x in range(size):

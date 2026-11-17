@@ -1,5 +1,5 @@
 {
- "_aide": "Un effet par capacité (clé = id de abilities.json). Voir docs/ABILITIES.md.",
+ "_help": "One effect per ability ID from abilities.json. See docs/ABILITIES.md.",
  "effects": {
   "non_specifiee": {
    "kind": "beam",

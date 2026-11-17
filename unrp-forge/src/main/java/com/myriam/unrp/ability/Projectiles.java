@@ -19,23 +19,19 @@ import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-/**
- * Projectiles des pouvoirs (missiles, mains fantômes, croissants, aiguilles...), remplacent les entités du modèle
- * (MissileEntity, PhantomHandEntity, CrescentEntity). Une seule boucle, réglée par les champs de {@link P}.
- */
 public final class Projectiles {
     private Projectiles() {}
 
     public enum Kind {
-        /** explose à la fin (coup, mur ou durée) */
+
         MISSILE,
-        /** poing / paume : repousse vers l'avant, s'arrête au premier touché */
+
         HAND,
-        /** chute d'une grande main : onde sur la zone à l'impact */
+
         SLAM,
-        /** croissant : traverse (pierce + 1 cibles), s'arrête sur un mur, portée limitée */
+
         CRESCENT,
-        /** aiguille : dégâts aléatoires, s'arrête au premier touché */
+
         NEEDLE
     }
 
@@ -44,8 +40,7 @@ public final class Projectiles {
         public UUID owner;
         public Vec3 pos, vel, aim;
         public double drag = 1.0, aimPull = 0.0, gravity = 0.0;
-        /** projectile de Palladium (CustomProjectile du modèle) : avance, puis inertie 0,99 (0,8 dans l'eau) et gravité,
-         *  dans cet ordre, comme le moteur d'effets le prévoit côté client ; il n'est alors pas dessiné par nous */
+
         public boolean palladium;
         public int life, maxLife = 40;
         public float damage = 1f, damageMax = -1f, blast = 1f, size = 1f;
@@ -55,9 +50,9 @@ public final class Projectiles {
         public int rgb = 0xFFFFFF;
         public String sprite = "mote";
         public boolean lineTrail;
-        /** appelé à chaque cible touchée */
+
         public BiConsumer<P, LivingEntity> onHit;
-        /** appelé à la fin (impact, mur, durée) */
+
         public Consumer<P> onEnd;
         final Set<UUID> hit = new HashSet<>();
         int hitsLeft = 1;
@@ -92,7 +87,6 @@ public final class Projectiles {
         }
     }
 
-    /** Un tick d'un projectile ; false = fini. */
     private static boolean step(ServerLevel lv, ServerPlayer owner, P p) {
         p.life++;
         if (p.life > p.maxLife || p.range <= 0) {

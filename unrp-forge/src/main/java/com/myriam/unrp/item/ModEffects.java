@@ -8,7 +8,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-/** Effets de potion du mod. Désorienté : les touches de déplacement sont inversées (voir ClientEvents). */
 public final class ModEffects {
     private ModEffects() {}
 

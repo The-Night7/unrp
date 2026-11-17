@@ -8,7 +8,6 @@ import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.npc.AbstractVillager;
 
-/** ClientSaltSeraph.scaleOf du modèle : échelle de rendu de chaque créature, pour calquer son corps. */
 final class ScaleTable {
     private ScaleTable() {}
 

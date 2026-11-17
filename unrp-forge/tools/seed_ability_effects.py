@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""Génère la PREMIÈRE version de data/unrp/unodex/ability_effects.json (une entrée par capacité).
-
-Après la génération, le JSON est la source de vérité : on l'édite à la main.
-Le script refuse d'écraser un fichier existant (sauf --force)."""
+"""Create initial effect definitions. Refuses to overwrite files unless --force is passed."""
 import json, sys, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -12,10 +9,10 @@ OUT = DATA / "ability_effects.json"
 abilities = json.load(open(DATA / "abilities.json", encoding="utf-8"))["abilities"]
 wave = {a["id"]: a["wave"] for a in abilities}
 
-def E(i, s, a=0):  # effet de potion : id, secondes, niveau (0 = I)
+def E(i, s, a=0):
     return {"id": i, "amp": a, "secs": s}
 
-def D(w):  # dégâts de base selon la vague (1 = faibles ... 6 = très forts)
+def D(w):
     return 3 + 2 * w
 
 FX = {}
@@ -209,13 +206,13 @@ extra = [i for i in FX if i not in wave]
 if missing or extra:
     sys.exit(f"manquantes: {missing} ; inconnues: {extra}")
 
-# coût en aura selon la vague, sauf si déjà précisé
+
 for i, fx in FX.items():
     fx.setdefault("cost", 10 + 5 * wave[i])
 
 if OUT.exists() and "--force" not in sys.argv:
-    sys.exit(f"{OUT} existe déjà : on ne l'écrase pas (--force pour regénérer)")
-doc = {"_aide": "Un effet par capacité (clé = id de abilities.json). Voir docs/ABILITIES.md.",
+    sys.exit(f"{OUT} already exists; use --force to regenerate")
+doc = {"_help": 'One effect per ability ID from abilities.json. See docs/ABILITIES.md.',
        "effects": {a["id"]: FX[a["id"]] for a in abilities}}
 OUT.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-print(len(FX), "effets écrits dans", OUT)
+print(len(FX), "effects written to", OUT)

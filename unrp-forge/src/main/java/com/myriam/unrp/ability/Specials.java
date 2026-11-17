@@ -33,12 +33,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Capacités propres à un pouvoir, reprises du comportement du mod modèle (champ "special" d'une capacité).
- * Chaque fonction dit en commentaire ce qu'elle reproduit. Fiches de comparaison : docs/fidelite/.
- *
- * Statistiques du personnage (st) : 0 Puissance, 1 Défense, 2 Récupération, 3 Ruse, 4 Vitesse.
- */
 public final class Specials {
     private Specials() {}
 
@@ -71,7 +65,6 @@ public final class Specials {
         return power.look != null && power.look.rgb() >= 0 ? power.look.rgb() : 0xFFFFFF;
     }
 
-    /** Créature visée (ligne de visée, "range" blocs). */
     static LivingEntity aimed(ServerPlayer p, double range) {
         Vec3 eye = p.getEyePosition(), look = p.getViewVector(1f);
         BlockHitResult bh = p.serverLevel().clip(new ClipContext(eye, eye.add(look.scale(range)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p));
@@ -98,8 +91,6 @@ public final class Specials {
         return e instanceof ServerPlayer o && SocialService.allies(p.server, p.getUUID(), o.getUUID());
     }
 
-    // ------------------------------------------------------------------ états suivis chaque tick
-    /** Telekinesis : créature ou bloc tenu en l'air devant soi. */
     private static final class Lift {
         Entity target;
         long until;
@@ -114,7 +105,7 @@ public final class Specials {
         LivingEntity e;
         Vec3 at;
         long until;
-        boolean ice; // prison de glace (Hydrofreeze) ou temps figé (Time Manipulation)
+        boolean ice;
     }
 
     private record Delayed(UUID caster, LivingEntity target, long at, double dmg) {}
@@ -135,7 +126,6 @@ public final class Specials {
 
     private static final UUID ORBIT_KB = UUID.nameUUIDFromBytes("unrp:tk_orbit_kb".getBytes(java.nio.charset.StandardCharsets.UTF_8));
 
-    /** Orbite télékinétique : +0,3 de résistance au recul tant qu'elle dure (le modèle, "tk_orbit_kb"). */
     private static void orbitResist(ServerPlayer p, boolean on) {
         var inst = p.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.KNOCKBACK_RESISTANCE);
         if (inst == null) return;
@@ -167,10 +157,9 @@ public final class Specials {
         WATER_FORM.remove(id);
     }
 
-    /** Fin d'une capacité maintenue ou d'un interrupteur. */
     public static void stop(ServerPlayer p, String special) {
         if (special == null) return;
-        if ("tm_flow".equals(special)) { // fin du flux : TM_FLOW coupé, clés éteintes
+        if ("tm_flow".equals(special)) {
             com.myriam.unrp.pass.PassSync.key(p, "anim_clock", false);
             com.myriam.unrp.pass.PassSync.key(p, "anim_counter", false);
             com.myriam.unrp.pass.TimePass.flow(p, p.serverLevel(), false, 0.0, false);
@@ -196,8 +185,6 @@ public final class Specials {
         }
     }
 
-    // ------------------------------------------------------------------ déclenchement
-    /** Une utilisation (action), ou une pulsation (held, toutes les 4 ticks). */
     public static boolean run(ServerPlayer p, AbilityPower power, AbilityPower.Move m, int[] st, int stance) {
         ServerLevel lv = p.serverLevel();
         long now = lv.getGameTime();
@@ -215,7 +202,7 @@ public final class Specials {
         if (Specials17.handles(m.special)) return Specials17.run(p, power, m);
         switch (m.special) {
             // ---------------- Telekinesis
-            case "tk_pressure" -> { // Pressure Control (maintenir) : écrase la cible visée ; accroupi : champ d'écrasement
+            case "tk_pressure" -> {
                 if (sneak) {
                     Vec3 eye = p.getEyePosition();
                     BlockHitResult bh = lv.clip(new ClipContext(eye, eye.add(p.getViewVector(1f).scale(14)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p));
@@ -227,12 +214,12 @@ public final class Specials {
                         e.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 2));
                     }
                     Fx.wave(lv, at, 4, c, 6);
-                    msg(p, "Champ d'écrasement");
+                    msg(p, "Crushing Field");
                     return true;
                 }
                 LivingEntity t = aimed(p, 14);
                 if (t == null) {
-                    msg(p, "Aucune cible à portée.");
+                    msg(p, "No target in range.");
                     return false;
                 }
                 push(t, new Vec3(0, -0.5, 0));
@@ -242,20 +229,20 @@ public final class Specials {
                 Fx.sprite(lv, "ring", c, 2f, t.getBoundingBox().getCenter(), 1, 0, 0);
                 return true;
             }
-            case "tk_force" -> { // Force Manipulation : soulever une créature ou un bloc ; de nouveau : la lancer ; accroupi : la reposer
+            case "tk_force" -> {
                 Lift l = LIFTS.get(p.getUUID());
                 if (l != null && l.target.isAlive() && now < l.until) {
                     LIFTS.remove(p.getUUID());
                     l.target.setNoGravity(false);
                     if (sneak) {
                         push(l.target, Vec3.ZERO);
-                        msg(p, l.target instanceof FallingBlockEntity ? "Bloc reposé" : "Relâché sur place");
+                        msg(p, l.target instanceof FallingBlockEntity ? "Block replaced" : "Released in place");
                     } else {
                         Vec3 v = p.getViewVector(1f).scale(2.2).add(0, 0.18, 0);
                         push(l.target, v);
                         if (l.target instanceof LivingEntity le) le.hurt(lv.damageSources().indirectMagic(p, p), (float) dmg(st, 3));
                         Fx.line(lv, p.getEyePosition(), l.target.position(), c, Styles.LINE_HELIX, 0.1f, 6);
-                        msg(p, l.target instanceof FallingBlockEntity ? "Bloc lancé" : "Projeté au loin");
+                        msg(p, l.target instanceof FallingBlockEntity ? "Block thrown" : "Launched away");
                     }
                     return true;
                 }
@@ -266,7 +253,7 @@ public final class Specials {
                     l.until = now + 120;
                     LIFTS.put(p.getUUID(), l);
                     t.setNoGravity(true);
-                    msg(p, "Cible en lévitation");
+                    msg(p, "Target levitating");
                     return true;
                 }
                 Vec3 eye = p.getEyePosition();
@@ -275,7 +262,7 @@ public final class Specials {
                     BlockPos bp = bh.getBlockPos();
                     BlockState bs = lv.getBlockState(bp);
                     if (bs.isAir() || bs.getDestroySpeed(lv, bp) < 0 || bs.getDestroySpeed(lv, bp) > 50 || lv.getBlockEntity(bp) != null) {
-                        msg(p, "Ce bloc ne peut pas être soulevé.");
+                        msg(p, "That block cannot be lifted.");
                         return false;
                     }
                     FallingBlockEntity fb = FallingBlockEntity.fall(lv, bp, bs);
@@ -284,20 +271,20 @@ public final class Specials {
                     l.target = fb;
                     l.until = now + 400;
                     LIFTS.put(p.getUUID(), l);
-                    msg(p, "Bloc en lévitation");
+                    msg(p, "Block levitating");
                     return true;
                 }
-                msg(p, "Aucune cible à portée.");
+                msg(p, "No target in range.");
                 return false;
             }
-            case "tk_orbit" -> { // Telekinetic Orbit : des débris tournent autour de toi et repoussent ce qui les touche
+            case "tk_orbit" -> {
                 Orbit o = new Orbit();
                 o.until = now + (long) (secs(st, 10) * 20);
                 ORBITS.put(p.getUUID(), o);
-                msg(p, "Orbite télékinétique");
+                msg(p, "Telekinetic Orbit");
                 return true;
             }
-            case "tk_dominion" -> { // Absolute Dominion : tout est projeté vers le ciel ; accroupi : tout est écrasé au sol
+            case "tk_dominion" -> {
                 double r = 12;
                 for (LivingEntity e : lv.getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(r), e -> e != p && e.isAlive())) {
                     if (sneak) {
@@ -312,33 +299,33 @@ public final class Specials {
                     }
                 }
                 Fx.wave(lv, p.position(), r, c, 14);
-                msg(p, sneak ? "Écrasement cataclysmique" : "Expulsion violente");
+                msg(p, sneak ? "Cataclysmic Crush" : "Expulsion violente");
                 return true;
             }
             // ---------------- Healing / Regeneration
-            case "heal_mark" -> { // Mark Target : marque une créature (elle brille) pour le soin à distance
+            case "heal_mark" -> {
                 LivingEntity t = aimed(p, 16);
                 if (t == null) {
-                    msg(p, "Impossible de marquer ça.");
+                    msg(p, "That cannot be marked.");
                     return false;
                 }
                 HEAL_MARK.put(p.getUUID(), t.getUUID());
                 t.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20 * 60, 0, false, false));
-                msg(p, "Cible marquée : " + t.getName().getString());
+                msg(p, "Target marked: " + t.getName().getString());
                 return true;
             }
-            case "heal_external" -> { // External Heal (maintenir) : régénération II pour la cible marquée à 10 blocs
+            case "heal_external" -> {
                 UUID id = HEAL_MARK.get(p.getUUID());
                 Entity e = id == null ? null : lv.getEntity(id);
                 if (!(e instanceof LivingEntity le) || !le.isAlive() || le.distanceTo(p) > 10) {
-                    msg(p, "Pas de cible marquée à 10 blocs.");
+                    msg(p, "No marked target within ten blocks.");
                     return false;
                 }
                 le.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 40, 1, false, true));
                 Fx.line(lv, p.getEyePosition().add(0, -0.3, 0), le.getBoundingBox().getCenter(), c, Styles.LINE_WAVY, 0.1f, 5);
                 return true;
             }
-            case "heal_triage" -> { // Triage Surge : soigne d'un coup tous les alliés à 8 blocs ; tu t'affaiblis 4 s
+            case "heal_triage" -> {
                 int n = 0;
                 for (Player o : lv.getEntitiesOfClass(Player.class, p.getBoundingBox().inflate(8), o -> o.isAlive())) {
                     if (o != p && !ally(p, o)) continue;
@@ -348,23 +335,23 @@ public final class Specials {
                 }
                 p.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 80, 0));
                 Fx.wave(lv, p.position(), 8, c, 14);
-                msg(p, "Soin d'urgence (" + n + ")");
+                msg(p, "Emergency healing (" + n + ")");
                 return true;
             }
-            case "regen_adrenaline" -> { // Adrenaline : +4 PV tout de suite et Vitesse 5 s
+            case "regen_adrenaline" -> {
                 p.heal(4);
                 p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1));
                 Styles.impact(lv, power.look, c, p.getBoundingBox().getCenter(), 8);
                 return true;
             }
             // ---------------- Hydrofreeze
-            case "hydro_envelop" -> { // Water Envelopment (maintenir) : la cible (8 blocs) est enfermée dans l'eau
+            case "hydro_envelop" -> {
                 UUID cur = ENVELOP.get(p.getUUID());
                 Entity e = cur == null ? null : lv.getEntity(cur);
                 if (!(e instanceof LivingEntity le) || !le.isAlive()) {
                     LivingEntity t = aimed(p, 8);
                     if (t == null) {
-                        msg(p, "Aucune cible");
+                        msg(p, "No target");
                         return false;
                     }
                     ENVELOP.put(p.getUUID(), t.getUUID());
@@ -374,7 +361,7 @@ public final class Specials {
                 }
                 if (le.distanceTo(p) > 10 || now - ENVELOP_START.getOrDefault(p.getUUID(), now) > 260) {
                     ENVELOP.remove(p.getUUID());
-                    msg(p, "La cible s'est échappée");
+                    msg(p, "The target escaped");
                     return false;
                 }
                 le.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 3));
@@ -385,23 +372,23 @@ public final class Specials {
                 Fx.sprite(lv, "ring", c, 3f, le.getBoundingBox().getCenter(), 1, 0, 0);
                 return true;
             }
-            case "hydro_freeze" -> { // Freeze Bind : la cible visée (18 blocs) est prise dans la glace 10 s
+            case "hydro_freeze" -> {
                 LivingEntity t = aimed(p, 18);
                 if (t == null) {
-                    msg(p, "Aucune cible en vue");
+                    msg(p, "No target in sight");
                     return false;
                 }
                 freeze(t, now + 200, true);
                 lv.playSound(null, t.blockPosition(), SoundEvents.GLASS_PLACE, SoundSource.PLAYERS, 0.9f, 0.7f);
                 Fx.sprite(lv, "shard", c, 1.4f, t.getBoundingBox().getCenter(), 24, 0.5, 0.05);
-                msg(p, "Cible gelée !");
+                msg(p, "Target frozen!");
                 return true;
             }
             // ---------------- Nightmare
-            case "nm_hallucinate" -> { // Hallucination : la cible visée (18 blocs) est prise d'une terreur forte
+            case "nm_hallucinate" -> {
                 LivingEntity t = aimed(p, 18);
                 if (t == null) {
-                    msg(p, "[Nightmare] Aucune cible en vue.");
+                    msg(p, "[Nightmare] No target in sight.");
                     return false;
                 }
                 fear(p, t, 3, st);
@@ -409,10 +396,10 @@ public final class Specials {
                 Fx.sprite(lv, "wisp", c, 1.5f, t.getEyePosition(), 14, 0.5, 0.03);
                 return true;
             }
-            case "nm_panic" -> { // Panic Spike : la cible visée est agrippée puis projetée, terrifiée
+            case "nm_panic" -> {
                 LivingEntity t = aimed(p, 14);
                 if (t == null) {
-                    msg(p, "[Nightmare] Aucune cible en vue.");
+                    msg(p, "[Nightmare] No target in sight.");
                     return false;
                 }
                 Vec3 away = t.position().subtract(p.position()).multiply(1, 0, 1);
@@ -424,20 +411,20 @@ public final class Specials {
                 return true;
             }
             // ---------------- Time Manipulation
-            case "tm_rewind" -> { // Temporal Rewind : toi (ou, accroupi, l'allié visé à 12 blocs) revient 3 s en arrière
+            case "tm_rewind" -> {
                 ServerPlayer target = p;
                 if (sneak) {
                     LivingEntity t = aimed(p, 12);
                     if (!(t instanceof ServerPlayer sp) || !ally(p, sp)) {
-                        msg(p, "Aucun allié en vue.");
+                        msg(p, "No ally in sight.");
                         return false;
                     }
                     target = sp;
                 }
                 ArrayDeque<Snap> h = HISTORY.get(target.getUUID());
                 if (h == null || h.isEmpty()) return false;
-                Snap s = h.peekFirst(); // le plus ancien : 3 s
-                com.myriam.unrp.pass.TimePass.rewind(p, target, lv, 60); // TM_REWIND : le moteur rejoue le chemin à l'envers
+                Snap s = h.peekFirst();
+                com.myriam.unrp.pass.TimePass.rewind(p, target, lv, 60);
                 target.teleportTo(s.pos.x, s.pos.y, s.pos.z);
                 if (s.health > target.getHealth()) target.setHealth(s.health);
                 for (var eff : List.of(MobEffects.POISON, MobEffects.WITHER, MobEffects.MOVEMENT_SLOWDOWN, MobEffects.WEAKNESS,
@@ -445,14 +432,14 @@ public final class Specials {
                     target.removeEffect(eff);
                 }
                 push(target, Vec3.ZERO);
-                msg(p, "Retour en arrière");
+                msg(p, "Rewind");
                 return true;
             }
-            case "tm_shift" -> { // Temporal Shift : saut de 8 blocs en avant (le point de départ est retenu) ; accroupi : retour à ce point
+            case "tm_shift" -> {
                 if (sneak) {
                     Vec3 mk = TM_MARK.remove(p.getUUID());
                     if (mk == null) {
-                        msg(p, "Aucun point retenu.");
+                        msg(p, "No saved point.");
                         return false;
                     }
                     com.myriam.unrp.pass.TimePass.recall(p, lv, lv, p.position(), mk); // TM_RECALL
@@ -462,7 +449,7 @@ public final class Specials {
                 }
                 Vec3 prevMark = TM_MARK.put(p.getUUID(), p.position());
                 if (prevMark != null) com.myriam.unrp.pass.TimePass.unmark(p, lv, prevMark);
-                com.myriam.unrp.pass.TimePass.send(lv, com.myriam.unrp.pass.TimePass.mark(p, p.position(), 72000, false)); // TM_MARK : le point retenu reste visible
+                com.myriam.unrp.pass.TimePass.send(lv, com.myriam.unrp.pass.TimePass.mark(p, p.position(), 72000, false));
                 Vec3 eye = p.getEyePosition(), look = p.getViewVector(1f);
                 BlockHitResult bh = lv.clip(new ClipContext(eye, eye.add(look.scale(8)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, p));
                 Vec3 to = bh.getType() == HitResult.Type.MISS ? eye.add(look.scale(8)) : bh.getLocation().subtract(look.scale(0.5));
@@ -471,7 +458,7 @@ public final class Specials {
                 push(p, Vec3.ZERO);
                 return true;
             }
-            case "tm_freeze" -> { // Time Freeze : créatures et projectiles devant toi (cône, 20 blocs) figés 2 à 4 s
+            case "tm_freeze" -> {
                 Vec3 eye = p.getEyePosition(), look = p.getViewVector(1f);
                 long until = now + (long) (40 + 40 * Math.min(1, st[3] / 10.0));
                 int n = 0;
@@ -480,7 +467,7 @@ public final class Specials {
                     if (to.length() > 20 || to.normalize().dot(look) < 0.5) continue;
                     if (e instanceof LivingEntity le) {
                         freeze(le, until, false);
-                        com.myriam.unrp.pass.TimePass.tracking(le, com.myriam.unrp.pass.TimePass.hold(p, le, (int) (until - now), false)); // TM_HOLD : figé en gris
+                        com.myriam.unrp.pass.TimePass.tracking(le, com.myriam.unrp.pass.TimePass.hold(p, le, (int) (until - now), false));
                         n++;
                     } else if (e instanceof Projectile pr) {
                         pr.setDeltaMovement(Vec3.ZERO);
@@ -490,17 +477,17 @@ public final class Specials {
                     }
                 }
                 if (n == 0) {
-                    msg(p, "Rien à figer devant toi.");
+                    msg(p, "Nothing ahead to freeze.");
                     return false;
                 }
                 com.myriam.unrp.pass.TimePass.freeze(p, lv, eye.add(look.scale(4)), 20, (int) (until - now)); // TM_FREEZE
-                msg(p, "Temps figé (" + n + ")");
+                msg(p, "Time frozen (" + n + ")");
                 return true;
             }
-            case "tm_strike" -> { // Temporal Strike : tu frappes la cible (cône, 12 blocs) en surgissant derrière elle
+            case "tm_strike" -> {
                 LivingEntity t = cone(p, 12);
                 if (t == null) {
-                    msg(p, "Aucune cible devant toi.");
+                    msg(p, "No target ahead.");
                     return false;
                 }
                 Vec3 behind = t.position().subtract(t.getLookAngle().multiply(1, 0, 1).normalize().scale(1.2));
@@ -511,20 +498,20 @@ public final class Specials {
                 push(t, t.getDeltaMovement().add(0, 0.3, 0));
                 return true;
             }
-            case "tm_delayed" -> { // Delayed Strike : la cible (cône, 12 blocs) est marquée ; 3 s plus tard le coup tombe
+            case "tm_delayed" -> {
                 LivingEntity t = cone(p, 12);
                 if (t == null) {
-                    msg(p, "Aucune cible devant toi.");
+                    msg(p, "No target ahead.");
                     return false;
                 }
                 DELAYED.add(new Delayed(p.getUUID(), t, now + 60, dmg(st, 11)));
                 t.addEffect(new MobEffectInstance(MobEffects.GLOWING, 60, 0, false, false));
                 com.myriam.unrp.pass.TimePass.tracking(t, com.myriam.unrp.pass.TimePass.delay(p, t, 59, false)); // TM_DELAY
-                msg(p, "Coup différé : 3 s");
+                msg(p, "Delayed strike: 3 s");
                 return true;
             }
             default -> {
-                return true; // interrupteurs gérés par whileOn (heal_self, martyr, water_form, nm_field, tm_flow)
+                return true;
             }
         }
     }
@@ -553,7 +540,6 @@ public final class Specials {
         FROZEN.add(f);
     }
 
-    /** Peur (Nightmare) : lenteur et obscurité ; niveau 2 : + cécité ; niveau 3 : + faiblesse. Les plus puissants résistent mieux. */
     private static void fear(ServerPlayer p, LivingEntity t, int level, int[] st) {
         int d = (int) (secs(st, 3 + level) * 20);
         t.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, d, level - 1));
@@ -563,19 +549,18 @@ public final class Specials {
         if (t instanceof ServerPlayer sp) whisper(sp);
     }
 
-    private static final String[] WHISPERS = {"C'est derrière toi.", "Ne lève pas les yeux.", "Tu ne peux pas te réveiller.",
-            "Ça connaît ton nom.", "Ne bouge pas.", "On te voit.", "Cours.", ":)"};
+    private static final String[] WHISPERS = {"It is behind you.", "Do not look up.", "You cannot wake up.",
+            "It knows your name.", "Do not move.", "On te voit.", "Cours.", ":)"};
 
     private static void whisper(ServerPlayer t) {
         t.displayClientMessage(Component.literal("§8§o" + WHISPERS[t.getRandom().nextInt(WHISPERS.length)]), true);
     }
 
-    // ------------------------------------------------------------------ interrupteurs actifs (appelé toutes les 4 ticks)
     public static void whileOn(ServerPlayer p, AbilityPower power, AbilityPower.Move m, int[] st, int stance, long now) {
         ServerLevel lv = p.serverLevel();
         int c = col(power);
         if (Specials2.handles(m.special)) {
-            Specials2.run(p, power, m, st); // interrupteurs du lot 3 : maintenus en vie
+            Specials2.run(p, power, m, st);
             return;
         }
         if (Specials3.handles(m.special)) {
@@ -612,7 +597,7 @@ public final class Specials {
                 WATER_FORM.put(p.getUUID(), now);
                 Fx.sprite(lv, "drop", c, 0.9f, p.position().add(0, 0.2, 0), 3, 0.3, 0.02);
             }
-            case "nm_field" -> { // Terror Field : terreur légère pour ce qui est à 8 blocs, murmures
+            case "nm_field" -> {
                 if (now % 20 >= 4) return;
                 for (LivingEntity e : lv.getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(8), e -> e != p && e.isAlive())) {
                     if (ally(p, e)) continue;
@@ -622,8 +607,8 @@ public final class Specials {
                 }
                 Fx.wave(lv, p.position(), 8, c, 16);
             }
-            case "tm_flow" -> { // Time Flow : posture utilitaire = tu accélères ; posture offensive = tout ralentit autour de toi
-                // anim_clock / anim_counter (tags tm_accel / tm_decel du modèle) et TM_FLOW, recalé toutes les 20 ticks
+            case "tm_flow" -> {
+
                 com.myriam.unrp.pass.PassSync.key(p, "anim_clock", stance == 0);
                 com.myriam.unrp.pass.PassSync.key(p, "anim_counter", stance != 0);
                 if (now % 20 == 0) com.myriam.unrp.pass.TimePass.flow(p, lv, stance != 0, stance != 0 ? 8.0 : 0.0, true);
@@ -661,13 +646,13 @@ public final class Specials {
         com.myriam.unrp.item.Phylactery.tick(server);
         Anim.tick(server);
         long now = server.overworld().getGameTime();
-        // historique des positions (Temporal Rewind) : 3 s
+
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
             ArrayDeque<Snap> h = HISTORY.computeIfAbsent(p.getUUID(), k -> new ArrayDeque<>());
             h.addLast(new Snap(p.position(), p.getHealth()));
             while (h.size() > 60) h.removeFirst();
         }
-        // objets tenus par télékinésie
+
         Iterator<Map.Entry<UUID, Lift>> li = LIFTS.entrySet().iterator();
         while (li.hasNext()) {
             var en = li.next();
@@ -681,7 +666,7 @@ public final class Specials {
             Vec3 want = p.getEyePosition().add(p.getViewVector(1f).scale(4));
             Vec3 pos = l.target instanceof LivingEntity le ? le.getBoundingBox().getCenter() : l.target.position();
             push(l.target, want.subtract(pos).scale(0.35));
-            if (l.target instanceof FallingBlockEntity fb) fb.time = 1; // ne retombe pas en bloc tant qu'il est tenu
+            if (l.target instanceof FallingBlockEntity fb) fb.time = 1;
         }
         // orbites
         Iterator<Map.Entry<UUID, Orbit>> oi = ORBITS.entrySet().iterator();
@@ -706,7 +691,7 @@ public final class Specials {
                 }
             }
         }
-        // figés (glace ou temps)
+
         Iterator<Frozen> fi = FROZEN.iterator();
         while (fi.hasNext()) {
             Frozen f = fi.next();
@@ -727,7 +712,7 @@ public final class Specials {
             if (f.ice && now % 4 == 0) Fx.sprite((ServerLevel) f.e.level(), "shard", 0xBFEFFF, 1.0f,
                     f.e.getBoundingBox().getCenter(), 2, 0.4, 0.0);
         }
-        // coups différés
+
         Iterator<Delayed> di = DELAYED.iterator();
         while (di.hasNext()) {
             Delayed d = di.next();
@@ -745,7 +730,6 @@ public final class Specials {
         WATER_FORM.entrySet().removeIf(e -> now - e.getValue() > 10);
     }
 
-    // ------------------------------------------------------------------ dégâts reçus
     public static void onHurt(LivingHurtEvent e) {
         LivingEntity v = e.getEntity();
         if (v.level().isClientSide) return;
@@ -759,9 +743,9 @@ public final class Specials {
         Specials9.onHurt(e);
         Specials17.onHurt(e);
         com.myriam.unrp.item.Phylactery.onHurt(e);
-        // Water Form : les coups au corps à corps font moitié moins mal
+
         if (WATER_FORM.containsKey(v.getUUID()) && e.getSource().getDirectEntity() instanceof LivingEntity) e.setAmount(e.getAmount() * 0.5f);
-        // Martyr : un allié à 8 blocs ne garde que 70 % des dégâts, tu prends les 30 % restants
+
         if (v instanceof ServerPlayer vp && !MARTYR.containsKey(v.getUUID())) {
             for (UUID mid : MARTYR.keySet()) {
                 ServerPlayer m = vp.server.getPlayerList().getPlayer(mid);

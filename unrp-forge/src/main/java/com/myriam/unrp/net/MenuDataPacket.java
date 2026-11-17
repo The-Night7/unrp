@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-/**
- * Serveur -> client : tout ce qu'il faut pour afficher le menu (le client n'a pas les JSON).
- * open  = ouvrir le menu s'il est fermé ; close = le fermer (candidature acceptée) ; message = texte d'état.
- */
 public class MenuDataPacket {
     public static class Entry {
         public String id, name, category, tier, level, ability, abilityDesc, schools;
@@ -102,7 +98,7 @@ public class MenuDataPacket {
     }
 
     public static void handle(MenuDataPacket p, Supplier<NetworkEvent.Context> ctx) {
-        // ClientHooks n'est chargé que côté client (jamais sur un serveur dédié).
+
         ctx.get().enqueueWork(() ->
                 DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHooks.onMenuData(p)));
         ctx.get().setPacketHandled(true);

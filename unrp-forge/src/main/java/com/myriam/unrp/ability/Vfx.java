@@ -11,12 +11,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
 
-/**
- * Effets lumineux dessinés (aucune particule) : remplace ServerLevel.sendParticles pour tous les pouvoirs.
- * On garde la même signature (type, position, nombre, étalement, vitesse) ; le type ne sert plus qu'à choisir
- * la couleur et la forme. Le serveur annonce un FxPacket.GLOW, le client dessine (client/FxRenderer).
- * Formes (champ id du paquet) : 0 éclats (traits lumineux qui s'éparpillent), 1 anneau, 2 éclair de lumière.
- */
 public final class Vfx {
     private Vfx() {}
 
@@ -33,7 +27,6 @@ public final class Vfx {
         glow(lv, shape, rgb, new Vec3(x, y, z), new Vec3(dx, dy, dz), count, speed);
     }
 
-    /** Paquet GLOW : centre, étalement, nombre d'éclats (≤ 14), vitesse de dérive. */
     public static void glow(ServerLevel lv, int shape, int rgb, Vec3 at, Vec3 spread, int count, double speed) {
         if (Fx.QUIET > 0) return;
         FxPacket p = new FxPacket();

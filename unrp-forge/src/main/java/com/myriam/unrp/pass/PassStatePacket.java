@@ -10,12 +10,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-/**
- * Serveur -> clients : les pouvoirs d'un joueur vus par le moteur d'effets et les calques (ce que Palladium
- * synchronisait dans le modèle) : chaque pouvoir détenu (lightning, barrier_am...) avec ses capacités allumées
- * (clés du modèle : toggle, lightning_activation, beam...), les clés communes (tags de pose, clés posées par le code),
- * si le joueur porte Aura Manipulation, la cible verrouillée et la transformation de Predator.
- */
 public class PassStatePacket {
     public final UUID player;
     public final List<String> paths;

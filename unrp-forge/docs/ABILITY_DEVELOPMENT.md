@@ -23,7 +23,7 @@ Paths in this guide are relative to `unrp-forge/`. All custom resource IDs use t
 | Shared projectile behavior | [Projectiles.java](../src/main/java/com/myriam/unrp/ability/Projectiles.java) |
 | Textures, models, geometry, animations and sounds | [assets/unrp/](../src/main/resources/assets/unrp/) |
 
-The [POUVOIRS.md reference](POUVOIRS.md) describes many JSON fields, effect kinds and examples. Some older key descriptions are historical; the current key bindings and code are authoritative.
+The [POWERS.md reference](POWERS.md) describes many JSON fields, effect kinds and examples. Some older key descriptions are historical; the current key bindings and code are authoritative.
 
 ## How the parts connect
 
@@ -113,7 +113,7 @@ Additional asset animations live in [assets/unrp/animations/](../src/main/resour
 
 The command checks eligibility and ability uniqueness. A lifelong Cripple cannot receive an ability this way. To give a canon character the ability, change that character's `ability_id` instead.
 
-**20 ticks = one second.** In this example, `cooldown: 40` is two seconds. Supported inputs include `action`, `held`, `toggle` and `charge`; use the matching fields described in `AbilityPower.Move` and `POUVOIRS.md`.
+**20 ticks = one second.** In this example, `cooldown: 40` is two seconds. Supported inputs include `action`, `held`, `toggle` and `charge`; use the matching fields described in `AbilityPower.Move` and `POWERS.md`.
 
 ## Add branches to the ability tree
 
@@ -141,7 +141,7 @@ Use existing `fx` kinds when they already express the behavior. For a genuinely 
 4. Add ticking, held/toggle updates, release handling and cleanup where the behavior needs them. Review the existing `whileOn` and `stop` paths, and cleanup when the player disables the power or leaves.
 5. Add the necessary effects and animation calls separately. Keep gameplay validation and world mutations on the server.
 
-An unknown `special` string alone does not implement behavior. For an event-driven mechanic, follow the existing trigger/tag pattern and register the required event handler as well. The [fidelite/](fidelite/) notes identify the classes used by individual existing powers.
+An unknown `special` string alone does not implement behavior. For an event-driven mechanic, follow the existing trigger/tag pattern and register the required event handler as well. The [fidelity/](fidelity/) notes identify the classes used by individual existing powers.
 
 ## Visuals and assets
 
@@ -167,4 +167,4 @@ The distributable JAR is generated in `build/libs/`. Replace the installed JAR a
 
 Check activation, press/release behavior, costs, cooldowns, prerequisites, stance changes and cleanup for the mechanic you changed. Watch the logs for ignored JSON files or missing resources.
 
-The guide in `POUVOIRS.md` also describes generator scripts. Avoid rerunning a generator with an overwrite/force option over hand-edited definitions unless that replacement is intended.
+The guide in `POWERS.md` also describes generator scripts. Avoid rerunning a generator with an overwrite/force option over hand-edited definitions unless that replacement is intended.

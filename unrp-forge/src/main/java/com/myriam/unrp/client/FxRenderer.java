@@ -22,16 +22,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Dessine dans le monde les effets lumineux des pouvoirs (rendu additif, comme la foudre de Minecraft) :
- *  - traits : rayons, traînées de projectiles, arcs électriques (en zigzag qui crépite) ;
- *  - barrières : sphère translucide quadrillée, qui flashe quand elle encaisse, se fissure, puis vole en éclats ;
- *  - bouclier du Bélier, ondes au sol.
- * Le serveur annonce les effets (ability/Fx) ; tout le dessin est ici.
- */
 @Mod.EventBusSubscriber(modid = UnrpMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public final class FxRenderer {
-    /** flags : 1 zigzag, 2 ondulé, 4 double hélice, 8 sans cœur blanc (fumée, sang, ombre) */
+
     private record Line(Vec3 a, Vec3 b, int rgb, int flags, float width, long born, int life, long seed) {}
 
     private static final class Shell {
@@ -50,7 +43,6 @@ public final class FxRenderer {
     private static final List<Burst> BURSTS = new ArrayList<>();
     private static final List<Shield> SHIELDS = new ArrayList<>();
 
-    /** Éclats lumineux (Vfx) : shape 0 traits qui s'éparpillent, 1 anneau, 2 éclair. count < 0 : un seul éclat qui file dans la direction (spread). */
     private record Glow(Vec3 c, Vec3 spread, int shape, int count, int rgb, float speed, long born, int life, long seed) {}
 
     private static final List<Glow> GLOWS = new ArrayList<>();
@@ -62,7 +54,6 @@ public final class FxRenderer {
         return l == null ? 0 : l.getGameTime();
     }
 
-    /** Appelé à la réception d'un FxPacket. */
     public static void receive(FxPacket p) {
         long t = now();
         switch (p.kind) {
@@ -122,16 +113,16 @@ public final class FxRenderer {
             }
             float fade = (float) Math.max(0, 1 - age / l.life);
             boolean core = (l.flags & 8) == 0;
-            if ((l.flags & 4) != 0) { // double hélice qui tourne autour de l'axe
+            if ((l.flags & 4) != 0) {
                 helix(d, l.a, l.b, l.rgb, l.width, fade, t, core);
-            } else if ((l.flags & 2) != 0) { // trait ondulé
+            } else if ((l.flags & 2) != 0) {
                 List<Vec3> pts = wavy(l.a, l.b, t, 0.18, 0);
                 for (int i = 0; i + 1 < pts.size(); i++) glowSegment(d, pts.get(i), pts.get(i + 1), l.rgb, l.width, fade, core);
             } else if ((l.flags & 1) != 0) {
-                long frame = (long) (t / 2); // l'éclair change de forme tous les 2 ticks
+                long frame = (long) (t / 2);
                 List<Vec3> pts = zigzag(l.a, l.b, l.seed * 31 + frame, l.width);
                 for (int i = 0; i + 1 < pts.size(); i++) glowSegment(d, pts.get(i), pts.get(i + 1), l.rgb, l.width, fade);
-                if (l.a.distanceTo(l.b) > 3) { // une branche
+                if (l.a.distanceTo(l.b) > 3) {
                     RandomSource r = RandomSource.create(l.seed * 7 + frame);
                     int k = 1 + r.nextInt(Math.max(1, pts.size() - 2));
                     Vec3 from = pts.get(Math.min(k, pts.size() - 1));
@@ -144,19 +135,17 @@ public final class FxRenderer {
             }
         }
 
-        // barrières
         Iterator<Map.Entry<Integer, Shell>> si = SHELLS.entrySet().iterator();
         while (si.hasNext()) {
             var en = si.next();
             Shell s = en.getValue();
-            if (now() - s.seen > 60) { // plus de nouvelles du serveur : on l'oublie
+            if (now() - s.seen > 60) {
                 si.remove();
                 continue;
             }
             drawShell(d, s, en.getKey(), t);
         }
 
-        // ondes et éclats
         Iterator<Burst> bi = BURSTS.iterator();
         while (bi.hasNext()) {
             Burst b = bi.next();
@@ -168,7 +157,7 @@ public final class FxRenderer {
             float k = (float) (age / b.life);
             if (b.radius < 0) { // onde au sol
                 ring(d, b.c.add(0, 0.1, 0), -b.radius * (0.2f + 0.8f * k), b.rgb, 0.18f, (1 - k) * 0.9f);
-            } else if (b.shards) { // barrière brisée : éclats qui s'écartent
+            } else if (b.shards) {
                 RandomSource r = RandomSource.create(b.seed);
                 for (int i = 0; i < 40; i++) {
                     Vec3 dir = new Vec3(r.nextDouble() - 0.5, r.nextDouble() - 0.5, r.nextDouble() - 0.5).normalize();
@@ -176,12 +165,11 @@ public final class FxRenderer {
                     Vec3 q = p.add(new Vec3(r.nextDouble() - 0.5, r.nextDouble() - 0.5, r.nextDouble() - 0.5).scale(0.5));
                     glowSegment(d, p, q, b.rgb, 0.08f, 1 - k);
                 }
-            } else { // disparition douce : la sphère gonfle et s'efface
+            } else {
                 sphereGrid(d, b.c, b.radius * (1 + 0.15f * k), b.rgb, (1 - k) * 0.35f, 8, 16);
             }
         }
 
-        // boucliers (Bélier)
         Iterator<Shield> hi = SHIELDS.iterator();
         while (hi.hasNext()) {
             Shield s = hi.next();
@@ -200,7 +188,6 @@ public final class FxRenderer {
             hexDisk(d, c, side, up, s.radius * 0.6f, s.rgb, a);
         }
 
-        // éclats lumineux (remplacent les particules)
         Iterator<Glow> gi = GLOWS.iterator();
         while (gi.hasNext()) {
             Glow g = gi.next();
@@ -210,14 +197,14 @@ public final class FxRenderer {
                 continue;
             }
             float k = (float) (age / g.life), fade = 1 - k;
-            if (g.shape == 1) { // anneau qui s'élargit
+            if (g.shape == 1) {
                 float r = (float) (0.4 + Math.max(g.spread.x, 0.3) * 1.5) * (0.3f + 0.7f * k);
                 ring(d, g.c, r, g.rgb, 0.08f, fade * 0.9f);
-            } else if (g.shape == 2) { // éclair de lumière : sphère qui gonfle et un anneau
+            } else if (g.shape == 2) {
                 float r = (float) (0.6 + Math.max(g.spread.x, g.spread.y) * 1.2) * (0.4f + 0.9f * k);
                 sphereGrid(d, g.c, r, g.rgb, fade * 0.45f, 6, 12);
                 ring(d, g.c, r * 1.1f, g.rgb, 0.1f, fade * 0.8f);
-            } else if (g.count < 0) { // un éclat qui file (trace de projectile)
+            } else if (g.count < 0) {
                 Vec3 v = g.spread.scale(Math.max(0.15, g.speed)).add(0, 0, 0);
                 Vec3 a = g.c.add(v.scale(age)), b = a.add(v.scale(1.6));
                 glowSegment(d, a, b, g.rgb, 0.06f, fade);
@@ -238,15 +225,15 @@ public final class FxRenderer {
 
     // ------------------------------------------------------------------ formes
     private static void drawShell(Draw d, Shell s, int id, double t) {
-        double grow = Math.min(1, (t - s.born) / 6.0); // la barrière se déploie en 6 ticks
+        double grow = Math.min(1, (t - s.born) / 6.0);
         float r = (float) (s.radius * (0.3 + 0.7 * grow));
         double since = t - s.flash;
         float flash = since >= 0 && since < 6 ? (float) (1 - since / 6) : 0f;
         float pulse = 0.85f + 0.15f * (float) Math.sin(t * 0.15);
         int col = s.hp < 0.34f ? mix(s.rgb, 0xFF5050, 0.5f) : s.rgb;
-        // voile intérieur très léger
+
         sphereFill(d, s.c, r, col, 0.05f + 0.15f * flash, 10, 20);
-        // quadrillage (méridiens + parallèles) qui tourne doucement
+
         sphereGrid(d, s.c, r, col, (0.28f + 0.5f * flash) * pulse, 10, 20, t * 0.004);
         // fissures
         if (s.hp < 0.67f) cracks(d, s.c, r, id, s.hp < 0.34f ? 9 : 4, mix(col, 0xFFFFFF, 0.6f));
@@ -258,13 +245,13 @@ public final class FxRenderer {
 
     private static void sphereGrid(Draw d, Vec3 c, float r, int rgb, float a, int stacks, int slices, double rot) {
         float w = 0.035f;
-        for (int i = 1; i < stacks; i++) { // parallèles
+        for (int i = 1; i < stacks; i++) {
             double phi = Math.PI * i / stacks;
             for (int j = 0; j < slices; j++) {
                 glowSegmentFlat(d, sph(c, r, phi, 2 * Math.PI * j / slices + rot), sph(c, r, phi, 2 * Math.PI * (j + 1) / slices + rot), rgb, w, a);
             }
         }
-        for (int j = 0; j < slices; j++) { // méridiens
+        for (int j = 0; j < slices; j++) {
             double th = 2 * Math.PI * j / slices + rot;
             for (int i = 0; i < stacks; i++) {
                 glowSegmentFlat(d, sph(c, r, Math.PI * i / stacks, th), sph(c, r, Math.PI * (i + 1) / stacks, th), rgb, w, a);
@@ -321,7 +308,6 @@ public final class FxRenderer {
         return c.add(r * Math.sin(phi) * Math.cos(th), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(th));
     }
 
-    /** Points d'un zigzag d'éclair entre a et b (déterministe pour une graine donnée). */
     private static List<Vec3> zigzag(Vec3 a, Vec3 b, long seed, float width) {
         RandomSource r = RandomSource.create(seed);
         double len = a.distanceTo(b);
@@ -336,7 +322,6 @@ public final class FxRenderer {
         return pts;
     }
 
-    /** Segment lumineux : halo large et pâle + cœur fin presque blanc (face à la caméra). */
     private static void glowSegment(Draw d, Vec3 a, Vec3 b, int rgb, float width, float alpha) {
         glowSegment(d, a, b, rgb, width, alpha, true);
     }
@@ -347,7 +332,6 @@ public final class FxRenderer {
         d.beam(a, b, width * 0.35f, core ? mix(rgb, 0xFFFFFF, 0.75f) : mix(rgb, 0x000000, 0.2f), (core ? 0.9f : 0.5f) * alpha);
     }
 
-    /** Points d'un trait qui ondule (perpendiculairement à sa direction), l'onde glisse avec le temps. */
     private static List<Vec3> wavy(Vec3 a, Vec3 b, double t, double amp, double phase) {
         Vec3 dir = b.subtract(a);
         double len = dir.length();
@@ -359,14 +343,13 @@ public final class FxRenderer {
         List<Vec3> pts = new ArrayList<>(steps + 1);
         for (int i = 0; i <= steps; i++) {
             double u = i / (double) steps;
-            double env = Math.sin(Math.PI * u); // nul aux extrémités
+            double env = Math.sin(Math.PI * u);
             double w = u * len * 3.0 - t * 0.6 + phase;
             pts.add(a.add(dir.scale(u)).add(n.scale(Math.sin(w) * amp * env)).add(m.scale(Math.cos(w) * amp * 0.4 * env)));
         }
         return pts;
     }
 
-    /** Deux brins enroulés autour de l'axe a-b, qui tournent (vent, esprit, gravité, espace). */
     private static void helix(Draw d, Vec3 a, Vec3 b, int rgb, float width, float alpha, double t, boolean core) {
         Vec3 dir = b.subtract(a);
         double len = dir.length();
@@ -402,7 +385,6 @@ public final class FxRenderer {
         return (r << 16) | (g << 8) | b;
     }
 
-    /** Émission de sommets (coordonnées monde -> relatives à la caméra). Chaque face est émise des deux côtés. */
     private record Draw(VertexConsumer vc, Matrix4f m, Vec3 cam) {
         void v(Vec3 p, float r, float g, float b, float a) {
             vc.vertex(m, (float) (p.x - cam.x), (float) (p.y - cam.y), (float) (p.z - cam.z)).color(r, g, b, a).endVertex();
@@ -415,7 +397,6 @@ public final class FxRenderer {
             v(p3, r, g, b, a); v(p2, r, g, b, a); v(p1, r, g, b, a); v(p0, r, g, b, a);
         }
 
-        /** Ruban de largeur w de a à b, tourné vers la caméra. */
         void beam(Vec3 a, Vec3 b, float w, int rgb, float alpha) {
             Vec3 dir = b.subtract(a);
             Vec3 toCam = cam.subtract(a.add(b).scale(0.5));

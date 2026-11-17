@@ -266,7 +266,6 @@ public class DealmakerEvents {
 
    }
 
-   /** Bascule le pouvoir comme la touche de pouvoir (l'interrupteur « toggle » de Palladium dans le modèle). */
    static boolean flipPower(ServerPlayer player) {
       com.myriam.unrp.ability.AbilityEngine.input(player, 0);
       return true;

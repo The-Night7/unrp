@@ -1,6 +1,4 @@
-"""Dessine les textures pixel-art de l'interface (HUD, hub) dans src/main/resources/assets/unrp/textures/gui/.
-Toutes les couleurs sont en haut du fichier : change-les puis relance  python3 tools/make_gui_textures.py
-Dessins originaux (aucune image du mod modèle n'est copiée)."""
+"""Generate the HUD and hub textures. Edit the palette constants, then run this script."""
 import math, random, pathlib
 from PIL import Image
 from recolor_gui_gold import recolor_gui
@@ -8,20 +6,20 @@ from recolor_gui_gold import recolor_gui
 OUT = pathlib.Path(__file__).resolve().parent.parent / "src/main/resources/assets/unrp/textures/gui"
 OUT.mkdir(parents=True, exist_ok=True)
 
-FRAME_LIGHT = (245, 216, 144, 255)   # cadre de la barre d'aura (clair)
+FRAME_LIGHT = (245, 216, 144, 255)
 FRAME_DARK = (112, 81, 33, 255)      # cadre (ombre)
 FRAME_OUT = (20, 14, 6, 255)        # contour
-INNER = (14, 11, 5, 255)             # fond quand la barre est vide
-RIB_A = (232, 196, 92)               # ruban doré
-RIB_B = (190, 132, 38)              # ruban ambré
+INNER = (14, 11, 5, 255)
+RIB_A = (232, 196, 92)
+RIB_B = (190, 132, 38)
 SKY_TOP, SKY_BOT = (24, 18, 8), (57, 41, 16)
 STARS = [(171, 132, 54), (245, 216, 144), (255, 240, 194)]
 
 # ---------------------------------------------------------------- barre d'aura : 108 x 20
 W, H = 108, 20
-BX0, BX1, BY0, BY1 = 2, 105, 3, 16          # corps de la barre
-IX0, IX1, IY0, IY1 = 9, 98, 6, 13            # intérieur (rempli par le jeu)
-TIP = 6                                       # longueur des pointes
+BX0, BX1, BY0, BY1 = 2, 105, 3, 16
+IX0, IX1, IY0, IY1 = 9, 98, 6, 13
+TIP = 6
 
 def in_body(x, y):
     cy = (BY0 + BY1) / 2
@@ -48,7 +46,7 @@ for x in range(W):
             px[x, y] = FRAME_LIGHT
         else:
             px[x, y] = FRAME_DARK
-# contour intérieur sombre autour de la zone remplie
+
 for x in range(IX0 - 1, IX1 + 2):
     for y in (IY0 - 1, IY1 + 1):
         px[x, y] = FRAME_OUT
@@ -74,12 +72,12 @@ for strand, col, phase in ((0, RIB_A, 0.0), (1, RIB_B, math.pi)):
             fp[X, Y] = c
             if 0 <= Y + 1 < H:
                 fp[X, Y + 1] = tuple(int(v * 0.7) for v in col) + (255,)
-        elif not in_body(X, Y):  # brin arrière : visible seulement hors de la barre
+        elif not in_body(X, Y):
             px[X, Y] = c
 back.save(OUT / "aura_back.png")
 front.save(OUT / "aura_front.png")
 
-# ---------------------------------------------------------------- ciel étoilé : 64 x 64 (répété)
+
 random.seed(7)
 sky = Image.new("RGBA", (64, 64))
 sp = sky.load()
@@ -91,10 +89,10 @@ for y in range(64):
 for _ in range(22):
     x, y = random.randrange(64), random.randrange(64)
     sp[x, y] = random.choice(STARS) + (255,)
-for _ in range(3):  # quelques étoiles en croix
+for _ in range(3):
     x, y = random.randrange(2, 62), random.randrange(2, 62)
     for dx, dy in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
         sp[x + dx, y + dy] = (255, 240, 194, 255) if (dx, dy) == (0, 0) else (171, 132, 54, 255)
 sky.save(OUT / "stars.png")
-print("textures importées recolorées ->", len(recolor_gui(OUT)))
+print("recoloured imported textures ->", len(recolor_gui(OUT)))
 print("textures ->", OUT)

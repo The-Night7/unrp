@@ -3,7 +3,6 @@ package com.myriam.unrp.client;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-/** Dernier état du hub reçu du serveur. */
 public final class ClientHub {
     private static JsonObject state = new JsonObject();
 
@@ -17,7 +16,7 @@ public final class ClientHub {
         try {
             state = JsonParser.parseString(json).getAsJsonObject();
         } catch (Exception ignored) {
-            // on garde l'ancien état
+
         }
     }
 }

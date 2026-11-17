@@ -33,10 +33,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Pouvoirs d'Augmentation, suite (QuickStrikeEvents, RockArmEvents, HeatPalmEvents, HandBladeEvents, ContactShredEvents du modèle) :
- * Quick Strike, Rock Arm, Heat Palm, Hand Blade, Contact Shred. Fiches : docs/fidelite/.
- */
 public final class Specials4 {
     private Specials4() {}
 
@@ -47,7 +43,6 @@ public final class Specials4 {
         return s != null && ALL.contains(s);
     }
 
-    // ------------------------------------------------------------------ états
     private static final Map<UUID, Integer> BLITZ = new HashMap<>(), PURSUIT = new HashMap<>(), STANCE = new HashMap<>(), SMELT = new HashMap<>();
     private static final Map<UUID, UUID> PURSUIT_TARGET = new HashMap<>();
     private static final Map<UUID, int[]> COMBO = new HashMap<>();         // {ticks restants, pas, ...}
@@ -56,8 +51,8 @@ public final class Specials4 {
     private static final Map<UUID, Vec3> THRUST_DIR = new HashMap<>();
     private static final Map<UUID, Integer> RAKE = new HashMap<>();
     private static final Map<UUID, Set<UUID>> RAKE_HIT = new HashMap<>();
-    private static final Set<UUID> BUSY = new HashSet<>();                  // coups portés par le pouvoir lui-même (pas de bonus de mêlée)
-    private static final Map<UUID, Integer> MINOR_CD = new HashMap<>();     // Contact Shred : marque mineure par cible
+    private static final Set<UUID> BUSY = new HashSet<>();
+    private static final Map<UUID, Integer> MINOR_CD = new HashMap<>();
 
     private static final class Mark {
         ServerPlayer owner;
@@ -72,7 +67,7 @@ public final class Specials4 {
         UUID owner;
         Vec3 pos, dir;
         double left = 22;
-        int pierce = 4; // le croissant du modèle (pierce 3) touche 4 cibles
+        int pierce = 4;
         final Set<UUID> hit = new HashSet<>();
     }
 
@@ -88,7 +83,6 @@ public final class Specials4 {
         return ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level).orElse(1.1);
     }
 
-    /** Facteur de niveau du modèle : (niveau x 10 - 11) / 89, entre 0 et 1. */
     private static float sf(ServerPlayer p) {
         return (float) Math.max(0, Math.min(1, (level(p) * 10 - 11) / 89.0));
     }
@@ -118,7 +112,6 @@ public final class Specials4 {
         return "player".equals(e.getSource().type().msgId());
     }
 
-    /** La cible la plus proche dans un cône devant le regard (nearestInCone du modèle). */
     private static LivingEntity nearestInCone(ServerPlayer p, double range, double dot) {
         Vec3 eye = p.getEyePosition(), look = p.getViewVector(1f).normalize();
         LivingEntity best = null;
@@ -154,14 +147,14 @@ public final class Specials4 {
         Vec3 look = p.getViewVector(1f);
         switch (m.special) {
             // ---------------- Quick Strike
-            case "qs_blitz" -> { // fente 8 ticks ; frappe la première cible rencontrée
+            case "qs_blitz" -> {
                 Vec3 h = new Vec3(look.x, 0, look.z).normalize();
                 motion(p, h.x * 1.5, Math.max(0.1, look.y * 0.3) * 1.5, h.z * 1.5);
                 BLITZ.put(id, 8);
             }
             case "qs_stance" -> {
                 STANCE.put(id, 400);
-                msg(p, "§6Posture d'assaut engagée !");
+                msg(p, "§6Assault stance engaged!");
             }
             case "qs_combo" -> {
                 LivingEntity t = nearestInCone(p, 3.5, 0.3);
@@ -186,7 +179,7 @@ public final class Specials4 {
             }
             // ---------------- Rock Arm
             case "ra_smash" -> rockSmash(p, lv, c);
-            case "ra_guard" -> { } // interrupteur : les effets sont dans onHurt et les attributs
+            case "ra_guard" -> { }
             // ---------------- Heat Palm
             case "hp_palm" -> palmStrike(p, lv, c);
             case "hp_smelt" -> { }
@@ -208,7 +201,7 @@ public final class Specials4 {
             case "cs_grip" -> {
                 LivingEntity t = nearestInCone(p, 3.0, 0.5);
                 if (t == null) {
-                    msg(p, "§c[Lacération] §7Personne à portée.");
+                    msg(p, "§c[Laceration] §7Nobody in range.");
                     return false;
                 }
                 BUSY.add(id);
@@ -225,7 +218,6 @@ public final class Specials4 {
         return true;
     }
 
-    /** Interrupteur maintenu (toutes les 4 ticks) : Heat Palm, fonte. */
     public static void whileOn(ServerPlayer p, AbilityPower.Move m, long now) {
         if (!"hp_smelt".equals(m.special)) return;
         int interval = Math.max(4, (int) (30 - 20 * sf(p)));
@@ -281,7 +273,6 @@ public final class Specials4 {
         lv.playSound(null, p.blockPosition(), SoundEvents.FIRECHARGE_USE, SoundSource.PLAYERS, 0.9f, hit ? 1.2f : 0.8f);
     }
 
-    /** Fonte : l'objet en main est cuit (une unité par intervalle). */
     private static void smeltOne(ServerPlayer p, ServerLevel lv) {
         ItemStack held = p.getMainHandItem();
         if (held.isEmpty()) return;
@@ -355,7 +346,7 @@ public final class Specials4 {
             thrustTick(p, lv, id);
             rakeTick(p, lv, id);
         }
-        // Hand Blade : croissants d'énergie
+
         for (Iterator<Crescent> it = CRESCENTS.iterator(); it.hasNext(); ) {
             Crescent c = it.next();
             ServerPlayer o = server.getPlayerList().getPlayer(c.owner);
@@ -394,7 +385,7 @@ public final class Specials4 {
                 it.remove();
                 continue;
             }
-            if (!ownerOk) { // tu as lâché : la marque se déchire tout de suite
+            if (!ownerOk) {
                 rupture(m);
                 it.remove();
                 continue;
@@ -482,7 +473,7 @@ public final class Specials4 {
             PURSUIT.remove(id);
             PURSUIT_TARGET.remove(id);
             BUSY.add(id);
-            p.attack(t); // vraie attaque de mêlée
+            p.attack(t);
             BUSY.remove(id);
             p.swing(InteractionHand.MAIN_HAND, true);
         }
@@ -540,12 +531,11 @@ public final class Specials4 {
         }
     }
 
-    // ------------------------------------------------------------------ dégâts
     public static void onHurt(LivingHurtEvent e) {
         LivingEntity v = e.getEntity();
         if (e.getSource().getEntity() instanceof ServerPlayer a && a != v && melee(e) && !BUSY.contains(a.getUUID())) {
             if (has(a, "rock_arm")) e.setAmount(e.getAmount() + (float) (2.0 + 2.0 * sf(a))); // poing de pierre
-            if (has(a, "heat_palm")) { // paume brûlante
+            if (has(a, "heat_palm")) {
                 e.setAmount(e.getAmount() + (float) (1.5 + 1.5 * sf(a)));
                 int secs = (int) (0.5 + 1.0 * sf(a));
                 if (secs > 0) v.setRemainingFireTicks(Math.max(v.getRemainingFireTicks(), secs * 20));
@@ -556,11 +546,10 @@ public final class Specials4 {
             }
         }
         if (v instanceof ServerPlayer vp && has(vp, "rock_arm") && AbilityEngine.toggled(vp, "rock_arm", 1)) {
-            e.setAmount(e.getAmount() * 0.85f); // garde levée
+            e.setAmount(e.getAmount() * 0.85f);
         }
     }
 
-    /** Tags d'état lus par les poses tenues du modèle (power_animations.js). */
     public static void modelTags(ServerPlayer p) {
         long now = p.serverLevel().getGameTime();
         tag(p, "unrp.active.qs_stance", STANCE.containsKey(p.getUUID()));

@@ -1,5 +1,4 @@
-"""Dessine la texture du masque du Joker (16x16) dans assets/unrp/textures/item/. Dessin original (rien du mod modèle).
-Relance :  python3 tools/make_item_textures.py"""
+"""Generate the original 16-pixel Joker mask texture."""
 import pathlib
 from PIL import Image
 

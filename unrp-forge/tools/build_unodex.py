@@ -1,21 +1,5 @@
 #!/usr/bin/env python3
-"""
-build_unodex.py : export de la feuille Unodex -> fichiers JSON lus par le mod.
-
-Usage (depuis la racine du projet) :
-    python3 tools/build_unodex.py                       # valeurs par défaut
-    python3 tools/build_unodex.py --check               # valide sans écrire
-    python3 tools/build_unodex.py --input autre.txt
-
-Entrée  : tools/input/unodex-export.txt  (export de la feuille, onglets séparés par
-          "## Sheet name: <onglet>"). Seuls les onglets 'unodex' et 'unodex-rp' sont lus.
-Sortie  : src/main/resources/data/unrp/unodex/{schools,abilities}.json
-          src/main/resources/data/unrp/unodex/characters/<categorie>.json
-          docs/generated/REPORT.md
-Éditions manuelles : tools/overrides/{schools,characters,abilities}.json
-          (fusionnées par-dessus les données générées, jamais écrasées).
-Aucune dépendance : bibliothèque standard Python 3.9+.
-"""
+"""Build runtime JSON and the data report from the Unodex CSV sheets. Use --check to validate without writing."""
 import argparse
 import collections
 import csv
@@ -29,44 +13,32 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "src/main/resources/data/unrp/unodex"
 
-# Onglets sources -> catégorie de personnage. Pour ajouter un onglet, l'ajouter ici.
+
 ORIGIN_CATEGORY = {
-    "unodex": "lore",       # personnages canon du webtoon
-    "unodex-rp": "rp",      # personnages du RP
+    "unodex": "lore",
+    "unodex-rp": "rp",
 }
-# Si un personnage apparaît dans plusieurs onglets, la catégorie retenue suit cet ordre.
+
 CATEGORY_PRIORITY = ["rp", "lore"]
-# Anciennes catégories dont les fichiers générés doivent être supprimés s'ils traînent.
+
 STALE_CATEGORIES = ["shine_city", "npc"]
 
 TIER = {
     "cripple": "cripple", "low tier": "low", "mid tier": "mid", "elite tier": "elite",
-    "high tier": "high", "god tier": "god", "inconnu": "unknown", "": "unknown",
+    "high tier": "high", "god tier": "god", "unknown": "unknown", "": "unknown",
 }
 TIER_ORDER = {"cripple": 0, "low": 1, "mid": 2, "elite": 3, "high": 4, "god": 5, "unknown": 9}
 TIER_WAVE = {"cripple": 1, "low": 1, "mid": 2, "elite": 3, "high": 4, "god": 5, "unknown": 6}
 
-ABILITY_TYPE = {
-    "quantum": "quantum", "quantique": "quantum", "emission": "emission", "creation": "creation",
-    "enhancement": "enhancement", "mental": "mental", "meta": "meta", "status": "status",
-    "statut": "status", "curative": "curative", "cure": "curative", "soin": "curative",
-    "detection": "detection", "offensive": "offensive", "offensif": "offensive",
-    "defensif": "defensive", "piege": "trap", "manipulation": "manipulation",
-    "transformation": "transformation", "alteration": "alteration", "soutien": "support",
-    "predator": "predator", "non specifiee": "unknown", "unknown": "unknown", "///": "unknown",
-    "none": "none", "": "unknown",
-}
-NATURE = {
-    "attaque": "attack", "defense": "defense", "vivacite": "agility", "support": "support",
-    "soutien": "support", "stratege": "strategist", "none": None, "": None,
-}
-ROLE = {
-    "roi": "king", "king": "king", "reine": "queen", "queen": "queen", "valet": "jack",
-    "jack": "jack", "soigneur": "healer", "healer": "healer", "ancien": "alumni",
-    "ancien eleve": "alumni", "cache": "hidden",
-}
-# Identifiants de lieux. kind : school = établissement, organization = groupe/faction.
-# Les "kind" marqués non confirmés sont à relire (voir docs/DATA.md).
+ABILITY_TYPE = {key: key for key in (
+    'quantum', 'emission', 'creation', 'enhancement', 'mental', 'meta', 'status',
+    'curative', 'detection', 'offensive', 'defensive', 'trap', 'manipulation',
+    'transformation', 'alteration', 'support', 'predator', 'unknown', 'none')}
+ABILITY_TYPE.update({'': 'unknown', '///': 'unknown'})
+NATURE = {key: key for key in ('attack', 'defense', 'agility', 'support', 'strategist')}
+NATURE.update({'none': None, '': None})
+ROLE = {key: key for key in ('king', 'queen', 'jack', 'healer', 'alumni', 'hidden')}
+
 KNOWN_PLACES = {
     "wellston": ("Wellston", "school", True),
     "wellston_university": ("Wellston University", "school", True),
@@ -85,7 +57,22 @@ KNOWN_PLACES = {
 }
 
 
-# ----------------------------------------------------------------- utilitaires
+# ----------------------------------------------------------------- helpers
+def stable_ability_id(name):
+    # Display names can change language; persisted ability IDs cannot.
+    path = DATA_DIR / 'abilities.json'
+    if path.exists():
+        for ability in json.loads(path.read_text())['abilities']:
+            if norm_key(ability['name']) == norm_key(name):
+                return ability['id']
+    for path in (DATA_DIR / 'characters').glob('*.json'):
+        for character in json.loads(path.read_text()).get('characters', []):
+            for snapshot in character.get('snapshots', []):
+                if norm_key(snapshot.get('ability')) == norm_key(name):
+                    return snapshot['ability_id']
+    return slug(name)
+
+
 def strip_accents(s):
     return "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c))
 
@@ -113,7 +100,7 @@ def to_float(s):
 
 def clean(s):
     s = (s or "").strip()
-    return s if s and s.lower() not in {"non disponible", "non", "n/a"} else None
+    return s if s and s.lower() not in {"unavailable", "no", "n/a"} else None
 
 
 def split_top_level(s, sep=","):
@@ -133,7 +120,6 @@ def split_top_level(s, sep=","):
 
 
 def deep_merge(base, patch):
-    """Fusion récursive : les dict sont fusionnés, tout le reste est remplacé."""
     for k, v in patch.items():
         if isinstance(v, dict) and isinstance(base.get(k), dict):
             deep_merge(base[k], v)
@@ -142,18 +128,17 @@ def deep_merge(base, patch):
     return base
 
 
-# ------------------------------------------------------------------- lecture
+# ------------------------------------------------------------------- input
 def read_source_rows(path):
-    """Lit les onglets sources et ajoute à chaque ligne la clé "Table d'origine"."""
     raw = Path(path).read_text(encoding="utf-8")
     parts = re.split(r"^## Sheet name: (.+)$", raw, flags=re.M)
     tabs = {parts[i].strip(): parts[i + 1].lstrip("\n") for i in range(1, len(parts), 2)}
     rows = []
     for tab in ORIGIN_CATEGORY:
         if tab not in tabs:
-            sys.exit(f"Onglet '{tab}' introuvable dans l'export (onglets présents : {', '.join(tabs)}).")
+            sys.exit(f"Sheet '{tab}' not found in export (available sheets : {', '.join(tabs)}).")
         for r in csv.DictReader(io.StringIO(tabs[tab])):
-            r["Table d'origine"] = tab
+            r["Source Sheet"] = tab
             rows.append(r)
     return rows
 
@@ -163,12 +148,11 @@ def parse_height_sex(s):
     m = re.match(r"^(\d+)\s*cm\s*\(([HF])\)", s)
     if m:
         return int(m.group(1)), m.group(2)
-    m = re.match(r"^Inconnue\s*\(([HF])\)", s, flags=re.I)
+    m = re.match(r"^Unknown\s*\(([HF])\)", s, flags=re.I)
     return (None, m.group(1).upper()) if m else (None, None)
 
 
 def parse_schools(raw, warnings, who):
-    """'St Clair (caché), St Clair (queen)' -> [{school, roles, region}]"""
     members = {}
     for piece in split_top_level(raw or ""):
         m = re.match(r"^(.*?)\s*(?:\((.*)\))?\s*$", piece)
@@ -180,7 +164,7 @@ def parse_schools(raw, warnings, who):
         if not sid:
             continue
         if sid not in KNOWN_PLACES:
-            warnings.append(f"Lieu inconnu '{name}' (personnage {who}) : ajouté automatiquement.")
+            warnings.append(f"Unknown place '{name}' (character {who}): added automatically.")
         entry = members.setdefault(sid, {"school": sid, "roles": [], "region": region})
         if region and not entry["region"]:
             entry["region"] = region
@@ -203,17 +187,17 @@ def build(rows, warnings):
     skipped = 0
     for row in rows:
         name = (row.get("Name") or "").strip()
-        origin = (row.get("Table d'origine") or "").strip()
+        origin = (row.get("Source Sheet") or "").strip()
         category = ORIGIN_CATEGORY.get(origin)
         if not name or category is None:
             skipped += 1
             continue
         cid = slug(name)
         if not cid:
-            warnings.append(f"Nom illisible ignoré : {name!r}")
+            warnings.append(f"Skipped unreadable name: {name!r}")
             continue
         ability_name = (row.get("Ability") or "").strip()
-        ability_id = None if norm_key(ability_name) in {"", "n/a", "none"} else slug(ability_name)
+        ability_id = None if norm_key(ability_name) in {"", "n/a", "none"} else stable_ability_id(ability_name)
         snap = {
             "level": to_float(row.get("Level")),
             "tier": TIER.get(norm_key(row.get("Tier")), "unknown"),
@@ -222,13 +206,13 @@ def build(rows, warnings):
             "type": ABILITY_TYPE.get(norm_key(row.get("Type")), slug(row.get("Type")) or "unknown"),
             "nature": NATURE.get(norm_key(row.get("Nature")), slug(row.get("Nature")) or None),
             "stats": stat_block(row),
-            "rate": to_float(row.get("Taux")),
+            "rate": to_float(row.get("Rate")),
             "bonuses": stat_block(row, " Bonus"),
             "description": clean(row.get("Ability Description")),
             "reference": clean(row.get("Reference")),
             "graph": clean(row.get("Graph Link")),
             "image": clean(row.get("Image")),
-            "school_raw": clean(row.get("École")),
+            "school_raw": clean(row.get('School')),
             "source": origin,
         }
         c = chars.setdefault(cid, {"id": cid, "name": name, "snapshots": [], "_rows": []})
@@ -244,9 +228,9 @@ def build(rows, warnings):
         _, last_row, last_snap = last
         cats = {t[0] for t in c["_rows"]}
         category = next(p for p in CATEGORY_PRIORITY if p in cats)
-        height, sex = parse_height_sex(last_row.get("Taille"))
-        # École/rang : on prend la ligne la plus récente de l'onglet prioritaire (rp avant lore)
-        # qui renseigne une école, pour ne pas perdre un rang parce que la ligne de plus haut niveau est ailleurs.
+        height, sex = parse_height_sex(last_row.get("Height"))
+
+
         with_school = [t for t in c["_rows"] if t[2]["school_raw"]]
         school_raw = None
         if with_school:
@@ -275,8 +259,8 @@ def build(rows, warnings):
             "snapshots": [{k: v for k, v in s.items() if k != "school_raw"} for s in c["snapshots"]],
         }
         if len(cats) > 1:
-            warnings.append(f"'{c['name']}' apparaît dans plusieurs onglets ({', '.join(sorted(cats))}) : "
-                            f"fusionné, catégorie '{category}'. Séparer via overrides si ce sont deux personnes.")
+            warnings.append(f"'{c['name']}' appears in multiple sheets ({', '.join(sorted(cats))}): "
+                            f"merged as category '{category}'. Use overrides if they are different people.")
         characters.append(out)
     characters.sort(key=lambda c: (CATEGORY_PRIORITY.index(c["category"]), c["id"]))
     return characters, skipped
@@ -317,7 +301,7 @@ def build_abilities(characters):
             "level_min": min(a["levels"]) if a["levels"] else None,
             "level_max": max(a["levels"]) if a["levels"] else None,
             "wave": TIER_WAVE.get(best_tier, 6),
-            # Suivi d'implémentation : à mettre à jour à la main dans overrides/abilities.json
+
             "impl": {"status": "todo", "palladium_power": None, "notes": None},
         }
         out.append(item)
@@ -329,8 +313,7 @@ LEADER_ROLES = ["king", "queen", "jack", "healer"]
 
 
 def build_schools(characters):
-    """Écoles/groupes présents dans les données. 'leaders' = personnages à rang actuel
-    (roi, reine, valet, soigneur ; les anciens élèves sont exclus)."""
+    """Build runtime JSON and the data report from the Unodex CSV sheets. Use --check to validate without writing."""
     members = collections.defaultdict(set)
     leaders = collections.defaultdict(list)
     regions = collections.defaultdict(set)
@@ -376,7 +359,7 @@ def apply_overrides(items, path, label, warnings):
             deep_merge(by_id[oid], patch)
         else:
             by_id[oid] = deep_merge({"id": oid}, patch)
-            warnings.append(f"Override {label} '{oid}' ajouté (n'existait pas dans l'export).")
+            warnings.append(f"Added {label} override '{oid}', absent from the source export.")
     return list(by_id.values())
 
 
@@ -387,16 +370,16 @@ def validate(characters, abilities, schools, warnings):
     cids = set()
     for c in characters:
         if c["id"] in cids:
-            errors.append(f"Personnage en double : {c['id']}")
+            errors.append(f"Duplicate character: {c['id']}")
         cids.add(c["id"])
         if c.get("ability_id") and c["ability_id"] not in aids:
-            errors.append(f"{c['id']} : capacité inconnue '{c['ability_id']}'")
+            errors.append(f"{c['id']} : unknown ability '{c['ability_id']}'")
         for m in c.get("schools", []):
             if m["school"] not in sids:
-                errors.append(f"{c['id']} : école inconnue '{m['school']}'")
+                errors.append(f"{c['id']} : unknown school '{m['school']}'")
     no_ability = [c["id"] for c in characters if not c.get("ability_id") and c["tier"] != "cripple"]
     if no_ability:
-        warnings.append(f"{len(no_ability)} personnages non-cripple sans capacité connue (ex. {', '.join(no_ability[:5])}).")
+        warnings.append(f"{len(no_ability)} characters non-Cripple without a known ability (e.g. {', '.join(no_ability[:5])}).")
     return errors
 
 
@@ -411,28 +394,28 @@ def write_report(characters, abilities, schools, skipped, warnings, errors):
     by_cat = collections.Counter(c["category"] for c in characters)
     by_tier = collections.Counter(c["tier"] for c in characters)
     by_wave = collections.Counter(a["wave"] for a in abilities)
-    lines = ["# Rapport de génération Unodex", "",
-             "_Fichier généré par `tools/build_unodex.py` : ne pas éditer à la main._", "",
-             f"- Personnages : **{len(characters)}** ({', '.join(f'{k} {v}' for k, v in by_cat.items())})",
-             f"- Capacités distinctes : **{len(abilities)}** (vague 1 : {by_wave[1]}, 2 : {by_wave[2]}, "
+    lines = ["# Unodex generation report", "",
+             "Generated by `tools/build_unodex.py`. Edit the input or overrides, then regenerate.", "",
+             f"- Characters : **{len(characters)}** ({', '.join(f'{k} {v}' for k, v in by_cat.items())})",
+             f"- Distinct abilities : **{len(abilities)}** (wave 1 : {by_wave[1]}, 2 : {by_wave[2]}, "
              f"3 : {by_wave[3]}, 4 : {by_wave[4]}, 5 : {by_wave[5]}, 6 : {by_wave[6]})",
-             f"- Écoles / groupes : **{len(schools)}**",
-             f"- Lignes ignorées (sans nom ou onglet inconnu) : {skipped}", "",
-             "## Personnages par tier (dernier niveau connu)", ""]
+             f"- Schools / groups : **{len(schools)}**",
+             f"- Skipped rows (missing name or unknown sheet) : {skipped}", "",
+             "## Characters by latest known tier", ""]
     lines += [f"- {t} : {n}" for t, n in sorted(by_tier.items(), key=lambda x: TIER_ORDER.get(x[0], 9))]
-    lines += ["", "## Écoles et groupes", "", "| id | nom | type | confirmé | membres | dirigeants |", "|---|---|---|---|---|---|"]
+    lines += ["", "## Schools and groups", "", "| ID | Name | Type | Confirmed | Members | Leaders |", "|---|---|---|---|---|---|"]
     for s in schools:
-        lines.append(f"| {s['id']} | {s['name']} | {s['kind']} | {'oui' if s['kind_confirmed'] else '**à relire**'} "
+        lines.append(f"| {s['id']} | {s['name']} | {s['kind']} | {'yes' if s['kind_confirmed'] else '**review needed**'} "
                      f"| {s['member_count']} | {', '.join(l['character_id'] + ' (' + l['role'] + ')' for l in s['leaders']) or '-'} |")
-    lines += ["", "## Avertissements", ""] + ([f"- {w}" for w in warnings] or ["Aucun."])
-    lines += ["", "## Erreurs", ""] + ([f"- {e}" for e in errors] or ["Aucune."])
+    lines += ["", "## Warnings", ""] + ([f"- {w}" for w in warnings] or ["None."])
+    lines += ["", "## Errors", ""] + ([f"- {e}" for e in errors] or ["None."])
     rep.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--input", default=str(ROOT / "tools/input/unodex-export.txt"))
-    ap.add_argument("--check", action="store_true", help="valide sans écrire de fichiers")
+    ap.add_argument("--check", action="store_true", help="validate without writing files")
     args = ap.parse_args()
 
     warnings = []
@@ -441,15 +424,15 @@ def main():
     abilities = build_abilities(characters)
     schools = build_schools(characters)
 
-    characters = apply_overrides(characters, "characters.json", "personnage", warnings)
-    abilities = apply_overrides(abilities, "abilities.json", "capacité", warnings)
-    schools = apply_overrides(schools, "schools.json", "école", warnings)
+    characters = apply_overrides(characters, "characters.json", "character", warnings)
+    abilities = apply_overrides(abilities, "abilities.json", "ability", warnings)
+    schools = apply_overrides(schools, "schools.json", "school", warnings)
 
     errors = validate(characters, abilities, schools, warnings)
-    print(f"{len(characters)} personnages, {len(abilities)} capacités, {len(schools)} écoles/groupes, "
-          f"{len(warnings)} avertissements, {len(errors)} erreurs")
+    print(f"{len(characters)} characters, {len(abilities)} abilities, {len(schools)} schools/groups, "
+          f"{len(warnings)} warnings, {len(errors)} errors")
     for e in errors:
-        print("ERREUR:", e, file=sys.stderr)
+        print("ERROR:", e, file=sys.stderr)
     if errors:
         sys.exit(1)
     if args.check:
@@ -467,7 +450,7 @@ def main():
     write_json(DATA_DIR / "abilities.json", {"abilities": abilities})
     write_json(DATA_DIR / "schools.json", {"schools": sorted(schools, key=lambda s: s["id"])})
     write_report(characters, abilities, schools, skipped, warnings, errors)
-    print("Écrit dans", DATA_DIR, "et docs/generated/REPORT.md")
+    print("Written to", DATA_DIR, "and docs/generated/REPORT.md")
 
 
 if __name__ == "__main__":

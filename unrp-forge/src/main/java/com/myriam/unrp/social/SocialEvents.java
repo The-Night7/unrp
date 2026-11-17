@@ -10,7 +10,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.UUID;
 
-/** Règles de combat liées au hub : fin des duels à 2 cœurs, points d'entraînement gagnés au combat. */
 public class SocialEvents {
     @SubscribeEvent
     public void onHurt(LivingHurtEvent e) {
@@ -21,7 +20,7 @@ public class SocialEvents {
                 UUID other = du.a.equals(victim.getUUID()) ? du.b : du.a;
                 if (atk.getUUID().equals(other) && victim.getHealth() - e.getAmount() <= 4.0F) {
                     e.setCanceled(true);
-                    SocialService.end(victim.server, du, atk.getUUID(), "2 cœurs");
+                    SocialService.end(victim.server, du, atk.getUUID(), "two hearts");
                     return;
                 }
             }
@@ -57,7 +56,7 @@ public class SocialEvents {
         SocialService.Duel du = SocialService.duelOf(p.getUUID());
         if (du != null) {
             UUID other = du.a.equals(p.getUUID()) ? du.b : du.a;
-            SocialService.end(p.server, du, other, "déconnexion");
+            SocialService.end(p.server, du, other, "disconnected");
         }
     }
 }

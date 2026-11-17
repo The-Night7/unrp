@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
-/** Serveur -> clients : les vêtements cosmétiques affichés par un joueur (tête, torse, jambes, pieds). */
 public class CosmeticPacket {
     public final UUID id;
     public final String[] pieces;
@@ -29,7 +28,7 @@ public class CosmeticPacket {
     }
 
     public static void handle(CosmeticPacket p, Supplier<NetworkEvent.Context> ctx) {
-        // Données simples : aucun accès au client Minecraft, donc sans danger côté serveur.
+
         ctx.get().enqueueWork(() -> Cosmetics.CLIENT.put(p.id, p.pieces));
         ctx.get().setPacketHandled(true);
     }

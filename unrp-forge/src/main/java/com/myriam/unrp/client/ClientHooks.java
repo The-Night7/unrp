@@ -5,20 +5,19 @@ import com.myriam.unrp.net.PlayerStatePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
-/** Point d'entrée côté client des paquets (séparé pour ne jamais être chargé sur un serveur dédié). */
 public final class ClientHooks {
     private ClientHooks() {}
 
     public static void onMenuData(MenuDataPacket p) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen instanceof CandidatureScreen screen) {
+        if (mc.screen instanceof CharacterSelectionScreen screen) {
             if (p.close) {
                 mc.setScreen(null);
             } else {
                 screen.update(p);
             }
         } else if (p.open && !p.close) {
-            mc.setScreen(new CandidatureScreen(p));
+            mc.setScreen(new CharacterSelectionScreen(p));
         }
     }
 

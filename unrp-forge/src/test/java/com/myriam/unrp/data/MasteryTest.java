@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Évolution d'un OC : barre de maîtrise, plafond au niveau 10. */
 class MasteryTest {
     private static ClaimData.Profile oc(double level, int xp) {
         ClaimData.Profile p = new ClaimData.Profile();

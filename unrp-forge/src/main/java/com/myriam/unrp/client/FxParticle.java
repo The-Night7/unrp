@@ -9,12 +9,6 @@ import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 
-/**
- * Particule teintée du mod. Chaque nom a son comportement :
- * arc clignote ; ring s'agrandit ; ember monte en rétrécissant ; smoke gonfle et ralentit ; drop tombe ;
- * leaf tourne en tombant doucement ; shard, rock et glyph tournent ; les autres flottent et s'effacent.
- * Toutes sont lumineuses, sauf la fumée (qui peut être sombre).
- */
 public class FxParticle extends TextureSheetParticle {
     private final SpriteSet sprites;
     private final String kind;
@@ -67,7 +61,7 @@ public class FxParticle extends TextureSheetParticle {
 
     private void pickSprite() {
         if ("arc".equals(kind) || "glyph".equals(kind) || "rock".equals(kind) || "shard".equals(kind) || "leaf".equals(kind)) {
-            setSprite(sprites.get(random.nextInt(100), 99)); // image au hasard dans la série
+            setSprite(sprites.get(random.nextInt(100), 99));
         } else {
             setSpriteFromAge(sprites);
         }
@@ -87,7 +81,7 @@ public class FxParticle extends TextureSheetParticle {
                 alpha = 0.75f * (1f - t);
             }
             case "ember" -> quadSize = baseSize * (1f - 0.6f * t);
-            case "arc" -> setSprite(sprites.get(random.nextInt(100), 99)); // l'éclair change de forme
+            case "arc" -> setSprite(sprites.get(random.nextInt(100), 99));
             case "leaf" -> xd += Math.sin(age * 0.3) * 0.004;
             default -> {
                 if (!"glyph".equals(kind) && !"rock".equals(kind) && !"shard".equals(kind)) setSpriteFromAge(sprites);
@@ -97,7 +91,7 @@ public class FxParticle extends TextureSheetParticle {
 
     @Override
     public int getLightColor(float partial) {
-        return "smoke".equals(kind) ? super.getLightColor(partial) : 0xF000F0; // pleine lumière (sauf fumée)
+        return "smoke".equals(kind) ? super.getLightColor(partial) : 0xF000F0;
     }
 
     @Override

@@ -1,0 +1,24 @@
+{
+  "_export_note": "Covenant-only reference excerpts. Merge into the full project definitions; do not replace shared files with these subsets.",
+  "abilities": [
+    {
+      "id": "covenant",
+      "name": "Covenant",
+      "aliases": [],
+      "type": "origin",
+      "nature": null,
+      "description": "Stepping into his court is signing his contract. The Sovereign writes laws and collects their penalties as Collateral. Court range: 10–500 m. Permanent Indemnity from 5.0. God tier (6.0+): Constitutions, Retroactive Laws, whole-ability forfeiture, 24-hour jurisdiction and one-week remote signatures. See docs/COVENANT.md.",
+      "users": [
+        "myriam"
+      ],
+      "level_min": 1.0,
+      "level_max": 10.0,
+      "wave": 0,
+      "impl": {
+        "status": "done",
+        "palladium_power": null,
+        "notes": "CovenantRules, Specials17, persistent ledger and client signatures; docs/COVENANT.md."
+      }
+    }
+  ]
+}

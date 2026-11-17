@@ -2,26 +2,21 @@ package com.myriam.unrp.data;
 
 import net.minecraft.nbt.NbtCompound;
 
-/** Tout ce que le mod retient d'un joueur. */
 public class PlayerData {
     public static final int POWER = 0, SPEED = 1, TRICK = 2, RECOVERY = 3, DEFENSE = 4;
     public static final String[] STAT_NAMES = {"power", "speed", "trick", "recovery", "defense"};
     public static final int STAT_MIN = 1, STAT_MAX = 10;
 
-    /** Identifiant du pouvoir ("" = aucun). */
     public String power = "";
     public int aura = 100;
     public final int[] stats = {1, 1, 1, 1, 1};
 
-    /** Temps de jeu (ticks) avant lequel le pouvoir est en recharge. Non sauvegardé. */
     public long cooldownUntil = 0;
 
-    // --- Formules de jeu : tout l'équilibrage est ici ---
     public int maxAura() {
         return 100 + 10 * (stats[TRICK] + stats[RECOVERY]);
     }
 
-    /** Aura régénérée par seconde. */
     public int regen() {
         return 1 + stats[RECOVERY] / 2;
     }

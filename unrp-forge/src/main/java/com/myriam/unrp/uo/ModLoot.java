@@ -7,7 +7,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-/** ModLoot du modèle : le modificateur « unrp:hollow_relics » (runes et charmes dans les coffres). */
 public final class ModLoot {
     private ModLoot() {}
 

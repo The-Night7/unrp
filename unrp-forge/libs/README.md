@@ -1,5 +1,3 @@
-# libs/
+# Development libraries
 
-Dépose ici les jars Forge 1.20.1 des autres mods (voir docs/SETUP.md pour la liste).
-Ils sont ajoutés automatiquement au classpath de développement par build.gradle.
-Ne pas versionner ces jars (ils ne sont pas à nous).
+Place the Forge 1.20.1 libraries required by `build.gradle` here. See [SETUP.md](../docs/SETUP.md) for Palladium and its embedded dependencies. These JARs are added to the development classpath; do not commit third-party binaries.

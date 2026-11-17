@@ -10,7 +10,6 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-/** Serveur -> clients : l'apparence d'un joueur (pour dessiner ses yeux et son alias). */
 public class StyleSyncPacket {
     public final UUID id;
     public final StyleData style;

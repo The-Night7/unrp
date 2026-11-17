@@ -7,7 +7,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/** EntityTintMixin du modèle : la proie de Predator luit à la couleur du prédateur. */
 @Mixin(Entity.class)
 public abstract class EntityTintMixin {
     @Inject(method = "getTeamColor()I", at = @At("RETURN"), cancellable = true, require = 0, expect = 0)

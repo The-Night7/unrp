@@ -7,7 +7,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
-/** Toute la logique "le joueur appuie sur la touche" : vérifications, coût, recharge. */
 public final class AbilityUse {
     private AbilityUse() {}
 

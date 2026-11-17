@@ -1,6 +1,5 @@
 package com.myriam.unrp.uo;
 
-/** AmPass du modèle, réduit à veiled : pouvoir copié par Aura Manipulation et pas encore montré. */
 public final class AmPass {
     private AmPass() {}
 

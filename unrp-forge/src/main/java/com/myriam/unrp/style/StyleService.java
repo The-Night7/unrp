@@ -11,9 +11,8 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.UUID;
 
-/** Sauvegarde et diffusion de l'apparence des joueurs. */
 public final class StyleService {
-    /** Apparence côté client, par joueur (rempli par StyleSyncPacket). Lue aussi pour l'alias du chat côté serveur. */
+
     public static final java.util.Map<UUID, StyleData> CLIENT_CACHE = new java.util.concurrent.ConcurrentHashMap<>();
 
     private StyleService() {}
@@ -29,10 +28,9 @@ public final class StyleService {
         d.setDirty();
         Net.CHANNEL.send(PacketDistributor.ALL.noArg(), new StyleSyncPacket(p.getUUID(), get(p.server, p.getUUID())));
         p.refreshDisplayName();
-        p.displayClientMessage(Component.literal("Style enregistré."), true);
+        p.displayClientMessage(Component.literal("Style saved."), true);
     }
 
-    /** À la connexion : le nouveau reçoit le style de tous, tout le monde reçoit le sien. */
     public static void onLogin(ServerPlayer joiner) {
         MinecraftServer s = joiner.server;
         for (ServerPlayer other : s.getPlayerList().getPlayers()) {

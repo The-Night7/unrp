@@ -1,6 +1,5 @@
 package com.myriam.unrp.uo;
 
-/** PowerScalingEvents du modèle, réduit à effectiveStat : stat actuelle (nos stats), plafonnée à 10. */
 public final class PowerScalingEvents {
     private PowerScalingEvents() {}
 

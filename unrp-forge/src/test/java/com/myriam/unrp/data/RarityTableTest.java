@@ -25,7 +25,7 @@ class RarityTableTest {
         RarityTable t = load();
         double sum = t.tiers().stream().mapToDouble(t::probability).sum();
         assertEquals(1.0, sum, 1e-9);
-        assertEquals(100.0, t.totalWeight(), 1e-9, "les poids de rarity.json doivent faire 100");
+        assertEquals(100.0, t.totalWeight(), 1e-9, "rarity.json weights must total 100");
     }
 
     @Test
@@ -35,7 +35,7 @@ class RarityTableTest {
         for (int i = 0; i < 100_000; i++) {
             RarityTable.Roll r = t.roll(rng);
             assertTrue(r.level >= r.tier.levelMin && r.level <= r.tier.levelMax,
-                    r.tier.id + " niveau " + r.level);
+                    r.tier.id + " level " + r.level);
         }
     }
 

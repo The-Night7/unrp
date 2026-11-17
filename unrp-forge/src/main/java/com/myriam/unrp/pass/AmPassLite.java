@@ -5,10 +5,6 @@ import com.myriam.unrp.data.UnodexData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
 
-/**
- * Aura Manipulation vers le moteur d'effets (AmPass du modèle) : AM_ON à l'activation, AM_TAKE quand une copie entre
- * (case du pouvoir, couleur), AM_EXPEL quand les copies sont rejetées.
- */
 public final class AmPassLite {
     private AmPassLite() {}
 
@@ -25,7 +21,6 @@ public final class AmPassLite {
         else TimePass.send(p.serverLevel(), pkt);
     }
 
-    /** AmPass.lift : éclaircit une couleur trop sombre. */
     static int lift(int rgb) {
         int r = rgb >> 16 & 255, g = rgb >> 8 & 255, b = rgb & 255;
         double l = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0;
@@ -34,7 +29,6 @@ public final class AmPassLite {
         return (int) Math.round(r + (255 - r) * k) << 16 | (int) Math.round(g + (255 - g) * k) << 8 | (int) Math.round(b + (255 - b) * k);
     }
 
-    /** PowerLook.color : la couleur du pouvoir (celle de sa fiche chez nous). */
     static int lookColor(String s) {
         AbilityPower pw = UnodexData.get().powers.get(s);
         return pw != null && pw.look != null && pw.look.rgb() >= 0 ? pw.look.rgb() : 0xFFFFFF;
@@ -45,7 +39,6 @@ public final class AmPassLite {
         return lift(lookColor(s));
     }
 
-    /** AmPass.rgb : couleur d'une copie (moyenne des pouvoirs d'une combinaison). */
     public static int rgb(String s) {
         for (String[] c : AmRoster.COMBOS) {
             if (!c[0].equals(s)) continue;
@@ -61,7 +54,6 @@ public final class AmPassLite {
         return one(s);
     }
 
-    /** AmPass.sense : AM_SENSE à soi, puis un par porteur de pouvoir proche (48 au plus, couleur du pouvoir). */
     public static void sense(ServerPlayer p, double radius) {
         TimePass.to(p, packet(PassFxPacket.AM_SENSE, p, 0, (int) radius, 0, 0));
         java.util.List<net.minecraft.world.entity.Entity> near = new java.util.ArrayList<>();

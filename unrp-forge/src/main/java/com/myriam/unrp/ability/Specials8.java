@@ -31,10 +31,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Construction (lot 8) : Conjure Disks, Conjure Vines, Spikes. Comportements repris de ConjureDisksEvents, VinesEvents,
- * SpikesEvents et des entités SpikeEntity et VineEntity du modèle. Fiches : docs/fidelite/.
- */
 public final class Specials8 {
     private Specials8() {}
 
@@ -46,8 +42,7 @@ public final class Specials8 {
         return s != null && ALL.contains(s);
     }
 
-    // ------------------------------------------------------------------ états
-    private static final Map<UUID, List<Integer>> REFORM = new HashMap<>();   // Conjure Disks : disques en reformation
+    private static final Map<UUID, List<Integer>> REFORM = new HashMap<>();
     private static final Set<UUID> FLYING = new HashSet<>();
     private static final Set<UUID> LASH = new HashSet<>();
     private static final Map<UUID, UUID> LASH_GRAB = new HashMap<>();
@@ -55,15 +50,14 @@ public final class Specials8 {
     private static final Map<UUID, Vec3> GRASP_AT = new HashMap<>();
     private static final Map<UUID, Long> PRISON_UNTIL = new HashMap<>(), PRISON_CD = new HashMap<>();
     private static final Map<UUID, Vec3> PRISON_AT = new HashMap<>();
-    private static final Map<UUID, int[]> ROW = new HashMap<>();             // Spikes : {étapes restantes}
+    private static final Map<UUID, int[]> ROW = new HashMap<>();
     private static final Map<UUID, Vec3> ROW_FROM = new HashMap<>(), ROW_DIR = new HashMap<>();
-    private static final Map<UUID, long[]> FIELD = new HashMap<>();          // {fin, prochaine, x, y, z en bits}
+    private static final Map<UUID, long[]> FIELD = new HashMap<>();
 
-    /** Pointes et épines en attente ou volantes (SpikeEntity du modèle). */
     private static final class Spike {
         UUID owner;
         Vec3 pos, vel, aim;
-        int mode;         // 0 = pointe au sol, 1 = épine volante
+        int mode;
         float damage, size, launch;
         int delay, stun, hold, life;
         boolean erupted;
@@ -107,7 +101,6 @@ public final class Specials8 {
         return h.getType() == HitResult.Type.MISS ? (fallbackEnd ? to : null) : h.getLocation();
     }
 
-    /** Surface du sol près d'un point (null s'il n'y en a pas). */
     private static Vec3 surfaceAt(ServerLevel lv, Vec3 near, double down) {
         HitResult h = lv.clip(new ClipContext(new Vec3(near.x, near.y + 2, near.z), new Vec3(near.x, near.y - down, near.z), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
         if (h.getType() == HitResult.Type.MISS) return null;
@@ -140,7 +133,7 @@ public final class Specials8 {
 
     private static boolean ground(ServerPlayer p, int refund) {
         if (p.onGround()) return true;
-        msg(p, "§cLes pointes exigent un sol solide sous tes pieds.");
+        msg(p, "§cSpikes require solid ground beneath you.");
         return false;
     }
 
@@ -157,7 +150,7 @@ public final class Specials8 {
         int reforming = REFORM.containsKey(id) ? REFORM.get(id).size() : 0;
         int available = max - reserved - reforming;
         if (available < 1) {
-            msg(p, "§b[Disques] §7Aucun disque libre (" + Math.max(0, available) + "/" + max + ").");
+            msg(p, "§b[Discs] §7No free disc (" + Math.max(0, available) + "/" + max + ").");
             return;
         }
         Vec3 eye = p.getEyePosition(), look = p.getViewVector(1f).normalize();
@@ -201,9 +194,9 @@ public final class Specials8 {
                 if (LASH.add(id)) AbilityEngine.spendAura(p, 4);
             }
             case "cv_entangle" -> {
-                if (p.isShiftKeyDown()) { // Prison d'épines
+                if (p.isShiftKeyDown()) {
                     if (now < PRISON_CD.getOrDefault(id, 0L)) {
-                        msg(p, "§a✖ Prison d'épines se recharge (" + (1 + (PRISON_CD.get(id) - now) / 20) + " s)");
+                        msg(p, "§a✖ Thorn Prison is cooling down (" + (1 + (PRISON_CD.get(id) - now) / 20) + " s)");
                         return false;
                     }
                     AbilityEngine.spendAura(p, 26);
@@ -236,11 +229,11 @@ public final class Specials8 {
                         Fx.sprite(lv, "leaf", rgbVine, 1.2f, e.getBoundingBox().getCenter(), 14, 0.5, 0.05);
                         any = true;
                     }
-                    if (!any) msg(p, "§aLes lianes ne trouvent rien à ligoter.");
+                    if (!any) msg(p, "§aThe vines find nothing to bind.");
                 }
             }
             case "cv_spikes" -> {
-                if (p.isShiftKeyDown()) { // pieux de lianes à l'endroit visé
+                if (p.isShiftKeyDown()) {
                     Vec3 aim = aimPoint(p, 20, true);
                     for (int i = 0; i < 4; i++) {
                         double a = Math.PI * 2 * i / 4 + 0.4, r = i == 0 ? 0 : 1.4;
@@ -288,7 +281,7 @@ public final class Specials8 {
                 Vec3 aim = aimPoint(p, 22, false);
                 Vec3 center = aim == null ? null : surfaceAt(lv, aim, 6);
                 if (center == null) {
-                    msg(p, "§cPas de sol là où faire jaillir les pointes.");
+                    msg(p, "§cNo ground for the spikes to emerge from.");
                     return false;
                 }
                 for (int i = 0; i < 5; i++) {
@@ -314,7 +307,7 @@ public final class Specials8 {
             }
             case "sk2_field" -> {
                 if (!ground(p, 34)) return false;
-                if (p.isShiftKeyDown()) { // grille de pointes devant soi
+                if (p.isShiftKeyDown()) {
                     AbilityEngine.spendAura(p, 14);
                     Vec3 fl = flat(look), origin = p.position().add(fl.scale(2.5));
                     for (int i = 0; i < 9; i++) {
@@ -326,7 +319,7 @@ public final class Specials8 {
                     Vec3 aim = aimPoint(p, 20, false);
                     Vec3 center = aim == null ? null : surfaceAt(lv, aim, 6);
                     if (center == null) {
-                        msg(p, "§cPas de sol là où faire jaillir les pointes.");
+                        msg(p, "§cNo ground for the spikes to emerge from.");
                         return false;
                     }
                     FIELD.put(id, new long[] {now + 160, now, Double.doubleToLongBits(center.x), Double.doubleToLongBits(center.y), Double.doubleToLongBits(center.z)});
@@ -421,7 +414,7 @@ public final class Specials8 {
                 }
             }
             if (FLYING.contains(id) && (!cd || !AbilityEngine.toggled(p, "conjure_disks", 2))) revokeFlight(p);
-            // Conjure Vines : fouet, étreinte, prison
+
             if (LASH.contains(id)) {
                 if (!has(p, "conjure_vines")) {
                     LASH.remove(id);
@@ -463,7 +456,7 @@ public final class Specials8 {
                     for (LivingEntity e : lv.getEntitiesOfClass(LivingEntity.class, new AABB(c.x - 5.5, c.y - 1.5, c.z - 5.5, c.x + 5.5, c.y + 4, c.z + 5.5), e -> e != p && e.isAlive())) {
                         Vec3 d = e.position().subtract(c);
                         double dist = Math.sqrt(d.x * d.x + d.z * d.z);
-                        if (dist > 3.6 && dist < 5.5) { // la haie te repousse vers l'intérieur
+                        if (dist > 3.6 && dist < 5.5) {
                             Vec3 in = new Vec3(-d.x, 0, -d.z).normalize();
                             e.setDeltaMovement(in.x * 0.35, Math.max(e.getDeltaMovement().y, 0.05), in.z * 0.35);
                             e.hurtMarked = true;
@@ -472,7 +465,7 @@ public final class Specials8 {
                     }
                 }
             }
-            // Spikes : rangée et champ
+
             int[] row = ROW.get(id);
             if (row != null) {
                 int idx = 8 - row[0];
@@ -514,7 +507,6 @@ public final class Specials8 {
         else if (!want && has) kb.removeModifier(mid);
     }
 
-    /** Fouet de lianes : saisit la première cible sur la ligne de mire et la tient devant soi. */
     private static void lash(ServerPlayer p, ServerLevel lv) {
         UUID id = p.getUUID();
         Vec3 eye = p.getEyePosition(), look = p.getViewVector(1f);
@@ -561,7 +553,6 @@ public final class Specials8 {
         }
     }
 
-    /** Boucle de toutes les pointes et épines (SpikeEntity). */
     private static void stepSpikes(MinecraftServer server) {
         for (Iterator<Spike> it = SPIKES.iterator(); it.hasNext(); ) {
             Spike s = it.next();
@@ -623,10 +614,9 @@ public final class Specials8 {
         }
     }
 
-    // ------------------------------------------------------------------ dégâts
     public static void onHurt(LivingHurtEvent e) {
         if (e.getEntity() instanceof ServerPlayer v && AbilityEngine.toggled(v, "conjure_disks", 0) && has(v, "conjure_disks") && !e.getSource().is(DamageTypeTags.BYPASSES_ARMOR)) {
-            e.setAmount(e.getAmount() * (1f - lerp(0.16f, 0.28f, sf(v)))); // disques en orbite
+            e.setAmount(e.getAmount() * (1f - lerp(0.16f, 0.28f, sf(v))));
         }
     }
 }

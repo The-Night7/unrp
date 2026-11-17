@@ -1,6 +1,5 @@
 package com.myriam.unrp.pass;
 
-/** AmRoster du modèle : les 54 pouvoirs copiables par Aura Manipulation (numéro de case) et ses combinaisons. */
 public final class AmRoster {
    public static final int SLOT_MAX = 54;
    public static final String[] SLOT_SHORTS = new String[55];

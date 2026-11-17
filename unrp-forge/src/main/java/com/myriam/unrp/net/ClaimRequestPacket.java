@@ -7,7 +7,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/** Client -> serveur : "je veux jouer ce personnage". */
+/** Client-to-server request to claim a character. */
 public class ClaimRequestPacket {
     public final String characterId;
 

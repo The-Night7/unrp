@@ -5,7 +5,6 @@ import com.myriam.unrp.data.PlayerData;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
-/** Un pouvoir : un coût en aura, un temps de recharge et une action. */
 public class Power {
     @FunctionalInterface
     public interface Ability {
@@ -14,7 +13,7 @@ public class Power {
 
     public final String id;
     public final int cost;
-    /** En ticks (20 = 1 seconde). */
+
     public final int cooldown;
     public final Ability ability;
 

@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
-"""Génère les ressources des objets/blocs du mod (textures dessinées ici, modèles, blockstates, loot, lang).
-
-Images, modèles d'objets/blocs et blockstates : ceux du modèle (Unrp), posés par tools/import_model_assets.py.
-Ce script n'écrit plus que les noms (lang) et les tables de butin ; ses anciens dessins restent pour mémoire mais
-ne sont plus enregistrés. Relancer après avoir modifié la table ITEMS, puis tools/import_model_assets.py.
-Usage : python3 tools/gen_items.py   (depuis unrp-forge/)
-"""
+"""Generate item names and loot tables. The equipment design tools maintain the runtime models and textures."""
 import json, os, hashlib
 from PIL import Image, ImageDraw
 
@@ -19,55 +13,55 @@ def rgb(h):
 def shade(c, f):
     return tuple(max(0, min(255, int(v * f))) for v in c[:3]) + (255,)
 
-# (id, kind, c1, c2, en, fr)
+
 ITEMS = [
     # --- amplification
     ("amplifier", "vial", "#ff9a3c", "#ffd9a0", "Amplifier", "Amplificateur"),
-    ("deamplifier", "vial", "#4aa3ff", "#bfe0ff", "Dampener", "Atténuateur"),
-    ("disabler", "vial", "#8a8f99", "#d0d4db", "Disabler", "Désactiveur"),
+    ("deamplifier", "vial", "#4aa3ff", "#bfe0ff", "Dampener", 'Dampener'),
+    ("disabler", "vial", "#8a8f99", "#d0d4db", "Disabler", 'Disabler'),
     ("syringe", "syringe", "#e8e8ee", "#c9ccd6", "Syringe", "Seringue"),
     ("syringe_amplifier", "syringe", "#ff9a3c", "#ffd9a0", "Amplifier Syringe", "Seringue d'amplificateur"),
-    ("syringe_deamplifier", "syringe", "#4aa3ff", "#bfe0ff", "Dampener Syringe", "Seringue d'atténuateur"),
-    ("syringe_disabler", "syringe", "#8a8f99", "#d0d4db", "Disabler Syringe", "Seringue de désactiveur"),
+    ("syringe_deamplifier", "syringe", "#4aa3ff", "#bfe0ff", "Dampener Syringe", 'Dampener Syringe'),
+    ("syringe_disabler", "syringe", "#8a8f99", "#d0d4db", "Disabler Syringe", 'Disabler Syringe'),
     ("syringe_blood", "syringe", "#c8202f", "#ff7a86", "Blood Syringe", "Seringue de sang"),
-    ("rewriter_serum", "vial", "#b36bff", "#e9d2ff", "Rewriter Serum", "Sérum de réécriture"),
-    # --- objets de pouvoir
-    ("tower_core", "core", "#ff6a2a", "#ffd27a", "EMBER Tower Core", "Cœur de tour EMBER"),
+    ("rewriter_serum", "vial", "#b36bff", "#e9d2ff", "Rewriter Serum", 'Rewriter Serum'),
+
+    ("tower_core", "core", "#ff6a2a", "#ffd27a", "EMBER Tower Core", 'EMBER Tower Core'),
     ("vital_sand", "sand", "#c9803a", "#f0c27a", "Vital Sand", "Sable vital"),
-    ("ossified_tail", "club", "#e6dcc3", "#b9ab8a", "Ossified Tail", "Queue ossifiée"),
-    ("binding_link", "link", "#ffc84a", "#fff0b0", "Link of the Binding", "Maillon du lien"),
-    ("carved_rune", "rune", "#d9d2bd", "#7d7660", "Carved Rune", "Rune gravée"),
+    ("ossified_tail", "club", "#e6dcc3", "#b9ab8a", "Ossified Tail", 'Ossified Tail'),
+    ("binding_link", "link", "#ffc84a", "#fff0b0", "Link of the Binding", "Binding Link"),
+    ("carved_rune", "rune", "#d9d2bd", "#7d7660", "Carved Rune", 'Engraved Rune'),
     ("bone_charm", "charm", "#efe8d4", "#9c9378", "Bone Charm", "Charme d'os"),
-    ("soul", "soul", "#7fe3ff", "#e6fbff", "Soul", "Âme"),
-    ("soul_sword", "sword", "#7fe3ff", "#2a7a99", "Soul Sword", "Épée d'âme"),
+    ("soul", "soul", "#7fe3ff", "#e6fbff", "Soul", 'Soul'),
+    ("soul_sword", "sword", "#7fe3ff", "#2a7a99", "Soul Sword", 'Soul Sword'),
     ("unordinary_book", "book", "#f2f2f2", "#222222", "unOrdinary", "unOrdinary"),
     ("contract", "contract", "#e9dcb4", "#9a8450", "Contract", "Contrat"),
     ("sunsteel_axe", "axe", "#ffc13a", "#b86a10", "Sunsteel Axe", "Hache d'acier solaire"),
     ("salt_spear", "spear", "#f4f6f8", "#aeb6c0", "Salt Spear", "Lance de sel"),
     ("ascalon", "sword", "#67e07a", "#1d7a3a", "Dragonbane", "Pourfendeur de dragon"),
     ("armament", "sword", "#c9ccd3", "#7a7f8a", "Armament", "Armement"),
-    # --- éclats
-    ("edict_shard", "shard", "#ffd24a", "#fff3b0", "Edict Shard", "Éclat de l'Édit"),
-    ("limit_breaker_shard", "shard", "#ff4a4a", "#ffb0b0", "Limit Breaker Shard", "Éclat du Briseur de limites"),
-    ("dragon_engine_shard", "shard", "#4aff8a", "#b0ffd0", "Dragon Engine Shard", "Éclat du Moteur-dragon"),
-    ("singularity_shard", "shard", "#6a4aff", "#c0b0ff", "Singularity Shard", "Éclat de la Singularité"),
-    ("sarcophage_shard", "shard", "#d9a24a", "#ffe0b0", "Sarcophage Shard", "Éclat du Sarcophage"),
-    ("crimson_mark_shard", "shard", "#b01030", "#ff90a0", "Crimson Mark Shard", "Éclat de la Marque cramoisie"),
-    ("dealmaker_shard", "shard", "#3acfa0", "#b0ffe8", "Dealmaker Shard", "Éclat du Négociateur"),
-    ("hollow_mark_shard", "shard", "#6b6b8a", "#c8c8e0", "Hollow Mark Shard", "Éclat de la Marque vide"),
-    ("counterweight_shard", "shard", "#8a8f99", "#e0e4ea", "Counterweight Shard", "Éclat du Contrepoids"),
-    ("vertigo_shard", "shard", "#e04aff", "#f6b0ff", "Vertigo Shard", "Éclat du Vertige"),
+
+    ("edict_shard", "shard", "#ffd24a", "#fff3b0", "Edict Shard", 'Edict Shard'),
+    ("limit_breaker_shard", "shard", "#ff4a4a", "#ffb0b0", "Limit Breaker Shard", 'Limit Breaker Shard'),
+    ("dragon_engine_shard", "shard", "#4aff8a", "#b0ffd0", "Dragon Engine Shard", 'Wyrm Engine Shard'),
+    ("singularity_shard", "shard", "#6a4aff", "#c0b0ff", "Singularity Shard", 'Singularity Shard'),
+    ("sarcophage_shard", "shard", "#d9a24a", "#ffe0b0", "Sarcophage Shard", 'Sarcophagus Shard'),
+    ("crimson_mark_shard", "shard", "#b01030", "#ff90a0", "Crimson Mark Shard", 'Crimson Mark Shard'),
+    ("dealmaker_shard", "shard", "#3acfa0", "#b0ffe8", "Dealmaker Shard", 'Dealmaker Shard'),
+    ("hollow_mark_shard", "shard", "#6b6b8a", "#c8c8e0", "Hollow Mark Shard", 'Hollow Mark Shard'),
+    ("counterweight_shard", "shard", "#8a8f99", "#e0e4ea", "Counterweight Shard", 'Counterweight Shard'),
+    ("vertigo_shard", "shard", "#e04aff", "#f6b0ff", "Vertigo Shard", 'Vertigo Shard'),
     # --- manuscrits et tomes
     ("manuscript_aug", "scroll", "#ff8a3c", "#f0e6c8", "Manuscript of Augmentation", "Manuscrit d'Augmentation"),
-    ("manuscript_med", "scroll", "#4adf7a", "#f0e6c8", "Manuscript of Medical Theory", "Manuscrit de Théorie médicale"),
-    ("manuscript_proj", "scroll", "#4aa3ff", "#f0e6c8", "Manuscript of Projectile Generation", "Manuscrit de Génération de projectiles"),
-    ("manuscript_con", "scroll", "#ffd24a", "#f0e6c8", "Manuscript of Construct Generation", "Manuscrit de Génération de constructions"),
-    ("manuscript_qtm", "scroll", "#b36bff", "#f0e6c8", "Manuscript of Quantum Manipulation", "Manuscrit de Manipulation quantique"),
+    ("manuscript_med", "scroll", "#4adf7a", "#f0e6c8", "Manuscript of Medical Theory", 'Medical Theory Manuscript'),
+    ("manuscript_proj", "scroll", "#4aa3ff", "#f0e6c8", "Manuscript of Projectile Generation", 'Projectile Generation Manuscript'),
+    ("manuscript_con", "scroll", "#ffd24a", "#f0e6c8", "Manuscript of Construct Generation", 'Construct Generation Manuscript'),
+    ("manuscript_qtm", "scroll", "#b36bff", "#f0e6c8", "Manuscript of Quantum Manipulation", "Manuscrit de Quantum Manipulation"),
     ("tome_aug", "book", "#ff8a3c", "#4a2a10", "Tome of Augmentation", "Tome d'Augmentation"),
-    ("tome_med", "book", "#4adf7a", "#10401f", "Tome of Medical Theory", "Tome de Théorie médicale"),
-    ("tome_proj", "book", "#4aa3ff", "#10304a", "Tome of Projectile Generation", "Tome de Génération de projectiles"),
-    ("tome_con", "book", "#ffd24a", "#4a3a10", "Tome of Construct Generation", "Tome de Génération de constructions"),
-    ("tome_qtm", "book", "#b36bff", "#2f104a", "Tome of Quantum Manipulation", "Tome de Manipulation quantique"),
+    ("tome_med", "book", "#4adf7a", "#10401f", "Tome of Medical Theory", 'Medical Theory Tome'),
+    ("tome_proj", "book", "#4aa3ff", "#10304a", "Tome of Projectile Generation", 'Projectile Generation Tome'),
+    ("tome_con", "book", "#ffd24a", "#4a3a10", "Tome of Construct Generation", 'Construct Generation Tome'),
+    ("tome_qtm", "book", "#b36bff", "#2f104a", "Tome of Quantum Manipulation", "Tome de Quantum Manipulation"),
     # --- disques
     ("music_disc_turf_war", "disc", "#e0502a", "#ffb08a", "Music Disc", "Disque de musique"),
     ("music_disc_crown_match", "disc", "#e0c02a", "#fff0a0", "Music Disc", "Disque de musique"),
@@ -75,13 +69,13 @@ ITEMS = [
     ("music_disc_tyrant", "disc", "#a02ae0", "#e0a0ff", "Music Disc", "Disque de musique"),
     ("music_disc_surge", "disc", "#2ae0a0", "#a0ffe0", "Music Disc", "Disque de musique"),
     ("music_disc_the_hunt", "disc", "#e02a50", "#ffa0b0", "Music Disc", "Disque de musique"),
-    # --- œufs
-    ("agent_spawn_egg", "egg", "#1e1e26", "#c4c01a", "EMBER Agent Spawn Egg", "Œuf d'apparition d'agent EMBER"),
-    ("agent_leader_spawn_egg", "egg", "#1e1e26", "#e0602e", "EMBER Leader Spawn Egg", "Œuf d'apparition de chef EMBER"),
-    ("spectre_spawn_egg", "egg", "#141a1a", "#60a07a", "Spectre Operative Spawn Egg", "Œuf d'apparition d'opérateur Spectre"),
+
+    ("agent_spawn_egg", "egg", "#1e1e26", "#c4c01a", "EMBER Agent Spawn Egg", 'EMBER Agent Spawn Egg'),
+    ("agent_leader_spawn_egg", "egg", "#1e1e26", "#e0602e", "EMBER Leader Spawn Egg", 'EMBER Agent Leader Spawn Egg'),
+    ("spectre_spawn_egg", "egg", "#141a1a", "#60a07a", "Spectre Operative Spawn Egg", 'Spectre Operative Spawn Egg'),
 ]
 
-# Vêtements : (id, pièce, set, en, fr)  — le set désigne la texture portée
+
 OUTFITS = [
     ("wellstone_blazer", "chest", "wellstone_uniform", "Wellston Uniform Blazer", "Blazer d'uniforme Wellston"),
     ("wellstone_shirt", "chest", "wellstone_shirt", "Wellston Uniform Shirt", "Chemise d'uniforme Wellston"),
@@ -91,8 +85,8 @@ OUTFITS = [
     ("wellstone_girl_shirt", "chest", "wellstone_girl_shirt", "Wellston Girls' Shirt", "Chemise Wellston (filles)"),
     ("wellstone_girl_skirt", "legs", "wellstone_girl_uniform", "Wellston Girls' Skirt", "Jupe Wellston (filles)"),
     ("wellstone_girl_shoes", "feet", "wellstone_girl_uniform", "Wellston Girls' Shoes", "Chaussures Wellston (filles)"),
-    ("wellstone_one_shoulder_blazer", "chest", "wellstone_one_shoulder", "Wellston One-Shoulder Blazer", "Blazer Wellston une épaule"),
-    ("wellstone_seraphina_blazer", "chest", "wellstone_seraphina", "Wellston Off-Shoulder Blazer", "Blazer Wellston épaules dénudées"),
+    ("wellstone_one_shoulder_blazer", "chest", "wellstone_one_shoulder", "Wellston One-Shoulder Blazer", 'Wellston One-Shoulder Blazer'),
+    ("wellstone_seraphina_blazer", "chest", "wellstone_seraphina", "Wellston Off-Shoulder Blazer", 'Wellston Off-Shoulder Blazer'),
     ("agwin_blazer", "chest", "agwin_uniform", "Agwin Uniform Blazer", "Blazer d'uniforme Agwin"),
     ("agwin_shirt", "chest", "agwin_shirt", "Agwin Uniform Shirt", "Chemise d'uniforme Agwin"),
     ("agwin_trousers", "legs", "agwin_uniform", "Agwin Uniform Trousers", "Pantalon d'uniforme Agwin"),
@@ -101,8 +95,8 @@ OUTFITS = [
     ("agwin_girl_shirt", "chest", "agwin_shirt", "Agwin Girls' Shirt", "Chemise Agwin (filles)"),
     ("agwin_girl_skirt", "legs", "agwin_girl_uniform", "Agwin Girls' Skirt", "Jupe Agwin (filles)"),
     ("agwin_girl_shoes", "feet", "agwin_girl_uniform", "Agwin Girls' Shoes", "Chaussures Agwin (filles)"),
-    ("agwin_off_shoulder_blazer", "chest", "agwin_off_shoulder", "Agwin Off-Shoulder Blazer", "Blazer Agwin épaules dénudées"),
-    ("agwin_one_shoulder_blazer", "chest", "agwin_one_shoulder", "Agwin One-Shoulder Blazer", "Blazer Agwin une épaule"),
+    ("agwin_off_shoulder_blazer", "chest", "agwin_off_shoulder", "Agwin Off-Shoulder Blazer", 'Agwin Off-Shoulder Blazer'),
+    ("agwin_one_shoulder_blazer", "chest", "agwin_one_shoulder", "Agwin One-Shoulder Blazer", 'Agwin One-Shoulder Blazer'),
     ("xstatic_top", "chest", "xstatic", "X-Static Suit Top", "Haut de combinaison X-Static"),
     ("xstatic_pants", "legs", "xstatic", "X-Static Suit Pants", "Pantalon de combinaison X-Static"),
     ("xstatic_boots", "feet", "xstatic", "X-Static Suit Boots", "Bottes de combinaison X-Static"),
@@ -112,7 +106,7 @@ OUTFITS = [
     ("ember_leader_boots", "feet", "ember_leader", "EMBER Leader Boots", "Bottes de chef EMBER"),
 ]
 
-# set -> (couleur principale, accent)
+
 SETS = {
     "wellstone_uniform": ("#27408b", "#e8e8f0"), "wellstone_shirt": ("#f0f0f5", "#27408b"),
     "wellstone_girl_uniform": ("#27408b", "#c0304a"), "wellstone_girl_shirt": ("#f0f0f5", "#c0304a"),
@@ -123,16 +117,16 @@ SETS = {
     "ember_hat": ("#2a2a32", "#e0602e"), "ember_leader": ("#2a2a32", "#e0602e"),
 }
 
-# blocs : (id, couleur, accent, en, fr, lumière)
+
 BLOCKS = [
     ("salt_block", "#f2f4f6", "#c8ced6", "Salt", "Sel", 0),
-    ("barrier_block", "#4ad8ff", "#e0faff", "Aura Barrier", "Barrière d'aura", 0),
-    ("barrier_block_am", "#ff8a3c", "#ffe0c0", "Aura Barrier", "Barrière d'aura", 0),
+    ("barrier_block", "#4ad8ff", "#e0faff", "Aura Barrier", 'Aura Barrier', 0),
+    ("barrier_block_am", "#ff8a3c", "#ffe0c0", "Aura Barrier", 'Aura Barrier', 0),
     ("particle_block", "#d94aff", "#f6c8ff", "Particle Lattice", "Treillis de particules", 7),
     ("conversion_machine", "#5a6270", "#ffc84a", "Conversion Machine", "Machine de conversion", 0),
-    ("recovery_machine", "#5a6270", "#4adf7a", "Recovery Machine", "Machine de récupération", 0),
+    ("recovery_machine", "#5a6270", "#4adf7a", "Recovery Machine", 'Recovery Machine', 0),
     ("suppression_field", "#303038", "#ff4a4a", "Suppression Field", "Champ de suppression", 0),
-    ("phylactery", "#2a1a3a", "#b36bff", "Phylactery", "Phylactère", 0),
+    ("phylactery", "#2a1a3a", "#b36bff", "Phylactery", 'Phylactery', 0),
 ]
 
 ARMAMENT_VARIANTS = ["oak", "stone", "iron", "gold", "diamond", "netherite", "burst", "sear", "fang", "warp", "rot"]
@@ -246,7 +240,6 @@ def draw_block(c1, c2, name):
     return im
 
 def armor_layer(setname, legs):
-    """Calque d'armure 64x32 : on remplit les zones du squelette standard (tête, torse, bras, jambes)."""
     im = Image.new("RGBA", (64, 32), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     a, b = rgb(SETS[setname][0]), rgb(SETS[setname][1])
     rects = [(16, 16, 40, 32), (40, 16, 56, 32), (0, 16, 16, 32)] if legs else [(16, 16, 40, 32), (40, 16, 56, 32), (0, 16, 16, 32), (0, 0, 32, 16)]
@@ -260,7 +253,7 @@ def armor_layer(setname, legs):
     return im
 
 def save(path, im):
-    return  # images : celles du modèle (import_model_assets.py)
+    return
     os.makedirs(os.path.dirname(path), exist_ok=True)
     im.save(path)
 
@@ -270,7 +263,7 @@ def wjson(path, obj):
         json.dump(obj, f, indent=2, ensure_ascii=False)
 
 def item_model(name, handheld=False, overrides=None):
-    return  # modèles d'objets : ceux du modèle (import_model_assets.py)
+    return
     m = {"parent": "minecraft:item/handheld" if handheld else "minecraft:item/generated", "textures": {"layer0": "unrp:item/" + name}}
     if overrides:
         m["overrides"] = overrides
@@ -285,7 +278,7 @@ def main():
         save(f"{A}/textures/item/{iid}.png", draw(kind, c1, c2, iid))
         item_model(iid, handheld=kind in ("sword", "axe", "spear", "club"))
         lang_en[f"item.unrp.{iid}"] = en; lang_fr[f"item.unrp.{iid}"] = fr
-    # armement : une texture par variante + overrides CustomModelData
+
     ov = []
     for i, v in enumerate(ARMAMENT_VARIANTS, start=1):
         save(f"{A}/textures/item/armament_{v}.png", draw("sword", ARM_COL[v], shade(rgb(ARM_COL[v]), 0.7) and "#" + "%02x%02x%02x" % shade(rgb(ARM_COL[v]), 0.7)[:3], v))
@@ -294,7 +287,7 @@ def main():
     save(f"{A}/textures/item/armament.png", draw("sword", "#c9ccd3", "#7a7f8a", "armament"))
     item_model("armament", True, ov)
     lang_en["item.unrp.armament"] = "Armament"; lang_fr["item.unrp.armament"] = "Armement"
-    # contrat : variantes via CustomModelData (1 tamponné, 2 âme, 3 âme tamponné, 4 proposé, 5 proposé tamponné)
+
     cov = []
     for i, (suffix, col) in enumerate([("stamped", "#e9dcb4"), ("soul", "#bfeaff"), ("soul_stamped", "#bfeaff"), ("proposed", "#f3d9d9"), ("proposed_stamped", "#f3d9d9")], start=1):
         im = draw("contract", col, "#9a8450", "contract_" + suffix)
@@ -304,7 +297,7 @@ def main():
         if False: wjson(f"{A}/models/item/contract_{suffix}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "unrp:item/contract_" + suffix}})
         cov.append({"predicate": {"custom_model_data": i}, "model": f"unrp:item/contract_{suffix}"})
     item_model("contract", False, cov)
-    # --- vêtements
+
     for (iid, piece, setname, en, fr) in OUTFITS:
         save(f"{A}/textures/item/{iid}.png", draw_outfit(piece, setname))
         item_model(iid)
@@ -317,9 +310,9 @@ def main():
         save(f"{A}/textures/block/{bid}.png", draw_block(c1, c2, bid))
         if bid != "phylactery": wjson(f"{D}/loot_tables/blocks/{bid}.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": f"unrp:{bid}"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
         lang_en[f"block.unrp.{bid}"] = en; lang_fr[f"block.unrp.{bid}"] = fr
-    # --- onglet créatif
+
     lang_en["itemGroup.unrp"] = "Unordinary RP"; lang_fr["itemGroup.unrp"] = "Unordinary RP"
-    # --- fusion dans les fichiers de langue
+
     for fn, add in (("en_us.json", lang_en), ("fr_fr.json", lang_fr)):
         p = f"{A}/lang/{fn}"
         cur = json.load(open(p, encoding="utf-8"))

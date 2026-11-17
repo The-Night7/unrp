@@ -219,7 +219,7 @@ public class BarrierEntity extends Entity {
             ServerPlayer owner = sl.getServer().getPlayerList().getPlayer(this.ownerId);
             if (owner != null && owner.isAlive()) {
                owner.hurt(sl.damageSources().magic(), amount);
-               owner.displayClientMessage(Component.literal("§b❈ Ta barrière cède !"), true);
+               owner.displayClientMessage(Component.literal("§b❈ Your barrier gives way!"), true);
                return;
             }
 
@@ -255,7 +255,7 @@ public class BarrierEntity extends Entity {
                long until = sl.getGameTime() + 600L;
                String key = this.slot == 0 ? "unrp_barrier_self_lock" : (this.slot == 1 ? "unrp_barrier_ext_lock_0" : "unrp_barrier_ext_lock_1");
                owner.getPersistentData().putLong(key, until);
-               owner.displayClientMessage(Component.literal(this.slot == 0 ? "§c❈ Ta barrière a volé en éclats. Elle se régénère dans 30 s." : "§c❈ Une barrière externe a volé en éclats. Cet emplacement se régénère dans 30 s."), true);
+               owner.displayClientMessage(Component.literal(this.slot == 0 ? "§c❈ Your barrier shattered. It regenerates in 30 s." : "§c❈ An external barrier shattered. Its slot regenerates in 30 s."), true);
             }
          }
       }
@@ -289,7 +289,7 @@ public class BarrierEntity extends Entity {
             Player owner = this.level().getPlayerByUUID(own);
             if (owner == null || !owner.isAlive() || owner.distanceTo(this) > 50.0F) {
                if (owner != null) {
-                  owner.displayClientMessage(Component.literal("§7Ta barrière s'efface : tu es trop loin."), true);
+                  owner.displayClientMessage(Component.literal("§7Your barrier fades: you are too far away."), true);
                }
 
                this.dissipate();

@@ -9,18 +9,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-/**
- * Les stats du personnage agissent VRAIMENT sur le corps du joueur (toujours, pouvoir actif ou non).
- * Les stats utilisées sont les stats effectives : fiche + entraînement + bonus du mode / de la forme en cours.
- *
- *  Puissance     : dégâts au corps à corps +0,4 par point ; recul infligé +0,05 par point
- *  Défense       : armure +1 par point ; robustesse +0,4 par point ; résistance au recul +4 % par point (max 60 %)
- *  Récupération  : PV max +1 (un demi-cœur) par point ; récupération naturelle (voir regenEvery)
- *  Vitesse       : vitesse de déplacement +2 % par point ; vitesse d'attaque +0,1 par point
- *  Ruse          : pas d'effet sur le corps ; elle allonge la durée des effets des capacités et l'aura max
- *
- * Toutes les valeurs sont ici : modifie-les pour rééquilibrer.
- */
 public final class BodyStats {
     private BodyStats() {}
 
@@ -29,12 +17,10 @@ public final class BodyStats {
     public static final double HEALTH_PER_RECOVERY = 1.0;
     public static final double SPEED_PER_SPEED = 0.02, ATTACK_SPEED_PER_SPEED = 0.1;
 
-    /** Récupération naturelle : 0,5 PV toutes les N ticks si blessé (200 - 15 x Récupération, minimum 40). */
     public static int regenEvery(int recovery) {
         return Math.max(40, 200 - 15 * recovery);
     }
 
-    /** Applique (ou retire si st == null) les modificateurs. Appelé chaque seconde. */
     public static void apply(ServerPlayer p, int[] st) {
         set(p, Attributes.ATTACK_DAMAGE, "power_dmg", st == null ? 0 : DAMAGE_PER_POWER * st[0], AttributeModifier.Operation.ADDITION);
         set(p, Attributes.ATTACK_KNOCKBACK, "power_kb", st == null ? 0 : KNOCKBACK_PER_POWER * st[0], AttributeModifier.Operation.ADDITION);

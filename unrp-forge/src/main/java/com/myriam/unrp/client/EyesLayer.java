@@ -17,9 +17,8 @@ import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
-/** Yeux lumineux dessinés sur le visage du joueur, d'après son style (onglet Style). Visibles par tous. */
 public class EyesLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
-    // round / sharp / ring : les images du modèle (CustomEyesLayer) ; classic n'existe que chez nous.
+
     private static final ResourceLocation[] TEX = {null, tex("classic"), model("eye_round"), model("eye_sharp"), model("eye_ring")};
 
     public EyesLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent) {
@@ -51,7 +50,6 @@ public class EyesLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<Abs
         ps.popPose();
     }
 
-    /** Un carré sur la face avant de la tête (z = -4), dessiné dans les deux sens pour ne pas dépendre du sens des faces. */
     private static void quad(VertexConsumer vc, PoseStack ps, float x, float y, float w, float h, float r, float g, float b, boolean mirror) {
         Matrix4f m = ps.last().pose();
         Matrix3f n = ps.last().normal();

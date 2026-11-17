@@ -18,7 +18,6 @@ import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-/** Calques joueur et réglages client du modèle liés au moteur d'effets : TimeGearsLayer, PredatorTransLayer, PredatorClientHandler. */
 public final class PassLayers {
     private PassLayers() {}
 
@@ -35,7 +34,6 @@ public final class PassLayers {
         }
     }
 
-    /** PredatorTransLayer : rayures, brûlure et griffes de la transformation de Predator. */
     public static final class PredatorTrans extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
         private static final ResourceLocation STRIPES = new ResourceLocation("unrp", "textures/models/predator_stripes.png");
         private static final ResourceLocation CLAWS = new ResourceLocation("unrp", "textures/models/predator_claws.png");
@@ -67,7 +65,6 @@ public final class PassLayers {
         }
     }
 
-    /** PredatorClientHandler : champ de vision resserré pendant Sens aiguisé, réticule sur la proie verrouillée. */
     @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid = "unrp", value = net.minecraftforge.api.distmarker.Dist.CLIENT)
     public static final class PredatorClient {
         private static final ResourceLocation CROSSHAIR = new ResourceLocation("unrp", "textures/gui/predator_crosshair.png");

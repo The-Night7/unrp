@@ -2,7 +2,6 @@ package com.myriam.unrp.am;
 
 import java.util.Map;
 
-/** PowerNames du modèle : nom affiché d'un pouvoir. */
 public final class PowerNames {
     private PowerNames() {}
 

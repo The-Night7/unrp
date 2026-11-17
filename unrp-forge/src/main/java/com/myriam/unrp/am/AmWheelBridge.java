@@ -22,11 +22,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Roue de copie d'Aura Manipulation : AmWheelBridge du modèle + la partie copie de son script aura_manip_drain.js.
- * Toutes les 5 ticks, les pouvoirs portés à 24 blocs sont relevés (cases 1 à 54 d'AmRoster) ; la roue copie
- * (65 d'aura, pas les pouvoirs mentaux, pas deux fois, cible pas plus de 5 niveaux de puissance au-dessus) ou expulse.
- */
 @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid = "unrp")
 public final class AmWheelBridge {
     private AmWheelBridge() {}
@@ -49,7 +44,6 @@ public final class AmWheelBridge {
         return has(p) && AbilityEngine.isOn(p, "aura_manipulation") && !AbilityEngine.disabled(p);
     }
 
-    /** Pouvoir porté par une créature (le sien, sans les copies). */
     static String powerOf(Entity e) {
         if (e instanceof ServerPlayer sp) return AbilityEngine.basePowerId(sp);
         for (String t : e.getTags()) if (t.startsWith("unrp.power.")) return t.substring("unrp.power.".length());
@@ -64,7 +58,6 @@ public final class AmWheelBridge {
         p.displayClientMessage(Component.literal(msg), true);
     }
 
-    /** Ouvre la roue (capacité « Copier ») : AmPass.sense éclaire les porteurs proches. */
     public static void open(ServerPlayer p) {
         scan(p);
         send(p, true);
@@ -116,7 +109,6 @@ public final class AmWheelBridge {
         return best;
     }
 
-    /** mode 0 : copier la case « id » ; 1 : fusionner ; 2 : expulser. */
     public static void pick(ServerPlayer p, int mode, int id) {
         if (!armed(p)) {
             bar(p, "§8L'aura sommeille.");
@@ -126,7 +118,7 @@ public final class AmWheelBridge {
             if (id < 1 || id > 54 || AmRoster.SLOT_SHORTS[id] == null) return;
             doCopy(p, id);
         } else if (mode == 1) {
-            bar(p, "§cCette fusion n'est pas encore jouable.");
+            bar(p, "§cThis fusion is not playable yet.");
         } else if (mode == 2) {
             if (AbilityEngine.copies(p).isEmpty()) return;
             AbilityEngine.setCopy(p, null, 0);
@@ -137,25 +129,25 @@ public final class AmWheelBridge {
 
     static void doCopy(ServerPlayer p, int slot) {
         String s = AmRoster.SLOT_SHORTS[slot];
-        if (mental(s)) { bar(p, "§c§lLes pouvoirs mentaux ne se copient pas !"); return; }
+        if (mental(s)) { bar(p, "§c§lMental powers cannot be copied!"); return; }
         if (AbilityEngine.aura(p) <= 0) { bar(p, "§c§lPas assez d'aura !"); return; }
-        if (AbilityEngine.copies(p).contains(s)) { bar(p, "§c§lDéjà copié !"); return; }
-        if (com.myriam.unrp.data.UnodexData.get().powers.get(s) == null) { bar(p, "§cCe pouvoir n'est pas encore jouable."); return; }
+        if (AbilityEngine.copies(p).contains(s)) { bar(p, "§c§lAlready copied!"); return; }
+        if (com.myriam.unrp.data.UnodexData.get().powers.get(s) == null) { bar(p, "§cThis power is not playable yet."); return; }
         boolean[] near = NEARBY.get(p.getUUID());
-        if (near == null || !near[slot]) { bar(p, "§c§lLa cible n'est plus à portée."); return; }
+        if (near == null || !near[slot]) { bar(p, "§c§lThe target is no longer in range."); return; }
         Entity target = findTarget(p, s);
         if (target instanceof ServerPlayer escrowOwner && com.myriam.unrp.ability.Specials17.branchEscrowed(escrowOwner)) {
-            bar(p, "§6Cette capacité contient une branche sous séquestre : copie refusée."); return;
+            bar(p, "§6This ability contains an escrowed branch. Copy refused."); return;
         }
         if (target instanceof ServerPlayer tp && powerLevel(tp) > powerLevel(p) + 5) {
-            bar(p, "§c§lLe niveau de puissance de la cible est trop élevé pour la copier !");
+            bar(p, "§c§lThe target's power level is too high to copy!");
             return;
         }
         AbilityEngine.setCopy(p, s, Long.MAX_VALUE);
         com.myriam.unrp.ability.Poses.timedTag(p, "unrp.pose.am_copy", 12);
         AbilityEngine.spendAura(p, 65);
         AmPassLite.take(p, s);
-        bar(p, "§6§lCopié : " + PowerNames.display(s) + " !");
+        bar(p, "§6§lCopied: " + PowerNames.display(s) + " !");
     }
 
     @SubscribeEvent
@@ -165,10 +157,10 @@ public final class AmWheelBridge {
             NEARBY.remove(p.getUUID());
             return;
         }
-        if (!AbilityEngine.isOn(p, "aura_manipulation")) { // Aura Manipulation coupée : les copies se relâchent
+        if (!AbilityEngine.isOn(p, "aura_manipulation")) {
             if (!AbilityEngine.copies(p).isEmpty()) {
                 AbilityEngine.setCopy(p, null, 0);
-                bar(p, "§7Pouvoirs relâchés.");
+                bar(p, "§7Powers released.");
             }
             return;
         }

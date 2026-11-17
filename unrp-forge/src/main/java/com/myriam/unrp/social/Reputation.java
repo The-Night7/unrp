@@ -28,14 +28,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Réputation (ReputationEvents du modèle). Score « unrp.reputation » de -200 à 200.
- * Tuer un voyou de gang +6, un villageois -12, un golem de fer -4 ; en duel officiel ou guerre de territoire, battre
- * quelqu'un de 20 niveaux (x10) sous toi -6, au-dessus +5 ; un monstre tué près d'un village +1 (5 s d'attente).
- * À 60 : Gardien ; à -60 : Tyran (les golems te prennent pour cible). À 120 : des chasseurs viennent te faire taire ;
- * à 120 ou -120 : l'Autorité envoie deux officiers (leurs coups coupent le pouvoir 5 s). Près de villages, des gangs
- * attaquent de temps en temps. Réglages : objectif « unrp.config » (npcs_enabled, civil_enabled, npc_freq_x1000).
- */
 public class Reputation {
     public static final String OBJECTIVE = "unrp.reputation";
     public static final String CONFIG = "unrp.config";
@@ -55,7 +47,7 @@ public class Reputation {
     private static float civilFreq = 1.0F;
 
     // ------------------------------------------------------------------ score
-    /** Crée les objectifs au démarrage (ScoreboardBootstrap du modèle). */
+
     @SubscribeEvent
     public void onServerStarted(ServerStartedEvent e) {
         Scoreboard sb = e.getServer().getScoreboard();
@@ -77,7 +69,6 @@ public class Reputation {
         if (obj != null) sb.getOrCreatePlayerScore(player.getScoreboardName(), obj).setScore(value);
     }
 
-    /** Ajout brut au score, sans plafond ni message (ce que fait le livre unOrdinary du modèle). */
     public static void addRaw(ServerPlayer player, int delta) {
         Scoreboard sb = player.serverLevel().getScoreboard();
         Objective obj = sb.getObjective(OBJECTIVE);
@@ -102,12 +93,11 @@ public class Reputation {
         if (tyrant) player.addTag("unrp.tyrant");
         else player.removeTag("unrp.tyrant");
         if (before < GUARDIAN_AT && after >= GUARDIAN_AT)
-            player.displayClientMessage(Component.literal("§bLes faibles commencent à prononcer ton nom avec douceur."), false);
+            player.displayClientMessage(Component.literal("§bLow-tiers are beginning to speak your name kindly."), false);
         if (before > TYRANT_AT && after <= TYRANT_AT)
-            player.displayClientMessage(Component.literal("§cIls ont commencé à tressaillir quand tu passes."), false);
+            player.displayClientMessage(Component.literal("§cThey have started flinching when you pass."), false);
     }
 
-    /** Préfixe de nom (AliasNameEvents du modèle). */
     public static String titleOf(ServerPlayer player) {
         int r = rep(player);
         if (r >= NOTORIOUS_AT) return "§b[Gardien] §r";
@@ -115,15 +105,14 @@ public class Reputation {
     }
 
     public static String standingOf(int r) {
-        if (r >= 120) return "Gardien, connu de chaque petit niveau qui en a eu besoin";
-        if (r >= 60) return "Observé avec une gratitude discrète";
+        if (r >= 120) return "A guardian known to every low-tier who needed one";
+        if (r >= 60) return "Regarded with quiet gratitude";
         if (r > 20) return "On parle de toi en bien, en passant";
-        if (r > -20) return "Quelconque. Personne ne te doit rien, et tu ne dois rien";
-        if (r > -60) return "On s'écarte sur ton passage";
-        return r > -120 ? "Craint par ceux qui sont sous toi" : "Tyran, et le mot circule";
+        if (r > -20) return "Unremarkable. Nobody owes you anything, and you owe nothing";
+        if (r > -60) return "People step aside when you pass";
+        return r > -120 ? "Feared by those below you" : "A tyrant, and word is spreading";
     }
 
-    /** Combat accepté : duel officiel ou guerre de territoire (tags formal_match / turf_fighter du modèle). */
     private static boolean optIn(ServerPlayer a, ServerPlayer b) {
         return engaged(a) || engaged(b);
     }
@@ -142,23 +131,23 @@ public class Reputation {
         ServerLevel level = killer.serverLevel();
         long now = level.getGameTime();
         if (victim.getTags().contains(GANG_TAG)) {
-            addRep(killer, 6, "tu t'es dressé entre eux et les sans-défense");
+            addRep(killer, 6, "you stood between them and the defenceless");
         } else if (victim instanceof Villager) {
-            addRep(killer, -12, "ils n'avaient aucun moyen de se défendre");
+            addRep(killer, -12, "they had no way to defend themselves");
         } else if (victim instanceof IronGolem) {
-            addRep(killer, -4, "tu as abattu ce qui les protégeait");
+            addRep(killer, -4, "you brought down their protector");
         } else if (victim instanceof ServerPlayer fallen) {
             if (!optIn(killer, fallen)) return;
             int gap = powerLevel(killer) - powerLevel(fallen);
-            if (gap >= 20) addRep(killer, -6, "tu as battu quelqu'un qui n'avait aucune chance");
-            else if (gap <= -20) addRep(killer, 5, "tu as tenu tête à quelqu'un bien au-dessus de toi");
+            if (gap >= 20) addRep(killer, -6, "you defeated someone who had no chance");
+            else if (gap <= -20) addRep(killer, 5, "you stood against someone far stronger");
         } else if (victim instanceof Monster) {
             Long last = DEFENCE_GAIN.get(killer.getUUID());
             if (last != null && now - last < 100L) return;
             List<Villager> near = level.getEntitiesOfClass(Villager.class, victim.getBoundingBox().inflate(24.0));
             if (near.isEmpty()) return;
             DEFENCE_GAIN.put(killer.getUUID(), now);
-            addRep(killer, 1, "tu as gardé le village debout");
+            addRep(killer, 1, "you kept the village standing");
         }
     }
 
@@ -201,7 +190,7 @@ public class Reputation {
             thug.setTarget(focus);
             ++spawned;
         }
-        if (spawned > 0) player.displayClientMessage(Component.literal("§cUn gang marche sur le village."), false);
+        if (spawned > 0) player.displayClientMessage(Component.literal("§cA gang is marching on the village."), false);
     }
 
     private static void tryAuthority(ServerPlayer player, ServerLevel level, long now) {
@@ -228,16 +217,15 @@ public class Reputation {
             officer.setVariant(3);
             officer.moveTo(sx + 0.5, sy, sz + 0.5, 0.0F, 0.0F);
             officer.addTag(AUTHORITY_TAG);
-            officer.setCustomName(Component.literal("§9Officier de l'Autorité"));
+            officer.setCustomName(Component.literal("§9Authority Officer"));
             level.addFreshEntity(officer);
             officer.setTarget(player);
             ++spawned;
         }
         if (spawned > 0) player.displayClientMessage(Component.literal(tyrant
-                ? "§9⚖ Les Autorités ont un mandat contre toi." : "§9⚖ Les Autorités viennent mater les justiciers."), false);
+                ? "§9⚖ The Authorities have a warrant for you." : "§9⚖ The Authorities are coming to suppress vigilantes."), false);
     }
 
-    /** Coup d'un officier : menottes de suppression, pouvoir coupé 5 s. */
     @SubscribeEvent
     public void onOfficerStrike(LivingHurtEvent event) {
         if (event.getEntity().level().isClientSide) return;
@@ -250,7 +238,7 @@ public class Reputation {
             victim.addTag(CUFFED);
         }
         AUTH_SUPPRESS.put(victim.getUUID(), victim.serverLevel().getGameTime() + 100L);
-        victim.displayClientMessage(Component.literal("§9⚖ Menottes de suppression ! Pouvoir coupé un instant."), true);
+        victim.displayClientMessage(Component.literal("§9⚖ Suppression cuffs! Power briefly disabled."), true);
     }
 
     private static void tryHunt(ServerPlayer player, ServerLevel level, long now) {
@@ -278,7 +266,7 @@ public class Reputation {
             hunter.setTarget(player);
             ++spawned;
         }
-        if (spawned > 0) player.displayClientMessage(Component.literal("§8Quelqu'un a payé pour qu'on t'arrête."), false);
+        if (spawned > 0) player.displayClientMessage(Component.literal("§8Someone paid to have you arrested."), false);
     }
 
     private static void tyrantPresence(ServerPlayer player, ServerLevel level) {
@@ -311,7 +299,6 @@ public class Reputation {
         }
     }
 
-    // ------------------------------------------------------------------ réglages (ConfigBridgeEvents du modèle)
     static boolean flag(MinecraftServer server, String key, boolean def) {
         Scoreboard sb = server.getScoreboard();
         Objective o = sb.getObjective(CONFIG);

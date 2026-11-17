@@ -1,13 +1,69 @@
 {
-  "_comment": "Tirage de potentiel d'un OC (roll normal). weight = pourcentage attendu ; le total n'a pas besoin de faire exactement 100 (il est normalisé). level_min/level_max = plage du niveau de potentiel tiré (1 décimale). lifelong = ne pourra jamais avoir de capacité. Le niveau maximum est 10. Exo-god est un terme inventé pour les niveaux 7.5 à 10 ; God = 6.0 à 7.4.",
-  "tiers": [
-    { "id": "cripple_life", "label": "Cripple (à vie)", "weight": 2.36,  "level_min": 1.0,  "level_max": 1.0,  "lifelong": true  },
-    { "id": "cripple",      "label": "Cripple",         "weight": 3.54,  "level_min": 1.0,  "level_max": 1.0,  "lifelong": false },
-    { "id": "low",          "label": "Low",             "weight": 25.0,  "level_min": 1.0,  "level_max": 1.9,  "lifelong": false },
-    { "id": "mid",          "label": "Mid",             "weight": 54.99, "level_min": 2.0,  "level_max": 3.4,  "lifelong": false },
-    { "id": "elite",        "label": "Elite",           "weight": 12.0,  "level_min": 3.5,  "level_max": 4.9,  "lifelong": false },
-    { "id": "high",         "label": "High",            "weight": 2.0,   "level_min": 5.0,  "level_max": 5.9,  "lifelong": false },
-    { "id": "god",          "label": "God",             "weight": 0.1,   "level_min": 6.0,  "level_max": 7.4,  "lifelong": false },
-    { "id": "exo_god",      "label": "Exo-god",         "weight": 0.01,  "level_min": 7.5,  "level_max": 10.0, "lifelong": false }
-  ]
+ "_comment": "OC starting-potential roll. weight is the relative rarity weight; totals are normalised. level_min and level_max define the starting-level range, rounded to one decimal. lifelong means permanently without an ability. Maximum level is 10. Exo-god covers 7.5–10; God covers 6.0–7.4.",
+ "tiers": [
+  {
+   "id": "cripple_life",
+   "label": "Lifelong Cripple",
+   "weight": 2.36,
+   "level_min": 1.0,
+   "level_max": 1.0,
+   "lifelong": true
+  },
+  {
+   "id": "cripple",
+   "label": "Cripple",
+   "weight": 3.54,
+   "level_min": 1.0,
+   "level_max": 1.0,
+   "lifelong": false
+  },
+  {
+   "id": "low",
+   "label": "Low",
+   "weight": 25.0,
+   "level_min": 1.0,
+   "level_max": 1.9,
+   "lifelong": false
+  },
+  {
+   "id": "mid",
+   "label": "Mid",
+   "weight": 54.99,
+   "level_min": 2.0,
+   "level_max": 3.4,
+   "lifelong": false
+  },
+  {
+   "id": "elite",
+   "label": "Elite",
+   "weight": 12.0,
+   "level_min": 3.5,
+   "level_max": 4.9,
+   "lifelong": false
+  },
+  {
+   "id": "high",
+   "label": "High",
+   "weight": 2.0,
+   "level_min": 5.0,
+   "level_max": 5.9,
+   "lifelong": false
+  },
+  {
+   "id": "god",
+   "label": "God",
+   "weight": 0.1,
+   "level_min": 6.0,
+   "level_max": 7.4,
+   "lifelong": false
+  },
+  {
+   "id": "exo_god",
+   "label": "Exo-god",
+   "weight": 0.01,
+   "level_min": 7.5,
+   "level_max": 10.0,
+   "lifelong": false
+  }
+ ]
 }

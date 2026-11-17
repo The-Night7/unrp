@@ -1,6 +1,5 @@
 package com.myriam.unrp.uo;
 
-/** PuppetEvents du modèle (marionnettes de Singularity, pas portées) : réduit à ce que lit Hollow Mark. */
 public final class PuppetEvents {
     private PuppetEvents() {}
 

@@ -11,11 +11,6 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Les particules du mod. Images : assets/unrp/textures/particle (dessinées par tools/make_particle_textures.py),
- * liste des images de chaque particule : assets/unrp/particles/<nom>.json.
- * Pour en ajouter une : un nom dans NAMES, ses images, son fichier json (le script fait les deux).
- */
 public final class ModParticles {
     public static final String[] NAMES = {"arc", "ring", "flare", "hex", "mote", "ember", "shard", "drop", "streak",
             "glyph", "smoke", "wisp", "glint", "leaf", "cross", "rock"};
@@ -43,13 +38,11 @@ public final class ModParticles {
         REG.register(modBus);
     }
 
-    /** Type par nom (voir NAMES), ou null si le nom est inconnu. */
     public static ParticleType<FxOptions> byName(String name) {
         RegistryObject<ParticleType<FxOptions>> r = name == null ? null : ALL.get(name);
         return r == null ? null : r.get();
     }
 
-    /** Nom d'un type du mod (pour régler son comportement côté client). */
     public static String nameOf(ParticleType<?> type) {
         for (var e : ALL.entrySet()) if (e.getValue().get() == type) return e.getKey();
         return "";

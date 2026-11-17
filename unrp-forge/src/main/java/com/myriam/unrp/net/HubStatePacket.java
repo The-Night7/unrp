@@ -8,7 +8,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/** Serveur -> client : tout l'état du hub, en JSON (le client ne fait que l'afficher). */
 public class HubStatePacket {
     public final String json;
 

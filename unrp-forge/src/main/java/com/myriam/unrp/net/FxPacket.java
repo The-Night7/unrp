@@ -8,10 +8,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/**
- * Serveur -> clients proches : un effet visuel à dessiner (traits lumineux, barrières, boucliers, ondes).
- * Le serveur ne fait qu'annoncer ; c'est client/FxRenderer qui dessine.
- */
 public class FxPacket {
     public static final int LINE = 0, SHELL = 1, SHELL_GONE = 2, SHIELD = 3, WAVE = 4, GLOW = 5;
 

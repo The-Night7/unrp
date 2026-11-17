@@ -24,10 +24,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Pouvoirs d'Augmentation, repris du modèle (EarlyPowerEvents, DizzyPunchEvents, AbilityEvents) :
- * Strong Punch, Strong Kick, Dizzy Punch, Stone Skin. Fiches : docs/fidelite/.
- */
 public final class Specials3 {
     private Specials3() {}
 
@@ -38,11 +34,10 @@ public final class Specials3 {
         return s != null && ALL.contains(s);
     }
 
-    // ------------------------------------------------------------------ états
     private static final Map<UUID, Long> HAYMAKER = new HashMap<>(), GUARDBREAK = new HashMap<>(), SPIN = new HashMap<>();
     private static final Map<UUID, Long> HARDENED = new HashMap<>(), GUARD_BROKEN = new HashMap<>(), DIZZY_IMMUNE = new HashMap<>();
     private static final Map<UUID, Long> BURST_IMMUNE = new HashMap<>(), WEAVING = new HashMap<>(), IMMOVABLE = new HashMap<>();
-    private static final Map<UUID, Map<UUID, long[]>> WOOZE = new HashMap<>(); // frappeur -> cible -> {coups, fin de fenêtre}
+    private static final Map<UUID, Map<UUID, long[]>> WOOZE = new HashMap<>();
     private static final Map<UUID, Integer> PENDING_SMASH = new HashMap<>();   // Strong Punch : ticks avant l'onde
     private static final Set<UUID> NO_FALL = new java.util.HashSet<>();
     private static boolean redirecting;
@@ -67,7 +62,6 @@ public final class Specials3 {
         return (float) Math.max(1, Math.min(10, l));
     }
 
-    /** Valeur de lo (niveau 1) à hi (niveau 10), comme scale() du modèle. */
     private static float scale(ServerPlayer p, float lo, float hi) {
         return lo + (hi - lo) * (level(p) - 1f) / 9f;
     }
@@ -95,7 +89,6 @@ public final class Specials3 {
         Fx.sprite(p.serverLevel(), sprite, rgb, 0.8f, fist(p), 6, 0.12, 0.02);
     }
 
-    /** Onde de choc (doAoeKnockback du modèle) : rayon de recherche, force, dégâts. */
     static void aoe(ServerPlayer p, double radius, double strength, double damage) {
         ServerLevel lv = p.serverLevel();
         double horiz = strength / 2.0 * 0.08;
@@ -126,18 +119,18 @@ public final class Specials3 {
         switch (m.special) {
             case "sp_haymaker" -> {
                 HAYMAKER.put(id, now + 100);
-                msg(p, "§6⚡ Haymaker armé !");
+                msg(p, "§6⚡ Haymaker ready!");
                 armFx(p, 0xFFE08A, "flare");
             }
             case "sp_break" -> {
                 GUARDBREAK.put(id, now + 100);
-                msg(p, "§c⚔ Bris de garde armé !");
+                msg(p, "§c⚔ Guard Break ready!");
                 armFx(p, 0xFFFFFF, "glint");
             }
             case "sp_smash" -> PENDING_SMASH.put(id, 4); // l'onde part 4 ticks plus tard
             case "dz_spin" -> {
                 SPIN.put(id, now + 100);
-                msg(p, "§d⟳ Haymaker tournoyant armé !");
+                msg(p, "§d⟳ Spinning Haymaker ready!");
             }
             case "st_harden" -> {
                 HARDENED.put(id, now + 80);
@@ -145,7 +138,7 @@ public final class Specials3 {
                 Fx.sprite(lv, "rock", 0x9A9AA6, 1.0f, p.position().add(0, 1, 0), 20, 0.5, 0.02);
                 lv.playSound(null, p.blockPosition(), SoundEvents.DEEPSLATE_PLACE, SoundSource.PLAYERS, 1.0f, 0.6f);
             }
-            case "sk_axe" -> { // Axe Kick : coup de talon devant soi, ralentit
+            case "sk_axe" -> {
                 Vec3 look = p.getViewVector(1f);
                 Vec3 f = p.position().add(look.x * 2, 0, look.z * 2);
                 AABB box = new AABB(f.x - 2.5, f.y - 1.5, f.z - 2.5, f.x + 2.5, f.y + 2.5, f.z + 2.5);
@@ -162,7 +155,7 @@ public final class Specials3 {
                 Vec3 lookH = new Vec3(look.x, 0, look.z).normalize();
                 for (LivingEntity e : lv.getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(3, 1.2, 3), e -> e != p && e.isAlive())) {
                     Vec3 away = e.position().subtract(p.position()).multiply(1, 0, 1);
-                    if (away.lengthSqr() > 0.01 && away.normalize().dot(lookH) < 0) away = Vec3.ZERO; // derrière toi : poussé dans ton sens
+                    if (away.lengthSqr() > 0.01 && away.normalize().dot(lookH) < 0) away = Vec3.ZERO;
                     Vec3 v = away.lengthSqr() > 0.01 ? away.normalize().scale(0.42) : lookH.scale(0.42);
                     motion(e, v.x, 0.35, v.z);
                     if (e instanceof ServerPlayer sp) sp.setSprinting(false);
@@ -170,7 +163,7 @@ public final class Specials3 {
                 }
                 Fx.wave(lv, p.position().add(0, 0.2, 0), 3, c, 8);
             }
-            case "sk_smash" -> { // Ground Smash (jambe) : bond puis plongeon vers le regard
+            case "sk_smash" -> {
                 Smash s = new Smash();
                 s.dir = p.getViewVector(1f);
                 KICK.put(id, s);
@@ -182,7 +175,7 @@ public final class Specials3 {
             case "dz_weave" -> {
                 WEAVING.put(id, now + 120);
                 p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 120, 0, false, true));
-                msg(p, "§d〜 Ivre de coups...");
+                msg(p, "§d〜 Drunk on punches...");
                 lv.playSound(null, p.blockPosition(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.9f, 0.7f);
             }
             case "st_immovable" -> IMMOVABLE.put(id, now);
@@ -191,7 +184,6 @@ public final class Specials3 {
         return true;
     }
 
-    /** Interrupteur maintenu (toutes les 4 ticks) : Immovable. */
     public static void whileOn(ServerPlayer p, AbilityPower.Move m, long now) {
         if ("st_immovable".equals(m.special)) IMMOVABLE.put(p.getUUID(), now);
     }
@@ -221,13 +213,13 @@ public final class Specials3 {
         }
         boolean watching = best.getViewVector(1f).dot(p.position().subtract(best.position()).normalize()) > 0.5;
         best.hurt(lv.damageSources().playerAttack(p), watching ? 4.5f : 3.0f);
-        if (watching) { // la feinte a fonctionné
+        if (watching) {
             if (now >= BURST_IMMUNE.getOrDefault(best.getUUID(), 0L)) {
                 best.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, true));
                 best.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 0, false, true));
                 BURST_IMMUNE.put(best.getUUID(), now + 100);
             }
-            msg(p, "§d✴ La feinte a pris !");
+            msg(p, "§d✴ The feint worked!");
         }
         Fx.sprite(lv, "glint", c, 1.0f, best.getBoundingBox().getCenter(), 6, 0.25, 0.1);
         lv.playSound(null, best.blockPosition(), SoundEvents.PLAYER_ATTACK_CRIT, SoundSource.PLAYERS, 0.8f, 1.3f);
@@ -242,7 +234,7 @@ public final class Specials3 {
         }
         Fx.sprite(p.serverLevel(), "glint", 0xFF9AE0, 1.0f, t.getBoundingBox().getCenter(), 9, 0.3, 0.05);
         p.serverLevel().playSound(null, t.blockPosition(), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.PLAYERS, 0.9f, 0.6f);
-        msg(p, "§d☆ Éclat d'ivresse !");
+        msg(p, "§d☆ Drunken Burst!");
     }
 
     // ------------------------------------------------------------------ chaque tick
@@ -271,7 +263,7 @@ public final class Specials3 {
                 if (now > wv) WEAVING.remove(id);
                 else if (now % 10 == 0) Fx.sprite(lv, "wisp", 0xFF9AE0, 0.9f, p.getBoundingBox().getCenter(), 1, 0.25, 0.005);
             }
-            // Immovable : planté au sol, rien ne te déplace
+
             Long im = IMMOVABLE.get(id);
             if (im != null) {
                 if (now - im > 8 || !AbilityEngine.isOn(p, "stone_skin")) IMMOVABLE.remove(id);
@@ -281,7 +273,7 @@ public final class Specials3 {
                     p.addEffect(new MobEffectInstance(MobEffects.JUMP, 8, 128, false, false));
                 }
             }
-            // Strong Punch, Ground Smash : l'onde part 4 ticks après
+
             Integer ps = PENDING_SMASH.get(id);
             if (ps != null) {
                 if (ps > 1) PENDING_SMASH.put(id, ps - 1);
@@ -293,11 +285,11 @@ public final class Specials3 {
                     Fx.sprite(lv, "rock", 0x9A9AA6, 1.2f, p.position().add(0, 0.2, 0), 48, 1.6, 0.25);
                 }
             }
-            // Strong Kick, Ground Smash : montée, plongeon, impact
+
             Smash s = KICK.get(id);
             if (s != null) kickTick(p, s);
         }
-        // nettoyage des tables
+
         long limit = now;
         for (Map<UUID, Long> m : List.of(GUARD_BROKEN, DIZZY_IMMUNE, BURST_IMMUNE)) m.values().removeIf(t -> t < limit - 400);
         if (now % 200 == 0) for (Iterator<Map<UUID, long[]>> it = WOOZE.values().iterator(); it.hasNext(); ) {
@@ -312,7 +304,7 @@ public final class Specials3 {
         ServerLevel lv = p.serverLevel();
         s.timer++;
         if (s.phase == 0) {
-            if (s.timer > 5 && p.getDeltaMovement().y <= 0) { // sommet : on plonge vers le regard
+            if (s.timer > 5 && p.getDeltaMovement().y <= 0) {
                 s.dir = p.getViewVector(1f);
                 s.phase = 1;
                 s.timer = 0;
@@ -339,12 +331,10 @@ public final class Specials3 {
         }
     }
 
-    /** Pas de dégâts de chute pendant le plongeon. */
     public static boolean noFall(LivingEntity e) {
         return NO_FALL.contains(e.getUUID());
     }
 
-    // ------------------------------------------------------------------ dégâts
     public static void onHurt(LivingHurtEvent e) {
         LivingEntity v = e.getEntity();
         if (!(v.level() instanceof ServerLevel lv)) return;
@@ -352,7 +342,7 @@ public final class Specials3 {
         if (e.getSource().getEntity() instanceof ServerPlayer a && a != v) {
             UUID aid = a.getUUID();
             Long hm = HAYMAKER.get(aid);
-            if (hm != null && now <= hm) { // Haymaker : +8 à +16, projette
+            if (hm != null && now <= hm) {
                 HAYMAKER.remove(aid);
                 e.setAmount(e.getAmount() + scale(a, 8f, 16f));
                 Vec3 look = a.getViewVector(1f);
@@ -363,7 +353,7 @@ public final class Specials3 {
                 shake(a, 0xFFE08A, 6);
             } else if (hm != null) HAYMAKER.remove(aid);
             Long spn = SPIN.get(aid);
-            if (spn != null && now <= spn) { // Haymaker tournoyant : nausée, puis contrôles inversés
+            if (spn != null && now <= spn) {
                 SPIN.remove(aid);
                 v.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 100, 0, false, true));
                 if (now >= DIZZY_IMMUNE.getOrDefault(v.getUUID(), 0L)) {
@@ -373,21 +363,21 @@ public final class Specials3 {
                 Fx.sprite(lv, "glint", 0xFF9AE0, 1.2f, v.getBoundingBox().getCenter(), 10, 0.4, 0.1);
             } else if (spn != null) SPIN.remove(aid);
             Long gbk = GUARDBREAK.get(aid);
-            if (gbk != null && now <= gbk) { // Bris de garde : bouclier cassé, la cible est ouverte
+            if (gbk != null && now <= gbk) {
                 GUARDBREAK.remove(aid);
                 if (v instanceof Player pl) pl.disableShield(true);
                 GUARD_BROKEN.put(v.getUUID(), now + 100);
                 Vec3 at = v.position().add(0, v.getBbHeight() * 0.6, 0);
                 Fx.sprite(lv, "shard", 0xFFFFFF, 1.3f, at, 26, 1.1, 0.3);
                 lv.playSound(null, v.blockPosition(), SoundEvents.SHIELD_BREAK, SoundSource.PLAYERS, 0.8f, 1.3f);
-                msg(a, "§cGarde brisée !");
+                msg(a, "§cGuard broken!");
             } else if (gbk != null) GUARDBREAK.remove(aid);
             woozeHit(a, v, e, now);
         }
         if (v instanceof ServerPlayer vp) {
             Long hd = HARDENED.get(vp.getUUID());
             if (hd != null) {
-                if (now <= hd) { // Durci : dégâts réduits de 60 à 85 %, 1,5 renvoyé à l'attaquant
+                if (now <= hd) {
                     e.setAmount(e.getAmount() * (1f - scale(vp, 0.6f, 0.85f)));
                     if (!redirecting && e.getSource().getEntity() instanceof LivingEntity at && at != vp && at.isAlive()) {
                         redirecting = true;
@@ -397,7 +387,7 @@ public final class Specials3 {
                 } else HARDENED.remove(vp.getUUID());
             }
             if (IMMOVABLE.containsKey(vp.getUUID())) e.setAmount(e.getAmount() * 0.75f);
-            // Tissage : coups reçus au corps à corps adoucis, l'attaquant est étourdi
+
             Long wv = WEAVING.get(vp.getUUID());
             if (wv != null && now <= wv && e.getSource().getEntity() instanceof LivingEntity at && at != vp
                     && e.getSource().getDirectEntity() == at) {
@@ -409,12 +399,11 @@ public final class Specials3 {
         }
         Long gbr = GUARD_BROKEN.get(v.getUUID());
         if (gbr != null) {
-            if (now <= gbr) e.setAmount(e.getAmount() * 1.25f); // garde brisée : +25 % de dégâts reçus
+            if (now <= gbr) e.setAmount(e.getAmount() * 1.25f);
             GUARD_BROKEN.remove(v.getUUID());
         }
     }
 
-    /** Dizzy Punch : 3 coups de suite sur la même cible (fenêtre 5 s) déclenchent un éclat d'ivresse. */
     private static void woozeHit(ServerPlayer a, LivingEntity v, LivingHurtEvent e, long now) {
         if (e.getSource().getDirectEntity() != a) return;
         if (!AbilityEngine.isOn(a, "dizzy_punch")) return;

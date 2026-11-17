@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/** Sauvegarde des joueurs dans le monde (world/data/unrp.dat). */
 public class UnrpState extends PersistentState {
     private final Map<UUID, PlayerData> players = new HashMap<>();
 

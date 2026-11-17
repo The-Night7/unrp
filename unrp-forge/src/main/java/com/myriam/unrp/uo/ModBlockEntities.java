@@ -6,7 +6,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-/** ModBlockEntities du modèle : la trame des blocs de Particles. */
 public final class ModBlockEntities {
     private ModBlockEntities() {}
 

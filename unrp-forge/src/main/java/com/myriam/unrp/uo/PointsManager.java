@@ -8,7 +8,6 @@ import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria.RenderType;
 import net.minecraftforge.network.PacketDistributor;
 
-/** PointsManager du modèle, réduit aux fonctions utilisées. Points du hub : notre système. */
 public final class PointsManager {
    private PointsManager() {}
 

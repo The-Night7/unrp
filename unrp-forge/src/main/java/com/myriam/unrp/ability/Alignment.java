@@ -9,11 +9,6 @@ import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
-/**
- * Alignement (AlignmentEvents du modèle) : de -100 à 50, sauvegardé. Tuer un villageois -5, un golem de fer construit -8,
- * l'animal apprivoisé d'un autre -6 ; il remonte de 1 toutes les 30 minutes tant qu'il est négatif. À -20 ou moins, le pouvoir
- * « tourne » (les formes Azure de Limit Breaker deviennent Rose).
- */
 public final class Alignment {
     private Alignment() {}
 
@@ -43,7 +38,7 @@ public final class Alignment {
         else if (v instanceof TamableAnimal pet && pet.isTame() && !k.getUUID().equals(pet.getOwnerUUID())) delta = -6;
         if (delta == 0) return;
         int before = of(k), now = add(k, delta);
-        if (before > ROSE_AT && now <= ROSE_AT) k.sendSystemMessage(Component.literal("§d[Unrp] §7Quelque chose caille dans ton pouvoir. §dÇa te va bien."));
+        if (before > ROSE_AT && now <= ROSE_AT) k.sendSystemMessage(Component.literal("§d[Unrp] §7Something is curdling inside your power. §dIt suits you."));
     }
 
     public static void tick(MinecraftServer server) {

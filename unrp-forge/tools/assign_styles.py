@@ -1,7 +1,4 @@
-"""Donne à chaque pouvoir de ability_powers.json un style visuel (look.style) et une couleur (look.color),
-choisis d'après la description de la capacité dans l'Unodex. Relance : python3 tools/assign_styles.py
-Pour changer un pouvoir : modifie la ligne correspondante ci-dessous (style, couleur ou None = couleur du style)
-ou directement "look" dans le JSON (ce script réécrit style et couleur de tous les pouvoirs listés)."""
+"""Assign the visual styles and colours listed below to power definitions."""
 import json, pathlib
 
 P = pathlib.Path(__file__).resolve().parent.parent / "src/main/resources/data/unrp/unodex/ability_powers.json"
@@ -14,7 +11,7 @@ STYLE_COLOR = {
     "space": "#9D7CFF", "energy": "#B07CFF",
 }
 
-# pouvoir : (style, couleur ou None). La couleur vient de la description quand elle en donne une.
+
 MAP = {
     "ability_gauging": ("mind", None), "alchimie": ("metal", "#E8C25A"), "arachnid": ("metal", "#8B6BAA"),
     "arcane_shot": ("energy", "#8FD0FF"), "archer": ("energy", "#FFD27A"), "armor_suit": ("metal", None),
@@ -71,6 +68,6 @@ for pid, p in d["powers"].items():
     look["style"] = style
     look["color"] = color or STYLE_COLOR[style]
     look["jagged"] = style == "lightning"
-    look.pop("sprite", None)  # la particule vient du style
+    look.pop("sprite", None)
 P.write_text(json.dumps(d, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-print(len(d["powers"]) - len(missing), "pouvoirs stylés ; sans style :", missing)
+print(len(d["powers"]) - len(missing), "powers styled; without a style:", missing)

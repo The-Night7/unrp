@@ -9,7 +9,6 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Entraînement du modèle : +0,5 par palier, 4 paliers, coût 1-2-3-4, plafond 10,0. */
 class TrainingTest {
     @Test
     void costGrowsPerStep() {
@@ -42,7 +41,7 @@ class TrainingTest {
             assertTrue(p[0] >= 55 && p[0] <= 65 && p[1] >= 33 && p[1] <= 43 && p[4] >= 20 && p[4] <= 30);
             sum += p[0];
         }
-        assertTrue(sum / 20000.0 < 58.0, "le tirage doit être biaisé vers le bas (min de 5)");
+        assertTrue(sum / 20000.0 < 58.0, "the roll must favour lower values (minimum of five samples)");
     }
 
     @Test

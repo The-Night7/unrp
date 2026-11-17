@@ -20,16 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Poses du corps pendant les capacités. Les poses sont dans assets/unrp/poses.json (voir docs/POUVOIRS.md §13) :
- * chaque pose a une durée, une courbe et des images-clés (angles en degrés des bras, jambes, torse, tête).
- * La pose se mélange en douceur à la posture normale au début (fondu d'entrée) et à la fin (fondu de sortie).
- */
 public final class PoseClient {
-    /** Ordre des membres : tête, torse, bras droit, bras gauche, jambe droite, jambe gauche. */
+
     static final String[] PARTS = {"head", "body", "right_arm", "left_arm", "right_leg", "left_leg"};
 
-    private record Key(double t, float[][] rot) {} // rot[part] = {x, y, z} en degrés, ou null si le membre est libre
+    private record Key(double t, float[][] rot) {}
 
     private record Clip(int len, String ease, int fadeIn, int fadeOut, List<Key> keys) {}
 
@@ -50,7 +45,6 @@ public final class PoseClient {
         return l == null ? 0 : l.getGameTime() + partial;
     }
 
-    /** Recharge poses.json (au prochain affichage). Appelé lors d'un rechargement des ressources (F3+T). */
     public static void invalidate() {
         clips = null;
     }
@@ -96,7 +90,6 @@ public final class PoseClient {
         return new Clip(len, ease, fin, fout, keys);
     }
 
-    /** Réception d'un PosePacket. */
     public static void receive(PosePacket p) {
         double t = now(0);
         if (p.clip.isEmpty()) {
@@ -107,7 +100,7 @@ public final class PoseClient {
         Clip c = clips().get(p.clip);
         if (c == null) return;
         State s = STATES.get(p.entity);
-        if (s != null && s.clip == c && p.hold > 0 && s.stopAt < 0) { // prolonger une pose tenue
+        if (s != null && s.clip == c && p.hold > 0 && s.stopAt < 0) {
             s.holdUntil = t + p.hold;
             return;
         }
@@ -132,7 +125,6 @@ public final class PoseClient {
         };
     }
 
-    /** Appelé par le mixin après la mise en place normale du modèle. */
     public static void apply(PlayerModel<?> model, LivingEntity e, float ageInTicks) {
         State s = STATES.get(e.getId());
         if (s == null) return;
@@ -148,7 +140,7 @@ public final class PoseClient {
         double w = Math.min(1, age / Math.max(1, c.fadeIn));
         if (t > end) w = Math.min(w, 1 - (t - end) / Math.max(1, c.fadeOut));
         w = Math.max(0, w);
-        double ct = held ? Math.min(age, c.len) : Math.min(age, c.len); // une pose tenue reste sur sa dernière image
+        double ct = held ? Math.min(age, c.len) : Math.min(age, c.len);
         ModelPart[] parts = {model.head, model.body, model.rightArm, model.leftArm, model.rightLeg, model.leftLeg};
         for (int i = 0; i < PARTS.length; i++) {
             float[] r = sample(c, i, ct);
@@ -167,7 +159,6 @@ public final class PoseClient {
         model.leftPants.copyFrom(model.leftLeg);
     }
 
-    /** Angle d'un membre au temps ct, interpolé entre les deux images-clés qui l'encadrent. */
     private static float[] sample(Clip c, int part, double ct) {
         Key prev = null, next = null;
         for (Key k : c.keys) {

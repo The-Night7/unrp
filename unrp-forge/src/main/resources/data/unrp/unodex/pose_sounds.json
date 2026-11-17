@@ -1,5 +1,5 @@
 {
- "_aide": "Sons des capacités : chaque pose joue la signature de son geste (couches de sons Minecraft : événement, volume, hauteur). Modifie 'signatures' pour changer un son, 'poses' pour associer une pose à une signature.",
+ "_help": "Ability sounds: each pose plays its gesture signature using layered Minecraft sound events, volumes and pitches. Edit signatures to change sounds and poses to assign them.",
  "signatures": {
   "beam": [
    [

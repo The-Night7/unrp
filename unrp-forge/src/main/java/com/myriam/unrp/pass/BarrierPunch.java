@@ -5,7 +5,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
-/** BarrierPunchHandler du modèle : un coup dans le vide qui part de l'intérieur d'une barrière, ou la vise à 3 blocs, la frappe. */
 public final class BarrierPunch {
     private BarrierPunch() {}
 

@@ -26,7 +26,7 @@ public class UnrpMod {
         com.myriam.unrp.worldgen.SchoolWorldgen.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.item.ModEffects.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.item.ModBlocks.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
-        com.myriam.unrp.deal.PowerParticles.PARTICLES.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus()); // particules du modèle (unrp:*)
+        com.myriam.unrp.deal.PowerParticles.PARTICLES.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.deal.DealBridge.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.entity.ModEntities.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
         com.myriam.unrp.uo.ModBlockEntities.register(net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus());
@@ -42,7 +42,6 @@ public class UnrpMod {
         MinecraftForge.EVENT_BUS.register(new com.myriam.unrp.ability.AbilityEvents());
     }
 
-    /** Les données Unodex sont rechargées avec /reload, comme un datapack. */
     @SubscribeEvent
     public void onAddReloadListeners(AddReloadListenerEvent event) {
         event.addListener(new UnodexLoader());
@@ -53,7 +52,6 @@ public class UnrpMod {
         UnrpCommands.register(event.getDispatcher());
     }
 
-    /** À la connexion, un joueur sans personnage voit le menu de candidature. */
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
@@ -65,13 +63,11 @@ public class UnrpMod {
         }
     }
 
-    /** À l'arrêt du serveur, les barrières temporaires sont retirées. */
     @SubscribeEvent
     public void onServerStopping(net.minecraftforge.event.server.ServerStoppingEvent event) {
         com.myriam.unrp.ability.AbilityEngine.restoreWalls();
     }
 
-    /** Une fois par seconde : régénération de l'aura. */
     @SubscribeEvent
     public void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) com.myriam.unrp.ability.AbilityEngine.tickFast(event.getServer());

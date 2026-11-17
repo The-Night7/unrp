@@ -5,7 +5,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-/** Canal réseau du mod : le serveur décide de tout, le client n'envoie que des demandes. */
 public final class Net {
     private static final String PROTOCOL = "7";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(

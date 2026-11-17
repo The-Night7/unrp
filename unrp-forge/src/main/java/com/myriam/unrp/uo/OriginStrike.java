@@ -1,7 +1,5 @@
 package com.myriam.unrp.uo;
 
-
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -87,7 +85,7 @@ public final class OriginStrike {
    }
 
    public static boolean keeper(LivingEntity live) {
-      return false; // Valerie, Leilah, le Principal : PNJ du hub du modèle, absents chez nous
+      return false;
    }
 
    public static boolean foe(LivingEntity caster, Entity e) {

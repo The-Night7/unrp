@@ -5,13 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/** Les stats d'un OC suivent le niveau par ratio (potentiel x racine(niveau / 10)), ici avec un potentiel de 10,0. */
 class StatRatioTest {
     private static int stat(double level) {
         ClaimData.Profile p = new ClaimData.Profile();
         p.kind = ClaimData.Profile.OC;
         p.level = level;
-        p.pot = new int[] {100, 100, 100, 100, 100}; // potentiel 10,0
+        p.pot = new int[] {100, 100, 100, 100, 100}; // Potential 10.0
         return PlayerStateService.stats(p, null)[0];
     }
 

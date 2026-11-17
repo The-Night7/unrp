@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/** Le tirage de capacité d'un OC suit les poids du pool et ignore ce qui n'a pas de pouvoir. */
 class AbilityPoolTest {
     private static UnodexData data(Map<String, Integer> pool) {
         UnodexData d = new UnodexData(null, Map.of(), Map.of(), Map.of());
@@ -25,12 +24,12 @@ class AbilityPoolTest {
         Random rng = new Random(42);
         int a = 0, n = 200_000;
         for (int i = 0; i < n; i++) if ("a".equals(d.rollAbility(rng))) a++;
-        assertTrue(Math.abs(a / (double) n - 0.75) < 0.01, "a attendu à 75 %, obtenu " + a / (double) n);
+        assertTrue(Math.abs(a / (double) n - 0.75) < 0.01, "expected 75%, got " + a / (double) n);
     }
 
     @Test
     void zeroWeightAndUnplayableAreSkipped() {
-        UnodexData d = data(Map.of("a", 0, "b", 10, "inconnu", 1000));
+        UnodexData d = data(Map.of("a", 0, "b", 10, "missing_power", 1000));
         Random rng = new Random(1);
         for (int i = 0; i < 1000; i++) assertEquals("b", d.rollAbility(rng));
     }

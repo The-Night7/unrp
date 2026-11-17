@@ -26,10 +26,6 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiPredicate;
 
-/**
- * Projectiles (lot 5) : Missiles, Needles, Phantom Fist, Phantom Push, Crescent Slash. Comportements repris de
- * MissilesEvents, PhantomFistEvents, PhantomPushEvents, CrescentSlashEvents et des entités du modèle. Fiches : docs/fidelite/.
- */
 public final class Specials5 {
     private Specials5() {}
 
@@ -44,9 +40,9 @@ public final class Specials5 {
     }
 
     // ------------------------------------------------------------------ charges maintenues
-    /** Charge en cours : "uuid:special" -> tick de début. */
+
     private static final Map<String, Long> CHG = new HashMap<>();
-    /** Recharge propre à chaque charge : "uuid:special" -> tick de fin. */
+
     private static final Map<String, Long> CD = new HashMap<>();
     private static final Map<String, Long> LAST_SHOT = new HashMap<>();
 
@@ -55,8 +51,8 @@ public final class Specials5 {
     private static final Map<String, Spec> CHARGES = Map.of(
             "ms_missile", new Spec(14, 60, "Missile", 0xE89078),
             "ms_heavy", new Spec(60, 80, "Missile lourd", 0xE89078),
-            "pf_fist", new Spec(9, 55, "Poing fantôme", 0x3FD0E8),
-            "pp_push", new Spec(8, 50, "Poussée fantôme", 0x6F8FFF),
+            "pf_fist", new Spec(9, 55, "Phantom Fist", 0x3FD0E8),
+            "pp_push", new Spec(8, 50, "Phantom Push", 0x6F8FFF),
             "cs_slash", new Spec(8, 60, "Croissant", 0xBFE8FF),
             "cs_grand", new Spec(42, 80, "Grand croissant", 0xBFE8FF));
 
@@ -77,11 +73,11 @@ public final class Specials5 {
         long now = lv.getGameTime();
         String sp = m.special;
         Spec spec = CHARGES.get(sp);
-        if (spec != null) { // charge maintenue : la première pulsation démarre, les suivantes entretiennent
+        if (spec != null) {
             String k = key(p, sp);
             if (!CHG.containsKey(k)) {
                 if (now < CD.getOrDefault(k, 0L)) {
-                    if (now % 20 < 4) msg(p, "§c✖ " + spec.name + " se recharge (" + (1 + (CD.get(k) - now) / 20) + " s)");
+                    if (now % 20 < 4) msg(p, "§c✖ " + spec.name + " is cooling down (" + (1 + (CD.get(k) - now) / 20) + " s)");
                     return false;
                 }
                 AbilityEngine.spendAura(p, spec.start);
@@ -99,7 +95,7 @@ public final class Specials5 {
             case "ms_twin" -> {
                 Vec3 flat = new Vec3(look.x, 0, look.z).normalize();
                 Vec3 perp = new Vec3(-flat.z, 0, flat.x);
-                if (p.isShiftKeyDown()) { // gerbe courbe : 4 missiles qui reviennent vers le regard
+                if (p.isShiftKeyDown()) {
                     AbilityEngine.spendAura(p, 10);
                     for (double ang : new double[] {-28, -10, 10, 28}) missile(p, rotY(look, ang), null, 1.8f, 1.1, look);
                 } else {
@@ -115,7 +111,7 @@ public final class Specials5 {
                     LAST_SHOT.put(k, now - 5);
                 }
                 if (AbilityEngine.aura(p) <= 0) {
-                    msg(p, "§c✖ La rafale s'étouffe : plus d'aura.");
+                    msg(p, "§c✖ The barrage stops: no aura left.");
                     return false;
                 }
                 if (now - LAST_SHOT.get(k) >= 5) {
@@ -156,10 +152,10 @@ public final class Specials5 {
             }
             case "pf_meteor" -> slamSequence(p, 16, 40, 30, 13, 13f, 2.8f, 0.9, 2.2, 26, 0, false, 80, 0x3FD0E8, "phantom_fist");
             case "pf_barrage" -> {
-                msg(p, "§3Rafale ! Une volée de poings fantômes !");
+                msg(p, "§3Barrage! A volley of phantom fists!");
                 SEQ.add(new Seq(p.getUUID(), 60, (pl, rem) -> {
                     if (AbilityEngine.aura(pl) <= 0) {
-                        msg(pl, "§3La rafale s'éteint : plus d'aura.");
+                        msg(pl, "§3The barrage fades: no aura left.");
                         return true;
                     }
                     if (rem % 2 == 0) jab(pl, rem);
@@ -219,7 +215,6 @@ public final class Specials5 {
         return true;
     }
 
-    /** Fin d'une charge maintenue : tir selon le temps de charge. */
     public static void stop(ServerPlayer p, String special) {
         String k = key(p, special);
         if ("ms_barrage".equals(special) || "nd_volley".equals(special)) {
@@ -280,7 +275,6 @@ public final class Specials5 {
         LATER.removeIf(l -> l.id.equals(id));
     }
 
-    /** Un coup reçu interrompt les charges. */
     public static void onHurt(LivingHurtEvent e) {
         if (!(e.getEntity() instanceof ServerPlayer p) || e.getAmount() <= 0) return;
         boolean interrupted = false;
@@ -288,7 +282,6 @@ public final class Specials5 {
         if (interrupted) msg(p, "§c✖ Charge interrompue !");
     }
 
-    // ------------------------------------------------------------------ fabrication des projectiles
     private static Vec3 rotY(Vec3 v, double deg) {
         double r = Math.toRadians(deg), c = Math.cos(r), s = Math.sin(r);
         return new Vec3(v.x * c - v.z * s, v.y, v.x * s + v.z * c);
@@ -384,7 +377,6 @@ public final class Specials5 {
         p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.9f, 1.4f);
     }
 
-    /** Rafale de Phantom Fist : la cible la plus alignée à 3,8 blocs reçoit un coup de 1,6. */
     private static void jab(ServerPlayer p, int rem) {
         ServerLevel lv = p.serverLevel();
         Vec3 bl = p.getViewVector(1f);
@@ -403,7 +395,6 @@ public final class Specials5 {
         Fx.sprite(lv, "flare", 0x3FD0E8, 1.0f, best.getBoundingBox().getCenter(), 5, 0.25, 0.12);
     }
 
-    // ------------------------------------------------------------------ séquences (météore, paume, rafale, volées)
     private record Seq(UUID id, int total, BiPredicate<ServerPlayer, Integer> step) {
         int[] left() {
             return new int[] {total};
@@ -421,7 +412,6 @@ public final class Specials5 {
         else LATER.add(new Later(p.getUUID(), p.serverLevel().getGameTime() + ticks, run));
     }
 
-    /** Montée, suspension, puis une grande main s'écrase sur le point visé (Phantom Fist : météore ; Phantom Push : paume). */
     private static void slamSequence(ServerPlayer p, double aimRange, int total, int holdUntil, int spawnAt, float dmg, float size, double kb,
                                      double fall, int life, int stun, boolean glass, int slowFall, int rgb, String powerId) {
         ServerLevel lv = p.serverLevel();

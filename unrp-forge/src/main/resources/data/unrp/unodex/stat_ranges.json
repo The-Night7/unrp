@@ -1,8 +1,8 @@
 {
- "_aide": [
-  "Plages de potentiel de départ d'un OC, par capacité : [min, max] pour chaque stat, dans l'ordre Puissance, Défense, Récupération, Ruse, Vitesse.",
-  "Reprises du mod modèle (STAT_RANGES). Le tirage est biaisé vers le bas (le plus petit de 5 tirages, weightedLow). Phase Shift : phase_shift_def et phase_shift_off utilisent la clé phase_shift.",
-  "Pour une capacité ajoutée au pool (ability_pool.json), ajoute ici sa ligne ; sans ligne, plage 1,0 à 2,0 partout."
+ "_help": [
+  "Starting OC stat-potential ranges by ability: [min, max] for Power, Defense, Recovery, Trick and Speed, in that order.",
+  "Ranges follow STAT_RANGES. Each result is the lowest of five samples. Both Phase Shift variants use the phase_shift range.",
+  "Add ranges here for abilities added to ability_pool.json. Missing ranges default to 1.0–2.0 for every stat."
  ],
  "ranges": {
   "energy_discharge": [

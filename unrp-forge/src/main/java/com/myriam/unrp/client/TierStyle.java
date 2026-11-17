@@ -1,6 +1,5 @@
 package com.myriam.unrp.client;
 
-/** Nom et couleur d'affichage d'un tier. */
 public final class TierStyle {
     private TierStyle() {}
 
@@ -13,7 +12,7 @@ public final class TierStyle {
             case "high" -> "High";
             case "god" -> "God";
             case "exo_god" -> "Exo-god";
-            default -> "Inconnu";
+            default -> "Unknown";
         };
     }
 

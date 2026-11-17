@@ -6,10 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 
 import java.util.UUID;
 
-/**
- * ClientSettingsCache du modèle : réglages visuels d'un joueur (AuraColor, EyeColor, EyeStyle, EyeW/H, EyeL/R, décalages,
- * EyeTrail), lus dans l'onglet Style.
- */
 public final class ClientSettingsCache {
     private ClientSettingsCache() {}
 
@@ -30,7 +26,7 @@ public final class ClientSettingsCache {
         StyleData s = StyleService.CLIENT_CACHE.get(id);
         CompoundTag t = new CompoundTag();
         if (s == null) return t;
-        // styles du modèle : 0 aiguisé, 1 rond, 2 anneau
+
         t.putInt("EyeStyle", s.eyeStyle == 2 ? 1 : s.eyeStyle == 4 ? 2 : 0);
         t.putInt("EyeW", Math.max(1, Math.min(4, s.eyeW)));
         t.putInt("EyeH", Math.max(1, Math.min(3, s.eyeH)));

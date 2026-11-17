@@ -11,10 +11,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Locale;
 
-/**
- * Réglages d'une particule du mod : couleur (0xRRGGBB), taille et durée de vie (ticks, 0 = par défaut).
- * Les textures sont blanches ; le jeu les teinte avec la couleur.
- */
 public class FxOptions implements ParticleOptions {
     private final ParticleType<FxOptions> type;
     public final int rgb;
@@ -53,7 +49,6 @@ public class FxOptions implements ParticleOptions {
         ).apply(i, (rgb, size, life) -> new FxOptions(type, rgb, size, life)));
     }
 
-    /** Lecture depuis une commande (/particle unrp:arc 16776960 1.0 10) ou depuis le réseau. */
     @SuppressWarnings("deprecation")
     public static final ParticleOptions.Deserializer<FxOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
         @Override

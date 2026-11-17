@@ -79,7 +79,7 @@ public final class UiSkin {
             int light = mix(rgb, 0xFFFFFF, 0.45f), dark = mix(rgb, 0x000000, 0.35f);
             g.fillGradient(ix, iy, ix + fw, iy + AURA_IH, 0xFF000000 | light, 0xFF000000 | dark);
             g.fill(ix, iy, ix + fw, iy + 1, 0x66FFFFFF);
-            // reflet qui glisse le long de la barre
+
             int sx = (int) ((time * 1.5f) % (AURA_IW + 20)) - 10;
             for (int i = 0; i < 6; i++) {
                 int cx = ix + sx + i;

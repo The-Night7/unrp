@@ -15,13 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Animation des objets et des entités des capacités (tout en lumière dessinée, aucune particule) :
- *  - objets tenus : lame lumineuse de la hache solaire (Daystar) et des armements (Armament Dominion), traînée au coup,
- *    halo du Masque du Joker porté ;
- *  - constructions de Particles (ArmorStand) : rotation lente, flottement, halo au sol et colonne de lumière ;
- *  - blocs soulevés par la télékinésie : cadre lumineux qui tourne.
- */
 public final class Anim {
     private Anim() {}
 
@@ -42,7 +35,7 @@ public final class Anim {
             if (p.getItemBySlot(EquipmentSlot.HEAD).is(ModItems.JOKER_MASK.get()) && t % 10 == 0) {
                 Vfx.glow(lv, Vfx.RING, 0xE040A0, p.position().add(0, p.getBbHeight() + 0.25, 0), new Vec3(0.2, 0, 0), 1, 0);
             }
-            if (t % 4 == 0) { // constructions et blocs tenus autour du joueur
+            if (t % 4 == 0) {
                 AABB box = p.getBoundingBox().inflate(40);
                 for (ArmorStand c : lv.getEntitiesOfClass(ArmorStand.class, box, a -> a.getTags().contains("unrp.pconstruct"))) construct(lv, c, t);
                 for (FallingBlockEntity fb : lv.getEntitiesOfClass(FallingBlockEntity.class, box, f -> f.time <= 1)) cube(lv, fb, t);
@@ -50,7 +43,6 @@ public final class Anim {
         }
     }
 
-    /** Lame de lumière dans la main, qui pulse ; au coup, trois traits en éventail. */
     private static void heldBlade(ServerLevel lv, ServerPlayer p, int rgb, double len, boolean axe, long t) {
         Vec3 look = p.getLookAngle().normalize();
         Vec3 right = new Vec3(-look.z, 0, look.x).normalize();
@@ -58,7 +50,7 @@ public final class Anim {
         float w = (float) (0.05 + 0.02 * Math.sin(t * 0.4));
         Vec3 tip = hand.add(look.scale(len));
         Fx.line(lv, hand, tip, rgb, Styles.LINE_NOCORE, w, 3);
-        if (axe) { // fer de hache : petit croissant en bout de manche
+        if (axe) {
             Vec3 up = new Vec3(0, 1, 0);
             Fx.line(lv, tip.add(up.scale(0.35)), tip.add(up.scale(-0.35)).add(look.scale(0.12)), rgb, 0, w * 1.6f, 3);
         }
@@ -70,7 +62,6 @@ public final class Anim {
         }
     }
 
-    /** Construction de Particles : tourne lentement, flotte, halo au sol et colonne de lumière. */
     private static void construct(ServerLevel lv, ArmorStand c, long t) {
         double base = BASE_Y.computeIfAbsent(c.getUUID(), k -> c.getY());
         c.setYRot(c.getYRot() + 6f);
@@ -83,7 +74,6 @@ public final class Anim {
         }
     }
 
-    /** Bloc soulevé : cadre lumineux qui tourne autour de lui. */
     private static void cube(ServerLevel lv, FallingBlockEntity fb, long t) {
         Vec3 c = fb.position().add(0, 0.5, 0);
         double a = t * 0.15, r = 0.62;

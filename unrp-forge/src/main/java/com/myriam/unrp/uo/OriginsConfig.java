@@ -1,6 +1,5 @@
 package com.myriam.unrp.uo;
 
-/** OriginsConfig du modèle, réduit à isModDev (liste distante des développeurs du modèle : personne chez nous). */
 public final class OriginsConfig {
     private OriginsConfig() {}
 

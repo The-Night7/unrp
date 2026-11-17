@@ -11,13 +11,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 
-/** Touches et HUD, côté client uniquement. */
 public final class ClientEvents {
     public static final KeyMapping HUB_KEY = new KeyMapping("key.unrp.hub", GLFW.GLFW_KEY_H, "key.categories.unrp");
 
     public static final KeyMapping ABILITY_KEY = new KeyMapping("key.unrp.ability", GLFW.GLFW_KEY_R, "key.categories.unrp");
 
-    /** Barre de mouvements : X C V B N. */
+    /** Registers the move-bar overlay. */
     public static final String[] SLOT_LETTERS = {"X", "C", "V", "B", "N"};
     public static final KeyMapping[] MOVE_KEYS = {
             new KeyMapping("key.unrp.move1", GLFW.GLFW_KEY_X, "key.categories.unrp"),
@@ -26,7 +25,7 @@ public final class ClientEvents {
             new KeyMapping("key.unrp.move4", GLFW.GLFW_KEY_B, "key.categories.unrp"),
             new KeyMapping("key.unrp.move5", GLFW.GLFW_KEY_N, "key.categories.unrp")};
     private static final boolean[] down = new boolean[5];
-    /** tick de jeu où la touche i a été pressée (-1 = relâchée), pour afficher la charge */
+
     public static final long[] holdStart = {-1, -1, -1, -1, -1};
 
     private ClientEvents() {}
@@ -40,7 +39,7 @@ public final class ClientEvents {
         @SubscribeEvent
         public static void onKeys(RegisterKeyMappingsEvent event) {
             event.register(ABILITY_KEY);
-            event.register(HUB_KEY); // les touches des pouvoirs sont celles de Palladium (look/AbilityBar), comme dans le modèle
+            event.register(HUB_KEY);
         }
 
         @SubscribeEvent
@@ -49,8 +48,8 @@ public final class ClientEvents {
             com.myriam.unrp.uo.PhageRenderer.bake(event.getEntityModels());
             for (String skin : event.getSkins()) {
                 if (event.getSkin(skin) instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer pr) {
-                    // PlayerLayersHandler du modèle, dans son ordre
-                    pr.addLayer(new com.myriam.unrp.look.CustomEyesLayer(pr)); // yeux de pouvoir du modèle
+
+                    pr.addLayer(new com.myriam.unrp.look.CustomEyesLayer(pr));
                     pr.addLayer(new CosmeticLayer(pr, event.getEntityModels()));
                     pr.addLayer(new com.myriam.unrp.pass.PassLayers.TimeGears(pr));
                     pr.addLayer(new com.myriam.unrp.pass.ConjureShieldLayer(pr));
@@ -75,34 +74,31 @@ public final class ClientEvents {
             }
         }
 
-        /** Particules du mod : chaque type est relié à ses images (assets/unrp/particles/*.json). */
         @SubscribeEvent
         public static void onParticles(net.minecraftforge.client.event.RegisterParticleProvidersEvent event) {
             for (var r : com.myriam.unrp.particle.ModParticles.ALL.values()) event.registerSpriteSet(r.get(), FxParticle.Provider::new);
         }
 
-        /** F3+T (rechargement des ressources) relit aussi poses.json. */
         @SubscribeEvent
         public static void onReloadListeners(net.minecraftforge.client.event.RegisterClientReloadListenersEvent event) {
             event.registerReloadListener((net.minecraft.server.packs.resources.ResourceManagerReloadListener) rm -> PoseClient.invalidate());
         }
 
-        /** ContractItemProps / AscalonItemProps du modèle : les prédicats que lisent ses modèles d'objets. */
         @SubscribeEvent
         public static void onClientSetup(net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
-                // AgentRenderer.onClientSetup du modèle : teinte « unrp:owner_aura » et rendu « unrp:translucent » des calques Palladium
+
                 net.threetag.palladium.client.dynamictexture.DynamicTextureManager.registerVariable(new com.myriam.unrp.uo.OwnerAuraColorVariable.Serializer());
                 net.threetag.palladium.client.renderer.renderlayer.PackRenderLayerManager.registerRenderType(new net.minecraft.resources.ResourceLocation("unrp", "translucent"),
                         (source, texture, glint) -> net.minecraft.client.renderer.entity.ItemRenderer.getFoilBufferDirect(source, net.minecraft.client.renderer.RenderType.entityTranslucent(texture), false, glint));
-                // modèles 3D et peaux des pouvoirs (capacités palladium:render_layer du modèle)
+
                 com.myriam.unrp.look.PowerRenderLayers.register();
-                // ModBlocks.ClientEvents du modèle : couches de rendu des blocs
+
                 net.minecraft.client.renderer.ItemBlockRenderTypes.setRenderLayer(com.myriam.unrp.item.ModBlocks.BARRIER_BLOCK.get(), net.minecraft.client.renderer.RenderType.translucent());
                 net.minecraft.client.renderer.ItemBlockRenderTypes.setRenderLayer(com.myriam.unrp.item.ModBlocks.BARRIER_BLOCK_AM.get(), net.minecraft.client.renderer.RenderType.translucent());
                 net.minecraft.client.renderer.ItemBlockRenderTypes.setRenderLayer(com.myriam.unrp.item.ModBlocks.PARTICLE_BLOCK.get(), net.minecraft.client.renderer.RenderType.translucent());
                 net.minecraft.client.renderer.ItemBlockRenderTypes.setRenderLayer(com.myriam.unrp.item.ModBlocks.PHYLACTERY.get(), net.minecraft.client.renderer.RenderType.cutout());
-                // ContractItemProps du modèle
+
                 net.minecraft.client.renderer.item.ItemProperties.register(com.myriam.unrp.item.ModItems.CONTRACT.get(),
                         new net.minecraft.resources.ResourceLocation("unrp", "scroll"), (stack, level, holder, seed) ->
                                 stack.hasTag() && stack.getTag().getBoolean("unrp_pact_soul") ? 1f : com.myriam.unrp.deal.ContractItem.isProposed(stack) ? 2f : 0f);
@@ -130,30 +126,29 @@ public final class ClientEvents {
 
         @SubscribeEvent
         public static void onOverlays(RegisterGuiOverlaysEvent event) {
-            event.registerBelowAll("unrp_weave_swarm", com.myriam.unrp.uo.WeaveHudOverlay.INSTANCE); // WeaveHudOverlay du modèle
-            event.registerAboveAll("unrp_hud", com.myriam.unrp.look.UnrpHudOverlay.INSTANCE); // HUD du modèle
-            event.registerAboveAll("unrp_struggle", com.myriam.unrp.uo.StruggleHudOverlay.INSTANCE); // StruggleHudOverlay du modèle
-            event.registerAboveAll("unrp_sand", com.myriam.unrp.uo.SandHudOverlay.INSTANCE); // SandHudOverlay du modèle
-            event.registerAboveAll("unrp_grit", com.myriam.unrp.uo.GritHudOverlay.INSTANCE); // GritHudOverlay du modèle
+            event.registerBelowAll("unrp_weave_swarm", com.myriam.unrp.uo.WeaveHudOverlay.INSTANCE);
+            event.registerAboveAll("unrp_hud", com.myriam.unrp.look.UnrpHudOverlay.INSTANCE);
+            event.registerAboveAll("unrp_struggle", com.myriam.unrp.uo.StruggleHudOverlay.INSTANCE);
+            event.registerAboveAll("unrp_sand", com.myriam.unrp.uo.SandHudOverlay.INSTANCE);
+            event.registerAboveAll("unrp_grit", com.myriam.unrp.uo.GritHudOverlay.INSTANCE);
             event.registerAboveAll("unrp_pact", com.myriam.unrp.deal.PactHudOverlay.INSTANCE);
-            event.registerAboveAll("unrp_counterweight", com.myriam.unrp.uo.CwHudOverlay.INSTANCE); // CwHudOverlay du modèle
-            event.registerAboveAll("unrp_daystar_dial", com.myriam.unrp.uo.DaystarDialOverlay.INSTANCE); // DaystarDialOverlay du modèle
-            event.registerAboveAll("unrp_lash_ring", com.myriam.unrp.uo.LashRingOverlay.INSTANCE); // LashRingOverlay du modèle
-            event.registerAboveAll("unrp_salt_hud", com.myriam.unrp.uo.SaltHudOverlay.INSTANCE); // SaltHudOverlay du modèle
+            event.registerAboveAll("unrp_counterweight", com.myriam.unrp.uo.CwHudOverlay.INSTANCE);
+            event.registerAboveAll("unrp_daystar_dial", com.myriam.unrp.uo.DaystarDialOverlay.INSTANCE);
+            event.registerAboveAll("unrp_lash_ring", com.myriam.unrp.uo.LashRingOverlay.INSTANCE);
+            event.registerAboveAll("unrp_salt_hud", com.myriam.unrp.uo.SaltHudOverlay.INSTANCE);
             event.registerAboveAll("particles_stance", com.myriam.unrp.uo.StanceIconOverlay.INSTANCE); // stance_hud_* de particles.json
-            event.registerAboveAll("ability_bar", com.myriam.unrp.look.AbilityBar.INSTANCE); // barre de Palladium
+            event.registerAboveAll("ability_bar", com.myriam.unrp.look.AbilityBar.INSTANCE); // Palladium move bar.
         }
     }
 
     @Mod.EventBusSubscriber(modid = UnrpMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
     public static final class ForgeBus {
-        /** Coup de poing dans le vide : le serveur regarde s'il touche une barrière. */
+
         @SubscribeEvent
         public static void onPunchAir(net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickEmpty event) {
-            com.myriam.unrp.pass.BarrierPunch.onLeftClickEmpty(event); // BarrierPunchHandler du modèle
+            com.myriam.unrp.pass.BarrierPunch.onLeftClickEmpty(event);
         }
 
-        /** Effet Désorienté : les touches de déplacement sont inversées. */
         @SubscribeEvent
         public static void onMoveInput(net.minecraftforge.client.event.MovementInputUpdateEvent event) {
             if (!event.getEntity().hasEffect(com.myriam.unrp.item.ModEffects.DISORIENTED.get())) return;
@@ -168,10 +163,9 @@ public final class ClientEvents {
             in.down = t;
         }
 
-        /** Le HUD du modèle affiche vie, faim, air et armure : on masque celles de Minecraft. */
         @SubscribeEvent
         public static void onOverlay(net.minecraftforge.client.event.RenderGuiOverlayEvent.Pre event) {
-            // VanillaHudSuppressor du modèle : le HUD du modèle affiche vie, faim, air et armure
+
             if (com.myriam.unrp.look.StatClientCache.hudMode != 0) return;
             var id = event.getOverlay().id();
             if (id.equals(net.minecraftforge.client.gui.overlay.VanillaGuiOverlay.PLAYER_HEALTH.id())
@@ -193,7 +187,7 @@ public final class ClientEvents {
                 if (ClientState.get().hasProfile) {
                     mc.setScreen(new HubScreen());
                 } else {
-                    // Pas encore de personnage : on ouvre le menu de candidature.
+
                     mc.player.connection.sendCommand("unrp menu");
                 }
             }

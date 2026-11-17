@@ -38,7 +38,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Matrix4f;
 
-/** ClientSgLooks du modèle, réduit aux fonctions utilisées. Singularity n'est pas porté. */
 public final class ClientSgLooks {
    private ClientSgLooks() {}
 

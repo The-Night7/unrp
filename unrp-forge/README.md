@@ -1,55 +1,52 @@
-# Unordinary RP (Forge 1.20.1)
+# Unordinary RP — Forge 1.20.1
 
-Mod de RP inspiré d'UnOrdinary, pour ton univers (le roman « Unordinary » et le RP).
-Il charge **toutes ses données depuis des fichiers JSON** générés à partir de ta feuille Unodex :
-personnages, écoles, capacités, table de rareté. Tu modifies les données, pas le code.
+UNRP adds playable characters and OCs, aura-based abilities, school roles, groups, territories and duels. Characters and move definitions come from JSON; server-side Java handles the effects and validates actions.
 
-**État : phase 2** (menu de candidature). Ce qui marche déjà :
-- pipeline Unodex vers JSON (179 personnages, 137 capacités, 8 écoles/groupes, tirés des onglets `unodex` et `unodex-rp`) ;
-- chargement des données dans le jeu, avec `/reload` comme un datapack ;
-- tirage de potentiel avec tes probabilités (tests inclus) ;
-- « personnage pris » sauvegardé dans le monde ;
-- **menu à la connexion** : onglets Lore / RP / Créer un OC, liste des personnages libres ou pris, fiche détaillée, bouton « Postuler » ;
-- **création d'OC** : nom + école ; le serveur tire la rareté (niveau de départ) avec tes probabilités, puis une capacité dans un pool éditable (`ability_pool.json`), potentiels de stats tirés comme le modèle, stat = potentiel x ratio du niveau (le niveau évolue jusqu'à 10 par la maîtrise, l'aura dépensée) ;
-- commandes d'administration pour tout vérifier.
+Use Java 17, Python 3 and the checked-in Gradle wrapper. Put the development dependencies listed in [SETUP.md](docs/SETUP.md) in `libs/`, then run:
 
-Pouvoirs (phase 4) : 55 pouvoirs sur 55 reproduits d'après le mod modèle, avec déblocages par points, esquive, Masque du Joker, réserve de copies. Objets : les 88 objets et blocs du modèle existent (images, modèles et sons du modèle, copiés par `tools/import_model_assets.py`), seuls certains agissent, voir `docs/fidelite/objets.md`. Fiches de comparaison : `docs/fidelite/`. Procedural school buildings now generate once per school in the Overworld; see [docs/SCHOOLS.md](docs/SCHOOLS.md). Still pending: school NPCs, les 6 pouvoirs restants (Particles, Aura Transference, Armament Dominion, Daystar, Salt Seraph, Black Lash).
-Voir `docs/ARCHITECTURE.md` pour le plan complet.
-
-## Démarrage rapide
-Voir **docs/SETUP.md** (commandes pour Fish).
-
-## Documentation
-| Fichier | Contenu |
-|---|---|
-| `docs/SETUP.md` | installer, compiler, lancer, mettre les autres mods dans `libs/` |
-| `docs/DATA.md` | formats JSON, mise à jour depuis la feuille, comment éditer (overrides) |
-| `docs/POUVOIRS.md` | pouvoirs : touches, règles d'aura, référence JSON complète, recettes, déblocages |
-| [docs/ABILITY_DEVELOPMENT.md](docs/ABILITY_DEVELOPMENT.md) | code et données des capacités, ajout d’un pouvoir, mouvements, animations, arbre de prérequis et chaîne client/serveur |
-| [docs/where is what.md](docs/where%20is%20what.md) | emplacements des ressources, réglages du tirage, interface et JAR généré |
-| `docs/fidelite/` | une fiche par pouvoir : modèle contre notre version, ligne par ligne (✅ ≈ 🎨 ❌) |
-| [docs/NEW_BOSTIN.md](docs/NEW_BOSTIN.md), [ROWDEN.md](docs/ROWDEN.md), [WESTVIEW.md](docs/WESTVIEW.md), [WELLSTON_UNIVERSITY.md](docs/WELLSTON_UNIVERSITY.md) | Remaining dedicated campuses, references, adaptations and floor plans |
-| [docs/AGWIN.md](docs/AGWIN.md) | Episode 374-based Agwin campus, reference limits, saved-layout compatibility and elevation/floor previews |
-| [docs/WELLSTON.md](docs/WELLSTON.md) | Canon-based Wellston campus, reference sources, layout adaptations and floor-by-floor preview |
-| [docs/SCHOOLS.md](docs/SCHOOLS.md) | Procedural schools, unique world-generation sites, locate commands and floor-plan previews |
-| [docs/COVENANT.md](docs/COVENANT.md) | Covenant: gameplay, God tier, stances, contracts and persistence |
-| `docs/ROLL.md` | probabilités, plages de niveau, hypothèses à valider |
-| `docs/ARCHITECTURE.md` | structure du code, choix techniques, compatibilité, feuille de route |
-| `docs/generated/REPORT.md` | rapport automatique de la dernière génération (avertissements inclus) |
-
-## Arborescence
-```
-tools/build_unodex.py      export de la feuille -> JSON
-tools/input/               l'export de la feuille (unodex-export.txt)
-tools/overrides/           tes corrections manuelles (jamais écrasées)
-src/main/resources/data/unrp/unodex/   JSON générés (rarity, schools, abilities, characters/*)
-src/main/java/com/myriam/unrp/         code du mod
-libs/                      jars des autres mods pour le développement
+```bash
+./gradlew build
+./gradlew runClient
 ```
 
+The mod JAR is written to `build/libs/unrp-0.1.0.jar`. The first build needs network access; later builds can use `--offline` once dependencies are cached.
 
-## Interface en jeu
-Touche **H** : hub à 8 onglets fonctionnels (Pouvoir, Capacités, Entraînement, Style, École, Groupe, Territoire, Duels), notifications, offres, et HUD d'aura. Inventaire complet et état : [docs/INTERFACE.md](docs/INTERFACE.md).
+In game, **H** opens the hub and **R** toggles your power. Open Controls to check your move bindings; other mods may use the same keys. `/unrp menu` opens character selection and `/unrp whoami` shows your current profile.
 
-## Capacités
-Touche **R** : activer son pouvoir ; **X C V B N** : ses capacités. Tout se modifie en JSON : voir [docs/POUVOIRS.md](docs/POUVOIRS.md).
+## Find the right guide
+
+| Task | Guide |
+| --- | --- |
+| Build, dependencies and launch problems | [SETUP.md](docs/SETUP.md) |
+| Locate code, textures and generated files | [Where is what](<docs/where is what.md>) |
+| Add or change an ability | [ABILITY_DEVELOPMENT.md](docs/ABILITY_DEVELOPMENT.md) |
+| Move fields, effects and controls | [POWERS.md](docs/POWERS.md) |
+| Import characters or edit data | [DATA.md](docs/DATA.md) |
+| OC rolls, mastery and training | [ROLL.md](docs/ROLL.md) |
+| Hub, schools, groups and duels | [INTERFACE.md](docs/INTERFACE.md) |
+| Procedural school campuses | [SCHOOLS.md](docs/SCHOOLS.md) |
+| Covenant | [COVENANT.md](docs/COVENANT.md) |
+| Recovery Bed and owner controls | [RECOVERY_BED.md](docs/RECOVERY_BED.md) |
+| Runtime move reference | [fidelity](docs/fidelity/README.md) |
+| Code structure | [ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+
+## Repository layout
+
+- `src/main/java/com/myriam/unrp/`: gameplay, server data, networking and client rendering.
+- `src/main/resources/data/unrp/unodex/`: characters, schools, ability definitions and roll tables.
+- `src/main/resources/assets/unrp/`: models, textures, animations, sounds and language entries.
+- `tools/`: data import and asset generators. Read a generator before using `--force`.
+- `tools/overrides/`: manual data corrections applied after import.
+- `src/test/`: regression tests. Rendering and multiplayer interactions also need in-game checks.
+
+School generation is implemented, with one natural site per campus. Individual school guides document their references and adaptations. Origin ability status varies; check [ORIGIN.md](docs/ORIGIN.md) and the current move definitions rather than old project phases.
+
+## Maintenance checks
+
+```bash
+python tools/check_english.py
+python tools/test_english_import.py
+python tools/test_equipment_assets.py
+```
+
+The asset checks require Pillow. Vanilla texture previews use the Minecraft 1.20.1 client JAR from the Forge cache, or `MINECRAFT_CLIENT_JAR` if supplied. `tools/update_power_reference.py` refreshes the move-reference tables from runtime JSON.

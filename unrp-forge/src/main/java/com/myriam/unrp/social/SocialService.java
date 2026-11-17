@@ -24,15 +24,11 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Tout le côté serveur du hub : entraînement, groupes, école et rangs, duels, territoires, notifications.
- * Le client envoie une action (HubActionPacket), le serveur vérifie tout puis renvoie l'état complet (JSON).
- */
 public final class SocialService {
     public static final int DUEL_RANGE = 14, NEAR_RANGE = 64, XP_PER_POINT = 30;
     private static final long OFFER_TTL = 20L * 60;
     private static final String[] RANKS = {"king", "queen", "jack"};
-    private static final String[] RANK_FR = {"Roi", "Reine", "Valet"};
+    private static final String[] RANK_FR = {"King", "Queen", "Jack"};
     private static final AtomicInteger IDS = new AtomicInteger();
 
     record Offer(String id, String kind, UUID from, UUID to, String text, String stake, long expires) {}
@@ -77,7 +73,6 @@ public final class SocialService {
         return null;
     }
 
-    /** Détenteur d'un rang : le joueur désigné, sinon le personnage de l'Unodex (et son joueur s'il est pris). */
     record Holder(UUID uuid, String name) {}
 
     static Holder holder(MinecraftServer s, String school, String rank) {
@@ -109,7 +104,6 @@ public final class SocialService {
         return rank;
     }
 
-    /** Alliés : même groupe, ou même école. */
     public static boolean allies(MinecraftServer s, UUID a, UUID b) {
         SocialData d = SocialData.get(s);
         SocialData.Group ga = groupOf(d, a);
@@ -118,7 +112,6 @@ public final class SocialService {
         return sa != null && sa.equals(schoolOf(s, b));
     }
 
-    /** GroupManager.sameGroup du modèle : même groupe du hub (ou la même personne). */
     public static boolean sameGroup(MinecraftServer s, UUID a, UUID b) {
         if (a == null || b == null) return false;
         if (a.equals(b)) return true;
@@ -126,7 +119,6 @@ public final class SocialService {
         return g != null && g.members.contains(b.toString());
     }
 
-    /** GroupManager.allied du modèle : même entité ou alliées au sens de Minecraft (équipes). */
     public static boolean allied(net.minecraft.world.entity.Entity a, net.minecraft.world.entity.Entity b) {
         return a != null && b != null && (a == b || a.isAlliedTo(b));
     }
@@ -163,13 +155,10 @@ public final class SocialService {
         }
     }
 
-    // ------------------------------------------------------------------ entraînement
-    /** Plus de points d'entraînement par le combat : comme le modèle, les points de stats viennent des niveaux (voir Training). */
     public static void addXp(ServerPlayer p, int amount) {
         // volontairement vide
     }
 
-    /** Points de stats disponibles : 1 par niveau (comme les points d'aptitude), moins le coût des paliers déjà pris. */
     public static int statPoints(ServerPlayer p) {
         SocialData.Soc soc = SocialData.get(p.server).store.soc(p.getUUID());
         return Math.max(0, com.myriam.unrp.ability.Unlocks.total(p.server, p) - com.myriam.unrp.player.Training.spent(soc.spent));
@@ -179,7 +168,6 @@ public final class SocialService {
         p.displayClientMessage(Component.literal(s), true);
     }
 
-    /** Un palier d'entraînement (delta > 0) ou son retrait (delta < 0), règles exactes du modèle. */
     private static void train(ServerPlayer p, String idx, int delta) {
         int i = parse(idx, -1);
         if (i < 0 || i > 4) return;
@@ -190,12 +178,12 @@ public final class SocialService {
         int pot = PlayerStateService.potentialBase(pr, ch)[i] + soc.bonus[i];
         if (delta > 0) {
             if (soc.spent[i] >= com.myriam.unrp.player.Training.MAX_STEPS) {
-                note(p, "§cEntraînement maximal (+2,0).");
+                note(p, "§cTraining cap reached (+2.0).");
                 return;
             }
             int gain = com.myriam.unrp.player.Training.gain(pot);
             if (gain <= 0) {
-                note(p, "§cCette stat est au plafond de 10,0.");
+                note(p, "§cThis stat has reached the 10.0 cap.");
                 return;
             }
             int cost = com.myriam.unrp.player.Training.cost(soc.spent[i]);
@@ -208,7 +196,7 @@ public final class SocialService {
             soc.spent[i]++;
         } else {
             if (soc.spent[i] <= 0) {
-                note(p, "§cRien à rendre.");
+                note(p, "§cNothing to refund.");
                 return;
             }
             soc.bonus[i] -= com.myriam.unrp.player.Training.refundTenths(soc.partial[i]);
@@ -241,15 +229,15 @@ public final class SocialService {
                 d.setDirty();
             }
             case "group_create" -> groupCreate(p, a, d);
-            case "group_invite" -> invite(p, a, "group", "t'invite dans son groupe", null, touched);
+            case "group_invite" -> invite(p, a, "group", "invites you to their group", null, touched);
             case "group_leave" -> groupLeave(p, d, touched);
             case "group_disband" -> groupDisband(p, d, touched);
             case "group_kick" -> groupKick(p, a, d, touched);
-            case "duel_friendly" -> invite(p, a, "friendly", "te propose un duel amical", null, touched);
+            case "duel_friendly" -> invite(p, a, "friendly", "offers you a friendly duel", null, touched);
             case "duel_formal" -> formalChallenge(p, touched);
             case "duel_yield" -> {
                 Duel du = duelOf(p.getUUID());
-                if (du != null) end(s, du, du.a.equals(p.getUUID()) ? du.b : du.a, "a abandonné");
+                if (du != null) end(s, du, du.a.equals(p.getUUID()) ? du.b : du.a, "forfeited");
             }
             case "offer_accept" -> respond(p, a, true, touched);
             case "offer_decline" -> respond(p, a, false, touched);
@@ -281,15 +269,15 @@ public final class SocialService {
     private static void groupCreate(ServerPlayer p, String raw, SocialData d) {
         String n = raw == null ? "" : raw.trim();
         if (!n.matches("^[\\p{L}0-9 '\\-]{2,24}$")) {
-            msg(p, "Nom invalide (2 à 24 lettres/chiffres).");
+            msg(p, "Invalid name (2–24 letters or numbers).");
             return;
         }
         if (groupOf(d, p.getUUID()) != null) {
-            msg(p, "Tu as déjà un groupe.");
+            msg(p, "You already have a group.");
             return;
         }
         if (d.store.groups.containsKey(n.toLowerCase(Locale.ROOT))) {
-            msg(p, "Un groupe porte déjà ce nom.");
+            msg(p, "A group already uses that name.");
             return;
         }
         SocialData.Group g = new SocialData.Group();
@@ -350,22 +338,22 @@ public final class SocialService {
             return;
         }
         if (profile(s, t.getUUID()) == null) {
-            msg(p, "Cette personne n'a pas encore de personnage.");
+            msg(p, "This player has no character yet.");
             return;
         }
         if ("group".equals(kind)) {
             SocialData.Group g = groupOf(d, p.getUUID());
             if (g == null || !g.owner.equals(p.getUUID().toString())) {
-                msg(p, "Seul le propriétaire du groupe peut inviter.");
+                msg(p, "Only the group owner can invite players.");
                 return;
             }
             if (groupOf(d, t.getUUID()) != null) {
-                msg(p, "Cette personne a déjà un groupe.");
+                msg(p, "That player already has a group.");
                 return;
             }
         } else {
             if (duelOf(p.getUUID()) != null || duelOf(t.getUUID()) != null) {
-                msg(p, "Un duel est déjà en cours.");
+                msg(p, "A duel is already in progress.");
                 return;
             }
         }
@@ -373,8 +361,8 @@ public final class SocialService {
         pushOffer(new Offer("o" + IDS.incrementAndGet(), kind, p.getUUID(), t.getUUID(), text, stake,
                 s.overworld().getGameTime() + OFFER_TTL));
         touched.add(t.getUUID());
-        note(s, t.getUUID(), text + " (hub > Groupe/Duels)");
-        msg(p, "Offre envoyée à " + name(s, t.getUUID()) + ".");
+        note(s, t.getUUID(), text + " (hub > Group/Duels)");
+        msg(p, "Offer sent to " + name(s, t.getUUID()) + ".");
     }
 
     private static void respond(ServerPlayer p, String id, boolean accept, Set<UUID> touched) {
@@ -385,11 +373,11 @@ public final class SocialService {
         touched.add(o.from);
         ServerPlayer from = s.getPlayerList().getPlayer(o.from);
         if (!accept) {
-            note(s, o.from, name(s, p.getUUID()) + " a refusé.");
+            note(s, o.from, name(s, p.getUUID()) + " declined.");
             return;
         }
         if (from == null) {
-            msg(p, "Cette personne n'est plus là.");
+            msg(p, "That player is no longer here.");
             return;
         }
         SocialData d = SocialData.get(s);
@@ -397,7 +385,7 @@ public final class SocialService {
             case "group" -> {
                 SocialData.Group g = groupOf(d, o.from);
                 if (g == null || groupOf(d, p.getUUID()) != null) {
-                    msg(p, "Plus possible de rejoindre ce groupe.");
+                    msg(p, "This group can no longer be joined.");
                     return;
                 }
                 g.members.add(p.getUUID().toString());
@@ -407,11 +395,11 @@ public final class SocialService {
             }
             default -> {
                 if (duelOf(p.getUUID()) != null || duelOf(o.from) != null) {
-                    msg(p, "Un duel est déjà en cours.");
+                    msg(p, "A duel is already in progress.");
                     return;
                 }
                 if (from.level() != p.level() || from.distanceTo(p) > DUEL_RANGE) {
-                    msg(p, "Trop loin pour commencer.");
+                    msg(p, "Too far away to begin.");
                     return;
                 }
                 Duel du = new Duel();
@@ -421,9 +409,9 @@ public final class SocialService {
                 du.stake = o.stake;
                 DUELS.add(du);
                 String intro = switch (o.kind) {
-                    case "friendly" -> "Duel amical : il s'arrête à 2 cœurs, rien n'est en jeu.";
-                    case "formal" -> "Combat pour la couronne : il s'arrête à 2 cœurs.";
-                    default -> "Guerre de territoire : il s'arrête à 2 cœurs.";
+                    case "friendly" -> "Friendly duel: ends at two hearts, with nothing at stake.";
+                    case "formal" -> "Crown duel: ends at two hearts.";
+                    default -> "Territory war: ends at two hearts.";
                 };
                 for (UUID u : List.of(du.a, du.b)) note(s, u, intro);
                 touched.add(du.a);
@@ -433,17 +421,17 @@ public final class SocialService {
     }
 
     // ------------------------------------------------------------------ duels
-    /** Fin de duel : le perdant reste à 2 cœurs minimum, le vainqueur gagne l'enjeu éventuel. */
+
     static void end(MinecraftServer s, Duel du, UUID winner, String why) {
         DUELS.remove(du);
         UUID loser = du.a.equals(winner) ? du.b : du.a;
         String w = name(s, winner), l = name(s, loser);
         note(s, winner, "Victoire contre " + l + " (" + why + ").");
-        note(s, loser, "Défaite contre " + w + " (" + why + ").");
+        note(s, loser, "Defeated by " + w + " (" + why + ").");
         if ("formal".equals(du.kind) && du.stake != null) {
-            // du.stake = id de l'école dont la couronne est en jeu ; le challenger est du.a
+
             if (winner.equals(du.a)) crown(s, du.stake, winner);
-            else note(s, winner, "Tu gardes la couronne.");
+            else note(s, winner, "You keep the crown.");
         } else if ("turf".equals(du.kind) && du.stake != null) {
             SocialData d = SocialData.get(s);
             for (SocialData.Turf t : d.store.turfs) {
@@ -452,8 +440,8 @@ public final class SocialService {
                     if (winner.equals(du.a) && ws != null) {
                         t.school = ws;
                         d.setDirty();
-                        note(s, winner, "Le territoire « " + t.name + " » est à toi.");
-                        note(s, loser, "Le territoire « " + t.name + " » est perdu.");
+                        note(s, winner, "The territory " + t.name + " is yours.");
+                        note(s, loser, "The territory " + t.name + " is lost.");
                     }
                 }
             }
@@ -464,7 +452,6 @@ public final class SocialService {
         }
     }
 
-    /** Le challenger prend le rang de Roi ; l'ancien Roi devient Reine (si c'est un joueur). */
     private static void crown(MinecraftServer s, String school, UUID challenger) {
         SocialData d = SocialData.get(s);
         Holder oldKing = holder(s, school, "king");
@@ -474,30 +461,29 @@ public final class SocialService {
         if (oldKing.uuid != null && !oldKing.uuid.equals(challenger)) over.put("queen", oldKing.uuid.toString());
         d.setDirty();
         Models.School sc = UnodexData.get().schools.get(school);
-        note(s, challenger, "Tu es le nouveau Roi de " + (sc != null ? sc.name : school) + ".");
-        if (oldKing.uuid != null) note(s, oldKing.uuid, "Tu as perdu la couronne.");
+        note(s, challenger, "You are the new King of " + (sc != null ? sc.name : school) + ".");
+        if (oldKing.uuid != null) note(s, oldKing.uuid, "You lost the crown.");
     }
 
     private static void formalChallenge(ServerPlayer p, Set<UUID> touched) {
         MinecraftServer s = p.server;
         String school = schoolOf(s, p.getUUID());
         if (school == null) {
-            msg(p, "Il faut être inscrit dans une école.");
+            msg(p, "You must be enrolled in a school.");
             return;
         }
         Holder king = holder(s, school, "king");
         if (king.uuid == null) {
-            msg(p, "Cette école n'a pas de Roi qui puisse répondre.");
+            msg(p, "This school has no King available to answer.");
             return;
         }
         if (king.uuid.equals(p.getUUID())) {
-            msg(p, "Tu es déjà le Roi.");
+            msg(p, "You are already the King.");
             return;
         }
-        invite(p, king.uuid.toString(), "formal", "te défie pour la couronne", school, touched);
+        invite(p, king.uuid.toString(), "formal", "challenges you for the crown", school, touched);
     }
 
-    // ------------------------------------------------------------------ école et rangs
     private static void promote(ServerPlayer p, String target, String rank, Set<UUID> touched) {
         MinecraftServer s = p.server;
         String school = schoolOf(s, p.getUUID());
@@ -510,7 +496,7 @@ public final class SocialService {
             return;
         }
         if (!school.equals(schoolOf(s, t)) || "king".equals(rankOf(s, t, school))) {
-            msg(p, "Cette personne doit être élève de ton école.");
+            msg(p, "That player must attend your school.");
             return;
         }
         SocialData d = SocialData.get(s);
@@ -519,7 +505,7 @@ public final class SocialService {
         over.put(rank, t.toString());
         d.setDirty();
         touched.add(t);
-        note(s, t, "Tu deviens " + rankFr(rank) + ".");
+        note(s, t, "You become " + rankFr(rank) + ".");
     }
 
     private static void revoke(ServerPlayer p, String rank, Set<UUID> touched) {
@@ -530,13 +516,13 @@ public final class SocialService {
         SocialData d = SocialData.get(s);
         Map<String, String> over = d.store.ranks.get(school);
         if (over == null || over.get(rank) == null) {
-            msg(p, "Ce siège n'a pas été attribué par un Roi.");
+            msg(p, "No King has assigned that seat.");
             return;
         }
         UUID old = UUID.fromString(over.remove(rank));
         d.setDirty();
         touched.add(old);
-        note(s, old, "Ton siège de " + rankFr(rank) + " t'a été retiré.");
+        note(s, old, "Your seat as " + rankFr(rank) + " was revoked.");
     }
 
     // ------------------------------------------------------------------ territoires
@@ -544,21 +530,21 @@ public final class SocialService {
         MinecraftServer s = p.server;
         String school = schoolOf(s, p.getUUID());
         if (school == null || !"king".equals(rankOf(s, p.getUUID(), school))) {
-            msg(p, "Seul un Roi peut revendiquer un territoire.");
+            msg(p, "Only a King can claim territory.");
             return;
         }
         String n = raw == null ? "" : raw.trim();
         if (!n.matches("^[\\p{L}0-9 '\\-]{2,24}$")) {
-            msg(p, "Nom de territoire invalide.");
+            msg(p, "Invalid territory name.");
             return;
         }
         for (SocialData.Turf t : d.store.turfs) {
             if (t.name.equalsIgnoreCase(n)) {
-                msg(p, "Ce nom de territoire est pris.");
+                msg(p, "That territory name is taken.");
                 return;
             }
             if (t.dim.equals(dimOf(p)) && Math.hypot(t.x - p.getX(), t.z - p.getZ()) < t.r * 2) {
-                msg(p, "Trop près d'un autre territoire.");
+                msg(p, "Too close to another territory.");
                 return;
             }
         }
@@ -589,31 +575,30 @@ public final class SocialService {
         SocialData d = SocialData.get(s);
         String school = schoolOf(s, p.getUUID());
         if (school == null || !"king".equals(rankOf(s, p.getUUID(), school))) {
-            msg(p, "Seul un Roi peut déclarer une guerre.");
+            msg(p, "Only a King can declare war.");
             return;
         }
         SocialData.Turf t = standingOn(p, d);
         if (t == null || !t.id.equals(turfId)) {
-            msg(p, "Tiens-toi sur le territoire que tu veux disputer.");
+            msg(p, "Stand in the territory you want to contest.");
             return;
         }
         if (school.equals(t.school)) {
-            msg(p, "Ton école le tient déjà.");
+            msg(p, "Your school already holds it.");
             return;
         }
         for (Duel du : DUELS) if ("turf".equals(du.kind) && t.id.equals(du.stake)) {
-            msg(p, "Une guerre est déjà en cours ici.");
+            msg(p, "A war is already underway here.");
             return;
         }
         Holder defender = holder(s, t.school, "king");
         if (defender.uuid == null) {
-            msg(p, "Cette école n'a pas de Roi qui puisse répondre.");
+            msg(p, "This school has no King available to answer.");
             return;
         }
-        invite(p, defender.uuid.toString(), "turf", "déclare la guerre pour « " + t.name + " »", t.id, touched);
+        invite(p, defender.uuid.toString(), "turf", "declares war for " + t.name + " »", t.id, touched);
     }
 
-    // ------------------------------------------------------------------ état envoyé au client
     public static void sendState(ServerPlayer p) {
         Net.CHANNEL.send(PacketDistributor.PLAYER.with(() -> p), new HubStatePacket(build(p).toString()));
     }
@@ -741,7 +726,6 @@ public final class SocialService {
         }
         o.add("near", near);
 
-        // école : rangs, élèves, classement
         if (msc != null) {
             JsonObject so = new JsonObject();
             so.addProperty("id", msc.id);
@@ -752,7 +736,7 @@ public final class SocialService {
                 JsonObject ro = new JsonObject();
                 ro.addProperty("rank", RANKS[i]);
                 ro.addProperty("label", RANK_FR[i]);
-                ro.addProperty("holder", h.name == null ? "Trône vide" : h.name);
+                ro.addProperty("holder", h.name == null ? "Empty throne" : h.name);
                 ro.addProperty("id", h.uuid == null ? "" : h.uuid.toString());
                 ro.addProperty("online", h.uuid != null && s.getPlayerList().getPlayer(h.uuid) != null);
                 Map<String, String> over = d.store.ranks.get(msc.id);

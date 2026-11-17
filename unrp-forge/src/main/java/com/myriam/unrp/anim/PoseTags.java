@@ -2,7 +2,6 @@ package com.myriam.unrp.anim;
 
 import java.util.Set;
 
-/** Tags qui allument les poses tenues du modèle (power_animations.js) : le serveur les transmet aux clients. */
 public final class PoseTags {
     private PoseTags() {}
 

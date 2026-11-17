@@ -237,7 +237,7 @@ public class FxParticle extends TextureSheetParticle {
    }
 
    public void tick() {
-      int held = 0; // ClientSgHold (Singularity) pas porté
+      int held = 0;
       int was = this.mode;
       this.mode = held;
       if (held == 1) {

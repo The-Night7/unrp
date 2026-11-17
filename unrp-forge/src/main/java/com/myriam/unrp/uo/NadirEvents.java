@@ -2,7 +2,6 @@ package com.myriam.unrp.uo;
 
 import com.myriam.unrp.deal.Spectacle;
 
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -74,7 +73,6 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Vector3f;
 
-/** NadirEvents du modèle, réduit aux fonctions utilisées. Cratères de terrain (creusés puis rebouchés), partagés par Black Lash, Daystar et Nadir. */
 @EventBusSubscriber(
    modid = "unrp",
    bus = Bus.FORGE
@@ -82,7 +80,6 @@ import org.joml.Vector3f;
 public final class NadirEvents {
    private NadirEvents() {}
 
-   /** Rebouchage des cratères (part de onServerTick du modèle). */
    @SubscribeEvent
    public static void onServerTick(TickEvent.ServerTickEvent event) {
       if (event.phase == TickEvent.Phase.END) {
@@ -93,7 +90,6 @@ public final class NadirEvents {
       }
    }
 
-   /** Cratères laissés ouverts à l'arrêt : rebouchés au démarrage (onServerStarted du modèle). */
    @SubscribeEvent
    public static void onServerStarted(ServerStartedEvent event) {
       MinecraftServer server = event.getServer();
@@ -128,7 +124,6 @@ public final class NadirEvents {
    public static final Map<String, long[]> REFILLS = new HashMap();
 
    public static long books;
-
 
    public static int crater(ServerLevel level, Vec3 at, double radius, ServerPlayer owner) {
       int dug = 0;

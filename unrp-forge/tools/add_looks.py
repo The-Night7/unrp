@@ -1,6 +1,4 @@
-"""Ajoute à ability_powers.json l'apparence (couleur, particule) de chaque pouvoir d'après sa description du webtoon,
-et rend les attaques (strike/beam/blast/pulse) chargeables. Idempotent : ne touche pas à un "look" déjà présent.
-Usage : python3 tools/add_looks.py"""
+"""Add missing power looks and chargeable attacks. Existing look definitions are retained."""
 import json, re, pathlib
 
 D = pathlib.Path(__file__).resolve().parent.parent / "src/main/resources/data/unrp/unodex"
@@ -12,7 +10,7 @@ info = {a["id"]: a for a in ab}
 COLORS = {"red": "#E02424", "crimson": "#B3121F", "blue": "#3D8BFF", "light blue": "#8FD8FF", "cyan": "#33E0E0", "green": "#4CD964",
           "yellow": "#FFE45C", "golden": "#FFC83D", "gold": "#FFC83D", "orange": "#FF8A1F", "purple": "#A35CFF", "violet": "#A35CFF",
           "pink": "#FF7AC8", "white": "#F2F6FF", "black": "#2A2233", "silver": "#C9D2DC", "grey": "#9AA0A6", "gray": "#9AA0A6", "brown": "#8B5A2B"}
-KEYS = [  # (regex, couleur, particule, zigzag)
+KEYS = [
     (r"lightning|electric|thunder|shock", "#FFE45C", "electric_spark", True),
     (r"fire|flame|burn|heat|incinerat|explo", "#FF6A1F", "flame", False),
     (r"\bice\b|cold|frost|freez|snow", "#9FE8FF", "snowflake", False),
@@ -66,4 +64,4 @@ for pid, p in pw["powers"].items():
             m["input"] = "charge"
             m["charge"] = 40 if fx.get("kind") == "beam" else 30
 (D / "ability_powers.json").write_text(json.dumps(pw, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-print(changed, "looks ajoutés;", sum(1 for p in pw["powers"].values() for m in p["moves"] if m.get("input") == "charge"), "mouvements chargeables")
+print(changed, "looks added;", sum(1 for p in pw["powers"].values() for m in p["moves"] if m.get("input") == "charge"), "mouvements chargeables")

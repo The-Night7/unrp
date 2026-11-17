@@ -1,97 +1,46 @@
-# Installation et build (Arch, Fish)
+# Build and run
 
-Prérequis : Java 17 par défaut et Gradle 8.6 (via le wrapper). Ton Gradle système (9.x) est trop récent
-pour ForgeGradle 6, d'où le wrapper.
-
-## 1. Java 17
-```fish
-sudo archlinux-java set java-17-openjdk
-java -version
-```
-
-## 2. Wrapper Gradle (une seule fois)
-```fish
-mkdir -p /tmp/wrap; and cd /tmp/wrap; and touch settings.gradle; and gradle wrapper --gradle-version 8.6
-cp -r /tmp/wrap/gradlew /tmp/wrap/gradlew.bat /tmp/wrap/gradle ~/GitHub/unrp/unrp-forge/
-cd ~/GitHub/unrp/unrp-forge; and chmod +x gradlew
-```
-(adapte le chemin si tu as dézippé ailleurs)
-
-## 3. Compiler et tester
-```fish
-./gradlew build
-```
-Le premier build télécharge Minecraft et Forge (plusieurs minutes). `build` lance aussi les tests
-(tirage de rareté). Le jar est dans `build/libs/unrp-0.1.0.jar`.
-
-## 4. Lancer le jeu de test
-```fish
-./gradlew runClient
-```
-**Le menu de candidature s'ouvre tout seul** quand tu entres dans un monde sans personnage.
-Si tu le fermes (Échap), tu le rouvres avec `/unrp menu`. Pour recommencer : `/unrp reset @s`.
-
-Commandes de vérification (monde avec commandes activées) :
-```
-/unrp menu                 rouvre le menu de candidature
-/unrp whoami               quel personnage tu joues
-/unrp reset @s             efface ton personnage (admin)
-/unrp rolltest 100000      compare le tirage aux probabilités attendues
-/unrp roll                 un tirage pour toi
-/unrp rollability @s       retire une capacité à un OC (admin)
-/unrp unlock @s all        débloque tous les rangs de capacités (admin) ; reset pour tout reverrouiller
-/unrp school list
-/unrp school info wellston
-/unrp character list rp
-/unrp character info telemachus
-/unrp character claim telemachus @s
-/unrp character list rp    (telemachus apparaît avec une étoile = pris)
-```
-Après avoir modifié un JSON dans `src/main/resources/...`, relance le jeu (ou fais `/reload` si tu
-utilises un datapack qui remplace le fichier).
-
-## 5. Les autres mods (dossier `libs/`)
-**Palladium est obligatoire** (vol et saut des pouvoirs, comme dans le modèle). Pour le développement, `libs/` doit contenir :
-`palladium-4.5.10+1.20.1-forge.jar`, `architectury-9.2.14-forge.jar`, et les deux jars que Palladium embarque
-(`palladiumcore-forge-1.0.1+1.20.1-forge.jar`, `player-animation-lib-forge-1.0.2-rc1+1.20.jar`, à extraire de son
-`META-INF/jars/`). En jeu, il suffit de mettre Palladium et Architectury dans `mods/`.
-
-Pas nécessaire pour la phase 1. Dès la phase 2/4, dépose dans `libs/` les jars Forge 1.20.1 utiles au développement :
-
-| Jar | Rôle |
-|---|---|
-| `palladium-4.5.101.20.1-forge.jar` | moteur de pouvoirs |
-| **`palladiumcore-...-forge.jar`** | **manquant dans ta liste** : Palladium le déclare obligatoire |
-| `geckolib-forge-1.20.1-4.8.4.jar` | animations |
-| `architectury-9.2.14-forge.jar`, `rhino-forge-2001.2.3-build.10.jar`, `kubejs-forge-2001.6.5-build.26.jar` | dépendances de KubeJS/Palladium |
-| `Pehkui-3.8.21.20.1-forge.jar` | taille des personnages (colonne « Taille » de l'Unodex) |
-
-Les jars sont ajoutés automatiquement : il faut juste qu'ils s'appellent `nom-version.jar`
-(le nom d'origine du téléchargement convient). Ils ne sont pas versionnés dans git.
-
-Les autres jars que tu as joints (Ragdollified x4, Zarith, VisualHealth, BetterBloodOverlay,
-GeckoLib Animation Optimizer) servent à ton **serveur / instance de jeu**, pas à compiler :
-mets-les dans le dossier `mods/` de l'instance avec le jar `unrp`. Voir `docs/ARCHITECTURE.md`, section compatibilité.
-
-## Problèmes courants
-- `No Java environment is set as default` : refaire l'étape 1.
-- `Could not create an instance of type ...LoomProblemReporter` : tu es sur un Gradle 9, utilise `./gradlew`.
-- Erreur de compilation : copie la sortie complète, surtout les premières lignes `error:`.
-
-## Forge Maven metadata timeout
-
-If configuration fails while resolving `log4j-api:2.11.+` or `modlauncher:10.0.+` with `Read timed out`, the Forge Maven metadata request has failed before compilation. The Gradle build rewrites those two transitive ranges to fixed versions: Log4j API 2.19.0 (Minecraft 1.20.1's API) and ModLauncher 10.0.9. This does not globally force an older Log4j version or disable network access.
-
-When the dependencies and client assets have already been downloaded, use the local cache. From `unrp-forge/`, in fish:
-
-```fish
-./gradlew build --offline; and ./gradlew runClient --offline
-```
-
-In bash:
+The Forge project targets Minecraft 1.20.1, Java 17 and Gradle 8.6. Python 3 is required by the English-language check in the build. Use `./gradlew` from `unrp-forge/`; a newer system Gradle is not a replacement for the wrapper.
 
 ```bash
-./gradlew build --offline && ./gradlew runClient --offline
+java -version
+./gradlew build
+./gradlew runClient
 ```
 
-Offline mode cannot fetch missing dependencies or game assets. A first setup still needs working access to the configured repositories. Do not delete the Gradle cache or use `--refresh-dependencies` to work around a repository timeout; those actions require more downloads. The MixinGradle APT notice and Gradle deprecation messages are separate from this metadata failure.
+On Arch, select the installed Java 17 runtime with `sudo archlinux-java set java-17-openjdk` if necessary. The first build downloads Minecraft and Forge. `build` also runs the tests and language audit, then writes the JAR to `build/libs/`. If Python is named differently on your system, pass `-PpythonExecutable=python` (or its full path).
+
+## Development dependencies
+
+Place these Forge 1.20.1 dependencies in `libs/`, using the versions expected by `build.gradle`:
+
+- Palladium 4.5.10;
+- Architectury 9.2.14;
+- Palladium Core 1.0.1 and Player Animation Library 1.0.2-rc1, embedded in Palladium's `META-INF/jars/`;
+- GeckoLib where required by the build.
+
+Check [libs/README.md](../libs/README.md) and the actual dependency declarations before replacing a JAR. Library binaries are not committed. A normal player installation uses the runtime mods in `mods/`; the development classpath additionally needs the embedded libraries.
+
+## Test a profile
+
+Enter a world with commands enabled. Character selection opens for players without a profile. Useful commands:
+
+```mcfunction
+/unrp menu
+/unrp whoami
+/unrp character list rp
+/unrp character info myriam
+/unrp character claim myriam @s
+/unrp unlock @s all
+/unrp school list
+```
+
+`/unrp reset @s` removes the current profile. Use it deliberately; reopening the menu does not require a reset.
+
+Restart after replacing the mod JAR or changing Java. Data-pack JSON can be reloaded with `/reload`; changing development resources may also require restarting the test client.
+
+## Build problems
+
+If Forge Maven times out while listing dynamic dependency versions, retry once or use `./gradlew build --offline` when the cache is complete. The build already pins the affected Forge helper ranges to Minecraft's Log4j API and ModLauncher versions. Do not globally downgrade unrelated dependencies.
+
+A missing wrapper JAR is different from a dependency timeout. Restore the wrapper files from the project before debugging Forge. For a compiler failure, read the first actual error in the log rather than the final `BUILD FAILED` summary.

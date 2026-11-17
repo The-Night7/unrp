@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
-/** Tags lus par les conditions des calques de rendu du modèle (unrp_render_layers.json) : envoyés au client avec l'état des pouvoirs. */
 public final class RenderLayerTags {
     private RenderLayerTags() {}
 

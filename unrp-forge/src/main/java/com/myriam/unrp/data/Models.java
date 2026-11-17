@@ -3,10 +3,6 @@ package com.myriam.unrp.data;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Modèles des fichiers JSON générés. Les noms de champs correspondent aux clés JSON en snake_case
- * (ex. ability_id -> abilityId). Les listes/objets absents du JSON restent à leur valeur par défaut.
- */
 public final class Models {
     private Models() {}
 
@@ -56,7 +52,6 @@ public final class Models {
         public List<Snapshot> snapshots = new ArrayList<>();
     }
 
-    /** Personnage à rang dans une école (roi, reine, valet, soigneur). */
     public static class Leader {
         public String characterId;
         /** king | queen | jack | healer */

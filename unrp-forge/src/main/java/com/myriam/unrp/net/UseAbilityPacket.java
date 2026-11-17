@@ -7,10 +7,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/**
- * Client -> serveur : une entrée de pouvoir.
- * 0 = activer/désactiver ; 10+i = appui sur le mouvement i ; 20+i = relâchement.
- */
 public class UseAbilityPacket {
     public final int action;
 

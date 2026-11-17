@@ -36,13 +36,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid = "unrp")
 public class BarrierEvents {
-   /** Niveau 1 à 10 (power_level / 10 du modèle). */
+
    static float levelOf(ServerPlayer player) {
       double l = com.myriam.unrp.data.ClaimData.get(player.server).profileOf(player.getUUID()).map(pr -> pr.level).orElse(1.0);
       return (float) Math.max(1.0, Math.min(10.0, l));
    }
 
-   /** Statistique en dixièmes (tags « sp_<stat>.N » du modèle) : nos stats sont Puissance, Défense, Récupération, Ruse, Vitesse. */
    private static int statTenths(ServerPlayer player, String key) {
       int[] st = com.myriam.unrp.ability.AbilityEngine.currentStats(player);
       if (st == null) return 0;
@@ -111,7 +110,7 @@ public class BarrierEvents {
                         b.dissipate();
                         addAura(player, 15);
 
-                        player.displayClientMessage(Component.literal("§b◈ Barrière rappelée"), true);
+                        player.displayClientMessage(Component.literal("§b◈ Barrier recalled"), true);
                         return;
                      }
                   }
@@ -124,7 +123,7 @@ public class BarrierEvents {
                   if (now < selfLock) {
                      addAura(player, 15);
                      long secs = Math.max(1L, (selfLock - now + 19L) / 20L);
-                     player.displayClientMessage(Component.literal("§cTa barrière se régénère (" + secs + " s)"), true);
+                     player.displayClientMessage(Component.literal("§cYour barrier is regenerating (" + secs + " s)"), true);
                      return;
                   }
 
@@ -183,7 +182,7 @@ public class BarrierEvents {
                      long l1 = player.getPersistentData().getLong("unrp_barrier_ext_lock_1");
                      long soonest = Math.min(lock1 ? l0 : Long.MAX_VALUE, lock2 ? l1 : Long.MAX_VALUE);
                      long secs = soonest == Long.MAX_VALUE ? 30L : Math.max(1L, (soonest - now + 19L) / 20L);
-                     player.displayClientMessage(Component.literal("§cBarrières externes en régénération (" + secs + " s)"), true);
+                     player.displayClientMessage(Component.literal("§cExternal barriers are regenerating (" + secs + " s)"), true);
                      return;
                   }
 
@@ -206,7 +205,7 @@ public class BarrierEvents {
                level.addFreshEntity(barrier);
                com.myriam.unrp.ability.Poses.play(player, external ? "br_point" : "br_ward");
                BarrierPass.deploy(player, barrier, spawnPos, external ? 64 : 0);
-               player.displayClientMessage(Component.literal(external ? "§b◈ Barrière externe dressée" : "§b◈ Barrière dressée"), true);
+               player.displayClientMessage(Component.literal(external ? "§b◈ External barrier raised" : "§b◈ Barrier raised"), true);
             }
 
             if (player.getTags().contains("unrp.barrier_growth_trigger")) {
@@ -214,7 +213,7 @@ public class BarrierEvents {
                boolean shrink = player.isShiftKeyDown();
                List<BarrierEntity> owned = ownedBarriers(player, 64.0D);
                if (owned.isEmpty()) {
-                  player.displayClientMessage(Component.literal("§cAucune barrière active."), true);
+                  player.displayClientMessage(Component.literal("§cNo active barriers."), true);
                } else {
                   for(BarrierEntity b : owned) {
                      float before = b.getSize();
@@ -246,7 +245,7 @@ public class BarrierEvents {
 
                   com.myriam.unrp.ability.Poses.play(player, shrink ? "br_shrink" : "br_grow");
                   BarrierPass.grow(player, shrink);
-                  player.displayClientMessage(Component.literal(shrink ? "§b▼ Les barrières se contractent et écrasent ceux qui sont dedans" : "§b▲ Les barrières s'agrandissent"), true);
+                  player.displayClientMessage(Component.literal(shrink ? "§b▼ The barriers contract and crush their occupants" : "§b▲ The barriers expand"), true);
                }
             }
 
@@ -266,7 +265,7 @@ public class BarrierEvents {
                player.getPersistentData().putInt("unrp_ram_ticks", 10);
                com.myriam.unrp.ability.Poses.play(player, "br_ram");
                BarrierPass.ram(player, shield);
-               player.displayClientMessage(Component.literal("§b❈ Bélier de barrière !"), true);
+               player.displayClientMessage(Component.literal("§b❈ Barrier Ram!"), true);
             }
 
             if (player.getPersistentData().getInt("unrp_ram_ticks") > 0) {
@@ -320,7 +319,7 @@ public class BarrierEvents {
                         b.dissipate();
                      }
 
-                     player.displayClientMessage(Component.literal("§7Tes barrières se dissipent..."), true);
+                     player.displayClientMessage(Component.literal("§7Your barriers dissipate..."), true);
                   }
                }
             }

@@ -29,12 +29,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-/**
- * AgentEntity du modèle : PNJ humanoïde hostile à quatre apparences (0 agent, 1 meneur, 2 Spectre, 3 Autorité).
- * Le meneur (1) s'embrase à mi-vie (dégâts 15, vitesse 0,36), fait un anneau de feu au contact et fonce de loin.
- * Les agents chassent d'eux-mêmes les joueurs de niveau 5 ou plus ; les officiers d'Autorité et les chasseurs
- * (réputation) chassent leur cible quoi qu'il arrive.
- */
 public class Agent extends Monster {
     public static final String CAMP_TAG = "unrp.ember_camp";
     public static final String CAMP_HOME = "unrp.camp_home";
@@ -98,7 +92,6 @@ public class Agent extends Monster {
                 e -> e instanceof Agent other && (other.getVariant() == 2) != (getVariant() == 2)));
     }
 
-    /** Niveau de pouvoir au sens du modèle (power_level : notre niveau x 10). */
     static int powerLevel(ServerPlayer p) {
         return (int) Math.round(ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level * 10).orElse(0.0));
     }

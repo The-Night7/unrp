@@ -1,6 +1,5 @@
 package com.myriam.unrp.client;
 
-/** Copie côté client de l'état reçu du serveur (sert uniquement à l'affichage). */
 public final class ClientData {
     public static String power = "";
     public static int aura = 0;

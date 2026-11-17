@@ -18,7 +18,7 @@ public final class BarrierReflect {
    public static final double REACH = 3.0D;
    public static final double SLACK = 1.0D;
    public static final String SANCTUARY = "unrp.sanctuary";
-   public static final String TOLD = "§bLa barrière te renvoie ton coup.";
+   public static final String TOLD = "§bThe barrier reflects your attack.";
    private static boolean turning;
 
    private BarrierReflect() {
@@ -123,7 +123,7 @@ public final class BarrierReflect {
                   BarrierPass.reflect(b, striker);
                   if (striker instanceof ServerPlayer) {
                      ServerPlayer told = (ServerPlayer)striker;
-                     told.displayClientMessage(Component.literal("§bLa barrière te renvoie ton coup."), true);
+                     told.displayClientMessage(Component.literal("§bThe barrier reflects your attack."), true);
                   }
                }
             } finally {

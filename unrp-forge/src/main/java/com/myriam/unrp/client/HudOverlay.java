@@ -9,10 +9,6 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
 import java.util.Locale;
 
-/**
- * HUD stylisé : carte du personnage (accent de rareté, aura segmentée, halo pulsant quand le pouvoir est actif)
- * et barre de mouvements (cadres lumineux, touche, initiale, coût, recharge qui se vide).
- */
 public final class HudOverlay implements IGuiOverlay {
     public static final HudOverlay INSTANCE = new HudOverlay();
     private static final int CW = 166;
@@ -34,7 +30,6 @@ public final class HudOverlay implements IGuiOverlay {
         return (r << 16) | (g << 8) | b;
     }
 
-    /** Cadre de 1 px, coins coupés. */
     private static void frame(GuiGraphics g, int x, int y, int w, int h, int color) {
         g.fill(x + 1, y, x + w - 1, y + 1, color);
         g.fill(x + 1, y + h - 1, x + w - 1, y + h, color);
@@ -42,7 +37,6 @@ public final class HudOverlay implements IGuiOverlay {
         g.fill(x + w - 1, y + 1, x + w, y + h - 1, color);
     }
 
-    /** Panneau du style de l'interface (voir UiSkin). */
     private static void panel(GuiGraphics g, int x, int y, int w, int h, int border) {
         UiSkin.panel(g, x, y, w, h, border);
     }
@@ -59,20 +53,16 @@ public final class HudOverlay implements IGuiOverlay {
         if (s.hasAbility) moveBar(g, s, mc, partialTick, screenW, screenH, aura, pulse);
     }
 
-    // ------------------------------------------------------------------ panneau d'état (comme le modèle)
-    /** Taille du panneau, en pixels d'interface avant l'échelle choisie dans l'onglet Style. */
     public static final int PW = 200, PH = 80;
-    /** valeurs "fantômes" : la partie perdue s'efface lentement (traînée sombre derrière la barre) */
+
     private static float ghostHp = -1, ghostAura = -1;
 
-    /** Couleurs du panneau (même esprit que le modèle : noir violacé, rouge, dégradé violet -> cyan, or). */
     private static final int WINDOW = 0xEE07050B, TRACK = 0xFF221D2C, EDGE_OUT = 0xFF000000;
     private static final int HP_FILL = 0xB82626, HP_GHOST = 0xFF5A1A1B, ABS_FILL = 0xF0C846;
     private static final int AURA_FROM = 0x9646DC, AURA_TO = 0x5AC8F0, AURA_GHOST = 0xFF264250;
     private static final int FOOD_FILL = 0xD69628, ARMOR_FILL = 0xA5A9B4;
     private static final int HEAD = 0xFFE8D9A8, SUB = 0xFFA8A4B8;
 
-    /** Rectangle du panneau d'état à l'écran {x, y, largeur, hauteur}, ou null s'il n'est pas affiché. */
     public static int[] cardRect(int sw, int sh) {
         if (!ClientState.get().hasProfile || !UnrpClientConfig.HUD_VISIBLE.get()) return null;
         float sc = UnrpClientConfig.SCALE_VALUES[UnrpClientConfig.HUD_SCALE.get()];
@@ -83,17 +73,12 @@ public final class HudOverlay implements IGuiOverlay {
         return new int[] {px, py, pw, ph};
     }
 
-    /** Vrai quand notre panneau remplace les cœurs, la faim et l'armure de Minecraft. */
     public static boolean replacesVanilla() {
         Minecraft mc = Minecraft.getInstance();
         return ClientState.get().hasProfile && UnrpClientConfig.HUD_VISIBLE.get() && mc.player != null
                 && mc.gameMode != null && mc.gameMode.canHurtPlayer();
     }
 
-    /**
-     * Panneau d'état en haut à gauche : portrait 3D qui tourne, nom, rareté et niveau, barres de vie, d'aura,
-     * de faim et d'armure (avec traînée quand la valeur baisse). Remplace les cœurs / la faim / l'armure vanilla.
-     */
     private void card(GuiGraphics g, PlayerStatePacket s, Minecraft mc, int sw, int sh, int aura, float pulse) {
         float sc = UnrpClientConfig.SCALE_VALUES[UnrpClientConfig.HUD_SCALE.get()];
         int pw = Math.round(PW * sc), ph = Math.round(PH * sc), margin = 6;
@@ -111,7 +96,7 @@ public final class HudOverlay implements IGuiOverlay {
         // fond et cadres
         box(g, 0, 0, 62, PH, edge);
         box(g, 65, 0, PW - 65, PH, edge);
-        // portrait : modèle 3D du joueur qui tourne lentement
+
         int sx0 = px + Math.round(3 * sc), sy0 = py + Math.round(3 * sc);
         int sx1 = px + Math.round(59 * sc), sy1 = py + Math.round((PH - 3) * sc);
         g.fillGradient(3, 3, 59, PH - 3, 0xFF1A1426, 0xFF07050B);
@@ -119,7 +104,7 @@ public final class HudOverlay implements IGuiOverlay {
         g.enableScissor(sx0, sy0, sx1, sy1);
         float spin = (System.currentTimeMillis() % 8000L) / 8000f * (float) (Math.PI * 2);
         org.joml.Quaternionf pose = new org.joml.Quaternionf().rotateZ((float) Math.PI).rotateY(spin);
-        // le joueur est tourné face à la caméra le temps du rendu, puis remis comme avant
+
         float bodyRot = pl.yBodyRot, yRot = pl.getYRot(), xRot = pl.getXRot(), headO = pl.yHeadRotO, head = pl.yHeadRot;
         pl.yBodyRot = 180f;
         pl.setYRot(180f);
@@ -130,7 +115,7 @@ public final class HudOverlay implements IGuiOverlay {
             net.minecraft.client.gui.screens.inventory.InventoryScreen.renderEntityInInventory(g,
                     px + Math.round(31 * sc), py + Math.round(73 * sc), Math.round(30 * sc), pose, null, pl);
         } catch (Exception ignored) {
-            // un autre mod peut gêner le rendu du joueur : on laisse le portrait vide
+
         } finally {
             pl.yBodyRot = bodyRot;
             pl.setYRot(yRot);
@@ -143,9 +128,8 @@ public final class HudOverlay implements IGuiOverlay {
         g.pose().translate(px, py, 200);
         g.pose().scale(sc, sc, 1f);
         int tier = 0xFF000000 | (TierStyle.color(s.tier) & 0xFFFFFF);
-        g.fill(3, PH - 5, 59, PH - 3, tier); // liseré de rareté sous le portrait
+        g.fill(3, PH - 5, 59, PH - 3, tier);
 
-        // en-tête : nom, rareté, niveau
         g.drawString(mc.font, mc.font.plainSubstrByWidth(s.name, 128), 70, 6, HEAD, true);
         String tl = TierStyle.label(s.tier).toUpperCase(Locale.ROOT);
         g.drawString(mc.font, tl, 70, 16, tier, false);
@@ -157,7 +141,6 @@ public final class HudOverlay implements IGuiOverlay {
             g.drawString(mc.font, on, PW - 7 - w, 16, 0xFFFFFFFF, false);
         }
 
-        // vie
         float hp = pl.getHealth(), maxHp = Math.max(1f, pl.getMaxHealth()), abs = pl.getAbsorptionAmount();
         float hpR = Math.min(1f, hp / maxHp);
         ghostHp = ghost(ghostHp, hpR);
@@ -169,10 +152,10 @@ public final class HudOverlay implements IGuiOverlay {
         if (s.hasAbility) {
             float aR = s.maxAura <= 0 ? 0f : Math.min(1f, (float) s.aura / s.maxAura);
             ghostAura = ghost(ghostAura, aR);
-            boolean custom = UnrpClientConfig.AURA_COLOR.get() != 0; // couleur choisie dans l'onglet Style
+            boolean custom = UnrpClientConfig.AURA_COLOR.get() != 0;
             int from = custom ? mix(aura, 0xFFFFFF, 0.25f) : AURA_FROM, to = custom ? mix(aura, 0x000000, 0.3f) : AURA_TO;
             bar(g, 70, 41, 194, 50, aR, ghostAura, from, to, AURA_GHOST);
-            num(g, mc, depleted ? "ÉPUISÉE" : s.aura + " / " + s.maxAura, 132, 43, 0.75f);
+            num(g, mc, depleted ? "DEPLETED" : s.aura + " / " + s.maxAura, 132, 43, 0.75f);
         }
 
         // faim et armure
@@ -186,7 +169,6 @@ public final class HudOverlay implements IGuiOverlay {
         g.pose().popPose();
     }
 
-    /** Cadre : fond presque noir, contour noir, bord coloré, liseré intérieur clair en haut, coins dorés. */
     private static void box(GuiGraphics g, int x, int y, int w, int h, int edge) {
         g.fill(x, y, x + w, y + h, WINDOW);
         frame(g, x, y, w, h, EDGE_OUT);
@@ -198,7 +180,6 @@ public final class HudOverlay implements IGuiOverlay {
         g.fill(x + w - 3, y + h - 3, x + w - 1, y + h - 1, UiSkin.GOLD);
     }
 
-    /** Barre : rail sombre, traînée "fantôme", remplissage en dégradé horizontal, reflet, graduations. */
     private static void bar(GuiGraphics g, int x0, int y0, int x1, int y1, float r, float ghost, int from, int to, int ghostCol) {
         g.fill(x0 - 1, y0 - 1, x1 + 1, y1 + 1, EDGE_OUT);
         g.fill(x0, y0, x1, y1, TRACK);
@@ -206,7 +187,7 @@ public final class HudOverlay implements IGuiOverlay {
         int fw = Math.round(w * Math.max(0f, Math.min(1f, r)));
         int gw = Math.round(w * Math.max(0f, Math.min(1f, ghost)));
         if (gw > fw) g.fill(x0 + fw, y0, x0 + gw, y1, ghostCol);
-        for (int i = 0; i < fw; i++) { // dégradé horizontal colonne par colonne
+        for (int i = 0; i < fw; i++) {
             g.fill(x0 + i, y0, x0 + i + 1, y1, 0xFF000000 | mix(from, to, w <= 1 ? 0f : i / (float) (w - 1)));
         }
         if (fw > 0) {
@@ -224,7 +205,6 @@ public final class HudOverlay implements IGuiOverlay {
         return Math.max(r, g - Math.max(0.002f, (g - r) * 0.03f));
     }
 
-    /** Nombre centré sur une barre, avec ombre. */
     private static void num(GuiGraphics g, Minecraft mc, String t, int cx, int y, float scale) {
         g.pose().pushPose();
         g.pose().translate(cx, y, 0);
@@ -233,21 +213,16 @@ public final class HudOverlay implements IGuiOverlay {
         g.pose().popPose();
     }
 
-    /**
-     * Barre de capacités verticale à gauche de l'écran, comme la barre de pouvoirs du modèle :
-     * une case par capacité (touche, initiale, coût), son nom à droite. Allumée = prête ou en cours,
-     * voile = recharge, jauge montante = charge, cadre plein = interrupteur allumé.
-     */
     private void moveBar(GuiGraphics g, PlayerStatePacket s, Minecraft mc, float partial, int sw, int sh, int aura, float pulse) {
         int n = s.moveNames.length;
         if (n == 0) return;
         int slot = 26, gap = 4;
         int total = n * slot + (n - 1) * gap;
         float hs = UnrpClientConfig.SCALE_VALUES[UnrpClientConfig.HUD_SCALE.get()];
-        int x = 8, y0 = Math.max(Math.round(PH * hs) + 30, sh / 2 - total / 2); // sous le panneau d'état
+        int x = 8, y0 = Math.max(Math.round(PH * hs) + 30, sh / 2 - total / 2);
         int dim = 0xFF55586A;
 
-        String top = s.active ? (s.modeName.isEmpty() ? "POUVOIR ACTIF" : s.modeName.toUpperCase(Locale.ROOT)) : "R : ACTIVER";
+        String top = s.active ? (s.modeName.isEmpty() ? "POWER ACTIVE" : s.modeName.toUpperCase(Locale.ROOT)) : "R: ACTIVATE";
         int tw = mc.font.width(top) + 14;
         int ty = y0 - 18;
         panel(g, x - 2, ty, tw, 13, s.active ? argb(255, aura) : dim);
@@ -283,13 +258,13 @@ public final class HudOverlay implements IGuiOverlay {
                 int h = Math.round((slot - 2) * pr);
                 g.fill(x + 1, y + slot - 1 - h, x + slot - 1, y + slot - 1, argb(pr >= 1f ? 200 : 130, mix(aura, 0xFFFFFF, 0.3f)));
             }
-            // touche (badge), nom et coût à droite
+
             int kb = x + slot - 6, ky = y - 3;
             g.fill(kb, ky, kb + 11, ky + 11, 0xFF0C0C14);
             frame(g, kb, ky, 11, 11, border);
             g.drawString(mc.font, ClientEvents.SLOT_LETTERS[i], kb + 3, ky + 2, 0xFFFFE9A0, false);
             String kind = s.moveToggle.length > i && s.moveToggle[i] ? (on ? "ON" : "OFF")
-                    : s.moveHeld[i] ? "maintenir" : s.moveCharge[i] > 0 ? "charger" : "";
+                    : s.moveHeld[i] ? "hold" : s.moveCharge[i] > 0 ? "charger" : "";
             if (locked) {
                 g.fill(x + 1, y + 1, x + slot - 1, y + slot - 1, 0xC0000000);
                 String lr = "R" + (s.moveRank.length > i && s.moveRank[i] >= 2 ? s.moveRank[i] : "?");

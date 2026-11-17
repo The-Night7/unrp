@@ -6,13 +6,13 @@ The build represents an intact school during the Safe House era. It is a compres
 
 ## Reference basis
 
-The [official prologue](https://www.webtoons.com/en/super-hero/unordinary/prologue/viewer?title_no=679&episode_no=1) shows the warm brown/pink façade, pale trim, tall repeated windows and cafeteria. Its cafeteria scene supplies the purple seating, white tables, green serving counter and monthly Triple Chocolate Cake detail used here.
+The [official prologue](https://www.webtoons.com/en/super-hero/unordinary/prologue/viewer?title_no=679&episode_no=1) shows the warm brown/pink facade, pale trim, tall repeated windows and cafeteria. Its cafeteria scene supplies the purple seating, white tables, green serving counter and monthly Triple Chocolate Cake detail used here.
 
 The [school reference index](https://unordinary.fandom.com/wiki/Wellston_Private_High_School) identifies Wallik, Whesley and Manner halls, separate boys' and girls' dormitories, lockers, the library, infirmary and press team. The [Safe House reference](https://unordinary.fandom.com/wiki/Safe_House_%28club%29) identifies Room 224 and the club's peaceful, inclusive purpose. These fan-maintained pages are secondary references, not architectural plans. The [Room 224 opening summary](https://unordinary.fandom.com/wiki/Chapter_201) describes study space, laptops, games and reading seats.
 
 ## What changed
 
-- A terracotta façade with pale sandstone trim and tall blue-glass windows replaces the generic white/gold exterior.
+- A terracotta facade with pale sandstone trim and tall blue-glass windows replaces the generic white/gold exterior.
 - Three named teaching blocks replace the single U-shaped building.
 - The main block has locker-lined corridors, an infirmary, headmaster's office, Safe House Room 224 and a Wellston Weekly press room.
 - The library includes shelves, desks and computer representations. The cafeteria has white tables, purple seats and a green serving counter.

@@ -28,7 +28,6 @@ public class UnrpMod implements ModInitializer {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) ->
                 UnrpCommands.register(dispatcher));
 
-        // À la connexion, on envoie l'état au client pour que le HUD soit à jour.
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             PlayerData data = UnrpState.get(server).get(handler.player.getUuid());
             Net.sync(handler.player, data);
@@ -37,7 +36,6 @@ public class UnrpMod implements ModInitializer {
         ServerTickEvents.END_SERVER_TICK.register(UnrpMod::tick);
     }
 
-    /** Une fois par seconde : régénération de l'aura. */
     private static void tick(MinecraftServer server) {
         if (server.getTicks() % 20 != 0) return;
         UnrpState state = UnrpState.get(server);

@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
-/** Part « essaim » du StatSyncPacket du modèle : motes, plafond, drapeaux (1 Particles actif, 2 posture 3). */
 public class WeaveSyncPacket {
     final int motes, motesMax, flags;
 

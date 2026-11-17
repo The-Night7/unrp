@@ -6,10 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 
-/**
- * Capacités « palladium:gui_overlay » stance_hud_* de particles.json : l'icône de la posture (16 x 16, x1,5),
- * en haut à gauche, décalée de (10, 30), tant que le pouvoir est actif.
- */
 public final class StanceIconOverlay implements IGuiOverlay {
     public static final StanceIconOverlay INSTANCE = new StanceIconOverlay();
     private static final ResourceLocation[] ICONS = {

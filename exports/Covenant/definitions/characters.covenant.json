@@ -1,0 +1,44 @@
+{
+  "_export_note": "Covenant-only reference excerpts. Merge into the full project definitions; do not replace shared files with these subsets.",
+  "characters": [
+    {
+      "id": "myriam",
+      "name": "Myriam",
+      "category": "rp",
+      "sources": [
+        "unrp"
+      ],
+      "schools": [],
+      "tier": "god",
+      "level": 10.0,
+      "ability_id": "covenant",
+      "stats": {
+        "power": 7.0,
+        "defense": 7.6,
+        "recovery": 8.0,
+        "trick": 10.0,
+        "speed": 6.5
+      },
+      "color": "#d4aa53",
+      "charges": [],
+      "snapshots": [
+        {
+          "level": 10.0,
+          "tier": "god",
+          "ability": "Covenant",
+          "ability_id": "covenant",
+          "type": "origin",
+          "stats": {
+            "power": 7.0,
+            "defense": 7.6,
+            "recovery": 8.0,
+            "trick": 10.0,
+            "speed": 6.5
+          },
+          "description": "The Sovereign of a golden Court. Myriam enacts laws, collects Collateral and wields every God-tier Covenant technique.",
+          "source": "unrp"
+        }
+      ]
+    }
+  ]
+}

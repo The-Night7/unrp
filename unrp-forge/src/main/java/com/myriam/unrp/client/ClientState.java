@@ -2,7 +2,6 @@ package com.myriam.unrp.client;
 
 import com.myriam.unrp.net.PlayerStatePacket;
 
-/** Dernier état du joueur reçu du serveur (lu par le hub et le HUD). */
 public final class ClientState {
     private static PlayerStatePacket current = new PlayerStatePacket();
     private static long receivedAt;
@@ -19,7 +18,6 @@ public final class ClientState {
         receivedAt = l == null ? 0 : l.getGameTime();
     }
 
-    /** Ticks de recharge restants du mouvement i (estimé depuis la dernière synchronisation). */
     public static float cooldownLeft(int i, float partial) {
         PlayerStatePacket s = current;
         if (i < 0 || i >= s.moveLeft.length) return 0;

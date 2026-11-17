@@ -1,7 +1,5 @@
 package com.myriam.unrp.uo;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,7 +22,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-/** ConfigBridgeEvents du modèle, réduit aux fonctions utilisées. Réglages lus dans l'objectif unrp.config. */
 @EventBusSubscriber(
    modid = "unrp",
    bus = Bus.FORGE

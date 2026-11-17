@@ -11,15 +11,6 @@ import net.minecraft.world.phys.Vec3;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Styles visuels des pouvoirs (champ "look.style" dans ability_powers.json). Un style fixe :
- *  - sprite  : la particule principale (traînées, éclats) ;
- *  - sprite2 : la particule des impacts ;
- *  - line    : la forme des traits lumineux (LINE_* combinables) ;
- *  - width   : leur épaisseur ;
- *  - aura    : comment l'aura se montre autour du joueur quand le pouvoir est actif.
- * Liste et rendu : docs/POUVOIRS.md §12.
- */
 public final class Styles {
     public static final int LINE_JAGGED = 1, LINE_WAVY = 2, LINE_HELIX = 4, LINE_NOCORE = 8;
 
@@ -54,33 +45,29 @@ public final class Styles {
 
     private Styles() {}
 
-    /** Le style d'un pouvoir : look.style, sinon déduit (zigzag -> lightning), sinon energy. */
     public static Preset of(AbilityPower.Look look) {
         if (look != null && look.style != null && ALL.containsKey(look.style)) return ALL.get(look.style);
         if (look != null && look.jagged) return ALL.get("lightning");
         return ALL.get("energy");
     }
 
-    /** Particule principale (look.sprite si renseigné, sinon celle du style). */
     public static String sprite(AbilityPower.Look look) {
         return look != null && look.sprite != null ? look.sprite : of(look).sprite();
     }
 
-    /** Une particule avec une vitesse précise (count 0 : la vitesse est exactement (vx, vy, vz)). */
     static void moving(ServerLevel level, String name, int rgb, float size, int life, Vec3 at, double vx, double vy, double vz) {
         ParticleType<FxOptions> t = ModParticles.byName(name);
         if (t == null) return;
         Vfx.emit(level, new FxOptions(t, rgb, size, life), at.x, at.y, at.z, 0, vx, vy, vz, 1.0);
     }
 
-    /** L'aura visible autour d'un joueur dont le pouvoir est actif (appelé toutes les 4 ticks). */
     static void aura(ServerPlayer p, AbilityPower.Look look, int rgb, boolean invisible, long time) {
         ServerLevel lv = p.serverLevel();
         Preset s = of(look);
         String spr = sprite(look);
         var r = p.getRandom();
         Vec3 base = p.position();
-        if (invisible) { // seulement un léger miroitement
+        if (invisible) {
             moving(lv, "mote", rgb, 0.45f, 10, base.add((r.nextDouble() - 0.5) * 0.7, 0.3 + r.nextDouble() * 1.4, (r.nextDouble() - 0.5) * 0.7), 0, 0.005, 0);
             return;
         }
@@ -149,7 +136,6 @@ public final class Styles {
         }
     }
 
-    /** Éclats d'impact : particules d'impact projetées vers l'extérieur + un anneau. */
     static void impact(ServerLevel lv, AbilityPower.Look look, int rgb, Vec3 at, int count) {
         Preset s = of(look);
         var r = lv.random;

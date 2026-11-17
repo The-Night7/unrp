@@ -1,36 +1,22 @@
-# Interface UNRP
+# Hub and controls
 
-Reproduit la **structure et le fonctionnement** du hub du mod modèle (touche H, 8 onglets en 2 groupes,
-dock à gauche, notifications, offres). Les icônes du dock sont des lettres ; les panneaux sont dessinés en Java dans `client/UiSkin.java` et `client/HubScreen.java`, avec les textures dans `assets/unrp/textures/`.
+Press **H** to open the hub. The left dock selects eight tabs; notifications and pending offers remain accessible from the same screen.
 
-| Onglet | Contenu | État |
-|---|---|---|
-| **Pouvoir** | niveau de pouvoir, stats et radar à cinq axes, barre d’aura, école, rang, réputation et description | Fait |
-| **Capacités** | arbre cliquable des mouvements et de leurs prérequis, icônes et verrous, panneau de détails (coût, recharge, description), points d’aptitude et trois boutons de déblocage (rangs 2 à 4) | Fait ; molette pour les grands arbres et descriptions longues |
-| **Entraînement** | points de stats (1 par niveau), paliers de +0,5 de potentiel par stat (4 au plus, coût 1-2-3-4, plafond 10,0), retrait remboursé : règles du modèle | Fait |
-| **Style** | couleur d'aura / yeux / rayons (12 teintes + hex), yeux (4 formes, taille, écart, position), alias (nom au-dessus de la tête et dans le chat), aperçu en direct, Appliquer / Réinitialiser, options du HUD et sons | Fait ; visible par tous les joueurs |
-| **École** | les 3 rangs (Roi/Reine/Valet), élèves, donner/retirer un siège (Roi), défier le Roi, classement des écoles | Fait |
-| **Groupe** | créer, inviter (offres acceptées/refusées), retirer, quitter, dissoudre | Fait (pas de chat de groupe) |
-| **Territoire** | revendiquer le terrain (Roi), liste, déclarer la guerre sur un territoire adverse | Fait (en coordonnées, pas en dimensions) |
-| **Duels** | duel amical (14 blocs), combat formel pour la couronne, abandonner ; fin à 2 cœurs | Fait (un seul round, pas « meilleur des trois ») |
-| Notifications (cloche) | historique, non lu, « tout lu » | Fait |
-| Offres reçues | bandeau Accepter / Refuser en haut du hub | Fait |
-| HUD | nom, tier, barre d'aura, coin réglable ; barre de capacités à gauche (cases verrouillées grisées avec leur rang) | Fait |
+| Tab | What you can do |
+| --- | --- |
+| Power | Inspect effective level, the five-stat radar, aura, school, role and reputation. |
+| Abilities | Select moves, inspect costs and prerequisites, and buy unlock ranks. Drag empty space to pan; use Ctrl + wheel to zoom. |
+| Training | Buy or refund potential stages. Each stage adds up to 0.5, with four stages per stat and a 10.0 potential cap. |
+| Style | Set aura colour, eyes, display alias, HUD options and click sounds. Apply changes to save them. |
+| School | View students and leaders, assign eligible Queen/Jack seats as King, or challenge for the crown. |
+| Group | Create a group, invite players and manage membership. Chat remains public. |
+| Territory | Claim land as a King or contest another school's territory. |
+| Duels | Offer a friendly duel, fight for the crown or forfeit. Fights end at two hearts. |
 
-## Pas encore (hors hub)
-Écran de révélation à la création d'OC, roues de sélection, arbres de moves par capacité,
-jauges d'effets propres à chaque pouvoir lore, modèles/animations (GeckoLib), sons, campus bâtis (phase 3).
+The server validates purchases, invitations, roles, distances and combat results. Client previews do not spend points or grant permissions.
 
-## Règles du serveur
-- Le serveur décide de tout ; le client affiche un JSON d'état et envoie des actions (`HubActionPacket`).
-- Points de stats : 1 par niveau (plus d'xp de combat), voir [ROLL.md](ROLL.md).
-- Rangs : ceux de l'Unodex au départ ; un Roi peut désigner Reine/Valet parmi les élèves ; gagner un combat formel donne la couronne, l'ancien Roi devient Reine.
-- Territoires : rayon 24 blocs, un Roi les revendique ; gagner une guerre transfère le territoire.
+**R** toggles the power. Move keys are configurable under Controls; the bar shows the current bindings. The list/page binding exposes additional moves and stance switches. Check conflicts when installing other mods.
 
-## Où modifier
-`client/HubScreen.java` (affichage), `social/SocialService.java` (règles), `social/SocialData.java` (sauvegarde),
-`social/SocialEvents.java` (combat et xp).
+`client/HubScreen.java` draws the hub, `client/UiSkin.java` supplies its palette, and `social/SocialService.java` handles its actions. Social state is stored by `SocialData`; combat events are in `SocialEvents`.
 
-
-## Touches
-H : hub · R : activer le pouvoir · X C V B N : capacités de la barre (à gauche de l'écran). Détails : [POUVOIRS.md](POUVOIRS.md).
+The active portrait HUD is drawn by `look/UnrpHudOverlay.java` using the PNGs in `textures/gui/hud/`. See [VISUAL_STYLE.md](VISUAL_STYLE.md) before replacing those assets.

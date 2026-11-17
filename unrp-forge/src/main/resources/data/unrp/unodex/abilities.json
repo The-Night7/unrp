@@ -2,9 +2,9 @@
  "abilities": [
   {
    "id": "non_specifiee",
-   "name": "Non spécifiée",
+   "name": "Unspecified",
    "aliases": [
-    "Non Spécifiée"
+    "Unspecified"
    ],
    "type": "unknown",
    "nature": "attack",
@@ -60,7 +60,7 @@
    "aliases": [],
    "type": "meta",
    "nature": null,
-   "description": "Aura Deity (état de base, sans copie) : perçoit, copie et manipule l'aura des autres. Sans capacité copiée, ses stats physiques restent à 1 et seul son Trick (sa réserve d'aura) est élevé. Il copie des capacités en adaptant leurs stats à son niveau (avec une perte d'efficacité de 25 %) et peut amplifier une stat copiée en y injectant sa propre aura, au prix de sa réserve. Au niveau God Tier, il peut garder 4 capacités et rappeler à volonté toutes celles qu'il a déjà copiées.",
+   "description": "Aura Deity, base state without a copied ability: senses, copies and manipulates aura. Physical stats remain at 1 while Trick, the aura reserve, stays high. Copied abilities scale to the user's level with a 25% efficiency loss. Spending aura amplifies a copied stat. At God tier, the user can hold four abilities and recall any previously copied ability.",
    "users": [
     "arlequin",
     "telemachus"
@@ -80,7 +80,7 @@
    "aliases": [],
    "type": "creation",
    "nature": "attack",
-   "description": "Lame : capacité de création de lame (aucun détail supplémentaire sur la fiche).",
+   "description": "Blade: creates a blade. The character sheet gives no further details.",
    "users": [
     "kaira"
    ],
@@ -99,7 +99,7 @@
    "aliases": [],
    "type": "creation",
    "nature": "attack",
-   "description": "Claws : fait apparaître des griffes sur ses doigts (stade actuel, 1.0-1.9). Évolution : gantelets qui remontent jusqu'aux avant-bras en plus des griffes (2.0-3.4), puis Armure Draconique complète avec des ailes rétractables pour voler s'il le souhaite (3.5-4.9).",
+   "description": "Claws: manifests finger claws at levels 1.0–1.9. At 2.0–3.4, gauntlets extend up the forearms. At 3.5–4.9, full Draconic Armour includes retractable wings for flight.",
    "users": [
     "issei"
    ],
@@ -137,7 +137,7 @@
    "aliases": [],
    "type": "enhancement",
    "nature": null,
-   "description": "Knuckles : augmente sa force en renforçant ses muscles pour mieux projeter sa puissance physique.",
+   "description": "Knuckles reinforces the muscles to increase physical striking power.",
    "users": [
     "louis"
    ],
@@ -175,7 +175,7 @@
    "aliases": [],
    "type": "detection",
    "nature": "strategist",
-   "description": "Ramlethal projette son aura vert jade pour analyser instantanément la structure interne et énergétique d'une personne.",
+   "description": "Ramlethal projects jade-green aura to analyse a person's internal and energetic structure instantly.",
    "users": [
     "ramlethal"
    ],
@@ -190,11 +190,11 @@
   },
   {
    "id": "tir_concentre",
-   "name": "Tir concentré",
+   "name": "Focused Shot",
    "aliases": [],
    "type": "emission",
    "nature": "attack",
-   "description": "Tir concentré : concentre son aura en un point pour tirer une boule d'énergie, à son niveau aussi petite et forte qu'une balle de baseball, avec une portée d'une dizaine de mètres. Il ne peut enchaîner que 2 tirs avant de devoir récupérer.",
+   "description": "Focused Shot concentrates aura into a small energy ball, currently about the size and force of a baseball, with roughly ten metres of range. Only two shots can be fired before recovery is needed.",
    "users": [
     "hecate"
    ],
@@ -459,7 +459,7 @@
   },
   {
    "id": "detection_de_mensonge",
-   "name": "Detection de Mensonge",
+   "name": "Falsehood Detection",
    "aliases": [],
    "type": "unknown",
    "nature": null,
@@ -748,7 +748,7 @@
    "aliases": [],
    "type": "mental",
    "nature": "strategist",
-   "description": "Possession : possède le corps de n'importe qui ayant un niveau de capacité plus faible que le sien, et peut alors utiliser la capacité du corps possédé (avec une maîtrise limitée).",
+   "description": "Possession takes over the body of someone with a lower ability level and grants limited use of that body's ability.",
    "users": [
     "leonie"
    ],
@@ -843,7 +843,7 @@
    "aliases": [],
    "type": "status",
    "nature": "support",
-   "description": "Sanity Control (Bal) : influence l'équilibre psychophysique des individus via leur aura, soit pour soigner (régulation de la guérison), soit pour blesser dans un rayon de 5 m (blessures internes, douleurs amplifiées, réouverture de plaies récentes).",
+   "description": "Sanity Control (Balance) affects psychophysical balance through aura. It can regulate healing or cause internal wounds, amplify pain and reopen recent wounds within five metres.",
    "users": [
     "beta"
    ],
@@ -862,7 +862,7 @@
    "aliases": [],
    "type": "status",
    "nature": "support",
-   "description": "Sanity Control (Heal) - personnalité calme : régule les processus de guérison via l'aura pour soigner. Soigne sans problème les petites blessures et réduit les saignements, mais les grosses blessures demandent beaucoup de temps sans garantie de réussite.",
+   "description": "Sanity Control (Heal), calm personality: regulates healing through aura. Minor wounds and bleeding are manageable; severe injuries take much longer, with no guarantee of success.",
    "users": [
     "beta"
    ],
@@ -881,7 +881,7 @@
    "aliases": [],
    "type": "status",
    "nature": "attack",
-   "description": "Sanity Control (Hurt) - personnalité agressive : perturbe l'équilibre psychophysique via l'aura pour blesser dans un rayon de 5 m. Provoque douleurs et blessures internes (déchirures musculaires...), amplifie les douleurs existantes et peut rouvrir des blessures récentes.",
+   "description": "Sanity Control (Hurt), aggressive personality: disrupts psychophysical balance within five metres, causing internal injuries and pain, amplifying existing pain and reopening recent wounds.",
    "users": [
     "beta"
    ],
@@ -1052,7 +1052,7 @@
    "aliases": [],
    "type": "quantum",
    "nature": null,
-   "description": "La capacité d'Hizo, nommée Spectre, repose sur une altération extrême de la fréquence vibratoire moléculaire de son corps. Lorsqu'il l'active, il devient totalement intangible et insensible à toute agression physique, qu'il s'agisse de coups, de balles ou de flammes. Cependant, cet état s'accompagne d'une rupture sensorielle totale : coupé des photons, des ondes sonores et de l'air, il ne peut plus voir, entendre, respirer ni subir la gravité, ce qui limite son utilisation à un maximum de cinq minutes pour éviter l'évanouissement. Enfin, cette intangibilité se double d'une application offensive et cinétique redoutable, puisque désactiver son pouvoir à l'intérieur d'un obstacle solide provoque une décompression brutale qui le propulse à une vitesse fulgurante à travers le champ de bataille.",
+   "description": "Hizo's Spectre drastically changes his body's molecular vibration. Activation makes him intangible and immune to physical attacks, bullets and flames. It also cuts him off from light, sound, air and gravity: he cannot see, hear or breathe, and must stop within five minutes to avoid passing out. Deactivating inside solid matter causes a violent decompression that launches him across the battlefield.",
    "users": [
     "hizo",
     "void"
@@ -1208,7 +1208,7 @@
    "aliases": [],
    "type": "creation",
    "nature": null,
-   "description": "Crimson Thread : crée des fils rouges très tranchants qui lui servent à emprisonner les autres. Passif : quand il y a de la tension autour de lui, de fins filaments très fragiles apparaissent et se cassent à la moindre pression.",
+   "description": "Crimson Thread creates sharp red threads to imprison others. Passive: nearby tension produces fragile filaments that snap under slight pressure.",
    "users": [
     "soren"
    ],
@@ -1322,7 +1322,7 @@
    "aliases": [],
    "type": "quantum",
    "nature": null,
-   "description": "Graviton : manipule la gravité locale dans une zone restreinte (portée d'environ 8 m, souvent une seule cible). Peut alourdir un adversaire pour le ralentir, réduire sa propre gravité pour esquiver ou bondir, créer des champs gravitationnels pour déséquilibrer une cible ou dévier un projectile léger, et s'ancrer pour gagner en stabilité. Nécessite une ligne de vue claire et une forte concentration : un usage prolongé provoque vertiges voire effondrement physique.",
+   "description": "Graviton manipulates local gravity within roughly eight metres, usually on one target. It can weigh down an opponent, lighten the user for evasion and jumps, destabilise a target, deflect light projectiles or anchor the user. It requires clear sight and concentration; prolonged use causes dizziness or collapse.",
    "users": [
     "power"
    ],
@@ -1436,7 +1436,7 @@
    "aliases": [],
    "type": "quantum",
    "nature": null,
-   "description": "Manipulation des liquides. Elle peut manipuler les liquides autour d’elle, le plus évident étant l’eau. Elle ne peut cependant rien manifester d'elle-même, et est obligée d’utiliser un liquide à sa portée (jusque dans un rayon de 30m autour d’elle, rayon d’action qui pourra augmenter avec son niveau). De fait, elle a toujours sur elle une bouteille d’eau en cas d’urgence. A son niveau actuel elle ne peut manipuler que des liquides visibles à son œil (elle pourra prétendre manipuler des liquides plus subtils ou cachés uniquement à des niveaux supérieurs).",
+   "description": "Liquid Manipulation controls nearby liquids, most obviously water, but cannot create them. Its current range is thirty metres and only visible liquids can be controlled. The user carries an emergency water bottle. Higher levels may extend the range and allow control of hidden or subtler liquids.",
    "users": [
     "laura"
    ],
@@ -1512,7 +1512,7 @@
    "aliases": [],
    "type": "enhancement",
    "nature": "attack",
-   "description": "Orgueil (Pride Manifestation) : se nourrit de sa fierté et de sa confiance en soi, plus son ego est stimulé (défi, combat, provocation) plus sa puissance augmente. Son aura exerce une pression psychique et physique sur ses adversaires et renforce son Power, sa Speed et sa Recovery. Il ne peut maintenir l'Orgueil absolu que 2 tours avant que sa vitalité chute, et plus il laisse son orgueil dominer, plus il perd le contrôle émotionnel. Passif (Refus de soumission) : plus il subit de dégâts ou de pression, plus sa résistance augmente ; impossible de le forcer à se soumettre (douleur, illusions, effets mentaux).",
+   "description": "Pride Manifestation grows with pride and confidence. Challenges and combat increase power as its aura pressures others and boosts Power, Speed and Recovery. Absolute Pride lasts only two turns before vitality drops; excessive pride also weakens emotional control. Passive, Refusal to Submit: damage and pressure increase resistance, preventing forced submission through pain, illusion or mental effects.",
    "users": [
     "lucian"
    ],
@@ -1550,7 +1550,7 @@
    "aliases": [],
    "type": "quantum",
    "nature": null,
-   "description": "Shadow Eclipse : utilise l'ombre pour cacher sa présence ou créer des illusions dans l'obscurité. Se déplace d'ombre en ombre (ombres immobiles ou très larges, rayon d'environ 10 m) et crée de petits objets inanimés à partir de ses ombres. Passif (Ombres Sentinelles, lvl 5.0) : perçoit inconsciemment les émotions et intentions des gens proches à travers leurs ombres, qui se déforment selon leur état émotionnel.",
+   "description": "Shadow Eclipse hides the user and creates illusions in darkness. It allows travel between stationary or broad shadows within roughly ten metres, and creates small inanimate shadow objects. At level 5, Sentinel Shadows passively sense nearby emotions and intentions through changes in people's shadows.",
    "users": [
     "rin"
    ],
@@ -1660,13 +1660,13 @@
   },
   {
    "id": "alchimie",
-   "name": "Alchimie+",
+   "name": "Alchemy+",
    "aliases": [
-    "Alchimie"
+    "Alchemy"
    ],
    "type": "quantum",
    "nature": null,
-   "description": "Adrien peut modifier et transformer la matière en utilisant son aura. Il doit cependant disposer d'une matière de base pour effectuer ses transformations. Il peut notamment transformer ou combiner différents matériaux afin de créer des armes, des protections ou modifier son environnement. Plus la transformation est complexe, plus elle consomme d'aura.",
+   "description": "Adrien uses aura to alter and combine existing matter into weapons, protection or environmental changes. A starting material is required. More complex transformations consume more aura.",
    "users": [
     "ablaze",
     "adrien"
@@ -1686,7 +1686,7 @@
    "aliases": [],
    "type": "creation",
    "nature": null,
-   "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+   "description": "Digital Hive manifests a deck of Programs, Black Archives, Scripts and Protocols unlocked by level, with stats derived from the user's. Cards summon creatures and structures, including Rhinovault, an autonomous flying fortress capable of destroying a small building. Repair scripts heal wounds within seconds; nearby connected security systems and vehicles can be hacked. Network Root connects to nearby devices and allows instant card summons without mode limits.",
    "users": [
     "kaito",
     "le_pinceau"
@@ -1763,7 +1763,7 @@
    "aliases": [],
    "type": "creation",
    "nature": null,
-   "description": "Dark Blades : matérialise plusieurs lames sombres (12 maximum simultanément). Passif (affinité nocturne) : plus l'obscurité est grande, plus ses sens s'améliorent (dans l'ordre : vue, goût, odorat, toucher, ouïe) ; il voit dans le noir.",
+   "description": "Dark Blades manifests up to twelve dark blades at once. Passive, Nocturnal Affinity: darkness improves sight, taste, smell, touch and hearing in that order, including night vision.",
    "users": [
     "kael"
    ],
@@ -1854,11 +1854,11 @@
   },
   {
    "id": "faucheuse_fantome",
-   "name": "Faucheuse Fantome",
+   "name": "Phantom Reaper",
    "aliases": [],
    "type": "emission",
    "nature": null,
-   "description": "Faucheur Fantomatique : crée une faux fantôme qu'il peut rendre tangible ou intangible, rendant ses coups difficiles à parer ou à prévoir. Une cible touchée avec sa capacité active reçoit une marque hantée qui déstabilise sa capacité (plus difficile à contrôler ou moins efficace). Passif : attributs fantomatiques sans activation (rapidité accrue, présence plus discrète).",
+   "description": "Phantom Reaper creates a spectral scythe that can become tangible or intangible, making attacks hard to block or predict. Hits while the ability is active leave a haunted mark that destabilises the target's ability. Passive spectral traits include increased speed and a less noticeable presence.",
    "users": [
     "mitsu"
    ],
@@ -1877,7 +1877,7 @@
    "aliases": [],
    "type": "mental",
    "nature": null,
-   "description": "God's Mind : se connecte à l'esprit d'un adversaire visible pour le lire et le manipuler, sans contrôle absolu (la cible peut toujours penser et bouger). Techniques : pression mentale, lecture des pensées et de la mémoire (6 mois max), liaison de pensées, partage de connaissances, trouble des 5 sens, isolation mentale (bloque les capacités), hallucinations ciblées (Imaginary control), émotions implantées (Parasite), suggestions inconscientes (Graveur de Dogme), altération de souvenirs (Gaslighting), Memory break, Double Exposure (partage de sa douleur) et Pantin (prise de contrôle du corps quelques tours). Passif (lvl 5.0) : immunité totale aux capacités mentales.",
+   "description": "God's Mind reads and influences the mind of a visible opponent without absolute control: the target can still think and move. Techniques include mental pressure, thought and memory reading up to six months back, thought links, knowledge sharing, disruption of the five senses, ability-blocking mental isolation, Imaginary Control hallucinations, Parasite emotions, Dogma Engraver suggestions, Gaslighting memory changes, Memory Break, Double Exposure pain sharing and brief Puppet body control. At level 5, the passive grants complete immunity to mental abilities.",
    "users": [
     "lucina"
    ],
@@ -1896,7 +1896,7 @@
    "aliases": [],
    "type": "quantum",
    "nature": null,
-   "description": "Icicle : crée de la glace et la contrôle, mais seulement celle qu'elle a créée. Passif : sent la glace et le froid dans un rayon de 15 m.",
+   "description": "Icicle creates and controls only its own ice. Passive: senses ice and cold within fifteen metres.",
    "users": [
     "ice"
    ],
@@ -2210,7 +2210,7 @@
    "aliases": [],
    "type": "status",
    "nature": "defense",
-   "description": "Isaure transforme les coups qu’elle reçoit en dettes. Le coup d’un adversaire est mis en suspens dans son aura, grossit avec des intérêts, puis elle le lui rend en entier au contact.",
+   "description": "Isaure turns incoming hits into debts. An opponent's strike is suspended in her aura, gains interest, then is returned in full on contact.",
    "users": [
     "arlequin",
     "isaure"
@@ -2252,7 +2252,7 @@
    "aliases": [],
    "type": "curative",
    "nature": null,
-   "description": "La capacité de Morgane lui permet de se soigner en frappant une personne, elle peut aussi stoquer de l'énergie curative pour soigner une plus grosse blessure d'un coup ou créer des ondes de choc qui blesseront plusieurs personnes et pourront soigner ses alliés dans une zone proche d'elle",
+   "description": "Morgane heals by striking others. Stored healing energy can repair a larger wound at once or create shockwaves that damage enemies and heal nearby allies.",
    "users": [
     "morgane",
     "vitalis"
@@ -2329,7 +2329,7 @@
    "aliases": [],
    "type": "quantum",
    "nature": null,
-   "description": "Le pouvoir s’organise de la façon suivante : Il peut générer des flammes bleues, dans sa main où dans un cercle qui a un rayon de 25m de diamètre autour de lui, pouvant faire une attaque de zone, la particularité de ses flammes est qu'elles brûlent le métal, et inflige une douleur extrême tant qu’une capacité de guérison de haut tier n'est pas utilisé sur le blessure, une autre subtilité, est que la douleur causé par cette brûlure, se trouve être en réalité, une prévention du corps de la victime, car une fois toucher par les flammes, la personne brûler, va cuire de l’intérieur à partir de l'endroit la brûlure. Température flamme : 1300 degrés celsius . Portée maximale Lancée de flamme : 50M (à voir avec évolution du tier)",
+   "description": "Generates blue flames in the hand or within a twenty-five-metre-wide circle. The flames burn metal and cause severe pain until treated by a high-tier healing ability. The pain warns that the victim is cooking internally from the burn site. Flame temperature is 1,300°C; maximum thrown-flame range is fifty metres, subject to tier progression.",
    "users": [
     "keito"
    ],
@@ -2348,7 +2348,7 @@
    "aliases": [],
    "type": "creation",
    "nature": null,
-   "description": "Digital Hive : matérialise un deck de cartes (Programmes, Archives Noires, Scripts, Protocoles) qui se débloquent par palier de niveau, leurs stats étant calculées à partir des siennes. Invoque des créatures et structures (dont le Boss Rhinovault, une forteresse volante autonome capable de raser un petit bâtiment), régénère ses blessures en quelques secondes via des scripts de réparation et pirate les systèmes connectés à portée (sécurité, véhicules). Passif (Network Root) : connecté aux réseaux et appareils à portée, il invoque ses cartes instantanément, sans limite de mode.",
+   "description": "Digital Hive manifests a deck of Programs, Black Archives, Scripts and Protocols unlocked by level, with stats derived from the user's. Cards summon creatures and structures, including Rhinovault, an autonomous flying fortress capable of destroying a small building. Repair scripts heal wounds within seconds; nearby connected security systems and vehicles can be hacked. Network Root connects to nearby devices and allows instant card summons without mode limits.",
    "users": [
     "kaito"
    ],
@@ -2405,7 +2405,7 @@
    "aliases": [],
    "type": "mental",
    "nature": null,
-   "description": "MistDream : contrôle une zone d'environ 3 m de rayon autour d'elle. Elle y crée des illusions réalistes (elles doivent avoir un fondement réel : rien qu'elle n'ait jamais vu) et y ralentit le temps, par exemple pour ralentir des projectiles, sans en réduire la force. Passif : sent les personnes et objets qui entrent dans sa zone ou en sortent.",
+   "description": "MistDream controls a zone roughly three metres around the user. It creates realistic illusions based on things the user has actually seen and slows time, including projectiles, without reducing their force. Passive: senses people and objects entering or leaving the zone.",
    "users": [
     "joahness"
    ],
@@ -2424,7 +2424,7 @@
    "aliases": [],
    "type": "enhancement",
    "nature": null,
-   "description": "Modes - Offensif : peau teintée et veines lumineuses. Frappes à impact augmenté et vitesse de déplacement accrue, idéal pour interrompre l'adversaire ou punir une ouverture. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "description": "Modes — Offensive: tinted skin and glowing veins accompany stronger impacts and faster movement, useful for interruptions and punishing openings. Scanner passively detects the two highest stats of a target with active aura.",
    "users": [
     "marc"
    ],
@@ -2443,7 +2443,7 @@
    "aliases": [],
    "type": "enhancement",
    "nature": null,
-   "description": "Modes - Équilibré : aura stable et uniforme autour du corps. Adaptation rapide et consommation d'énergie réduite, l'état par défaut pour temporiser et analyser. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "description": "Modes — Balanced: stable, even aura supports quick adaptation and lower energy use, suitable for analysis and stalling. Scanner passively detects the two highest stats of a target with active aura.",
    "users": [
     "marc"
    ],
@@ -2462,7 +2462,7 @@
    "aliases": [],
    "type": "enhancement",
    "nature": null,
-   "description": "Modes - Défensif : peau cristallisée de sa teinte signature. Absorbe une grande partie de l'énergie cinétique et accélère sa régénération ; sert de tampon entre deux états extrêmes pour éviter la perte de conscience. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "description": "Modes — Defensive: skin crystallises in the user's signature colour, absorbing kinetic energy and accelerating regeneration. It buffers transitions between extreme states to avoid unconsciousness. Scanner passively detects the two highest stats of a target with active aura.",
    "users": [
     "marc"
    ],
@@ -2481,7 +2481,7 @@
    "aliases": [],
    "type": "enhancement",
    "nature": null,
-   "description": "Modes - Destructeur : peau craquelée laissant voir l'énergie à l'intérieur. Frappes dévastatrices avec onde de choc radiale à l'impact ; forme dangereuse, souvent utilisée atténuée pour disperser des cibles. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "description": "Modes — Destroyer: cracked skin reveals internal energy. Devastating strikes produce radial shockwaves. This dangerous form is often dampened to disperse targets. Scanner passively detects the two highest stats of a target with active aura.",
    "users": [
     "marc"
    ],
@@ -2500,7 +2500,7 @@
    "aliases": [],
    "type": "enhancement",
    "nature": null,
-   "description": "Modes - Vélocité : corps entouré de traînées lumineuses. Perception du temps accélérée et déplacements quasi instantanés sur de courtes distances. Passif (Scanner) : détecte en permanence les deux meilleures stats d'une cible dont l'aura est active.",
+   "description": "Modes — Velocity: light trails surround the body. Accelerated time perception enables almost instantaneous short-range movement. Scanner passively detects the two highest stats of a target with active aura.",
    "users": [
     "marc"
    ],
@@ -2595,7 +2595,7 @@
    "aliases": [],
    "type": "curative",
    "nature": "support",
-   "description": "Capacité non spécifiée, aucune information détaillée sur une capacité particulière.",
+   "description": "Unspecified ability. No detailed ability information is available.",
    "users": [
     "ronan"
    ],
@@ -2614,7 +2614,7 @@
    "aliases": [],
    "type": "emission",
    "nature": null,
-   "description": "White Hole : matérialise deux sphères d'énergie blanche qui repoussent tout autour d'elles (2 m tant qu'elle les tient en main). Lancées, elles explosent au contact d'une surface et propulsent tout dans un rayon de 10 m. Rien ne peut s'en approcher, sauf avec une Speed ou un Power supérieur à sa Defense (12). Elle peut courber la lumière pour se rendre partiellement invisible, ce qui marche aussi contre les cibles intangibles. En concentrant deux sphères l'une contre l'autre, elle crée une onde de choc spatiale deux fois plus large : lumière aveuglante, bruit qui peut rompre les tympans et impact comme un mur à haute vitesse (fractures possibles, sans tuer).",
+   "description": "White Hole manifests two white energy spheres that repel their surroundings, with a two-metre radius while held. Thrown spheres explode on contact and launch everything within ten metres. Approaching requires Speed or Power above the user's Defense of 12. Bending light grants partial invisibility, including against intangible targets. Pressing two spheres together creates a spatial shockwave twice as wide, with blinding light, potentially eardrum-rupturing sound and a high-speed impact capable of breaking bones without killing.",
    "users": [
     "irene"
    ],

@@ -20,11 +20,6 @@ import java.io.Reader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Charge data/unrp/unodex/*.json. Un datapack peut remplacer n'importe quel fichier
- * (même chemin) sans toucher au mod. Une erreur dans un fichier est loguée et ce fichier
- * est ignoré, le reste continue de fonctionner.
- */
 public class UnodexLoader extends SimplePreparableReloadListener<UnodexData> {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final String NAMESPACE = "unrp";
@@ -88,7 +83,7 @@ public class UnodexLoader extends SimplePreparableReloadListener<UnodexData> {
                     }
                 }
             } catch (Exception ex) {
-                LOGGER.error("[unrp] Fichier ignoré ({}): {}", e.getKey(), ex.toString());
+                LOGGER.error("[unrp] Skipped file ({}): {}", e.getKey(), ex.toString());
             }
         }
         UnodexData data = new UnodexData(rarity, schools, characters, abilities);
@@ -108,7 +103,7 @@ public class UnodexLoader extends SimplePreparableReloadListener<UnodexData> {
     @Override
     protected void apply(UnodexData data, ResourceManager manager, ProfilerFiller profiler) {
         UnodexData.set(data);
-        LOGGER.info("[unrp] Unodex chargé : {} personnages, {} capacités ({} pouvoirs jouables), {} écoles/groupes, rareté {}",
+        LOGGER.info("[unrp] Loaded Unodex: {} characters, {} abilities ({} playable powers), {} schools/groups, rarity {}",
                 data.characters.size(), data.abilities.size(), data.powers.size(), data.schools.size(),
                 data.rarity == null ? "ABSENTE" : "ok");
     }

@@ -40,13 +40,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
-/**
- * Phylactère (Hollow Mark), repris de PhylacteryEvents + PhylacteryItem + PhylacteryLedger du modèle.
- * Posé par un porteur de la Marque, il se lie à lui (5 au plus). Tant qu'un phylactère se dresse, un coup mortel le laisse à 1 PV
- * et révèle un emplacement au tueur. Chaque phylactère lié qui n'est ni dressé ni sur lui coûte 1 PV max (jamais sous 6).
- * Cassé par un autre, il tombe chez lui : tenu en main, il montre la direction de son maître, et qui le porte le frappe 30 % plus fort.
- * Un phylactère que personne ne porte pendant une heure s'effrite. Le registre est sauvegardé avec le monde.
- */
 public final class Phylactery {
     private Phylactery() {}
 
@@ -57,7 +50,6 @@ public final class Phylactery {
     private static final UUID BURDEN_ID = UUID.fromString("b6e1f7a2-3c58-4d09-9e4b-5a72c18d03f6");
     static final int STANDING = 0, CARRIED = 1, DROPPED = 2, LOST = 3;
 
-    // ------------------------------------------------------------------ registre (sauvegardé)
     public static final class Ledger extends SavedData {
         public static final class Entry {
             public long serial;
@@ -237,7 +229,7 @@ public final class Phylactery {
     static String where(Ledger.Entry e) {
         String d = switch (e.dim) {
             case "minecraft:overworld" -> "l'Overworld";
-            case "minecraft:the_nether" -> "le Nether";
+            case "minecraft:the_nether" -> "the Nether";
             case "minecraft:the_end" -> "l'End";
             default -> e.dim;
         };
@@ -259,7 +251,6 @@ public final class Phylactery {
         return e == null || e.state == LOST || !e.owner.equals(ownerOf(s));
     }
 
-    /** Les phylactères dressés qui existent encore (un bloc disparu est perdu). */
     static List<Ledger.Entry> standing(ServerPlayer p) {
         Ledger l = Ledger.get(p.server);
         List<Ledger.Entry> out = new ArrayList<>();
@@ -294,7 +285,7 @@ public final class Phylactery {
     }
 
     // ------------------------------------------------------------------ bloc et objet
-    /** PhylacteryBlock du modèle : orienté (FACING) vers le joueur à la pose. */
+
     public static final class PhylBlock extends ModBlocks.Facing {
         public PhylBlock(Properties p) {
             super(p.noOcclusion(), MachineShapes.of("phylactery"));
@@ -310,7 +301,6 @@ public final class Phylactery {
     private static UUID breaking;
     private static long breakingAt = -1;
 
-    /** Qui casse le bloc (pour lui donner le phylactère). */
     public static void onBreak(net.minecraftforge.event.level.BlockEvent.BreakEvent e) {
         if (e.getState().getBlock() instanceof PhylBlock && e.getPlayer() instanceof ServerPlayer sp) {
             breaking = sp.getUUID();
@@ -329,9 +319,9 @@ public final class Phylactery {
         stamp(drop, e);
         l.loose(e.serial, now(server));
         ServerPlayer owner = server.getPlayerList().getPlayer(e.owner);
-        if (owner != null && owner != by) owner.sendSystemMessage(Component.literal(by == null ? "§bTon phylactère à " + where(e) + " §7a été arraché."
-                : "§b" + by.getGameProfile().getName() + " §7a cassé ton phylactère à §f" + where(e) + "§7. Il l'a maintenant."));
-        if (by != null && !by.getUUID().equals(e.owner)) bar(by, "§bTu as pris le phylactère de " + e.ownerName + ". §7Tiens-le et il montre son maître.");
+        if (owner != null && owner != by) owner.sendSystemMessage(Component.literal(by == null ? "§bYour phylactery at " + where(e) + " §7was uprooted."
+                : "§b" + by.getGameProfile().getName() + " §7broke your phylactery at §f" + where(e) + "§7. Il l'a maintenant."));
+        if (by != null && !by.getUUID().equals(e.owner)) bar(by, "§bYou took the phylactery of " + e.ownerName + ". §7Hold it to reveal its owner.");
         if (by == null || !by.getInventory().add(drop)) {
             Vec3 c = Vec3.atCenterOf(pos);
             ItemEntity it = new ItemEntity(lv, c.x, c.y, c.z, drop);
@@ -361,7 +351,7 @@ public final class Phylactery {
             if (r.consumesAction() && sl.getBlockState(pos).getBlock() == getBlock()) {
                 Ledger.get(p.server).placed(serial, dimOf(sl), pos, now(p.server));
                 int stand = Ledger.get(p.server).standing(p.getUUID()).size();
-                bar(p, "§bLié. §7Tant qu'il se dresse, un coup mortel te laisse à 1 PV. §8" + stand + " debout.");
+                bar(p, "§bBound. §7While it stands, a fatal hit leaves you at 1 HP. §8" + stand + " debout.");
                 sl.playSound(null, pos, SoundEvents.SOUL_ESCAPE, SoundSource.BLOCKS, 1f, 0.5f);
             }
             return r;
@@ -374,7 +364,7 @@ public final class Phylactery {
             if (serial < 0) return;
             if (crumbled(stack, p.server)) {
                 stack.setCount(0);
-                bar(p, "§8Un phylactère tombe en poussière dans ton sac.");
+                bar(p, "§8A phylactery crumbles to dust in your inventory.");
                 return;
             }
             Ledger.get(p.server).seen(serial, now(p.server));
@@ -403,7 +393,7 @@ public final class Phylactery {
                 Ledger.get(sl.getServer()).lost(serial);
                 UUID o = ownerOf(stack);
                 ServerPlayer who = o == null ? null : sl.getServer().getPlayerList().getPlayer(o);
-                if (who != null) who.sendSystemMessage(Component.literal("§8Un de tes phylactères est tombé hors du monde. §7Il ne te coûte plus rien."));
+                if (who != null) who.sendSystemMessage(Component.literal("§8One of your phylacteries fell out of the world. §7It no longer drains your health."));
                 e.discard();
                 return true;
             }
@@ -424,26 +414,26 @@ public final class Phylactery {
         @Override
         public Component getName(ItemStack s) {
             String o = nameOf(s);
-            return o.isEmpty() ? super.getName(s) : Component.literal("Phylactère de " + o);
+            return o.isEmpty() ? super.getName(s) : Component.literal("Phylactery of " + o);
         }
 
         @Override
         public void appendHoverText(ItemStack s, Level l, List<Component> t, TooltipFlag f) {
             if (serialOf(s) < 0) {
-                t.add(Component.literal("Non lié. Pose-le en portant la Marque vide et il se lie à toi.").withStyle(ChatFormatting.AQUA));
-                t.add(Component.literal("Tant qu'un phylactère se dresse, un coup mortel te laisse à 1 PV.").withStyle(ChatFormatting.GRAY));
-                t.add(Component.literal("Chacun loin de toi coûte 1 PV max. Cinq au plus.").withStyle(ChatFormatting.DARK_GRAY));
+                t.add(Component.literal("Unbound. Place it while using Hollow Mark to bind it to you.").withStyle(ChatFormatting.AQUA));
+                t.add(Component.literal("While a phylactery stands, a fatal hit leaves you at 1 HP.").withStyle(ChatFormatting.GRAY));
+                t.add(Component.literal("Each distant phylactery costs 1 max HP. Up to five.").withStyle(ChatFormatting.DARK_GRAY));
             } else {
-                t.add(Component.literal("Lié à " + nameOf(s) + ".").withStyle(ChatFormatting.AQUA));
-                t.add(Component.literal("Tiens-le : il montre son maître. Qui le porte le frappe plus fort.").withStyle(ChatFormatting.GRAY));
-                t.add(Component.literal("Rien ne le brûle ni ne le fait sauter. Une heure sans porteur, il s'effrite.").withStyle(ChatFormatting.DARK_GRAY));
+                t.add(Component.literal("Bound to " + nameOf(s) + ".").withStyle(ChatFormatting.AQUA));
+                t.add(Component.literal("Hold it to reveal its owner. Its carrier deals more damage to them.").withStyle(ChatFormatting.GRAY));
+                t.add(Component.literal("Fire and explosions cannot destroy it. After an hour without a carrier, it crumbles.").withStyle(ChatFormatting.DARK_GRAY));
             }
         }
     }
 
     static long claim(ServerPlayer p, ItemStack stack) {
         if (!holds(p)) {
-            bar(p, "§8Il ne prend pas racine pour toi. Seule la Marque vide lie un phylactère.");
+            bar(p, "§8It will not take root for you. Only Hollow Mark can bind a phylactery.");
             return -1;
         }
         Ledger l = Ledger.get(p.server);
@@ -452,18 +442,18 @@ public final class Phylactery {
             Ledger.Entry e = l.entry(serial);
             if (e == null || e.state == LOST) {
                 stack.setCount(0);
-                bar(p, "§8Il s'effrite. Ce qu'il tenait a disparu.");
+                bar(p, "§8It crumbles. What it held is gone.");
                 return -1;
             }
             if (!p.getUUID().equals(e.owner)) {
-                bar(p, "§8Il est lié à " + e.ownerName + ". Il ne prend pas racine pour toi.");
+                bar(p, "§8It is bound to " + e.ownerName + ". It will not take root for you.");
                 return -1;
             }
             return serial;
         }
         long fresh = l.bind(p.getUUID(), p.getGameProfile().getName(), now(p.server));
         if (fresh < 0) {
-            bar(p, "§8Cinq, c'est tout ce que tu peux lier. Il faut en perdre un avant d'en lier un autre.");
+            bar(p, "§8You can bind only five. Lose one before binding another.");
             return -1;
         }
         stamp(stack, l.entry(fresh));
@@ -477,23 +467,22 @@ public final class Phylactery {
             else if (onPerson(o, e.serial)) with++;
             else away++;
         }
-        return "§bTes phylactères §7: " + stand + " debout" + (away > 0 ? ", " + away + " hors de portée" : "") + (with > 0 ? "§8 (" + with + " sur toi)" : "") + "§7.";
+        return "§bYour phylacteries §7: " + stand + " debout" + (away > 0 ? ", " + away + " out of range" : "") + (with > 0 ? "§8 (" + with + " on you)" : "") + "§7.";
     }
 
     static String track(ServerPlayer h, UUID owner, String name) {
-        String who = name.isEmpty() ? "Son maître" : name;
+        String who = name.isEmpty() ? "Its owner" : name;
         ServerPlayer t = h.server.getPlayerList().getPlayer(owner);
-        if (t == null) return "§b" + who + " §8n'est pas là.";
-        if (t.level() != h.level()) return "§b" + who + " §7est dans un autre monde.";
+        if (t == null) return "§b" + who + " §8is not here.";
+        if (t.level() != h.level()) return "§b" + who + " §7is in another dimension.";
         double dx = t.getX() - h.getX(), dz = t.getZ() - h.getZ();
         int dist = (int) Math.round(Math.sqrt(dx * dx + dz * dz)), dy = (int) Math.round(t.getY() - h.getY());
-        String[] dirs = {"sud", "sud-ouest", "ouest", "nord-ouest", "nord", "nord-est", "est", "sud-est"};
+        String[] dirs = {"south", "southwest", "west", "northwest", "north", "northeast", "east", "southeast"};
         int idx = Math.floorMod((int) Math.round(Math.toDegrees(Math.atan2(-dx, dz)) / 45.0), 8);
-        String height = Math.abs(dy) < 4 ? "" : dy > 0 ? ", " + dy + " plus haut" : ", " + -dy + " plus bas";
-        return "§b" + who + " §7est à " + dist + " blocs, " + dirs[idx] + height + ".";
+        String height = Math.abs(dy) < 4 ? "" : dy > 0 ? ", " + dy + " higher" : ", " + -dy + " lower";
+        return "§b" + who + " §7is at " + dist + " blocs, " + dirs[idx] + height + ".";
     }
 
-    // ------------------------------------------------------------------ événements
     private static final Map<UUID, Long> REVEALED = new HashMap<>(), LAST_SAVE = new HashMap<>();
     private static final Map<UUID, Integer> TURN = new HashMap<>();
 
@@ -501,7 +490,6 @@ public final class Phylactery {
         return src.is(DamageTypes.FELL_OUT_OF_WORLD) || src.is(DamageTypes.GENERIC_KILL);
     }
 
-    /** Un coup mortel : si un phylactère se dresse, 1 PV et le tueur apprend où en trouver un. Renvoie true si la mort est annulée. */
     public static boolean onDeath(LivingDeathEvent e) {
         if (!(e.getEntity() instanceof ServerPlayer p) || !holds(p) || throughAnyway(e.getSource())) return false;
         List<Ledger.Entry> stand = standing(p);
@@ -515,14 +503,14 @@ public final class Phylactery {
             if (last == null || t - last >= 40) {
                 REVEALED.put(killer.getUUID(), t);
                 Ledger.Entry en = stand.get(Math.floorMod(TURN.merge(p.getUUID(), 1, Integer::sum), stand.size()));
-                killer.sendSystemMessage(Component.literal("§b" + p.getGameProfile().getName() + " §7devrait être mort. Un phylactère le retient à §f" + where(en) + "§7."));
+                killer.sendSystemMessage(Component.literal("§b" + p.getGameProfile().getName() + " §7should be dead. A phylactery holds them at §f" + where(en) + "§7."));
             }
         }
         long t = now(p.server);
         Long last = LAST_SAVE.put(p.getUUID(), t);
         if (last == null || t - last >= 40) {
             p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 0.6f, 0.6f);
-            bar(p, "§bUn phylactère t'a retenu. §8" + stand.size() + " encore debout.");
+            bar(p, "§bA phylactery kept you alive. §8" + stand.size() + " still standing.");
         }
         return true;
     }
@@ -562,7 +550,7 @@ public final class Phylactery {
                 continue;
             }
             l.lost(e.serial);
-            if (owner != null) owner.sendSystemMessage(Component.literal("§8Un phylactère que personne n'a porté depuis une heure s'est effrité. §7Il ne te coûte plus rien."));
+            if (owner != null) owner.sendSystemMessage(Component.literal("§8A phylactery left without a carrier for an hour crumbled. §7It no longer drains your health."));
         }
     }
 

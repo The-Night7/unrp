@@ -1,5 +1,5 @@
 {
- "_aide": "Poses des capacités. Angles en degrés [x, y, z] : bras x=-90 tendu devant, x=-180 levé ; z>0 écarte le bras droit, z<0 écarte le bras gauche ; body x>0 penche en avant ; head x>0 regarde en bas. t = tick. Voir docs/POUVOIRS.md §13.",
+ "_help": "Ability poses. Angles are [x, y, z] degrees: arm x=-90 points forward, x=-180 points up; positive z moves the right arm out, negative z moves the left arm out. Positive body x leans forward; positive head x looks down. t is the tick. See docs/POWERS.md, section 13.",
  "br_ward": {
   "len": 8,
   "ease": "out_cubic",

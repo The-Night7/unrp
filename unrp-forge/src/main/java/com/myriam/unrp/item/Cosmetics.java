@@ -14,16 +14,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
-/**
- * Vêtements cosmétiques : l'état (quelle pièce est affichée par emplacement) vit dans les données durables du
- * joueur et est diffusé à tous ; le client dessine la pièce par-dessus le corps (client/CosmeticLayer).
- * Les cases d'armure restent libres.
- */
 public final class Cosmetics {
     private Cosmetics() {}
 
     public static final EquipmentSlot[] SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-    /** Côté client : pièces affichées par joueur (head, chest, legs, feet ; "" = rien). */
+
     public static final Map<UUID, String[]> CLIENT = new ConcurrentHashMap<>();
 
     private static int idx(EquipmentSlot s) {
@@ -49,17 +44,16 @@ public final class Cosmetics {
         return k == null ? "" : k.getPath();
     }
 
-    /** Affiche la pièce, la retire si elle est déjà affichée, ou la remplace. */
     public static void toggle(ServerPlayer p, UnItems.Outfit o) {
         String[] v = read(p);
         int i = idx(o.slot);
         String id = idOf(o);
         if (id.equals(v[i])) {
             v[i] = "";
-            p.displayClientMessage(Component.literal("§7Vêtement retiré."), true);
+            p.displayClientMessage(Component.literal("§7Clothing removed."), true);
         } else {
             v[i] = id;
-            p.displayClientMessage(Component.literal("§dVêtement porté."), true);
+            p.displayClientMessage(Component.literal("§dClothing equipped."), true);
         }
         write(p, v);
         send(p, PacketDistributor.ALL.noArg(), v);
@@ -76,7 +70,6 @@ public final class Cosmetics {
         Net.CHANNEL.send(target, new CosmeticPacket(owner.getUUID(), v));
     }
 
-    /** Une pièce qui n'est plus dans l'inventaire n'est plus affichée. */
     private static void prune(ServerPlayer p, String[] v) {
         for (int i = 0; i < 4; i++) {
             if (v[i].isEmpty()) continue;
@@ -91,7 +84,6 @@ public final class Cosmetics {
         }
     }
 
-    /** À la connexion : le nouveau voit les tenues de tous, tout le monde voit la sienne. */
     public static void onLogin(ServerPlayer joiner) {
         String[] mine = read(joiner);
         prune(joiner, mine);

@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    // Mixin : sert à poser les bras/le corps du joueur pendant les capacités (voir mixin/PlayerModelMixin.java)
+    // Player-model pose mixins used during abilities.
     id 'org.spongepowered.mixin' version '0.7.+'
 }
 
@@ -54,7 +54,7 @@ minecraft {
             }
         }
         client {
-            // Compte de test hors-ligne : pas besoin de te connecter pour tester.
+            // Offline test account.
         }
         server {
             args '--nogui'
@@ -68,7 +68,7 @@ mixin {
 }
 
 repositories {
-    // Les jars des autres mods (Palladium, GeckoLib...) se déposent dans libs/
+    // Development dependency JARs are stored in libs/.
     flatDir { dir 'libs' }
 }
 
@@ -76,15 +76,15 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    // Chaque jar présent dans libs/ est ajouté automatiquement (voir docs/SETUP.md).
-    // Nom du fichier "geckolib-forge-1.20.1-4.8.4.jar" -> nom "geckolib-forge", version "1.20.1-4.8.4".
+    // Add each JAR in libs/ to the development classpath; see docs/SETUP.md.
+    // Example: geckolib-forge-1.20.1-4.8.4.jar becomes name geckolib-forge, version 1.20.1-4.8.4.
     fileTree(dir: 'libs', include: '*.jar').files.each { jar ->
         def base = jar.name.replaceAll(/\.jar$/, '')
         def m = (base =~ /^(.*?)-(\d.*)$/)
         if (m.matches()) {
             implementation fg.deobf("libs:${m.group(1)}:${m.group(2)}")
         } else {
-            logger.warn("libs/${jar.name} ignoré : renomme-le 'nom-version.jar'")
+            logger.warn("libs/${jar.name} skipped: rename it to 'name-version.jar'")
         }
     }
 
@@ -108,4 +108,13 @@ tasks.withType(JavaCompile).configureEach {
 
 test {
     useJUnitPlatform()
+}
+
+// Keep source text, imported descriptions and language files English.
+tasks.register('verifyEnglish', Exec) {
+    workingDir projectDir
+    commandLine providers.gradleProperty('pythonExecutable').getOrElse('python3'), 'tools/check_english.py'
+}
+tasks.named('check') {
+    dependsOn tasks.named('verifyEnglish')
 }

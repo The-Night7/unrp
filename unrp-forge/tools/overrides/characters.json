@@ -1,8 +1,14 @@
 {
-  "_aide": "Clés = id de personnage (nom sans accents, en minuscules). Utile pour corriger une catégorie, une école, ou retirer un personnage.",
-  "_exemple": {
-    "terrence": { "category": "lore" },
-    "elias": { "ability_id": "nom_de_la_capacite" },
-    "un_personnage_a_retirer": { "_remove": true }
+ "_help": "Keys are character IDs: lowercase names without accents. Override a category or school, or remove a character.",
+ "_exemple": {
+  "terrence": {
+   "category": "lore"
+  },
+  "elias": {
+   "ability_id": "nom_de_la_capacite"
+  },
+  "un_personnage_a_retirer": {
+   "_remove": true
   }
+ }
 }

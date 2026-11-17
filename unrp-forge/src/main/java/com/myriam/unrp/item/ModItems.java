@@ -16,18 +16,12 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-/**
- * Objets du mod : la liste complète des objets d'Unrp (identifiants, noms, quantités, rareté), avec
- * des images et des textes à nous. Voir docs/fidelite/objets.md pour ce qui agit vraiment en jeu.
- * Les ressources sont produites par tools/gen_items.py.
- */
 public final class ModItems {
     private ModItems() {}
 
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, UnrpMod.MOD_ID);
     private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, UnrpMod.MOD_ID);
 
-    /** Se porte sur la tête. */
     public static class Mask extends Item implements Equipable {
         public Mask(Properties p) {
             super(p);
@@ -61,15 +55,14 @@ public final class ModItems {
     public static final RegistryObject<Item> SYRINGE_AMPLIFIER = ITEMS.register("syringe_amplifier", () -> new Item(sixteen()));
     public static final RegistryObject<Item> SYRINGE_DEAMPLIFIER = ITEMS.register("syringe_deamplifier", () -> new Item(sixteen()));
     public static final RegistryObject<Item> SYRINGE_DISABLER = ITEMS.register("syringe_disabler", () -> new Item(sixteen()));
-    public static final RegistryObject<Item> SYRINGE_BLOOD = ITEMS.register("syringe_blood", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_RED, "Du sang, prélevé pour une analyse."));
+    public static final RegistryObject<Item> SYRINGE_BLOOD = ITEMS.register("syringe_blood", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_RED, "A blood sample collected for analysis."));
     public static final RegistryObject<Item> REWRITER_SERUM = ITEMS.register("rewriter_serum", () -> new UnItems.RewriterSerum(one()));
 
-    // --- objets de pouvoir
-    public static final RegistryObject<Item> TOWER_CORE = ITEMS.register("tower_core", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.GOLD, "Le cœur d'une tour EMBER.", "Un noyau chaud qui bourdonne doucement."));
+    public static final RegistryObject<Item> TOWER_CORE = ITEMS.register("tower_core", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.GOLD, "The core of an EMBER tower.", "A warm core that hums softly."));
     public static final RegistryObject<Item> VITAL_SAND = ITEMS.register("vital_sand", () -> new com.myriam.unrp.uo.VitalSandItem(sixteen()));
     public static final RegistryObject<Item> OSSIFIED_TAIL = ITEMS.register("ossified_tail", () -> new com.myriam.unrp.uo.OssifiedTailItem(one()));
     public static final RegistryObject<Item> BINDING_LINK = ITEMS.register("binding_link", () -> new UnItems.Lore(sixteen().rarity(Rarity.RARE), ChatFormatting.GOLD,
-        "Usage prévu : plafond de niveau de 10,0 à 20,0 (système de l'Enchaîné pas encore porté).", "Il ne répond qu'à son propriétaire."));
+        "Planned use: raise the level cap from 10.0 to 20.0 (the Chained One system is not implemented yet).", "It answers only to its owner."));
     public static final RegistryObject<Item> CARVED_RUNE = ITEMS.register("carved_rune", () -> new com.myriam.unrp.uo.CarvedRuneItem(sixteen().fireResistant()));
     public static final RegistryObject<Item> BONE_CHARM = ITEMS.register("bone_charm", () -> new com.myriam.unrp.uo.BoneCharmItem(one().fireResistant()));
     public static final RegistryObject<Item> SOUL = ITEMS.register("soul", () -> new com.myriam.unrp.deal.SoulItem(one().fireResistant().food(com.myriam.unrp.deal.SoulItem.SOUL_MEAL)));
@@ -82,14 +75,13 @@ public final class ModItems {
     public static final RegistryObject<Item> ASCALON = ITEMS.register("ascalon", () -> new UnItems.Ascalon(one().rarity(Rarity.EPIC)));
     public static final RegistryObject<Item> ARMAMENT = ITEMS.register("armament", () -> new com.myriam.unrp.uo.ArmamentItem(one().fireResistant()));
 
-    // --- éclats
-    public static final RegistryObject<Item> EDICT_SHARD = ITEMS.register("edict_shard", () -> new UnItems.Shard("Édit"));
+    public static final RegistryObject<Item> EDICT_SHARD = ITEMS.register("edict_shard", () -> new UnItems.Shard("Edict"));
     public static final RegistryObject<Item> LIMIT_BREAKER_SHARD = ITEMS.register("limit_breaker_shard", () -> new UnItems.Shard("Briseur de limites"));
     public static final RegistryObject<Item> DRAGON_ENGINE_SHARD = ITEMS.register("dragon_engine_shard", () -> new UnItems.Shard("Moteur-dragon"));
-    public static final RegistryObject<Item> SINGULARITY_SHARD = ITEMS.register("singularity_shard", () -> new UnItems.Shard("Singularité"));
+    public static final RegistryObject<Item> SINGULARITY_SHARD = ITEMS.register("singularity_shard", () -> new UnItems.Shard("Singularity"));
     public static final RegistryObject<Item> SARCOPHAGE_SHARD = ITEMS.register("sarcophage_shard", () -> new UnItems.Shard("Sarcophage"));
     public static final RegistryObject<Item> CRIMSON_MARK_SHARD = ITEMS.register("crimson_mark_shard", () -> new UnItems.Shard("Marque cramoisie"));
-    public static final RegistryObject<Item> DEALMAKER_SHARD = ITEMS.register("dealmaker_shard", () -> new UnItems.Shard("Négociateur"));
+    public static final RegistryObject<Item> DEALMAKER_SHARD = ITEMS.register("dealmaker_shard", () -> new UnItems.Shard("Dealmaker"));
     public static final RegistryObject<Item> HOLLOW_MARK_SHARD = ITEMS.register("hollow_mark_shard", () -> new UnItems.Shard("Marque vide"));
     public static final RegistryObject<Item> COUNTERWEIGHT_SHARD = ITEMS.register("counterweight_shard", () -> new UnItems.Shard("Contrepoids"));
     public static final RegistryObject<Item> VERTIGO_SHARD = ITEMS.register("vertigo_shard", () -> new UnItems.Shard("Vertige"));
@@ -106,7 +98,6 @@ public final class ModItems {
     public static final RegistryObject<Item> TOME_CON = ITEMS.register("tome_con", () -> new UnItems.StudyBook(sixteen().rarity(Rarity.UNCOMMON), 3, 2));
     public static final RegistryObject<Item> TOME_QTM = ITEMS.register("tome_qtm", () -> new UnItems.StudyBook(sixteen().rarity(Rarity.RARE), 4, 2));
 
-    // --- disques (la piste audio n'est pas livrée)
     public static final RegistryObject<Item> MUSIC_DISC_TURF_WAR = ITEMS.register("music_disc_turf_war", () -> new net.minecraft.world.item.RecordItem(8, () -> net.minecraft.sounds.SoundEvent.createVariableRangeEvent(new net.minecraft.resources.ResourceLocation("unrp", "music_disc.turf_war")), one().rarity(Rarity.RARE), 480 * 20));
     public static final RegistryObject<Item> MUSIC_DISC_CROWN_MATCH = ITEMS.register("music_disc_crown_match", () -> new net.minecraft.world.item.RecordItem(9, () -> net.minecraft.sounds.SoundEvent.createVariableRangeEvent(new net.minecraft.resources.ResourceLocation("unrp", "music_disc.crown_match")), one().rarity(Rarity.RARE), 279 * 20));
     public static final RegistryObject<Item> MUSIC_DISC_GUARDIAN = ITEMS.register("music_disc_guardian", () -> new net.minecraft.world.item.RecordItem(10, () -> net.minecraft.sounds.SoundEvent.createVariableRangeEvent(new net.minecraft.resources.ResourceLocation("unrp", "music_disc.guardian")), one().rarity(Rarity.RARE), 309 * 20));
@@ -114,10 +105,9 @@ public final class ModItems {
     public static final RegistryObject<Item> MUSIC_DISC_SURGE = ITEMS.register("music_disc_surge", () -> new net.minecraft.world.item.RecordItem(12, () -> net.minecraft.sounds.SoundEvent.createVariableRangeEvent(new net.minecraft.resources.ResourceLocation("unrp", "music_disc.surge")), one().rarity(Rarity.RARE), 284 * 20));
     public static final RegistryObject<Item> MUSIC_DISC_THE_HUNT = ITEMS.register("music_disc_the_hunt", () -> new net.minecraft.world.item.RecordItem(13, () -> net.minecraft.sounds.SoundEvent.createVariableRangeEvent(new net.minecraft.resources.ResourceLocation("unrp", "music_disc.the_hunt")), one().rarity(Rarity.RARE), 160 * 20));
 
-    // --- œufs d'apparition (les créatures ne sont pas encore portées)
-    public static final RegistryObject<Item> AGENT_SPAWN_EGG = ITEMS.register("agent_spawn_egg", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_GRAY, "Fait apparaître : agent EMBER.", "La créature n'est pas encore portée."));
-    public static final RegistryObject<Item> AGENT_LEADER_SPAWN_EGG = ITEMS.register("agent_leader_spawn_egg", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_GRAY, "Fait apparaître : chef EMBER.", "La créature n'est pas encore portée."));
-    public static final RegistryObject<Item> SPECTRE_SPAWN_EGG = ITEMS.register("spectre_spawn_egg", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_GRAY, "Fait apparaître : opérateur Spectre.", "La créature n'est pas encore portée."));
+    public static final RegistryObject<Item> AGENT_SPAWN_EGG = ITEMS.register("agent_spawn_egg", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_GRAY, "Spawns an EMBER agent.", "This creature is not implemented yet."));
+    public static final RegistryObject<Item> AGENT_LEADER_SPAWN_EGG = ITEMS.register("agent_leader_spawn_egg", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_GRAY, "Spawns an EMBER agent leader.", "This creature is not implemented yet."));
+    public static final RegistryObject<Item> SPECTRE_SPAWN_EGG = ITEMS.register("spectre_spawn_egg", () -> new UnItems.Lore(new Item.Properties(), ChatFormatting.DARK_GRAY, "Spawns a Spectre operative.", "This creature is not implemented yet."));
 
     // --- blocs
     public static final RegistryObject<Item> SALT_BLOCK_ITEM = block("salt_block", ModBlocks.SALT_BLOCK, new Item.Properties());
@@ -129,7 +119,6 @@ public final class ModItems {
     public static final RegistryObject<Item> RECOVERY_BED_ITEM = block("recovery_bed", ModBlocks.RECOVERY_BED, new Item.Properties().stacksTo(1));
     public static final RegistryObject<Item> SUPPRESSION_FIELD_ITEM = block("suppression_field", ModBlocks.SUPPRESSION_FIELD, new Item.Properties());
 
-    // --- vêtements cosmétiques (aucune protection)
     public static final RegistryObject<Item> WELLSTONE_BLAZER = ITEMS.register("wellstone_blazer", () -> new UnItems.Outfit("wellstone_uniform", EquipmentSlot.CHEST, one()));
     public static final RegistryObject<Item> WELLSTONE_SHIRT = ITEMS.register("wellstone_shirt", () -> new UnItems.Outfit("wellstone_shirt", EquipmentSlot.CHEST, one()));
     public static final RegistryObject<Item> WELLSTONE_TROUSERS = ITEMS.register("wellstone_trousers", () -> new UnItems.Outfit("wellstone_uniform", EquipmentSlot.LEGS, one()));
@@ -158,7 +147,6 @@ public final class ModItems {
     public static final RegistryObject<Item> EMBER_LEADER_PANTS = ITEMS.register("ember_leader_pants", () -> new UnItems.Outfit("ember_leader", EquipmentSlot.LEGS, one()));
     public static final RegistryObject<Item> EMBER_LEADER_BOOTS = ITEMS.register("ember_leader_boots", () -> new UnItems.Outfit("ember_leader", EquipmentSlot.FEET, one()));
 
-    /** Même contenu que l'onglet du modèle : les objets liés à un pouvoir (hache, armement, lance, Pourfendeur, éclats…) n'y sont pas. */
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("unrp", () -> CreativeModeTab.builder()
         .title(Component.translatable("itemGroup.unrp")).icon(() -> new ItemStack(AMPLIFIER.get())).displayItems((params, out) -> {
             out.accept(UNORDINARY_BOOK.get());

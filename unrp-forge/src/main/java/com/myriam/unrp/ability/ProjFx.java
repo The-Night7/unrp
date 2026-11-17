@@ -3,11 +3,6 @@ package com.myriam.unrp.ability;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
 
-/**
- * Dessin des projectiles en vol (lumière dessinée, aucune particule), un style par sorte :
- *  missile = orbe + sillage ondulé ; poing/paume = orbe + cinq doigts ; chute = main géante (colonne + orbe) ;
- *  croissant = arc de lumière ; aiguille = trait fin.
- */
 final class ProjFx {
     private ProjFx() {}
 
@@ -31,7 +26,7 @@ final class ProjFx {
             }
             case HAND -> {
                 Fx.shell(lv, p.fxId, to, 0.2 + 0.12 * s, p.rgb, 1f, false);
-                for (int i = -2; i <= 2; i++) { // cinq doigts en éventail devant la paume
+                for (int i = -2; i <= 2; i++) {
                     Vec3 f = dir.add(side.scale(0.22 * i)).add(up.scale(0.05 * Math.abs(i))).normalize();
                     Fx.line(lv, to, to.add(f.scale(0.6 + 0.3 * s)), p.rgb, Styles.LINE_NOCORE, 0.05f, 3);
                 }
@@ -39,13 +34,13 @@ final class ProjFx {
             }
             case SLAM -> {
                 Fx.shell(lv, p.fxId, to, 0.35 + 0.2 * s, p.rgb, 1f, false);
-                Fx.line(lv, to.add(0, 3.5, 0), to, p.rgb, Styles.LINE_WAVY, 0.14f + 0.04f * s, 4); // le bras de la main qui tombe
+                Fx.line(lv, to.add(0, 3.5, 0), to, p.rgb, Styles.LINE_WAVY, 0.14f + 0.04f * s, 4);
                 for (int i = -2; i <= 2; i++) Fx.line(lv, to, to.add(side.scale(0.18 * i * s)).add(0, -0.45, 0), p.rgb, Styles.LINE_NOCORE, 0.05f, 3);
             }
             case CRESCENT -> {
                 double span = 0.8 + 0.9 * s;
                 Vec3 prevPt = null;
-                for (int i = 0; i <= 8; i++) { // arc dont la pointe regarde vers l'avant
+                for (int i = 0; i <= 8; i++) {
                     double a = -Math.PI / 2 + Math.PI * i / 8.0;
                     Vec3 pt = to.add(side.scale(Math.sin(a) * span)).add(dir.scale(-Math.cos(a) * span * 0.45 + span * 0.45));
                     if (prevPt != null) Fx.line(lv, prevPt, pt, p.rgb, 0, 0.09f, 3);

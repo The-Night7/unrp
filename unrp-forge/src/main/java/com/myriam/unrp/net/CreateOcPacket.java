@@ -7,7 +7,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/** Client -> serveur : "je crée cet OC dans cette école". Le potentiel est tiré par le serveur, jamais par le client. */
 public class CreateOcPacket {
     public final String name;
     public final String schoolId;

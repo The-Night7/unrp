@@ -1,20 +1,26 @@
 {
-  "schemaVersion": 1,
-  "id": "unrp",
-  "version": "${version}",
-  "name": "Unordinary RP",
-  "description": "Noyau de jeu de rôle inspiré d'UnOrdinary : aura, statistiques et pouvoirs.",
-  "authors": ["Myriam"],
-  "license": "All-Rights-Reserved",
-  "environment": "*",
-  "entrypoints": {
-    "main": ["com.myriam.unrp.UnrpMod"],
-    "client": ["com.myriam.unrp.client.UnrpClient"]
-  },
-  "depends": {
-    "fabricloader": ">=0.14.21",
-    "minecraft": "~1.20.1",
-    "java": ">=17",
-    "fabric-api": "*"
-  }
+ "schemaVersion": 1,
+ "id": "unrp",
+ "version": "${version}",
+ "name": "Unordinary RP",
+ "description": "An unOrdinary-inspired roleplay core with aura, stats and abilities.",
+ "authors": [
+  "Myriam"
+ ],
+ "license": "All-Rights-Reserved",
+ "environment": "*",
+ "entrypoints": {
+  "main": [
+   "com.myriam.unrp.UnrpMod"
+  ],
+  "client": [
+   "com.myriam.unrp.client.UnrpClient"
+  ]
+ },
+ "depends": {
+  "fabricloader": ">=0.14.21",
+  "minecraft": "~1.20.1",
+  "java": ">=17",
+  "fabric-api": "*"
+ }
 }

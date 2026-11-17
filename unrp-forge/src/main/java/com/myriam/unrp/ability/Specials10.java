@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Liens d'aura (lot 10) : Energy Conduit, repris de EnergyConduitEvents. Fiche : docs/fidelite/energy_conduit.md.
+ * Liens d'aura (lot 10) : Energy Conduit, repris de EnergyConduitEvents. Fiche : docs/fidelity/energy_conduit.md.
  */
 public final class Specials10 {
     private Specials10() {}
@@ -32,7 +32,7 @@ public final class Specials10 {
         return s != null && ALL.contains(s);
     }
 
-    private static final Map<UUID, List<UUID>> LINKS = new HashMap<>();   // lanceur -> cibles liées (la plus récente en dernier)
+    private static final Map<UUID, List<UUID>> LINKS = new HashMap<>();
     private static final Map<UUID, Integer> RESTRAINT = new HashMap<>();
     private static final Set<UUID> CHANNEL = new HashSet<>();
 
@@ -81,19 +81,19 @@ public final class Specials10 {
         switch (m.special) {
             case "ec_lasso" -> {
                 List<LivingEntity> ls = links(p);
-                if (p.isShiftKeyDown()) { // couper le dernier lien
+                if (p.isShiftKeyDown()) {
                     if (ls.isEmpty()) {
-                        msg(p, "§bAucun lien d'aura à couper.");
+                        msg(p, "§bNo aura link to sever.");
                         return false;
                     }
                     LivingEntity last = ls.get(ls.size() - 1);
                     LINKS.get(id).remove(last.getUUID());
                     last.removeTag("unrp.aura_linked");
-                    msg(p, "§bLe lien d'aura le plus récent est coupé.");
-                    return false; // pas de coût ni de recharge
+                    msg(p, "§bThe most recent aura link was severed.");
+                    return false;
                 }
                 if (ls.size() >= MAX_LINKS) {
-                    msg(p, "§c✖ Tous les liens d'aura sont pris §7(accroupi + appui pour en couper un).");
+                    msg(p, "§c✖ All aura links are occupied §7(crouch and press to sever one).");
                     return false;
                 }
                 Vec3 look = p.getViewVector(1f);
@@ -112,7 +112,7 @@ public final class Specials10 {
                     if (!l.contains(e.getUUID()) && l.size() < MAX_LINKS) {
                         l.add(e.getUUID());
                         e.addTag("unrp.aura_linked");
-                        msg(p, "§bLien d'aura noué avec " + e.getName().getString());
+                        msg(p, "§bAura link formed with " + e.getName().getString());
                     }
                 };
                 Projectiles.spawn(lasso);
@@ -135,33 +135,32 @@ public final class Specials10 {
         }
     }
 
-    /** Canalisation maintenue (toutes les 4 ticks) : donner, soigner ou attirer ceux qui sont liés. */
     private static void channel(ServerPlayer p, ServerLevel lv, String kind) {
         UUID id = p.getUUID();
         long tick = p.tickCount;
         boolean sneak = p.isShiftKeyDown();
         List<LivingEntity> ls = links(p);
         if (ls.isEmpty()) {
-            if (tick % 40 < 4) msg(p, "§bAucun lien d'aura pour canaliser.");
+            if (tick % 40 < 4) msg(p, "§bNo aura link to channel through.");
             return;
         }
         boolean pulse = tick % 10 < 4;
         switch (kind) {
             case "ec_transfer" -> {
                 for (LivingEntity t : ls) {
-                    if (!sneak) { // donner de l'aura aux alliés liés
+                    if (!sneak) {
                         if (pulse && t instanceof ServerPlayer ap && AbilityEngine.aura(p) > 15) {
                             AbilityEngine.spendAura(p, 2);
                             AbilityEngine.refundAura(ap, 2);
                         }
-                    } else if (pulse) { // puiser l'aura d'un lié
+                    } else if (pulse) {
                         if (t instanceof ServerPlayer enemy) {
                             int their = AbilityEngine.aura(enemy);
                             if (their > 20) {
                                 int take = Math.min(2, their - 20);
                                 AbilityEngine.spendAura(enemy, take);
                                 AbilityEngine.refundAura(p, take);
-                            } else if (tick % 40 < 4) msg(p, "§bSon aura est trop mince pour y puiser.");
+                            } else if (tick % 40 < 4) msg(p, "§bTheir aura is too weak to draw from.");
                         } else {
                             AbilityEngine.refundAura(p, 1);
                         }
@@ -178,12 +177,12 @@ public final class Specials10 {
                         }
                     } else if (pulse) {
                         if (p.getHealth() >= p.getMaxHealth()) {
-                            if (tick % 40 < 4) msg(p, "§bTu es déjà en pleine forme.");
+                            if (tick % 40 < 4) msg(p, "§bYou are already fully recovered.");
                         } else if (t instanceof ServerPlayer enemy) {
                             if (AbilityEngine.aura(enemy) > 20) {
                                 AbilityEngine.spendAura(enemy, 3);
                                 p.heal(2f);
-                            } else if (tick % 40 < 4) msg(p, "§bSon aura est trop mince pour y puiser.");
+                            } else if (tick % 40 < 4) msg(p, "§bTheir aura is too weak to draw from.");
                         } else {
                             t.hurt(lv.damageSources().magic(), 1.5f);
                             p.heal(1.5f);
@@ -193,7 +192,7 @@ public final class Specials10 {
                 }
             }
             case "ec_control" -> {
-                if (!sneak) { // attirer ceux qui sont liés
+                if (!sneak) {
                     RESTRAINT.put(id, 0);
                     for (LivingEntity t : ls) {
                         Vec3 pull = p.position().add(0, 0.5, 0).subtract(t.position().add(0, t.getBbHeight() * 0.5, 0)).scale(0.12);
@@ -203,7 +202,7 @@ public final class Specials10 {
                         t.fallDistance = 0;
                         Fx.line(lv, p.getBoundingBox().getCenter(), t.getBoundingBox().getCenter(), 0xFFB347, 0, 0.1f, 5);
                     }
-                } else { // entraver : plus on tient, plus c'est serré
+                } else {
                     int rt = RESTRAINT.getOrDefault(id, 0) + 4;
                     RESTRAINT.put(id, rt);
                     int amp = Math.min(5, 1 + rt / 40);
@@ -223,7 +222,7 @@ public final class Specials10 {
     public static void tick(MinecraftServer server) {
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
             UUID id = p.getUUID();
-            if (LINKS.containsKey(id) && !AbilityEngine.isOn(p, "energy_conduit")) cutAll(p); // éteindre coupe tous les liens
+            if (LINKS.containsKey(id) && !AbilityEngine.isOn(p, "energy_conduit")) cutAll(p);
         }
     }
 }

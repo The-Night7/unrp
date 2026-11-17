@@ -5,6 +5,8 @@ Orthographic software renders show asset geometry; Minecraft lighting/hand poses
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageEnhance
 import json,math,base64,hashlib,sys
+import os
+import zipfile
 sys.dont_write_bytecode=True
 ROOT=Path(__file__).resolve().parents[1];A=ROOT/'src/main/resources/assets/unrp'
 
@@ -23,9 +25,36 @@ def texture(model,key):
     while value.startswith('#'):
         if value in seen:raise ValueError('Texture cycle')
         seen.add(value);value=model['textures'][value[1:]]
-    if not value.startswith('unrp:'):raise ValueError('Unsupported external texture '+value)
-    path=A/'textures'/(value[5:]+'.png')
-    return path
+    namespace, name = value.split(':', 1)
+    if namespace == 'unrp':
+        return A / 'textures' / (name + '.png')
+    if namespace != 'minecraft' or '..' in Path(name).parts:
+        raise ValueError('Unsupported external texture ' + value)
+    return vanilla_texture(name)
+
+
+def vanilla_texture(name):
+    target = ROOT / 'build/preview-assets/minecraft/textures' / (name + '.png')
+    if target.exists():
+        return target
+
+    configured = os.environ.get('MINECRAFT_CLIENT_JAR')
+    gradle_home = Path(os.environ.get('GRADLE_USER_HOME', Path.home() / '.gradle'))
+    candidates = [Path(configured)] if configured else sorted(gradle_home.glob(
+        'caches/forge_gradle/mcp_repo/de/oceanlabs/mcp/mcp_config/1.20.1-*/joined/downloadClient/client.jar'))
+    entry = 'assets/minecraft/textures/' + name + '.png'
+    for client in candidates:
+        if not client.is_file():
+            continue
+        with zipfile.ZipFile(client) as archive:
+            if entry not in archive.namelist():
+                continue
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(archive.read(entry))
+            return target
+    raise FileNotFoundError('Vanilla texture ' + name +
+                            ' needs the Minecraft 1.20.1 client JAR. Set MINECRAFT_CLIENT_JAR or run the Forge setup first.')
+
 
 def project(p):
     x,y,z=p;return ((x+z)*2.55, (x-z)*1.45-y*2.85)

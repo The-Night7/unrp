@@ -62,24 +62,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-/**
- * Moteur des pouvoirs. Il reproduit le fonctionnement du mod modèle (Palladium + scripts d'aura) :
- *
- *  - R active / désactive le pouvoir. Il reste actif sans recharge. Tant qu'il est actif : passifs, attributs,
- *    et une perte d'aura régulière (-1 aura toutes les "drain_every" ticks).
- *  - X C V B N : les capacités de la barre. 4 façons de les déclencher (champ "input") :
- *      action (une pression, recharge propre), charge (maintenir puis relâcher), held (tant que c'est maintenu),
- *      toggle (une pression allume, une autre éteint).
- *  - Aura : elle ne remonte QUE si rien ne la consomme. À 0, le pouvoir se coupe, l'aura est bloquée 10 secondes,
- *    puis revient à 25 % du maximum (minimum 10). Comme dans le modèle.
- *
- * Tout est calculé côté serveur. Référence des fichiers de données : docs/POUVOIRS.md.
- */
+/** Server-side ability input, aura spending, active states and effect dispatch. */
 public final class AbilityEngine {
     public static final int SLOTS = 5;
-    /** capacités par pouvoir au maximum (toutes postures confondues) */
+
     public static final int MAX_MOVES = AbilityInputProtocol.CAPACITY;
-    /** blocage après épuisement de l'aura (200 ticks = 10 s, comme le modèle) */
+
     private static final int DEPLETION_LOCKOUT = 200;
     private static final double HELD_K = 0.25;
 
@@ -87,53 +75,47 @@ public final class AbilityEngine {
         String powerId;
         boolean on;
         int mode;
-        /** posture courante (pouvoirs à plusieurs postures : Hydrofreeze, Time Manipulation) */
+
         int stance;
         final long[] cdEnd = new long[MAX_MOVES];
         final boolean[] held = new boolean[MAX_MOVES];
         final boolean[] charging = new boolean[MAX_MOVES];
         final long[] chargeAt = new long[MAX_MOVES];
         final boolean[] toggled = new boolean[MAX_MOVES];
-        /** fraction d'aura en attente de retrait (pertes régulières) */
+
         double drainAcc;
-        /** vrai si quelque chose consomme l'aura en ce moment : la régénération est alors bloquée */
+
         boolean draining;
-        /** fin du blocage après épuisement (0 = pas bloqué) */
+
         long lockUntil;
-        /** Bélier en cours */
+
         long ramUntil;
         Ctx ramCtx;
         final Set<UUID> ramHit = new HashSet<>();
-        /** cape allumée ; attaquer la trouble jusqu'à distortUntil */
+
         boolean cloaked;
         long distortUntil;
-        /** Aura Manipulation : pouvoir copié et fin de la copie */
+
         String copyId;
         long copyUntil;
-        /** Aura Manipulation : pouvoirs copiés gardés en réserve ; copyId = celui qu'on a en main (null = le sien) */
+
         final java.util.LinkedHashSet<String> reserve = new java.util.LinkedHashSet<>();
-        /** pouvoir suspendu jusqu'à (Genetic Stasis, surcharge de mutations) */
+
         long disabledUntil;
     }
 
-    /** cape partagée : allié -> fin (tick) */
     private static final Map<UUID, Long> SHARED = new HashMap<>();
     /** riposte : (victime, attaquant) -> prochain tick possible */
     private static final Map<String, Long> RETAL = new HashMap<>();
 
-    /** Pouvoir « courant » de chaque joueur (celui que lisent setup() et le code des pouvoirs). */
     private static final Map<UUID, St> STATE = new HashMap<>();
-    /**
-     * États des autres pouvoirs détenus (copies d'Aura Manipulation, pouvoirs accordés) : comme les pouvoirs Palladium
-     * du modèle, chacun a son interrupteur et ses capacités, et reste allumé en arrière-plan. Clé : id ("" = le sien).
-     */
+
     private static final Map<UUID, Map<String, St>> OTHERS = new HashMap<>();
 
     static String key(St s) {
         return s.copyId == null ? "" : s.copyId;
     }
 
-    /** Pouvoirs détenus, dans l'ordre de la barre : "" (le sien, s'il n'est pas scellé), copies, pouvoirs accordés. */
     public static List<String> heldKeys(ServerPlayer p) {
         List<String> out = new ArrayList<>();
         String base = basePowerId(p);
@@ -156,7 +138,6 @@ public final class AbilityEngine {
         });
     }
 
-    /** Exécute r avec le pouvoir k comme pouvoir courant, puis remet le précédent (réserve, suspension, blocage partagés). */
     static void withPower(ServerPlayer p, String k, Runnable r) {
         UUID id = p.getUUID();
         St focus = STATE.computeIfAbsent(id, x -> new St());
@@ -176,7 +157,7 @@ public final class AbilityEngine {
         s.disabledUntil = focus.disabledUntil;
         s.lockUntil = focus.lockUntil;
         String fk = key(focus);
-        o.put(fk, focus); // le courant est rangé avec les autres pendant l'appel (appels imbriqués cohérents)
+        o.put(fk, focus);
         STATE.put(id, s);
         try {
             r.run();
@@ -191,7 +172,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Tous les états d'un joueur (le courant d'abord). */
     private static List<St> allStates(UUID id) {
         List<St> out = new ArrayList<>();
         St f = STATE.get(id);
@@ -201,7 +181,6 @@ public final class AbilityEngine {
         return out;
     }
 
-    /** Coupe tous les pouvoirs du joueur. */
     public static void allOff(ServerPlayer p) {
         St f = STATE.get(p.getUUID());
         if (f != null && f.on) turnOff(p, setup(p, false), f, null);
@@ -212,7 +191,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Ce pouvoir est détenu (le sien, une copie, un pouvoir accordé). */
     public static boolean holds(ServerPlayer p, String power) {
         if (power == null) return false;
         if (power.equals(basePowerId(p)) && !Superpowers.revoked(p).contains(power)) return true;
@@ -227,7 +205,6 @@ public final class AbilityEngine {
         return o == null ? null : o.get(k);
     }
 
-    /** Pouvoirs allumés du joueur (ids). */
     public static List<String> activePowers(ServerPlayer p) {
         List<String> out = new ArrayList<>();
         String base = basePowerId(p);
@@ -239,14 +216,12 @@ public final class AbilityEngine {
         return out;
     }
 
-    /** Ce pouvoir est détenu et allumé. */
     public static boolean isOn(ServerPlayer p, String power) {
         if (!holds(p, power)) return false;
         St s = stateFor(p, power);
         return s != null && s.on;
     }
 
-    /** Interrupteur i de ce pouvoir allumé. */
     public static boolean toggled(ServerPlayer p, String power, int i) {
         St s = stateFor(p, power);
         return s != null && s.on && i >= 0 && i < MAX_MOVES && s.toggled[i];
@@ -262,7 +237,6 @@ public final class AbilityEngine {
         return false;
     }
 
-    /** Retire de l'aura au joueur (coût d'une charge, d'une pulsation...). Compte pour la maîtrise ; épuise le pouvoir à 0. */
     public static void spendAura(ServerPlayer p, int amount) {
         Setup su = setup(p, false);
         if (su == null || amount <= 0) return;
@@ -270,13 +244,11 @@ public final class AbilityEngine {
         spend(p, su, st, amount);
     }
 
-    /** Aura actuelle du joueur (0 si pas de pouvoir). */
     public static int aura(ServerPlayer p) {
         Setup su = setup(p, false);
         return su == null ? 0 : Math.max(0, su.pr.aura);
     }
 
-    /** Rend de l'aura au joueur (remboursement). */
     public static void refundAura(ServerPlayer p, int amount) {
         Setup su = setup(p, false);
         if (su == null || amount <= 0) return;
@@ -284,13 +256,11 @@ public final class AbilityEngine {
         su.claims.setDirty();
     }
 
-    /** Interrupteur i allumé (pour les effets visuels, ability/Specials2.looks). */
     public static boolean toggled(UUID id, int i) {
         St s = STATE.get(id);
         return s != null && s.on && i >= 0 && i < MAX_MOVES && s.toggled[i];
     }
 
-    /** La régénération d'aura (PlayerStateService) ne s'applique pas si l'aura est consommée ou bloquée. */
     public static boolean blocksRegen(UUID id) {
         for (St s : allStates(id)) if (s.draining || s.lockUntil > 0) return true;
         return false;
@@ -316,22 +286,22 @@ public final class AbilityEngine {
         ClaimData claims = ClaimData.get(p.server);
         ClaimData.Profile pr = claims.profileOf(p.getUUID()).orElse(null);
         if (pr == null) {
-            if (speak) bar(p, "Tu n'as pas encore de personnage (touche H).");
+            if (speak) bar(p, "You have no character yet (press H).");
             return null;
         }
         UnodexData data = UnodexData.get();
         Models.Character c = ClaimData.Profile.CHARACTER.equals(pr.kind) ? data.characters.get(pr.characterId) : null;
-        claims.ensureOcAbility(pr); // OC créé avant le tirage de capacité
+        claims.ensureOcAbility(pr);
         String aid = pr.abilityOf(c);
         if (pr.lifelong || aid == null) {
-            if (speak) bar(p, "Ton personnage n'a pas de capacité utilisable.");
+            if (speak) bar(p, "Your character has no usable ability.");
             return null;
         }
         AbilityPower power = data.powerFor(aid);
-        if (Superpowers.revoked(p).contains(data.aliases.getOrDefault(aid, aid))) power = null; // pouvoir scellé par un pacte
+        if (Superpowers.revoked(p).contains(data.aliases.getOrDefault(aid, aid))) power = null;
         St cst = STATE.get(p.getUUID());
         String copied = null;
-        if (cst != null && cst.copyId != null) { // pouvoir copié (Aura Manipulation)
+        if (cst != null && cst.copyId != null) {
             if (p.serverLevel().getGameTime() < cst.copyUntil && data.powers.containsKey(cst.copyId)) {
                 copied = cst.copyId;
                 power = data.powers.get(copied);
@@ -341,7 +311,7 @@ public final class AbilityEngine {
         }
         if (power == null) {
             if (speak) bar(p, Superpowers.revoked(p).contains(data.aliases.getOrDefault(aid, aid))
-                    ? "Ton pouvoir est scellé par un pacte." : "Cette capacité n'a pas encore de pouvoir défini (" + aid + ").");
+                    ? "Your power is sealed by a Pact." : "This ability has no power implementation yet (" + aid + ").");
             return null;
         }
         String id = copied != null ? copied : data.aliases.getOrDefault(aid, aid);
@@ -351,21 +321,20 @@ public final class AbilityEngine {
         return new Setup(claims, pr, id, power, st);
     }
 
-    /** Remplit l'état envoyé au client : actif, forme courante, capacités, recharges. */
     public static void describe(ServerPlayer p, PlayerStatePacket s, String abilityId) {
         s.active = isOn(p.getUUID());
         AbilityPower power = UnodexData.get().powerFor(abilityId);
         St st = STATE.get(p.getUUID());
         long now = p.serverLevel().getGameTime();
         if (st != null && st.copyId != null && now < st.copyUntil && UnodexData.get().powers.containsKey(st.copyId)) {
-            power = UnodexData.get().powers.get(st.copyId); // pouvoir copié
-            s.modeName = "Copie : " + st.copyId;
+            power = UnodexData.get().powers.get(st.copyId);
+            s.modeName = "Copy: " + st.copyId;
         }
         s.unlockMask = Unlocks.mask(p.server, p);
         s.abilityPts = Unlocks.available(p.server, p);
         s.abilityPtsTotal = Unlocks.total(p.server, p);
         boolean copiedNow = st != null && st.copyId != null && now < st.copyUntil;
-        describeBar(p, s); // barre de Palladium : tous les pouvoirs détenus
+        describeBar(p, s);
         if (power == null) return;
         if (!power.modes.isEmpty()) s.modeName = power.modes.get(st == null ? 0 : st.mode % power.modes.size()).name;
         if (!power.stances.isEmpty()) s.modeName = power.stances.get(st == null ? 0 : st.stance % power.stances.size());
@@ -401,10 +370,6 @@ public final class AbilityEngine {
         }
     }
 
-    /**
-     * Barre de Palladium : les capacités de chaque pouvoir détenu (le sien, les copies, les pouvoirs accordés), chacun
-     * avec son interrupteur, ses cases, ses icônes ; verrouillées si hors posture/mode ou pas débloquées.
-     */
     private static void describeBar(ServerPlayer p, PlayerStatePacket s) {
         List<String> keys = heldKeys(p);
         List<Integer> bp = new ArrayList<>(), bslot = new ArrayList<>(), bcd = new ArrayList<>(), bleft = new ArrayList<>();
@@ -467,10 +432,8 @@ public final class AbilityEngine {
 
     private static double levelOf(ServerPlayer player) { return Specials17.levelOf(player); }
 
-    // ------------------------------------------------------------------ entrées (touches)
-    /** action : 0 = activer/désactiver ; 10+i = appui sur la capacité i ; 20+i = relâchement. */
     public static void input(ServerPlayer p, int action) {
-        if (action >= 1000) { // barre de Palladium : chaque pouvoir détenu a ses listes ; l'action vise ce pouvoir
+        if (action >= 1000) {
             List<String> keys = heldKeys(p);
             int idx = action / 1000 - 1;
             if (idx < 0 || idx >= keys.size()) return;
@@ -478,7 +441,7 @@ public final class AbilityEngine {
             withPower(p, keys.get(idx), () -> input(p, code));
             return;
         }
-        if (action == 140) { // touche de liste de Palladium, après la dernière page : pouvoir suivant (copies, pouvoirs accordés)
+        if (action == 140) {
             St st0 = STATE.computeIfAbsent(p.getUUID(), k -> new St());
             if (!st0.reserve.isEmpty() || !Superpowers.granted(p).isEmpty()) cycleCopy(p, st0);
             return;
@@ -493,7 +456,7 @@ public final class AbilityEngine {
             if (key >= 0) input(p, press ? 10 : 20, key);
             return;
         }
-        if (action >= 100 && action < 140) { // case de la barre : capacité désignée par son rang dans le pouvoir
+        if (action >= 100 && action < 140) {
             boolean press = action < 120;
             int idx = action % 20;
             Setup su0 = setup(p, press);
@@ -501,22 +464,21 @@ public final class AbilityEngine {
             St st0 = STATE.computeIfAbsent(p.getUUID(), k -> new St());
             List<Integer> vis0 = visible(su0.power, st0, p);
             int key = vis0.indexOf(idx);
-            if (key < 0) return; // capacité verrouillée par la posture ou le mode
+            if (key < 0) return;
             input(p, press ? 10 : 20, key);
             return;
         }
         input(p, action, -1);
     }
 
-    /** keyOverride >= 0 : rang de la capacité parmi celles de la posture (au-delà de 9 touches). */
     private static void input(ServerPlayer p, int action, int keyOverride) {
         Setup su = setup(p, action < 20);
         if (su == null) return;
         St st = STATE.computeIfAbsent(p.getUUID(), k -> new St());
         st.powerId = su.powerId;
         long now = p.serverLevel().getGameTime();
-        if (Specials17.powerBlocked(p)) { bar(p, "Ton pouvoir est détenu en Gage ou suspendu par arbitrage."); return; }
-        if (action == 0 && p.isShiftKeyDown() && pagedBar(su.power)) { // pouvoirs à pages (Hollow Mark) : Maj + R change de page
+        if (Specials17.powerBlocked(p)) { bar(p, "Your power is held as Collateral or suspended by Arbitration."); return; }
+        if (action == 0 && p.isShiftKeyDown() && pagedBar(su.power)) {
             st.stance = (st.stance + 1) % su.power.stances.size();
             bar(p, su.power.stances.get(st.stance));
             PlayerStateService.send(p);
@@ -524,16 +486,16 @@ public final class AbilityEngine {
         }
         if (action == 0) {
             if (st.on) {
-                turnOff(p, su, st, "Pouvoir désactivé");
+                turnOff(p, su, st, "Power deactivated");
             } else if (st.disabledUntil > now) {
-                bar(p, "Pouvoir suspendu : encore " + (int) Math.ceil((st.disabledUntil - now) / 20.0) + " s");
+                bar(p, "Power suspended: " + (int) Math.ceil((st.disabledUntil - now) / 20.0) + " s");
             } else if (st.lockUntil > now) {
-                bar(p, "Aura épuisée : encore " + (int) Math.ceil((st.lockUntil - now) / 20.0) + " s");
+                bar(p, "Aura depleted: " + (int) Math.ceil((st.lockUntil - now) / 20.0) + " s");
             } else if (su.pr.aura <= 0) {
                 bar(p, "Plus d'aura : attends qu'elle remonte.");
             } else {
                 st.on = true;
-                bar(p, "Pouvoir activé");
+                bar(p, "Power activated");
                 onActivate(p, su);
                 syncAttributes(p, su, st);
                 PlayerStateService.send(p);
@@ -544,13 +506,13 @@ public final class AbilityEngine {
         List<Integer> vis = visible(su.power, st, p);
         int key = keyOverride >= 0 ? keyOverride : action % 10;
         if (key >= vis.size()) return;
-        int slot = vis.get(key); // touche -> capacité de la posture courante
+        int slot = vis.get(key);
         AbilityPower.Move m = su.power.moves.get(slot);
         if (!press) {
             if (st.held[slot]) {
                 st.held[slot] = false;
                 if (m.releaseTag != null) p.addTag(m.releaseTag);
-                if (m.cooldown > 0) st.cdEnd[slot] = p.serverLevel().getGameTime() + m.cooldown; // recharge Palladium d'une capacité maintenue
+                if (m.cooldown > 0) st.cdEnd[slot] = p.serverLevel().getGameTime() + m.cooldown;
                 Poses.stop(p);
                 Specials.stop(p, m.special);
                 syncAttributes(p, su, st);
@@ -563,23 +525,23 @@ public final class AbilityEngine {
             return;
         }
         if (Specials17.moveLevel(p, su.powerId, slot) < m.minLevel) {
-            bar(p, "Niveau " + m.minLevel + " requis."); return;
+            bar(p, "Level " + m.minLevel + " required."); return;
         }
         if (!st.on) {
-            bar(p, "Active d'abord ton pouvoir (R).");
+            bar(p, "Activate your power first (R).");
             return;
         }
         boolean copied = st.copyId != null && now < st.copyUntil;
         if (!copied && Unlocks.locked(Unlocks.mask(p.server, p), su.power, slot, Unlocks.mastered(p.server, p))) {
             int rk = su.power.moves.get(slot).unlock;
-            bar(p, m.name + " : verrouillé" + (rk >= Unlocks.MIN_RANK ? " (rang " + rk + ", " + Unlocks.cost(rk) + " pt) : touche H, onglet Capacités." : " : débloque d'abord la capacité précédente."));
+            bar(p, m.name + ": locked" + (rk >= Unlocks.MIN_RANK ? " (rank " + rk + ", " + Unlocks.cost(rk) + " pt): press H, then open Abilities." : ": unlock the previous ability first."));
             return;
         }
         if ((Specials17.branchBlocked(p, su.powerId, slot) || !Specials17.borrowedMoveAllowed(p, su.powerId, slot))) {
-            bar(p, "§cCette capacité est prise en gage (Covenant).");
+            bar(p, "§cThis ability is held as Collateral (Covenant).");
             return;
         }
-        if (!st.toggled[slot] && !tagsAllow(p, m)) return; // capacité Palladium désactivée par ses conditions de tag
+        if (!st.toggled[slot] && !tagsAllow(p, m)) return;
         int need = m.minAura > 0 ? m.minAura : Math.max(1, m.cost);
         switch (m.input == null ? "action" : m.input) {
             case "held" -> {
@@ -592,8 +554,8 @@ public final class AbilityEngine {
                     return;
                 }
                 if (m.pressCost > 0) spend(p, su, st, m.pressCost);
-                st.held[slot] = true; // la première pulsation part au prochain tick serveur
-                if (m.triggerTag != null) p.addTag(m.triggerTag); // « first_tick_commands » d'une capacité maintenue du modèle
+                st.held[slot] = true;
+                if (m.triggerTag != null) p.addTag(m.triggerTag);
                 if (m.holdTag != null) p.addTag(m.holdTag);
                 Poses.move(p, m, poseOf(p, m), 10);
                 syncAttributes(p, su, st);
@@ -612,7 +574,7 @@ public final class AbilityEngine {
                 if (!st.toggled[slot]) {
                     st.cdEnd[slot] = now + Math.max(0, m.cooldown);
                     Specials.stop(p, m.special);
-                } else if (m.group != null) { // un seul interrupteur allumé par groupe
+                } else if (m.group != null) {
                     for (int j = 0; j < su.power.moves.size() && j < MAX_MOVES; j++) {
                         if (j != slot && st.toggled[j] && m.group.equals(su.power.moves.get(j).group)) {
                             st.toggled[j] = false;
@@ -620,7 +582,7 @@ public final class AbilityEngine {
                         }
                     }
                 }
-                bar(p, m.name + (st.toggled[slot] ? " : activé" : " : désactivé"));
+                bar(p, m.name + (st.toggled[slot] ? ": active" : ": inactive"));
                 if (st.toggled[slot] && m.fx != null) perform(p, su, st, m, 1.0, true);
                 if (st.toggled[slot]) Poses.move(p, m, poseOf(p, m), 0);
                 syncAttributes(p, su, st);
@@ -632,11 +594,11 @@ public final class AbilityEngine {
                     return;
                 }
                 if (su.pr.aura < (m.minAura > 0 ? m.minAura : Math.max(1, m.cost / 3))) {
-                    bar(p, "Aura insuffisante pour charger.");
+                    bar(p, "Not enough aura to charge.");
                     return;
                 }
                 st.charging[slot] = true;
-                st.chargeAt[slot] = now; // l'effet part au relâchement
+                st.chargeAt[slot] = now;
             }
             default -> { // action
                 if (now < st.cdEnd[slot]) {
@@ -647,7 +609,7 @@ public final class AbilityEngine {
                     bar(p, "Aura insuffisante (" + su.pr.aura + "/" + need + ").");
                     return;
                 }
-                String pose = poseOf(p, m); // choisie avant l'effet (l'effet peut dépendre de l'accroupissement)
+                String pose = poseOf(p, m);
                 if (!perform(p, su, st, m, 1.0, true)) return;
                 Poses.move(p, m, pose, 0);
                 spend(p, su, st, m.cost);
@@ -657,7 +619,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Effet d'activation : la foudre tombe sur le joueur s'il voit le ciel (Lightning), pose d'activation. */
     private static void onActivate(ServerPlayer p, Setup su) {
         if (su.power.activeTag != null) p.addTag(su.power.activeTag);
         for (String t : su.power.extraActiveTags) p.addTag(t);
@@ -670,7 +631,7 @@ public final class AbilityEngine {
         } else if ("tm_on".equals(su.power.onActivate)) {
             com.myriam.unrp.pass.TimePass.on(p, p.serverLevel()); // TimeManipulationEvents : TM_ON + pose tm_wind
         } else if ("sky_strike".equals(su.power.onActivate) && su.power.passOn != null) {
-            com.myriam.unrp.pass.LightningPass.call(p); // LightningEvents.call : la foudre du moteur d'effets (F_ROOF sous un toit)
+            com.myriam.unrp.pass.LightningPass.call(p);
         } else if ("sky_strike".equals(su.power.onActivate) && p.serverLevel().canSeeSky(BlockPos.containing(p.getEyePosition()))) {
             int col = su.power.look != null && su.power.look.rgb() >= 0 ? su.power.look.rgb() : 0xFFFFFF;
             Vec3 top = p.position().add((p.getRandom().nextDouble() - 0.5) * 2, 28, (p.getRandom().nextDouble() - 0.5) * 2);
@@ -680,7 +641,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Relâchement d'une capacité chargée : puissance et coût proportionnels au temps de charge (minimum 30 %). */
     private static void releaseCharge(ServerPlayer p, Setup su, St st, int slot, AbilityPower.Move m) {
         if (!st.on) return;
         long now = p.serverLevel().getGameTime();
@@ -706,24 +666,22 @@ public final class AbilityEngine {
         if (su.pr.aura == 0) deplete(p, su, st);
     }
 
-    /** Aura à 0 : le pouvoir se coupe et l'aura reste bloquée DEPLETION_LOCKOUT ticks. */
     private static void deplete(ServerPlayer p, Setup su, St st) {
         turnOff(p, su, st, null);
         st.lockUntil = p.serverLevel().getGameTime() + DEPLETION_LOCKOUT;
-        DEPLETED.add(p.getUUID()); // les autres pouvoirs se coupent au tick (hors de tout changement de pouvoir courant)
-        p.displayClientMessage(Component.literal("Aura épuisée !").withStyle(net.minecraft.ChatFormatting.RED, net.minecraft.ChatFormatting.BOLD), true);
+        DEPLETED.add(p.getUUID());
+        p.displayClientMessage(Component.literal("Aura depleted!").withStyle(net.minecraft.ChatFormatting.RED, net.minecraft.ChatFormatting.BOLD), true);
     }
 
     private static final Set<UUID> DEPLETED = new HashSet<>();
 
-    /** Aura à 0 : tous les pouvoirs se coupent, les copies sont expulsées, l'aura reste bloquée. */
     private static void depleteAll(ServerPlayer p) {
         St st = STATE.get(p.getUUID());
         boolean hadCopies = st != null && !st.reserve.isEmpty();
         allOff(p);
         if (hadCopies) {
             setCopy(p, null, 0);
-            p.displayClientMessage(Component.literal("Aura épuisée : pouvoirs expulsés !").withStyle(net.minecraft.ChatFormatting.RED), true);
+            p.displayClientMessage(Component.literal("Aura depleted: borrowed powers expelled!").withStyle(net.minecraft.ChatFormatting.RED), true);
         }
         St f = STATE.computeIfAbsent(p.getUUID(), k -> new St());
         f.lockUntil = Math.max(f.lockUntil, p.serverLevel().getGameTime() + DEPLETION_LOCKOUT);
@@ -778,16 +736,16 @@ public final class AbilityEngine {
             bar(p, "Mode : " + md.name + statText(md.stats));
             return true;
         }
-        if (m.triggerTag != null) p.addTag(m.triggerTag); // le code du modèle porté réagit au tag (BarrierEvents...)
+        if (m.triggerTag != null) p.addTag(m.triggerTag);
         if (m.flashTag != null) Poses.timedTag(p, m.flashTag, m.flashTicks);
-        if (m.fx == null) return true; // capacité purement passive (toggle)
+        if (m.fx == null) return true;
         StyleData style = StyleService.get(p.server, p.getUUID());
         AbilityPower.Look lk = su.power.look;
         int glow = lk != null && lk.rgb() >= 0 ? lk.rgb() : -1;
         if ("beam".equals(m.fx.kind) && style.beamColor >= 0) glow = style.beamColor;
         Ctx ctx = new Ctx(p, p.serverLevel(), scale(m.fx, k), su.st, glow, speak, lk);
         if ("ram".equals(m.fx.kind)) st.ramCtx = ctx;
-        boolean pass = su.power.passOn != null; // dessiné par le moteur d'effets du modèle
+        boolean pass = su.power.passOn != null;
         if (pass) Fx.QUIET++;
         boolean ok;
         try {
@@ -802,8 +760,6 @@ public final class AbilityEngine {
         return ok;
     }
 
-    // ------------------------------------------------------------------ attributs (vitesse, armure...)
-    /** Ajoute ou retire les modificateurs d'attributs selon ce qui est actif. Idempotent. */
     private static void syncAttributes(ServerPlayer p, Setup su, St st) {
         for (int i = 0; i < su.power.attributes.size(); i++) {
             applyAttr(p, su.powerId + ":p" + i, su.power.attributes.get(i), st.on);
@@ -830,8 +786,8 @@ public final class AbilityEngine {
         }
     }
 
-    // ------------------------------------------------------------------ boucle serveur
-    /** Toutes les 4 ticks : capacités maintenues, pertes d'aura, passifs, épuisement. */
+    // ------------------------------------------------------------------ server tick
+
     public static void tick(MinecraftServer server) {
         Walls.tick(server);
         Unlocks.tickPlay(server);
@@ -854,7 +810,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Un tick du pouvoir courant du joueur (allumé). */
     private static void tickOne(MinecraftServer server, ServerPlayer p, long now) {
         St st = STATE.get(p.getUUID());
         if (st == null || !st.on) return;
@@ -882,12 +837,12 @@ public final class AbilityEngine {
                 passive.addAll(m.passive);
                 if (m.drainEvery > 0) rate += 1.0 / m.drainEvery;
             }
-            if (m.fx != null && "shell".equals(m.fx.kind) && m.drainEvery > 0) rate += shellCount(p.getUUID()) / (double) m.drainEvery; // par barrière
-            if (st.held[i]) { // la pose reste tant que la touche est tenue
+            if (m.fx != null && "shell".equals(m.fx.kind) && m.drainEvery > 0) rate += shellCount(p.getUUID()) / (double) m.drainEvery;
+            if (st.held[i]) {
                 if (m.sound != null) Poses.holdQuiet(p, poseOf(p, m), 10);
                 else Poses.hold(p, poseOf(p, m), 10);
             }
-            if (st.held[i] && m.fx != null) { // pulsation d'une capacité maintenue
+            if (st.held[i] && m.fx != null) {
                 int cost = m.drainEvery > 0 ? 0 : Math.max(1, (int) Math.round(m.cost * 0.2));
                 if (cost > 0 && su.pr.aura < cost) {
                     st.held[i] = false;
@@ -923,10 +878,10 @@ public final class AbilityEngine {
             for (AbilityEffect.Eff e : passive) {
                 ResourceLocation rl = e.id == null ? null : ResourceLocation.tryParse(e.id);
                 MobEffect m = rl == null ? null : ForgeRegistries.MOB_EFFECTS.getValue(rl);
-                if (m == MobEffects.INVISIBILITY && now < st.distortUntil) return; // cape troublée après une attaque
+                if (m == MobEffects.INVISIBILITY && now < st.distortUntil) return;
                 if (m != null) p.addEffect(new MobEffectInstance(m, Math.max(30, (int) (e.secs * 20)), Math.max(0, e.amp), false, false));
             }
-            if (su.power.senseRadius > 0) { // sens électrique : ce qui vit autour se met à briller
+            if (su.power.senseRadius > 0) {
                 for (LivingEntity o : p.serverLevel().getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(su.power.senseRadius),
                         o -> o != p && o.isAlive())) {
                     o.addEffect(new MobEffectInstance(MobEffects.GLOWING, 40, 0, false, false));
@@ -937,11 +892,10 @@ public final class AbilityEngine {
         syncAttributes(p, su, st);
         if (dirty) PlayerStateService.send(p);
         int ac = StyleService.get(server, p.getUUID()).auraColor;
-        if (ac == 0x8A4DFF && su.power.look != null && su.power.look.rgb() >= 0) ac = su.power.look.rgb(); // couleur du webtoon tant que tu n'as pas choisi la tienne
-        if (su.power.passOn == null) Styles.aura(p, su.power.look, ac, p.hasEffect(MobEffects.INVISIBILITY), now); // aura visible selon le style (sinon : moteur du modèle)
+        if (ac == 0x8A4DFF && su.power.look != null && su.power.look.rgb() >= 0) ac = su.power.look.rgb();
+        if (su.power.passOn == null) Styles.aura(p, su.power.look, ac, p.hasEffect(MobEffects.INVISIBILITY), now);
     }
 
-    /** -1 aura toutes les N ticks => N ; ancien format en aura/seconde => aura/20 par tick. */
     private static double rate(int every, double perSecond) {
         if (every > 0) return 1.0 / every;
         return perSecond > 0 ? perSecond / 20.0 : 0;
@@ -956,10 +910,10 @@ public final class AbilityEngine {
                 su.pr.aura = Math.min(max, Math.max(10, max / 4));
                 su.claims.setDirty();
             }
-            p.displayClientMessage(Component.literal("Aura restaurée").withStyle(net.minecraft.ChatFormatting.AQUA, net.minecraft.ChatFormatting.BOLD), true);
+            p.displayClientMessage(Component.literal("Aura restored").withStyle(net.minecraft.ChatFormatting.AQUA, net.minecraft.ChatFormatting.BOLD), true);
             PlayerStateService.send(p);
         } else if ((st.lockUntil - now) % 20 < 4) {
-            p.displayClientMessage(Component.literal("Aura récupérée dans " + (int) Math.ceil((st.lockUntil - now) / 20.0) + " s")
+            p.displayClientMessage(Component.literal("Aura recovers in " + (int) Math.ceil((st.lockUntil - now) / 20.0) + " s")
                     .withStyle(net.minecraft.ChatFormatting.RED), true);
         }
     }
@@ -974,7 +928,6 @@ public final class AbilityEngine {
         if (su.power.look != null) accent(p.serverLevel(), su.power.look, p.position().add(0, 1.0, 0), 1 + (int) (prog * 4), 0.5);
     }
 
-    /** Chaque tick : projectiles, barrières, bélier. */
     public static void tickFast(MinecraftServer server) {
         Specials.tick(server);
         Iterator<Bolt> bi = BOLTS.iterator();
@@ -1002,7 +955,7 @@ public final class AbilityEngine {
                 if (now >= until) {
                     SHARED.remove(p.getUUID());
                     p.removeEffect(MobEffects.INVISIBILITY);
-                    bar(p, "Ta cape empruntée s'estompe.");
+                    bar(p, "Your borrowed cloak fades.");
                 } else if (now % 20 == 0) {
                     p.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 30, 0, false, false));
                 }
@@ -1010,7 +963,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Course foudroyante : tant que la capacité "surge" est tenue, le joueur file droit devant. */
     private static void surge(ServerPlayer p, St st) {
         AbilityPower power = powerOf(p);
         if (power == null) return;
@@ -1027,7 +979,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Multiplicateur de dégâts de chute du pouvoir actif (1 = normal). */
     public static float fallMult(LivingEntity e) {
         if (!(e instanceof ServerPlayer p) || !isOn(p.getUUID())) return 1f;
         float m = 1f;
@@ -1038,19 +989,15 @@ public final class AbilityEngine {
         return m;
     }
 
-    /** Cape (la sienne ou partagée) : vrai si le joueur est camouflé. */
     public static boolean cloaked(LivingEntity e) {
         if (SHARED.containsKey(e.getUUID())) return true;
         for (St st : allStates(e.getUUID())) if (st.on && st.cloaked) return true;
         return false;
     }
 
-    // ------------------------------------------------------------------ événements (barrières, riposte)
-    /** Une attaque qui traverse une barrière est arrêtée : c'est la barrière qui encaisse. */
     private static final String[] NO_DODGE = {"fall", "fire", "lava", "magic", "drown", "explosion", "wither", "starve", "cactus", "thorns",
             "freeze", "lightning", "hot_floor", "in_wall", "fly_into_wall", "out_of_world", "sweet_berry", "sting"};
 
-    /** Esquive (SpeedDodgeEvents du modèle) : tout joueur a 12 % x (Vitesse / 10) de chances d'annuler une attaque, hors dégâts d'environnement. */
     private static boolean dodge(LivingAttackEvent e, ServerPlayer p) {
         if (!p.isAlive()) return false;
         String id = e.getSource().type().msgId();
@@ -1073,7 +1020,7 @@ public final class AbilityEngine {
         if (!victim.level().isClientSide) Specials9.onAttack(e);
         if (victim instanceof ServerPlayer vp && !vp.level().isClientSide && dodge(e, vp)) return;
         if (attacker == null || victim.level().isClientSide) return;
-        if (attacker instanceof ServerPlayer ap) { // attaquer sous la cape la trouble 1 seconde
+        if (attacker instanceof ServerPlayer ap) {
             St ast = null;
             for (St s0 : allStates(ap.getUUID())) if (s0.on && s0.cloaked) ast = s0;
             if (ast != null) {
@@ -1093,13 +1040,12 @@ public final class AbilityEngine {
         }
     }
 
-    /** "thorns" : qui te frappe au corps à corps prend des dégâts (Lightning : "hitting you hurts"). */
     public static void onHurt(LivingHurtEvent e) {
         Specials.onHurt(e);
         if (e.getSource().getEntity() instanceof ServerPlayer ap && e.getSource().getDirectEntity() == ap && ap != e.getEntity()) {
             for (St ast : allStates(ap.getUUID())) {
             AbilityPower apw = ast.powerId == null ? null : UnodexData.get().powers.get(ast.powerId);
-            if (ast.on && apw != null) { // coups au corps à corps avec un interrupteur "on_hit" allumé (chaque pouvoir allumé)
+            if (ast.on && apw != null) {
                 for (int i = 0; i < apw.moves.size() && i < MAX_MOVES; i++) {
                     if (!ast.toggled[i]) continue;
                     for (AbilityEffect.Eff ef : apw.moves.get(i).onHit) {
@@ -1115,14 +1061,14 @@ public final class AbilityEngine {
         if (!(e.getSource().getEntity() instanceof LivingEntity att) || e.getSource().getDirectEntity() != att || att == p) return;
         if (!isOn(p.getUUID())) return;
         AbilityPower power = null;
-        for (String id : activePowers(p)) { // riposte du premier pouvoir allumé qui en a une
+        for (String id : activePowers(p)) {
             AbilityPower pw = UnodexData.get().powers.get(id);
             if (pw != null && pw.thorns > 0) { power = pw; break; }
         }
         if (power == null || power.thorns <= 0) return;
         long now = p.serverLevel().getGameTime();
         String key = p.getUUID() + ">" + att.getUUID();
-        if (RETAL.getOrDefault(key, 0L) > now) return; // une riposte par attaquant et par seconde
+        if (RETAL.getOrDefault(key, 0L) > now) return;
         RETAL.put(key, now + 20);
         att.hurt(p.damageSources().thorns(p), (float) power.thorns);
         att.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20, 0));
@@ -1150,11 +1096,10 @@ public final class AbilityEngine {
         return n;
     }
 
-    /** Bonus/malus de stats en cours : mode du pouvoir + capacités allumées ou tenues (pouvoir actif seulement). */
     public static int[] statDelta(UUID id) {
         int[] d = new int[5];
-        add(d, Specials17.statAdj(id)); // gages de Covenant (pris, gardés, prêtés)
-        for (St st : allStates(id)) { // chaque pouvoir allumé
+        add(d, Specials17.statAdj(id));
+        for (St st : allStates(id)) {
             if (!st.on || st.powerId == null) continue;
             AbilityPower power = UnodexData.get().powers.get(st.powerId);
             if (power == null) continue;
@@ -1166,9 +1111,8 @@ public final class AbilityEngine {
         return d;
     }
 
-    private static final String[] STAT_SHORT = {"Puissance", "Défense", "Récup.", "Ruse", "Vitesse"};
+    private static final String[] STAT_SHORT = {"Power", "Defense", "Rec.", "Trick", "Speed"};
 
-    /** " (Puissance +3, Défense -1)" pour le message de changement de mode. */
     private static String statText(int[] s) {
         if (s == null) return "";
         StringBuilder b = new StringBuilder();
@@ -1184,7 +1128,6 @@ public final class AbilityEngine {
         for (int i = 0; i < 5 && i < s.length; i++) d[i] += s[i];
     }
 
-    /** Après un changement de mode ou de posture : ce qui n'est plus sur la barre s'éteint. */
     private static void dropHidden(ServerPlayer p, AbilityPower power, St st) {
         List<Integer> vis = visible(power, st, p);
         for (int i = 0; i < power.moves.size() && i < MAX_MOVES; i++) {
@@ -1209,7 +1152,6 @@ public final class AbilityEngine {
         PlayerStateService.send(player);
     }
 
-    /** Identifiant du pouvoir de base du joueur (sans copie), ou null. */
     public static String basePowerId(ServerPlayer p) {
         ClaimData.Profile pr = ClaimData.get(p.server).profileOf(p.getUUID()).orElse(null);
         if (pr == null) return null;
@@ -1219,20 +1161,18 @@ public final class AbilityEngine {
         return UnodexData.get().aliases.getOrDefault(aid, aid);
     }
 
-    /** Ajoute un pouvoir à la réserve sans le prendre en main (superpouvoir « _am » du modèle). */
     public static void addCopy(ServerPlayer p, String id) {
         St st = STATE.computeIfAbsent(p.getUUID(), k -> new St());
         st.reserve.add(id);
         PlayerStateService.send(p);
     }
 
-    /** Retire un pouvoir de la réserve (et de la main s'il y était). */
     public static void removeCopy(ServerPlayer p, String id) {
         if (Specials17.hasLease(p, id)) return; // a contract loan ends through its collateral ledger
         St st = STATE.get(p.getUUID());
         if (st == null) return;
         Map<String, St> o = OTHERS.get(p.getUUID());
-        if (o != null && o.containsKey(id)) { // copie allumée en arrière-plan : elle se coupe
+        if (o != null && o.containsKey(id)) {
             if (o.get(id).on) withPower(p, id, () -> turnOff(p, setup(p, false), STATE.get(p.getUUID()), null));
             o.remove(id);
         }
@@ -1245,34 +1185,30 @@ public final class AbilityEngine {
         PlayerStateService.send(p);
     }
 
-    /** Coupe le pouvoir s'il est actif (pouvoir retiré). */
     public static void forceOff(ServerPlayer p) {
         St s = stateOf(p, "");
         if (s.on) withPower(p, "", () -> turnOff(p, setup(p, false), STATE.get(p.getUUID()), null));
     }
 
-    /** Pouvoirs copiés en réserve (Aura Manipulation). */
     public static java.util.Set<String> copies(ServerPlayer p) {
         St st = STATE.get(p.getUUID());
         return st == null ? java.util.Set.of() : java.util.Collections.unmodifiableSet(st.reserve);
     }
 
-    /** Copie un pouvoir jusqu'à "until" (id null = fin de la copie). Le pouvoir se coupe pour changer de barre. */
     public static void setCopy(ServerPlayer p, String id, long until) {
         St st = STATE.computeIfAbsent(p.getUUID(), k -> new St());
-        if (id == null) { // fin de toutes les copies : elles se coupent
+        if (id == null) {
             for (String r : new ArrayList<>(st.reserve)) removeCopy(p, r);
             st = STATE.get(p.getUUID());
             st.reserve.removeIf(idToRemove -> !Specials17.hasLease(p, idToRemove));
             focus(p, "");
         } else {
             st.reserve.add(id);
-            focus(p, id); // la copie passe en main, le pouvoir quitté reste allumé
+            focus(p, id);
         }
         PlayerStateService.send(p);
     }
 
-    /** Change le pouvoir courant (celui que montrent le hub et la première liste) sans rien couper. */
     private static void focus(ServerPlayer p, String k) {
         UUID id = p.getUUID();
         St cur = STATE.computeIfAbsent(id, x -> new St());
@@ -1292,28 +1228,22 @@ public final class AbilityEngine {
         STATE.put(id, next);
     }
 
-    /** Maj + R : passe au pouvoir copié suivant de la réserve, puis revient au sien (Aura Manipulation). */
     private static void cycleCopy(ServerPlayer p, St st) {
         List<String> order = heldKeys(p);
         if (order.isEmpty()) return;
         int next = (order.indexOf(key(st)) + 1) % order.size();
         focus(p, order.get(next));
         St now = STATE.get(p.getUUID());
-        bar(p, now.copyId == null ? "Ton pouvoir" : "En main : " + now.copyId);
+        bar(p, now.copyId == null ? "Your power" : "Held: " + now.copyId);
         PlayerStateService.send(p);
     }
 
-    /**
-     * État vu par le moteur d'effets du modèle : identifiant (avec « _am » pour une copie d'Aura Manipulation) et clés
-     * des capacités allumées (passOn du pouvoir, pass des capacités tenues ou allumées, puis celles posées par le code
-     * des pouvoirs via {@link com.myriam.unrp.pass.PassSync#key}).
-     */
     public static com.myriam.unrp.pass.PassStatePacket passState(ServerPlayer p, java.util.Set<String> extra, int locked, boolean transformed) {
         String base = basePowerId(p);
         boolean am = "aura_manipulation".equals(base);
         List<String> paths = new ArrayList<>();
         List<List<String>> keys = new ArrayList<>();
-        for (String k : heldKeys(p)) { // chaque pouvoir détenu, comme les « power holders » de Palladium
+        for (String k : heldKeys(p)) {
             withPower(p, k, () -> {
                 St st = STATE.get(p.getUUID());
                 Setup su = setup(p, false);
@@ -1322,8 +1252,8 @@ public final class AbilityEngine {
                 List<String> on = new ArrayList<>();
                 if (st != null && st.on && !disabled(p)) {
                     if (su.power.passOn != null) on.add(su.power.passOn);
-                    on.add("toggle"); // l'interrupteur « toggle » des pouvoirs Palladium du modèle (calques)
-                    if (am && copy) on.add("am_shown"); // AmPass.reveal : la copie se dévoile dès qu'on s'en sert
+                    on.add("toggle");
+                    if (am && copy) on.add("am_shown");
                     for (int i = 0; i < su.power.moves.size() && i < MAX_MOVES; i++) {
                         AbilityPower.Move m = su.power.moves.get(i);
                         if (m.pass != null && (st.toggled[i] || st.held[i])) on.add(m.pass);
@@ -1337,14 +1267,13 @@ public final class AbilityEngine {
         List<String> common = new ArrayList<>(extra);
         for (String t : p.getTags()) {
             if (com.myriam.unrp.anim.PoseTags.ALL.contains(t) && !common.contains(t)) common.add(t); // poses tenues
-            if (t.startsWith("unrp.key.") && !common.contains(t.substring(14))) common.add(t.substring(14)); // capacités brèves (calques)
-            if (com.myriam.unrp.look.RenderLayerTags.get().contains(t) && !common.contains(t)) common.add(t); // conditions des calques de rendu du modèle
+            if (t.startsWith("unrp.key.") && !common.contains(t.substring(14))) common.add(t.substring(14));
+            if (com.myriam.unrp.look.RenderLayerTags.get().contains(t) && !common.contains(t)) common.add(t);
         }
         java.util.Collections.sort(common);
         return new com.myriam.unrp.pass.PassStatePacket(p.getUUID(), paths, keys, common, am, locked, transformed);
     }
 
-    /** Conditions de tag d'une capacité (need_tag présent, block_tag absent). */
     static boolean tagsAllow(ServerPlayer p, AbilityPower.Move m) {
         if (m.needTag != null && !p.getTags().contains(m.needTag)) return false;
         if (m.needAny != null && !m.needAny.isEmpty()) {
@@ -1362,9 +1291,8 @@ public final class AbilityEngine {
         return true;
     }
 
-    /** Pose/retire les « hold_tag » des capacités selon qu'elles sont tenues ou allumées (appelé chaque tick par PassSync). */
     public static void syncHoldTags(ServerPlayer p) {
-        for (String k : heldKeys(p)) withPower(p, k, () -> { // hold_tag de chaque pouvoir détenu
+        for (String k : heldKeys(p)) withPower(p, k, () -> {
             St st = STATE.get(p.getUUID());
             Setup su = setup(p, false);
             if (su == null) return;
@@ -1378,7 +1306,6 @@ public final class AbilityEngine {
         });
     }
 
-    /** Pouvoir suspendu en ce moment (le tag « power_disabled » du modèle). */
     public static boolean disabled(ServerPlayer p) {
         St st = STATE.get(p.getUUID());
         return Specials17.powerBlocked(p) || (st != null && st.disabledUntil > p.serverLevel().getGameTime());
@@ -1414,26 +1341,23 @@ public final class AbilityEngine {
         return progress;
     }
 
-    /** Lève une suspension en cours (menottes retirées). */
     public static void undisable(ServerPlayer p) {
         St st = STATE.get(p.getUUID());
         if (st != null) st.disabledUntil = 0;
     }
 
-    /** Suspend le pouvoir du joueur "ticks" ticks (il se coupe et ne peut pas être réactivé). */
     public static void disable(ServerPlayer p, int ticks) {
-        if (Specials17.branchEscrowed(p)) { bar(p, "Une branche sous séquestre ne peut pas être scellée."); return; }
-        allOff(p); // tous les pouvoirs du joueur
+        if (Specials17.branchEscrowed(p)) { bar(p, "An escrowed branch cannot be sealed."); return; }
+        allOff(p);
         St st = STATE.computeIfAbsent(p.getUUID(), k -> new St());
         st.disabledUntil = p.serverLevel().getGameTime() + ticks;
         var recovery=com.myriam.unrp.item.UnItems.persisted(p);
         recovery.putLong("unrp_recovery_episode",st.disabledUntil);
         recovery.putDouble("unrp_recovery_progress",0);
         recovery.putBoolean("unrp_recovery_partial",false);
-        bar(p, "Pouvoir suspendu");
+        bar(p, "Power suspended");
     }
 
-    /** Pouvoir et stats effectifs du joueur (pour les capacités qui se déclenchent au relâchement). */
     public static AbilityPower currentPower(ServerPlayer p) {
         Setup su = setup(p, false);
         return su == null ? null : su.power;
@@ -1444,14 +1368,12 @@ public final class AbilityEngine {
         return su == null ? null : su.st;
     }
 
-    /** Barre à pages : des postures, mais aucune capacité « stance_next » (la page change par Maj + R, comme la touche de liste du modèle). */
     static boolean pagedBar(AbilityPower power) {
         if (power.stances.isEmpty()) return false;
         for (AbilityPower.Move m : power.moves) if ("stance_next".equals(m.special)) return false;
         return true;
     }
 
-    /** Capacités affichées sur la barre : celles de la posture courante et celles sans posture (stance -1), 5 au maximum. */
     static List<Integer> visible(AbilityPower power, St st, ServerPlayer p) {
         List<Integer> out = new ArrayList<>();
         int cur = st == null || power.stances.isEmpty() ? 0 : st.stance % power.stances.size();
@@ -1468,7 +1390,7 @@ public final class AbilityEngine {
     }
 
     // ------------------------------------------------------------------ poses
-    /** Pose jouée par une capacité : celle du JSON (variante accroupi si définie), sinon une pose par défaut selon l'effet. */
+
     private static String poseOf(ServerPlayer p, AbilityPower.Move m) {
         if (p.isShiftKeyDown() && m.poseSneak != null) return m.poseSneak;
         if (m.pose != null) return m.pose;
@@ -1488,7 +1410,6 @@ public final class AbilityEngine {
         };
     }
 
-    /** Mort : le pouvoir se coupe et les barrières disparaissent (comme le modèle). */
     public static void onDeath(ServerPlayer p) {
         allOff(p);
         St st = STATE.get(p.getUUID());
@@ -1497,7 +1418,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Coup de poing dans le vide : s'il traverse la paroi d'une barrière (pas la sienne), elle encaisse le coup. */
     public static void punch(ServerPlayer p) {
         Specials17.onAttackAttempt(p);
         Vec3 eye = p.getEyePosition(), end = eye.add(p.getViewVector(1f).scale(4));
@@ -1505,7 +1425,7 @@ public final class AbilityEngine {
         for (Shell sh : SHELLS) {
             if (sh.level != p.level() || sh.owner.equals(p.getUUID()) || sh.ram) continue;
             boolean in0 = eye.distanceTo(sh.center) < sh.radius;
-            // point du segment le plus proche du centre
+
             Vec3 d = end.subtract(eye);
             double t = Math.max(0, Math.min(1, sh.center.subtract(eye).dot(d) / d.lengthSqr()));
             boolean crosses = in0 ? end.distanceTo(sh.center) >= sh.radius : eye.add(d.scale(t)).distanceTo(sh.center) <= sh.radius;
@@ -1516,7 +1436,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Rend de l'aura (rappel d'une barrière). */
     private static void refund(ServerPlayer p, int amount) {
         Setup su = setup(p, false);
         if (su == null) return;
@@ -1534,7 +1453,6 @@ public final class AbilityEngine {
         return new Vector3f(((rgb >> 16) & 255) / 255f, ((rgb >> 8) & 255) / 255f, (rgb & 255) / 255f);
     }
 
-    /** Copie de l'effet mise à l'échelle de l'intensité k. */
     private static AbilityEffect scale(AbilityEffect f, double k) {
         double soft = 0.5 + 0.5 * k;
         AbilityEffect o = new AbilityEffect();
@@ -1564,7 +1482,7 @@ public final class AbilityEngine {
         o.fire = (int) Math.round(f.fire * k);
         for (AbilityEffect.Eff e : f.selfEffects) o.selfEffects.add(copy(e, soft));
         for (AbilityEffect.Eff e : f.effects) o.effects.add(copy(e, soft));
-        if (k >= 1.0) { // pleine intensité : les valeurs d'un mouvement "action" ne sont pas rognées
+        if (k >= 1.0) {
             o.range = f.range;
             o.radius = f.radius;
             o.amount = f.amount;
@@ -1582,9 +1500,8 @@ public final class AbilityEngine {
         return c;
     }
 
-
     // ------------------------------------------------------------------ contexte
-    /** Tout ce qu'un effet doit savoir : lanceur, monde, effet (déjà mis à l'échelle), stats, couleur, apparence. */
+
     private record Ctx(ServerPlayer p, ServerLevel level, AbilityEffect fx, int[] st, int glow, boolean speak, AbilityPower.Look look) {
         double dmg(double base) {
             return base * (0.7 + 0.15 * st[0]);
@@ -1601,7 +1518,6 @@ public final class AbilityEngine {
 
     private record Hit(Vec3 end, LivingEntity target, double dist) {}
 
-    /** Aiguillage : "kind" de l'effet -> fonction. Pour ajouter un type : une ligne ici + une fonction. */
     private static boolean run(Ctx c) {
         return switch (c.fx.kind == null ? "" : c.fx.kind) {
             case "strike" -> strike(c);
@@ -1626,14 +1542,14 @@ public final class AbilityEngine {
             case "ram" -> ram(c);
             case "share" -> share(c);
             default -> {
-                bar(c.p, "Type d'effet inconnu : " + c.fx.kind);
+                bar(c.p, "Unknown effect type: " + c.fx.kind);
                 yield false;
             }
         };
     }
 
     // ------------------------------------------------------------------ projectile (bolt)
-    /** Projectile qui avance de "speed" blocs par tick pendant "life" ticks (Lightning Bolt du modèle : 2 et 15). */
+
     private static boolean bolt(Ctx c) {
         Vec3 look = c.p.getViewVector(1f);
         Vec3 start = c.p.getEyePosition().add(look.scale(0.5)).add(0, -0.1, 0);
@@ -1649,7 +1565,7 @@ public final class AbilityEngine {
         Vec3 pos;
         Vec3 vel;
         int life;
-        /** dessiné par le moteur d'effets du modèle (numéro de projectile simulé : aux) */
+
         final boolean pass;
         final int aux;
 
@@ -1669,7 +1585,7 @@ public final class AbilityEngine {
             try {
                 boolean alive = step0();
                 if (!alive && !ended) com.myriam.unrp.pass.LightningPass.gone(c.level, aux, pos);
-                // projectile de Palladium : inertie 0,99 par tick (0,8 dans l'eau), comme le client la prévoit
+
                 if (alive) vel = vel.scale(c.level.getFluidState(BlockPos.containing(pos)).isEmpty() ? 0.99 : 0.8);
                 return alive;
             } finally {
@@ -1679,7 +1595,6 @@ public final class AbilityEngine {
 
         boolean ended;
 
-        /** Avance d'un tick ; false = le projectile disparaît. */
         boolean step0() {
             if (c.p.isRemoved() || life-- <= 0) return false;
             Vec3 next = pos.add(vel);
@@ -1697,7 +1612,7 @@ public final class AbilityEngine {
             }
             if (best != null) end = pos.add(end.subtract(pos).normalize().scale(bestD));
             trail(c, pos, end);
-            Fx.shell(c.level, (1 << 27) + c.p.getId(), end, 0.2, col(c), 1f, false); // tête lumineuse du projectile (orbe)
+            Fx.shell(c.level, (1 << 27) + c.p.getId(), end, 0.2, col(c), 1f, false);
             pos = end;
             if (best != null) {
                 if (c.fx.dmg > 0) hurt(c, best, c.dmg(c.fx.dmg));
@@ -1711,7 +1626,7 @@ public final class AbilityEngine {
                 return false;
             }
             if (bh.getType() != HitResult.Type.MISS) {
-                if (pass) { // PassEvents.off : le point d'impact, décollé de la face touchée
+                if (pass) {
                     ended = true;
                     Vec3 off = end.add(bh.getDirection().getStepX() * 0.05, bh.getDirection().getStepY() * 0.05, bh.getDirection().getStepZ() * 0.05);
                     com.myriam.unrp.pass.LightningPass.hit(c.p, aux, null, off);
@@ -1724,16 +1639,6 @@ public final class AbilityEngine {
         }
     }
 
-    // ------------------------------------------------------------------ barrière (shell / grow / ram)
-    /**
-     * Barrière en forme de sphère autour du lanceur (Barrier Deploy du modèle).
-     *  - le lanceur la traverse librement ; personne d'autre ne passe, dans un sens comme dans l'autre (piège) ;
-     *  - une attaque d'un côté vers l'autre est arrêtée : la barrière perd des PV à la place ;
-     *  - les projectiles venant de l'extérieur sont renvoyés à leur tireur ;
-     *  - elle se fissure (2/3, 1/3 des PV), et quand elle se brise le lanceur prend "recoil" dégâts ;
-     *  - elle coûte -1 aura toutes les "drain_every" ticks tant qu'au moins une existe ; elle disparaît
-     *    quand le pouvoir est coupé ou après "glow" secondes.
-     */
     private static boolean shell(Ctx c) {
         UUID me = c.p.getUUID();
         Vec3 eye = c.p.getEyePosition(), look = c.p.getViewVector(1f);
@@ -1742,7 +1647,7 @@ public final class AbilityEngine {
         long until = c.level.getGameTime() + ticks(c.fx.glow > 0 ? c.fx.glow : 60);
         double r = c.fx.radius > 0 ? c.fx.radius : 2.5;
         if (c.p.isShiftKeyDown()) {
-            // accroupi + regarder une de ses barrières (28 blocs) : rappel, l'aura est rendue
+
             Shell aimed = null;
             for (Shell sh : SHELLS) {
                 if (!sh.owner.equals(me) || sh.ram || sh.level != c.level) continue;
@@ -1757,14 +1662,14 @@ public final class AbilityEngine {
             if (aimed != null) {
                 aimed.dissipate();
                 SHELLS.remove(aimed);
-                refund(c.p, 15 + Math.max(0, c.fx.cost)); // le coût de ce lancer + 15, comme le modèle
-                bar(c.p, "Barrière rappelée");
+                refund(c.p, 15 + Math.max(0, c.fx.cost));
+                bar(c.p, "Barrier recalled");
                 return true;
             }
-            // accroupi ailleurs : barrière externe là où tu vises (24 blocs), 2 au maximum
+
             BlockHitResult hit = c.level.clip(new ClipContext(eye, eye.add(look.scale(24)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, c.p));
             if (hit.getType() == HitResult.Type.MISS) {
-                bar(c.p, "Vise un endroit à 24 blocs maximum.");
+                bar(c.p, "Aim within 24 blocks.");
                 return false;
             }
             List<Shell> ext = new ArrayList<>();
@@ -1777,9 +1682,9 @@ public final class AbilityEngine {
             }
             Vec3 at = hit.getLocation().add(look.scale(-0.3)).add(0, r * 0.5, 0);
             SHELLS.add(new Shell(me, c.level, at, r, hp, until, col, c.fx.recoil > 0 ? c.fx.recoil : 4, false));
-            bar(c.p, "Barrière externe dressée");
+            bar(c.p, "External barrier raised");
         } else {
-            // barrière autour de soi : une seule à la fois (la nouvelle remplace l'ancienne)
+
             Iterator<Shell> it = SHELLS.iterator();
             while (it.hasNext()) {
                 Shell sh = it.next();
@@ -1789,17 +1694,13 @@ public final class AbilityEngine {
                 }
             }
             SHELLS.add(new Shell(me, c.level, c.p.getBoundingBox().getCenter(), r, hp, until, col, c.fx.recoil > 0 ? c.fx.recoil : 4, true));
-            bar(c.p, "Barrière dressée");
+            bar(c.p, "Barrier raised");
         }
         c.level.playSound(null, c.p.blockPosition(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.0f, 0.8f);
         effects(c, c.p, c.fx.selfEffects);
         return true;
     }
 
-    /**
-     * Agrandit toutes tes barrières de "amount" blocs de rayon (maximum "range").
-     * Accroupi : les contracte (minimum 1,2), et ce qui est à l'intérieur est écrasé (dégâts + lenteur).
-     */
     private static boolean grow(Ctx c) {
         boolean shrink = c.p.isShiftKeyDown();
         double step = c.fx.amount > 0 ? c.fx.amount : 0.75;
@@ -1818,20 +1719,19 @@ public final class AbilityEngine {
             } else {
                 sh.radius = Math.min(maxR, sh.radius + step);
             }
-            sh.sides.clear(); // ce qui est maintenant englobé est "dedans"
+            sh.sides.clear();
             sh.sync(true);
         }
         if (!any) {
-            bar(c.p, "Aucune barrière active.");
+            bar(c.p, "No active barriers.");
             return false;
         }
-        bar(c.p, shrink ? "Barrières contractées : ceux à l'intérieur sont écrasés" : "Barrières agrandies");
+        bar(c.p, shrink ? "Barriers contracted: occupants are crushed" : "Barriers expanded");
         c.level.playSound(null, c.p.blockPosition(), shrink ? SoundEvents.AMETHYST_BLOCK_BREAK : SoundEvents.AMETHYST_BLOCK_RESONATE,
                 SoundSource.PLAYERS, 1.0f, shrink ? 0.7f : 1.2f);
         return true;
     }
 
-    /** Bélier : élan vers l'avant derrière un bouclier ; ce qui est devant est projeté et blessé une fois. */
     private static boolean ram(Ctx c) {
         Vec3 look = c.p.getViewVector(1f);
         Vec3 flat = new Vec3(look.x, 0, look.z);
@@ -1856,7 +1756,7 @@ public final class AbilityEngine {
         p.fallDistance = 0;
         Vec3 front = p.position().add(0, 1.0, 0).add(flat.scale(1.3));
         double r = c.fx.radius > 0 ? c.fx.radius : 2.5;
-        // disque du bouclier, perpendiculaire à la course
+
         Vec3 side = new Vec3(-flat.z, 0, flat.x);
         for (int i = 0; i < 16; i += 4) {
             double a = 2 * Math.PI * i / 16;
@@ -1890,10 +1790,9 @@ public final class AbilityEngine {
         int stage;
         int age;
         final int id = ++shellIds;
-        /** côté de chaque créature proche (true = dedans), mémorisé la première fois qu'on la voit */
+
         final Map<UUID, Boolean> sides = new HashMap<>();
 
-        /** barrière autour de soi (une seule) ou externe (2 maximum) ; ram = bouclier du Bélier (non utilisé ici) */
         final boolean self;
         boolean ram;
 
@@ -1911,7 +1810,6 @@ public final class AbilityEngine {
             Fx.shell(level, id, center, radius, color, 1f, false);
         }
 
-        /** Renvoie l'état aux clients proches (rendu de la sphère : client/FxRenderer). */
         void sync(boolean hit) {
             Fx.shell(level, id, center, radius, color, (float) Math.max(0, hp / maxHp), hit);
         }
@@ -1920,7 +1818,6 @@ public final class AbilityEngine {
             return e.getBoundingBox().getCenter().distanceTo(center) < radius;
         }
 
-        /** Un tick ; false = la barrière disparaît. */
         boolean step(MinecraftServer server) {
             age++;
             ServerPlayer o = server.getPlayerList().getPlayer(owner);
@@ -1928,14 +1825,14 @@ public final class AbilityEngine {
                 dissipate();
                 return false;
             }
-            // personne ne traverse, sauf le lanceur
+
             for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, new AABB(center, center).inflate(radius + 2),
                     e -> e.isAlive() && !e.isSpectator() && !e.getUUID().equals(owner))) {
                 boolean in = inside(e);
                 Boolean was = sides.putIfAbsent(e.getUUID(), in);
                 if (was != null && was != in) keepOnSide(e, was);
             }
-            // projectiles venant de l'autre côté : renvoyés
+
             for (Projectile pr : level.getEntitiesOfClass(Projectile.class, new AABB(center, center).inflate(radius + 1.5))) {
                 Vec3 pos = pr.position();
                 double d = pos.distanceTo(center);
@@ -1972,10 +1869,9 @@ public final class AbilityEngine {
         private DustParticleOptions dust(float size) {
             float f = (float) Math.max(0.35, hp / maxHp);
             Vector3f v = vec(color);
-            return new DustParticleOptions(new Vector3f(v.x * f + (1 - f), v.y * f, v.z * f), size); // rougit en s'abîmant
+            return new DustParticleOptions(new Vector3f(v.x * f + (1 - f), v.y * f, v.z * f), size);
         }
 
-        /** Quelques éclats hexagonaux qui scintillent sur la surface (la sphère elle-même est dessinée par le client). */
         private void draw() {
             for (int i = 0; i < 3; i++) {
                 double y = level.random.nextDouble() * 2 - 1, th = level.random.nextDouble() * Math.PI * 2, rr = Math.sqrt(1 - y * y);
@@ -1996,7 +1892,6 @@ public final class AbilityEngine {
             if (hp <= 0) shatter();
         }
 
-        /** Brisée par les coups : le lanceur est blessé (comme dans le webtoon). */
         void shatter() {
             hp = 0;
             level.playSound(null, BlockPos.containing(center), SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1.5f, 0.8f);
@@ -2005,11 +1900,10 @@ public final class AbilityEngine {
             ServerPlayer o = level.getServer().getPlayerList().getPlayer(owner);
             if (o != null) {
                 o.hurt(o.damageSources().magic(), (float) recoil);
-                o.displayClientMessage(Component.literal("Ta barrière s'est brisée !"), true);
+                o.displayClientMessage(Component.literal("Your barrier broke!"), true);
             }
         }
 
-        /** Disparition normale (pouvoir coupé, durée écoulée). */
         void dissipate() {
             Fx.shellGone(level, id, center, false);
             Vfx.emit(level, dust(1.0f), center.x, center.y, center.z, 25, radius * 0.5, radius * 0.5, radius * 0.5, 0.02);
@@ -2017,13 +1911,13 @@ public final class AbilityEngine {
     }
 
     // ------------------------------------------------------------------ partage (Shared Cloak)
-    /** Cape partagée : l'allié visé (même groupe ou même école, "range" blocs) est camouflé "glow" secondes ; "max" alliés à la fois. */
+
     private static boolean share(Ctx c) {
         double range = c.fx.range > 0 ? c.fx.range : 12;
         Vec3 eye = c.p.getEyePosition(), look = c.p.getViewVector(1f);
         ServerPlayer best = null;
         double bt = Double.MAX_VALUE;
-        for (ServerPlayer o : c.level.players()) { // l'allié visé (dans l'axe du regard)
+        for (ServerPlayer o : c.level.players()) {
             if (o == c.p || o.isSpectator() || !com.myriam.unrp.social.SocialService.allies(c.p.server, c.p.getUUID(), o.getUUID())) continue;
             Vec3 to = o.getBoundingBox().getCenter().subtract(eye);
             double t = to.dot(look);
@@ -2034,7 +1928,7 @@ public final class AbilityEngine {
             }
         }
         if (best == null) {
-            bar(c.p, "Aucun allié en vue (même groupe ou même école, " + (int) range + " blocs).");
+            bar(c.p, "No ally in sight (same group or school, " + (int) range + " blocs).");
             return false;
         }
         int maxShared = c.fx.max > 0 ? c.fx.max : 4;
@@ -2042,7 +1936,7 @@ public final class AbilityEngine {
         int count = 0;
         for (Long until : SHARED.values()) if (until > now) count++;
         if (count >= maxShared && !SHARED.containsKey(best.getUUID())) {
-            bar(c.p, "Trop d'alliés déjà camouflés (" + maxShared + " maximum).");
+            bar(c.p, "Too many allies are already cloaked (" + maxShared + " maximum).");
             return false;
         }
         double secs = c.secs(c.fx.glow > 0 ? c.fx.glow : 10);
@@ -2052,14 +1946,13 @@ public final class AbilityEngine {
         effects(c, c.p, c.fx.selfEffects);
         burst(c, best.getBoundingBox().getCenter(), 0.6, 20);
         c.level.playSound(null, best.blockPosition(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.9f, 1.4f);
-        bar(best, "Tu as été camouflé(e) par " + c.p.getName().getString());
-        bar(c.p, "Cape partagée avec " + best.getName().getString());
+        bar(best, "You were cloaked by " + c.p.getName().getString());
+        bar(c.p, "Cloak shared with " + best.getName().getString());
         return true;
     }
 
-
     // ------------------------------------------------------------------ types d'effet
-    /** Coup au corps à corps dans un cône devant soi. */
+
     private static boolean strike(Ctx c) {
         ServerPlayer p = c.p;
         Vec3 look = p.getViewVector(1f).normalize();
@@ -2076,7 +1969,7 @@ public final class AbilityEngine {
 
         boolean selfOnly = targets.isEmpty() && !c.fx.selfEffects.isEmpty();
         if (targets.isEmpty() && !selfOnly) {
-            bar(p, "Aucune cible à portée.");
+            bar(p, "No target in range.");
             return false;
         }
         effects(c, p, c.fx.selfEffects);
@@ -2100,7 +1993,6 @@ public final class AbilityEngine {
         return true;
     }
 
-    /** Rayon : touche la première créature ou le premier bloc sur la ligne de visée. */
     private static boolean beam(Ctx c) {
         ServerPlayer p = c.p;
         double range = c.fx.range > 0 ? c.fx.range : 24;
@@ -2119,7 +2011,7 @@ public final class AbilityEngine {
             if (c.fx.fire > 0) t.setSecondsOnFire(c.fx.fire);
             effects(c, t, c.fx.effects);
         } else if (c.fx.dmg > 0 && c.fx.explosion <= 0 && c.fx.range <= 6) {
-            bar(p, "Aucune cible à portée."); // capacités de contact : on ne gaspille pas l'aura
+            bar(p, "No target in range.");
             return false;
         }
         if (c.fx.bolt) {
@@ -2135,7 +2027,6 @@ public final class AbilityEngine {
         return true;
     }
 
-    /** Onde autour de soi. Un kb négatif attire au lieu de repousser. */
     private static boolean blast(Ctx c) {
         ServerPlayer p = c.p;
         double r = c.fx.radius > 0 ? c.fx.radius : 6;
@@ -2191,7 +2082,7 @@ public final class AbilityEngine {
                 return true;
             }
         }
-        bar(p, "Pas de place pour arriver là.");
+        bar(p, "Not enough room to arrive there.");
         return false;
     }
 
@@ -2219,7 +2110,7 @@ public final class AbilityEngine {
         ServerPlayer p = c.p;
         Hit hit = ray(p, c.fx.range > 0 ? c.fx.range : 16);
         if (hit.target == null) {
-            bar(p, "Aucune cible en vue.");
+            bar(p, "No target in sight.");
             return false;
         }
         LivingEntity t = hit.target;
@@ -2247,7 +2138,6 @@ public final class AbilityEngine {
         return true;
     }
 
-    /** Détection : met en surbrillance et/ou liste les personnages proches (nom, tier, niveau, distance). */
     private static boolean scan(Ctx c) {
         ServerPlayer p = c.p;
         double r = c.fx.radius > 0 ? c.fx.radius : 24;
@@ -2271,13 +2161,13 @@ public final class AbilityEngine {
         ring(c, p.position(), Math.min(r, 12));
         if (c.fx.report) {
             if (lines.isEmpty() && others == 0) {
-                p.sendSystemMessage(Component.literal("[Détection] Personne dans un rayon de " + (int) r + " m."));
+                p.sendSystemMessage(Component.literal("[Detection] Nobody within " + (int) r + " m."));
             } else {
-                p.sendSystemMessage(Component.literal("[Détection] " + lines.size() + " personnage(s), " + others + " autre(s) être(s) vivant(s) :"));
+                p.sendSystemMessage(Component.literal("[Detection] " + lines.size() + " character(s), " + others + " other living being(s):"));
                 lines.stream().limit(8).forEach(l -> p.sendSystemMessage(Component.literal(" - " + l)));
             }
         } else {
-            bar(p, found.size() + " présence(s) détectée(s).");
+            bar(p, found.size() + " presence(s) detected.");
         }
         return true;
     }
@@ -2291,7 +2181,6 @@ public final class AbilityEngine {
         return true;
     }
 
-    /** Barrière : mur de blocs temporaires devant soi (largeur 2*radius+1, hauteur amount, à range blocs). */
     private static boolean wall(Ctx c) {
         ServerPlayer p = c.p;
         Vec3 look = p.getViewVector(1f);
@@ -2315,7 +2204,7 @@ public final class AbilityEngine {
             }
         }
         if (placed == 0) {
-            bar(p, "Pas de place pour une barrière.");
+            bar(p, "Not enough room for a barrier.");
             return false;
         }
         Vfx.emit(c.level, particle(c), base.x, p.getY() + height / 2.0, base.z, 12, half * 0.5, height * 0.3, 0.2, 0.01);
@@ -2392,19 +2281,17 @@ public final class AbilityEngine {
 
     private static void spawn(Ctx c, Vec3 at, int count, double spread) {
         Vfx.emit(c.level, particle(c), at.x, at.y, at.z, Math.max(1, count / 2), spread, spread, spread, 0.02);
-        Styles.impact(c.level, c.look, col(c), at, Math.max(3, count / 2)); // éclats du style + anneau
+        Styles.impact(c.level, c.look, col(c), at, Math.max(3, count / 2));
     }
 
-    /** Particule propre au pouvoir (étincelles de foudre, flammes, neige...). */
     private static void accent(ServerLevel level, AbilityPower.Look look, Vec3 at, int count, double spread) {
         int rgb = look.rgb() >= 0 ? look.rgb() : 0xFFFFFF;
-        Fx.sprite(level, Styles.sprite(look), rgb, 1.0f, at, count, spread, 0.02); // particule du style, teintée
+        Fx.sprite(level, Styles.sprite(look), rgb, 1.0f, at, count, spread, 0.02);
         ResourceLocation rl = look.particle == null ? null : ResourceLocation.tryParse(look.particle);
         Object type = rl == null ? null : ForgeRegistries.PARTICLE_TYPES.getValue(rl);
         if (type instanceof ParticleOptions po && count > 1) Vfx.emit(level, po, at.x, at.y, at.z, count / 2, spread, spread, spread, 0.03);
     }
 
-    /** Arc de balayage lumineux devant le lanceur (coups au corps à corps), dans le style du pouvoir. */
     private static void sweep(Ctx c, ServerPlayer p, Vec3 look, double r) {
         Vec3 flat = new Vec3(look.x, 0, look.z);
         flat = flat.lengthSqr() < 1.0E-4 ? new Vec3(0, 0, 1) : flat.normalize();
@@ -2420,7 +2307,6 @@ public final class AbilityEngine {
         }
     }
 
-    /** Couleur des effets lumineux d'un lancer : couleur du rayon (Style) ou du pouvoir, sinon blanc. */
     private static int col(Ctx c) {
         if (c.glow >= 0) return c.glow;
         return c.look != null && c.look.rgb() >= 0 ? c.look.rgb() : 0xFFFFFF;
@@ -2437,7 +2323,7 @@ public final class AbilityEngine {
         Vec3 dir = d.normalize();
         boolean jag = c.look != null && c.look.jagged;
         Styles.Preset st = Styles.of(c.look);
-        Fx.line(c.level, from, to, col(c), st.line(), st.width(), 5); // le trait lumineux du style (dessiné par le client)
+        Fx.line(c.level, from, to, col(c), st.line(), st.width(), 5);
         double step = 0.7;
         int n = (int) Math.min(160, len / step);
         for (int i = 0; i <= n; i++) {

@@ -8,7 +8,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/** Serveur -> client : l'état du joueur affiché par le hub et le HUD. */
 public class PlayerStatePacket {
     public boolean hasProfile, hasAbility;
     public String name = "", kind = "", tier = "unknown", level = "?";
@@ -18,35 +17,35 @@ public class PlayerStatePacket {
     /** power, defense, recovery, trick, speed */
     public int[] stats = {1, 1, 1, 1, 1};
     public int aura, maxAura, regen;
-    /** pouvoir activé (touche R) */
+
     public boolean active;
     /** forme courante (Modes, Phase Shift) ou vide */
     public String modeName = "";
-    /** mouvements des touches X C V B N */
+
     public String[] moveNames = new String[0];
     public boolean[] moveHeld = new boolean[0];
-    /** ticks de charge pour la puissance max (0 = mouvement non chargeable) */
+
     public int[] moveCharge = new int[0];
-    /** description de chaque capacité (hub) ; toggle = interrupteur ; on = allumé ou maintenu en ce moment */
+
     public String[] moveDesc = new String[0];
     public boolean[] moveToggle = new boolean[0], moveOn = new boolean[0];
     public int[] moveCost = new int[0], moveCd = new int[0], moveLeft = new int[0];
-    /** déblocage : points d'aptitude disponibles / gagnés, rangs achetés (bits 2-4), et par capacité : rang et verrou */
+
     public int abilityPts, abilityPtsTotal, unlockMask;
-    /** maîtrise d'un OC en % (-1 = personnage de l'Unodex, niveau fixe) */
+
     public int mastery = -1;
     public boolean[] moveLocked = new boolean[0];
     public int[] moveRank = new int[0];
-    /** Barre de Palladium (toutes les capacités du pouvoir en main) : case, icône, cadre, verrou, état, recharge. */
+
     public String powerIcon = "", powerColor = "";
     public int[] barSlot = new int[0], barCd = new int[0], barLeft = new int[0];
     public String[] barIcon = new String[0], barColor = new String[0], barName = new String[0];
     public boolean[] barLocked = new boolean[0], barOn = new boolean[0];
-    /** autre pouvoir à prendre en main (copies, pouvoirs accordés) : la touche de liste y passe après la dernière page */
+
     public boolean barMore;
-    /** pour chaque case : rang du pouvoir détenu et rang de la capacité dans ce pouvoir */
+
     public int[] barPower = new int[0], barMove = new int[0];
-    /** pouvoirs détenus (le sien, copies, pouvoirs accordés) : icône, cadre, id, allumé */
+
     public String[] powIcon = new String[0], powColor = new String[0], powName = new String[0];
     public boolean[] powOn = new boolean[0];
 

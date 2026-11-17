@@ -22,7 +22,6 @@ public class UnrpClient implements ClientModInitializer {
         useKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.unrp.use", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "key.categories.unrp"));
 
-        // Réception de l'état. On lit le buffer ici (thread réseau), puis on applique sur le thread client.
         ClientPlayNetworking.registerGlobalReceiver(Net.SYNC, (client, handler, buf, sender) -> {
             String power = buf.readString();
             int aura = buf.readInt();
@@ -37,7 +36,6 @@ public class UnrpClient implements ClientModInitializer {
             });
         });
 
-        // Touche d'activation : on demande au serveur, c'est lui qui décide.
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (useKey.wasPressed()) {
                 if (client.player != null) {

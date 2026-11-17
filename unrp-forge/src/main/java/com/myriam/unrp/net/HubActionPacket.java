@@ -7,7 +7,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/** Client -> serveur : une action du hub (entraîner, inviter, défier...). Le serveur vérifie tout. */
 public class HubActionPacket {
     public final String action, a, b;
 

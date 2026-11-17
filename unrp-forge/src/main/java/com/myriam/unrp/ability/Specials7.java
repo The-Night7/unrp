@@ -34,7 +34,7 @@ import java.util.UUID;
 
 /**
  * Pouvoirs quantiques (lot 7) : Explosion, Tremor, Illumination, Umbral Shift, Whirlwind. Comportements repris de
- * ExplosionEvents, TremorEvents, IlluminationEvents, UmbralShiftEvents et WhirlwindEvents. Fiches : docs/fidelite/.
+ * ExplosionEvents, TremorEvents, IlluminationEvents, UmbralShiftEvents et WhirlwindEvents. Fiches : docs/fidelity/.
  */
 public final class Specials7 {
     private Specials7() {}
@@ -49,7 +49,6 @@ public final class Specials7 {
         return s != null && ALL.contains(s);
     }
 
-    // ------------------------------------------------------------------ états
     private static final Map<UUID, Long> DET_START = new HashMap<>(), DET_CD = new HashMap<>(), CLUSTER_AT = new HashMap<>();
     private static final Map<UUID, Long> QUAKE_START = new HashMap<>(), HIT_CD = new HashMap<>();
     private static final Map<UUID, double[]> FAULT = new HashMap<>(), FAULT_AT = new HashMap<>(), CATA = new HashMap<>();
@@ -104,11 +103,10 @@ public final class Specials7 {
 
     private static boolean onGroundOrRefund(ServerPlayer p, int refund, String name) {
         if (p.onGround()) return true;
-        msg(p, "§6✖ " + name + " exige un sol solide sous tes pieds.");
+        msg(p, "§6✖ " + name + " requires solid ground beneath you.");
         return false;
     }
 
-    /** Fin du coup tenu à terre : le joueur est immobilisé. */
     private static void root(ServerPlayer p) {
         p.setDeltaMovement(0, Math.min(0, p.getDeltaMovement().y), 0);
         p.hurtMarked = true;
@@ -164,7 +162,7 @@ public final class Specials7 {
             case "ex_detonate" -> {
                 if (!DET_START.containsKey(id)) {
                     if (now < DET_CD.getOrDefault(id, 0L)) {
-                        if (now % 20 < 4) msg(p, "§c✖ Détonation se recharge (" + (1 + (DET_CD.get(id) - now) / 20) + " s)");
+                        if (now % 20 < 4) msg(p, "§c✖ Detonation is cooling down (" + (1 + (DET_CD.get(id) - now) / 20) + " s)");
                         return false;
                     }
                     AbilityEngine.spendAura(p, 8);
@@ -190,7 +188,7 @@ public final class Specials7 {
             case "tm_quake" -> {
                 if (!QUAKE_START.containsKey(id)) {
                     if (!p.onGround()) {
-                        msg(p, "§6✖ Le séisme exige un sol solide sous tes pieds.");
+                        msg(p, "§6✖ Seismic attacks require solid ground beneath you.");
                         return false;
                     }
                     AbilityEngine.spendAura(p, 4);
@@ -214,16 +212,16 @@ public final class Specials7 {
             }
             case "tm_mag" -> {
                 if (MAG.remove(id)) {
-                    msg(p, "§6Contrôle de magnitude relâché.");
+                    msg(p, "§6Magnitude control released.");
                 } else {
                     MAG.add(id);
-                    msg(p, "§6Contrôle de magnitude engagé. §7Tout frappe plus fort.");
+                    msg(p, "§6Magnitude control engaged. §7Every hit is stronger.");
                 }
             }
             case "tm_burst" -> {
                 if (p.isShiftKeyDown()) { // Cataclysme
                     if (now < CATA_CD.getOrDefault(id, 0L)) {
-                        msg(p, "§6✖ Cataclysme se recharge (" + (1 + (CATA_CD.get(id) - now) / 20) + " s)");
+                        msg(p, "§6✖ Cataclysm is cooling down (" + (1 + (CATA_CD.get(id) - now) / 20) + " s)");
                         return false;
                     }
                     if (!onGroundOrRefund(p, 34, "Cataclysme")) return false;
@@ -231,7 +229,7 @@ public final class Specials7 {
                     CATA_CD.put(id, now + 420);
                     CATA.put(id, new double[] {now, p.getX(), p.getY(), p.getZ()});
                 } else {
-                    if (!onGroundOrRefund(p, 34, "Éclat sismique")) return false;
+                    if (!onGroundOrRefund(p, 34, "Seismic Shard")) return false;
                     BURST_AT.put(id, now + 7);
                 }
             }
@@ -263,7 +261,7 @@ public final class Specials7 {
             case "us_dive" -> {
                 if (PHASED.containsKey(id)) emerge(p, lv, false);
                 else if (!p.onGround() && !p.horizontalCollision) {
-                    msg(p, "§5✖ Il faut toucher le sol ou un mur pour plonger.");
+                    msg(p, "§5✖ Touch the ground or a wall before diving.");
                     return false;
                 } else {
                     PHASED.put(id, 0.0);
@@ -289,7 +287,7 @@ public final class Specials7 {
                 p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 60, 1, false, true));
                 p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 1, false, true));
                 Fx.sprite(lv, "smoke", 0x2A1A4A, 1.6f, p.position(), 26, 1.2, 0.15);
-                if (ambush) msg(p, "§5Éruption d'ombre ! §7Coup d'embuscade.");
+                if (ambush) msg(p, "§5Shadow Eruption! §7Ambush strike.");
             }
             // ---------------- Whirlwind
             case "ww_blast" -> {
@@ -381,7 +379,7 @@ public final class Specials7 {
         UUID id = p.getUUID();
         ServerLevel lv = p.serverLevel();
         switch (m.special) {
-            case "il_light" -> { // lumière portée : un bloc de lumière près de la main
+            case "il_light" -> {
                 BlockPos at = BlockPos.containing(p.getX() + p.getViewVector(1f).x * 0.6, p.getY() + 1.0, p.getZ() + p.getViewVector(1f).z * 0.6);
                 BlockPos prev = HAND_LIGHT.get(id);
                 if (prev != null && prev.distSqr(at) <= 2.0) return;
@@ -471,7 +469,7 @@ public final class Specials7 {
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
             UUID id = p.getUUID();
             ServerLevel lv = p.serverLevel();
-            // Tremor : faille, éclat, cataclysme, magnitude
+
             double[] fa = FAULT_AT.get(id);
             if (fa != null && now >= (long) fa[0]) {
                 FAULT_AT.remove(id);
@@ -536,9 +534,9 @@ public final class Specials7 {
             }
             if (MAG.contains(id) && (!has(p, "tremor") || AbilityEngine.aura(p) <= 0)) {
                 MAG.remove(id);
-                msg(p, "§6Le contrôle de magnitude s'effondre.");
+                msg(p, "§6Magnitude control collapses.");
             } else if (MAG.contains(id) && now % 18 == 0) AbilityEngine.spendAura(p, 1); // -1 aura / 18 ticks
-            // Illumination : balise, nettoyage de la lumière portée
+
             Integer bc = BEACON.get(id);
             if (bc != null) {
                 if (bc <= 0 || !has(p, "illumination")) BEACON.remove(id);
@@ -553,7 +551,7 @@ public final class Specials7 {
                 }
             }
             if (!has(p, "illumination") && HAND_LIGHT.containsKey(id)) clearLight(lv, HAND_LIGHT.remove(id));
-            // Umbral Shift : plongée
+
             boolean us = has(p, "umbral_shift");
             if (us && p.tickCount % 30 == 0) p.addEffect(new MobEffectInstance(MobEffects.JUMP, 40, 0, true, false));
             Double travelled = PHASED.get(id);
@@ -569,7 +567,7 @@ public final class Specials7 {
                     p.fallDistance = 0;
                     p.setInvisible(true);
                     if (blocked) {
-                        if (p.tickCount % 30 == 0) msg(p, "§5Les ombres ne peuvent pas escalader ça.");
+                        if (p.tickCount % 30 == 0) msg(p, "§5The shadows cannot climb that.");
                     } else PHASED.put(id, travelled + 0.45);
                     Fx.sprite(lv, "smoke", 0x2A1A4A, 0.9f, new Vec3(next.x, ny + 1.05, next.z), 2, 0.3, 0.02);
                     if (p.tickCount % 7 == 0) AbilityEngine.spendAura(p, 1);
@@ -603,7 +601,6 @@ public final class Specials7 {
         return lv.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z));
     }
 
-    // ------------------------------------------------------------------ dégâts
     public static boolean onAttack(LivingAttackEvent e) {
         if (e.getSource().type().msgId().contains("explosion") && explosionImmune(e.getEntity())) {
             e.setCanceled(true);
@@ -632,11 +629,10 @@ public final class Specials7 {
         }
         if (e.getSource().getEntity() instanceof ServerPlayer a && isPhased(a)) {
             e.setCanceled(true);
-            msg(a, "§5Tu ne peux pas frapper depuis les ombres.");
+            msg(a, "§5You cannot attack from the shadows.");
         }
     }
 
-    /** Tags d'état lus par les poses tenues du modèle (power_animations.js). */
     public static void modelTags(ServerPlayer p) {
         long now = p.serverLevel().getGameTime();
         tag(p, "unrp.us_phased", PHASED.containsKey(p.getUUID()));

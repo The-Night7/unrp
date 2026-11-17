@@ -11,11 +11,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-/**
- * Croissance « Vessel » des capacités Origin, reprise de points/OriginGrowth du modèle : un niveau qui monte par l'expérience
- * gagnée en combat (40 + 6 x niveau par palier, sans plafond), et des points de croissance (1 par niveau jusqu'à 20, puis de moins
- * en moins) qui donnent PV, dégâts, armure et résistance au recul. Sauvegardé sur le joueur.
- */
 public final class OriginGrowth {
     private OriginGrowth() {}
 
@@ -56,7 +51,6 @@ public final class OriginGrowth {
         return sums[lv] + (level - lv);
     }
 
-    /** Points de croissance gagnés au niveau donné, en millièmes : 1000 jusqu'au 20, puis -50 tous les 5 niveaux, puis x0,95. */
     public static int gainMilli(int level) {
         if (level <= 20) return 1000;
         int step = (level - 20 - 1) / 5;
@@ -71,7 +65,6 @@ public final class OriginGrowth {
         return 40 + 6 * level;
     }
 
-    /** Ajoute de l'expérience ; renvoie le nombre de niveaux gagnés. */
     public static int award(ServerPlayer p, int xp) {
         if (xp <= 0) return 0;
         int lv = level(p), have = xp(p) + xp, gained = 0;
@@ -85,7 +78,6 @@ public final class OriginGrowth {
         return gained;
     }
 
-    /** Pose les bonus de croissance (le pouvoir « key » en est propriétaire) ; base = malus de départ du pouvoir. */
     public static void apply(ServerPlayer p, String key, boolean has, double baseHp, double baseDmg, double baseArmor) {
         String owner = OWNER.get(p.getUUID());
         if (has) OWNER.put(p.getUUID(), key);

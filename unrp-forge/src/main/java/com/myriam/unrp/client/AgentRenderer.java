@@ -21,7 +21,6 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 
-/** AgentRenderer + AgentClawsLayer + AgentClawsModel du modèle, avec ses textures. */
 public class AgentRenderer extends HumanoidMobRenderer<Agent, PlayerModel<Agent>> {
     private static final ResourceLocation[] TEXTURES = {
             new ResourceLocation("unrp", "textures/entity/agent.png"),
@@ -41,7 +40,6 @@ public class AgentRenderer extends HumanoidMobRenderer<Agent, PlayerModel<Agent>
         return TEXTURES[v < 0 || v >= TEXTURES.length ? 0 : v];
     }
 
-    /** Griffes de feu du meneur (variante 1), bleues quand il s'embrase. */
     static final class Claws extends RenderLayer<Agent, PlayerModel<Agent>> {
         private static final ResourceLocation TEX = new ResourceLocation("unrp", "textures/models/fire_claws.png");
         private static final ResourceLocation TEX_SURGE = new ResourceLocation("unrp", "textures/models/soulfire_claws.png");

@@ -12,17 +12,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Poses tenues des pouvoirs : portage de assets/unrp/kubejs_scripts/power_animations.js du modèle.
- * Chaque pose suit un minuteur d'animation Palladium (palladium:animation_timer) : +1 par tick tant que le tag
- * qui l'allume est sur le joueur, -1 sinon, de 0 à son maximum ; la pose est mélangée selon ce rapport et sa courbe.
- * Les tags du joueur arrivent par PassStatePacket (clés « on »).
- */
 @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid = "unrp", value = net.minecraftforge.api.distmarker.Dist.CLIENT)
 public final class RosterPoses {
     private RosterPoses() {}
 
-    /** pouvoir, minuteur, maximum, tag qui l'allume, courbe, « carry », parties : tête, torse, bras droit, bras gauche, jambe droite, jambe gauche */
     record E(String power, String timer, int max, String tag, String ease, boolean carry, float[][] parts) {}
 
     static final E[] ROSTER = {
@@ -168,7 +161,6 @@ public final class RosterPoses {
         new E("wyrm_engine", "we_t_rankup", 18, "unrp.pose.we_rankup", "OutBack", false, new float[][] {{-8.0f,0.0f,0.0f,0.0f},{-6.0f,0.0f,0.0f,0.0f},{-80.0f,0.0f,30.0f,0.0f},{-35.0f,20.0f,0.0f,0.0f},null,null}),
     };
 
-    /** Counterweight : poses à part (positions des bras, première personne propre). */
     record Cw(String timer, int max, String tag, String ease, float[][] fp, float[][] tp, float chest, float head) {}
 
     static final Cw[] CW = {
@@ -180,7 +172,6 @@ public final class RosterPoses {
         new Cw("t_cw_reknit", 60, "unrp.pose.cw_reknit", "InOutCubic", new float[][] {{-30, -28, 0}, {-30, 28, 0}}, new float[][] {{-52, -46, 0, 1}, {-52, 46, 0, 1}}, 10, 16),
     };
 
-    /** minuteurs : joueur -> minuteur -> {précédent, courant} */
     private static final Map<Integer, Map<String, int[]>> TIMERS = new HashMap<>();
 
     static boolean has(java.util.UUID id, String tag) {
@@ -249,7 +240,6 @@ public final class RosterPoses {
         return (float) (a + (b - a) * e);
     }
 
-    /** Applique les poses tenues au modèle (après les poses de Minecraft, avant les clips du modèle). */
     public static void apply(PlayerModel<?> m, LivingEntity entity, float age) {
         if (!(entity instanceof AbstractClientPlayer p)) return;
         Map<String, int[]> t = TIMERS.get(p.getId());
@@ -272,7 +262,7 @@ public final class RosterPoses {
                 if (v[2] != 0) part.zRot = lerp(k, part.zRot, v[2] * D2R);
             }
             float[] chest = e.parts[1];
-            if (chest != null && Math.abs(k) >= 0.0001) { // poseAnchor : le haut du corps suit le torse
+            if (chest != null && Math.abs(k) >= 0.0001) {
                 double th = chest[0] * k * Math.PI / 180, ps = chest[1] * k * Math.PI / 180;
                 double st = Math.sin(th), ct = Math.cos(th), sp = Math.sin(ps), cp = Math.cos(ps);
                 double nx = -12 * st * sp, ny = 12 - 12 * ct, nz = -12 * st * cp;
@@ -317,7 +307,6 @@ public final class RosterPoses {
         }
     }
 
-    /** Première personne : seuls les bras (X x 0,35, Z x 0,3), comme le modèle. */
     public static void firstPerson(AbstractClientPlayer p, ModelPart arm, boolean right) {
         Map<String, int[]> t = TIMERS.get(p.getId());
         if (t == null) return;

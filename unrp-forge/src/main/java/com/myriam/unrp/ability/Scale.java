@@ -6,7 +6,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fml.ModList;
 
-/** Taille du joueur, comme le modèle : par les commandes du mod Pehkui quand il est installé (sinon rien ne change). */
 public final class Scale {
     private Scale() {}
 
@@ -28,7 +27,6 @@ public final class Scale {
         s.getCommands().performPrefixedCommand(s.createCommandSourceStack().withSuppressedOutput(), cmd);
     }
 
-    /** Y a-t-il la place de grandir jusqu'à « grow » (fois la taille normale) ? */
     public static boolean roomFor(ServerPlayer p, float grow, float current) {
         if (grow <= current || !available()) return true;
         double half = 0.3 * grow;

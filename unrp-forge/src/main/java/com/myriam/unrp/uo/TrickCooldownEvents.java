@@ -1,6 +1,5 @@
 package com.myriam.unrp.uo;
 
-/** TrickCooldownEvents du modèle, réduit à reduction : la Ruse (stat actuelle, plafonnée à 10) réduit les recharges jusqu'à 40 %. */
 public final class TrickCooldownEvents {
     private TrickCooldownEvents() {}
 

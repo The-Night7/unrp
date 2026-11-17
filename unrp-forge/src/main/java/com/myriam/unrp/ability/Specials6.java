@@ -29,7 +29,7 @@ import java.util.UUID;
 
 /**
  * Griffes et flammes (lot 6) : Spectral Claw, Demon Claw, Flame Claw, Shadow Flame, Energy Discharge. Comportements repris de
- * SpectralClawEvents, DemonClawEvents, FlameClawEvents, ShadowFlameEvents, EnergyWaveEvents et AbilityEvents. Fiches : docs/fidelite/.
+ * SpectralClawEvents, DemonClawEvents, FlameClawEvents, ShadowFlameEvents, EnergyWaveEvents et AbilityEvents. Fiches : docs/fidelity/.
  */
 public final class Specials6 {
     private Specials6() {}
@@ -41,8 +41,7 @@ public final class Specials6 {
         return s != null && ALL.contains(s);
     }
 
-    // ------------------------------------------------------------------ états
-    private static final Map<UUID, int[]> GRIP = new HashMap<>();        // {id de la cible, ticks}
+    private static final Map<UUID, int[]> GRIP = new HashMap<>();
     private static final Map<UUID, UUID> GRIP_TARGET = new HashMap<>();
     private static final Map<UUID, int[]> THROWN = new HashMap<>();
     private static final Map<UUID, UUID> THROWN_TARGET = new HashMap<>();
@@ -50,7 +49,7 @@ public final class Specials6 {
     private static final Map<UUID, Vec3> DASH_DIR = new HashMap<>();
     private static final Map<UUID, Set<UUID>> DASH_HIT = new HashMap<>();
     private static final Set<UUID> LUNGE_USED = new HashSet<>();
-    private static final Map<UUID, Long> PRIMED = new HashMap<>();       // Flame Claw : prochain coup renforcé jusqu'à
+    private static final Map<UUID, Long> PRIMED = new HashMap<>();
     private static final Map<UUID, Long> BOLT_START = new HashMap<>(), BOLT_CD = new HashMap<>();
     private static final Map<UUID, Long> BEAM_START = new HashMap<>();
     private static final Map<UUID, Boolean> BEAM_WAVE = new HashMap<>();
@@ -138,7 +137,7 @@ public final class Specials6 {
             case "sc_grip" -> {
                 LivingEntity target = nearestInCone(p, 4.5, 0.5, true);
                 if (target == null) {
-                    msg(p, "§5✖ La griffe se referme sur le vide. §7Aura rendue.");
+                    msg(p, "§5✖ The claw closes on empty air. §7Aura refunded.");
                     return false;
                 }
                 GRIP.put(id, new int[] {target.getId(), 160});
@@ -151,7 +150,7 @@ public final class Specials6 {
                 GRIP_TARGET.remove(id);
                 LivingEntity target = held == null ? null : lv.getEntity(held[0]) instanceof LivingEntity le ? le : null;
                 if (target == null || !target.isAlive()) {
-                    msg(p, "§5✖ Rien à lancer dans la griffe. §7Aura rendue.");
+                    msg(p, "§5✖ Nothing in the claw to throw. §7Aura refunded.");
                     return false;
                 }
                 motion(target, look.x * 2.2, Math.max(0.5, look.y * 2.2 + 0.3), look.z * 2.2);
@@ -218,7 +217,7 @@ public final class Specials6 {
             case "sf_bolt" -> {
                 if (!BOLT_START.containsKey(id)) {
                     if (now < BOLT_CD.getOrDefault(id, 0L)) {
-                        if (now % 20 < 4) msg(p, "§5✖ Boule de flamme se recharge (" + (1 + (BOLT_CD.get(id) - now) / 20) + " s)");
+                        if (now % 20 < 4) msg(p, "§5✖ Fireball is cooling down (" + (1 + (BOLT_CD.get(id) - now) / 20) + " s)");
                         return false;
                     }
                     AbilityEngine.spendAura(p, 14);
@@ -229,7 +228,7 @@ public final class Specials6 {
             }
             // ---------------- Energy Discharge
             case "ed_beam" -> {
-                Fx.QUIET++; // dessiné par le moteur d'effets du modèle (ClientPassEd)
+                Fx.QUIET++;
                 try {
                     beam(p, lv, now, c);
                 } finally {
@@ -249,15 +248,15 @@ public final class Specials6 {
                 s.size = 1.6f;
                 s.rgb = c;
                 s.sprite = "flare";
-                s.palladium = true; // CustomProjectile du modèle : la sphère est dessinée par ClientPassEd
+                s.palladium = true;
                 int aux = com.myriam.unrp.pass.LightningPass.newAux();
                 s.onEnd = pr -> {
-                    com.myriam.unrp.pass.EdPass.blast(p, aux, pr.pos); // ED_BLAST avant l'explosion : le client la tait
+                    com.myriam.unrp.pass.EdPass.blast(p, aux, pr.pos);
                     lv.explode(p, pr.pos.x, pr.pos.y, pr.pos.z, 2.0f, Level.ExplosionInteraction.NONE);
                 };
                 Projectiles.spawn(s);
                 com.myriam.unrp.pass.LightningPass.launch(p, com.myriam.unrp.pass.PassFxPacket.ED_ORB, aux, s.pos, s.vel, s.maxLife, true);
-                AbilityEngine.spendAura(p, 20); // le modèle retire 50 au total : 30 de plus que le coût de la capacité (20)
+                AbilityEngine.spendAura(p, 20);
             }
             case "ed_burst" -> {
                 BURST.put(id, 6);
@@ -275,7 +274,7 @@ public final class Specials6 {
     }
 
     public static void whileOn(ServerPlayer p, AbilityPower.Move m, long now) {
-        // interrupteurs (Demon Claw : posture féroce ; Flame Claw : surchauffe) : leurs effets sont lus ailleurs
+
     }
 
     public static void stop(ServerPlayer p, String special) {
@@ -297,7 +296,6 @@ public final class Specials6 {
         }
     }
 
-    /** Boule de flamme violette : coup direct, puis éclaboussure autour de l'impact. */
     private static void flameBolt(ServerPlayer p, Vec3 dir, double speed, int life, float size, double f, boolean dual) {
         ServerLevel lv = p.serverLevel();
         float s = sf(p);
@@ -337,7 +335,6 @@ public final class Specials6 {
         lv.playSound(null, p.blockPosition(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 0.8f, 0.7f);
     }
 
-    /** Rayon long (maintenir) ; accroupi à l'appui : onde d'énergie qui s'allonge après 10 ticks. */
     private static void beam(ServerPlayer p, ServerLevel lv, long now, int c) {
         UUID id = p.getUUID();
         if (!BEAM_START.containsKey(id)) {
@@ -345,7 +342,7 @@ public final class Specials6 {
             BEAM_WAVE.put(id, p.isShiftKeyDown());
         }
         long held = now - BEAM_START.get(id);
-        boolean waveMode = BEAM_WAVE.get(id); // EnergyWaveEvents : « wave » pendant la charge, « wave_run » une fois lancée
+        boolean waveMode = BEAM_WAVE.get(id);
         com.myriam.unrp.pass.PassSync.key(p, "long_range_beam", !waveMode);
         com.myriam.unrp.pass.PassSync.key(p, "wave", waveMode);
         com.myriam.unrp.pass.PassSync.key(p, "wave_run", waveMode && held >= 10);
@@ -410,7 +407,7 @@ public final class Specials6 {
                 } else {
                     GRIP.remove(id);
                     GRIP_TARGET.remove(id);
-                    if (t != null && t.isAlive()) msg(p, "§5La prise de la griffe se relâche.");
+                    if (t != null && t.isAlive()) msg(p, "§5The claw releases its grip.");
                 }
             }
             int[] th = THROWN.get(id);
@@ -461,7 +458,7 @@ public final class Specials6 {
                     else LUNGE.put(id, lg);
                 }
             }
-            // Flame Claw : ruée
+
             boolean fc = has(p, "flame_claw");
             Integer rs = RUSH.get(id);
             if (rs != null) {
@@ -487,7 +484,7 @@ public final class Specials6 {
             }
             Long pr = PRIMED.get(id);
             if (pr != null && (now > pr || !fc)) PRIMED.remove(id);
-            // Energy Discharge : onde de choc retardée, propulsion
+
             Integer bu = BURST.get(id);
             if (bu != null) {
                 if (bu > 1) BURST.put(id, bu - 1);
@@ -521,25 +518,24 @@ public final class Specials6 {
         else if (!on && has) inst.removeModifier(id);
     }
 
-    // ------------------------------------------------------------------ dégâts
     public static void onHurt(LivingHurtEvent e) {
         LivingEntity v = e.getEntity();
         if (v instanceof ServerPlayer vp) {
-            if (has(vp, "flame_claw") && e.getSource().is(DamageTypeTags.IS_FIRE)) e.setAmount(e.getAmount() * 0.5f); // peau ignifugée
-            if (GRIP.remove(vp.getUUID()) != null) { // coup reçu : la prise est brisée
+            if (has(vp, "flame_claw") && e.getSource().is(DamageTypeTags.IS_FIRE)) e.setAmount(e.getAmount() * 0.5f);
+            if (GRIP.remove(vp.getUUID()) != null) {
                 GRIP_TARGET.remove(vp.getUUID());
-                msg(vp, "§5Ta prise est brisée !");
+                msg(vp, "§5Your grip was broken!");
             }
             BOLT_START.remove(vp.getUUID());
         }
         if (!(e.getSource().getEntity() instanceof ServerPlayer a) || a == v || e.getSource().getDirectEntity() != a || BUSY.contains(a.getUUID())) return;
         float t = sf(a);
-        if (has(a, "demon_claw")) { // coups griffus
+        if (has(a, "demon_claw")) { // Claw strikes.
             e.setAmount(e.getAmount() + (AbilityEngine.toggled(a, "demon_claw", 2) ? lerp(4f, 11f, t) : lerp(2f, 7f, t)));
             Fx.sprite(a.serverLevel(), "shard", 0xC8283C, 1.0f, v.getBoundingBox().getCenter(), 6, 0.3, 0.12);
         }
-        if (has(a, "flame_claw")) { // griffes brûlantes
-            boolean surge = AbilityEngine.toggled(a, "flame_claw", 1); // « Surchauffe » est la 2e capacité de Flame Claw
+        if (has(a, "flame_claw")) {
+            boolean surge = AbilityEngine.toggled(a, "flame_claw", 1);
             float bonus = surge ? lerp(4f, 12f, t) : lerp(2f, 8f, t);
             float burn = surge ? lerp(6f, 10f, t) : lerp(3f, 6f, t);
             Long pr = PRIMED.get(a.getUUID());

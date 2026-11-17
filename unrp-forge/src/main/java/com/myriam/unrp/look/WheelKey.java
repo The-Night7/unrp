@@ -6,7 +6,6 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-/** StanceKeyHandler du modèle : touche « roue » (G). Aura Manipulation : ouvre la roue de copie. */
 @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid = "unrp", value = net.minecraftforge.api.distmarker.Dist.CLIENT)
 public final class WheelKey {
     private WheelKey() {}

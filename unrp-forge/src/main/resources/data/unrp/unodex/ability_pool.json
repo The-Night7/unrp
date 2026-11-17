@@ -1,9 +1,9 @@
 {
- "_aide": [
-  "Tirage de capacité d'un OC à sa création : un id par ligne, avec son poids (plus il est grand, plus la capacité sort souvent).",
-  "Les ids sont ceux de abilities.json (ou une clé de ability_powers.json). Poids 0 ou ligne supprimée = jamais tirée.",
-  "Pour ajouter une capacité : écris son id ici avec un poids. Elle doit avoir un pouvoir dans ability_powers.json pour être jouable.",
-  "Poids de départ : ceux du mod modèle (POWER_WEIGHT) pour les pouvoirs déjà codés ; Phase Shift (22) est coupé en deux formes."
+ "_help": [
+  "OC ability pool: each ability ID has a relative weight. Higher weights are rolled more often.",
+  "IDs match abilities.json or ability_powers.json. A zero weight or missing entry excludes an ability.",
+  "To add an ability, give its ID a weight here and implement its power in ability_powers.json.",
+  "Starting weights follow POWER_WEIGHT for existing powers. Phase Shift's weight of 22 is split between its two forms."
  ],
  "pool": {
   "barrier": 22,

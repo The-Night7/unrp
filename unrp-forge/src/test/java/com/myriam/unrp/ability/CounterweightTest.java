@@ -14,13 +14,13 @@ class CounterweightTest {
 
     @Test
     void stageNeedsMomentumAndTrialInOrder() {
-        assertEquals(1, CounterweightEvents.stageOf(5000, feats(1)));     // pas d'épreuve : Ballast
-        assertEquals(1, CounterweightEvents.stageOf(149, feats(6)));      // pas assez d'élan
+        assertEquals(1, CounterweightEvents.stageOf(5000, feats(1)));
+        assertEquals(1, CounterweightEvents.stageOf(149, feats(6)));
         assertEquals(2, CounterweightEvents.stageOf(150, feats(6)));
         assertEquals(4, CounterweightEvents.stageOf(1299, feats(6)));
         assertEquals(6, CounterweightEvents.stageOf(2000, feats(6)));
         boolean[] gap = feats(6);
-        gap[3] = false;                                          // épreuve III manquante : bloqué en II
+        gap[3] = false;
         assertEquals(2, CounterweightEvents.stageOf(2000, gap));
     }
 }

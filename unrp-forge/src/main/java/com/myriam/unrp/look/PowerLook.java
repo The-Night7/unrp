@@ -129,7 +129,5 @@ public final class PowerLook {
       look("nadir", 14162784, "unrp:textures/icons/nadir_icon.png");
       look("legacy", 15255146, "unrp:textures/icons/legacy_icon.png");
 
-      // titans (TitanMath) : pouvoirs pas portés
-
    }
 }

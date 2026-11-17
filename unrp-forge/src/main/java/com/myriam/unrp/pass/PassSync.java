@@ -14,10 +14,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-/**
- * Diffuse à tous l'état des pouvoirs lu par le moteur d'effets (ce que Palladium synchronisait dans le modèle).
- * Le code d'un pouvoir peut allumer une clé du modèle (tag « unrp.ed_wave » -> « wave »...) par {@link #key}.
- */
 @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid = "unrp")
 public final class PassSync {
     private PassSync() {}
@@ -27,14 +23,12 @@ public final class PassSync {
     private static final Map<UUID, Integer> LOCKED = new HashMap<>();
     private static final Map<UUID, Boolean> TRANSFORMED = new HashMap<>();
 
-    /** Allume ou éteint une clé de capacité du modèle pour ce joueur. */
     public static void key(ServerPlayer p, String key, boolean on) {
         Set<String> s = EXTRA.computeIfAbsent(p.getUUID(), k -> new HashSet<>());
         if (on) s.add(key);
         else s.remove(key);
     }
 
-    /** Predator : cible verrouillée (id d'entité, -1 = aucune) et transformation (ClientPredatorCache du modèle). */
     public static void predator(ServerPlayer p, int locked, boolean transformed) {
         LOCKED.put(p.getUUID(), locked);
         TRANSFORMED.put(p.getUUID(), transformed);
@@ -45,7 +39,7 @@ public final class PassSync {
         if (e.phase != TickEvent.Phase.END || e.getServer() == null) return;
         for (ServerPlayer p : e.getServer().getPlayerList().getPlayers()) {
             UUID id = p.getUUID();
-            // PassEvents.copy / AuraColor : les porteurs d'Aura Manipulation ont ce tag dans le modèle
+
             com.myriam.unrp.ability.Superpowers.syncTags(p); // unrp.has.* (dont aura_manipulation)
             AbilityEngine.syncHoldTags(p);
             com.myriam.unrp.ability.Specials2.modelTags(p);

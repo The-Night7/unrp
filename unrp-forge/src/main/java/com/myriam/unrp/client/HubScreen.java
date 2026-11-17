@@ -22,16 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Le hub (touche H) : 8 onglets en deux groupes, comme le mod modèle.
- *   Perso : Pouvoir, Capacités, Entraînement, Style
- *   Social : École, Groupe, Territoire, Duels
- * Le client ne fait qu'afficher l'état envoyé par le serveur (ClientHub) et envoyer des actions.
- */
 public class HubScreen extends Screen {
-    private static final String[] TABS = {"Pouvoir", "Capacités", "Entraînement", "Style", "École", "Groupe", "Territoire", "Duels"};
-    private static final String[] GLYPH = {"P", "C", "E", "S", "É", "G", "T", "D"};
-    private static final String[] STAT_NAMES = {"Puissance", "Défense", "Récupération", "Ruse", "Vitesse"};
+    private static final String[] TABS = {"Power", "Abilities", "Training", "Style", "School", "Group", "Territory", "Duels"};
+    private static final String[] GLYPH = {"P", "C", "E", "S", "S", "G", "T", "D"};
+    private static final String[] STAT_NAMES = {"Power", "Defense", "Recovery", "Trick", "Speed"};
     private static final int MAX_W = 560, MAX_H = 324, DOCK_W = 22, DOCK_H = 20, DOCK_GAP = 3, GROUP_GAP = 9;
 
     private static final int BG = UiSkin.WINDOW_SHADE, EDGE = UiSkin.BORDER_DIM, PANEL = UiSkin.PANEL_TOP, TXT = UiSkin.TEXT,
@@ -49,7 +43,7 @@ public class HubScreen extends Screen {
     private double treePanX, treeZoom = 1;
     private boolean treeDragging;
     private Region treeViewport, detailViewport;
-    /** échelle d'affichage : le hub est conçu en MAX_W x MAX_H et réduit en bloc si l'écran est plus petit */
+
     private float ui = 1f;
     private int x0, y0, winW, winH, cx, cy, cw;
     private final List<Region> regions = new ArrayList<>();
@@ -67,15 +61,14 @@ public class HubScreen extends Screen {
 
     @Override
     protected void init() {
-        // le hub garde toujours la même mise en page : sur un petit écran (ou une grande échelle d'interface),
-        // il est réduit d'un bloc au lieu de tasser ou de faire déborder son contenu
+
         ui = Math.min(1f, Math.min((width - 12f) / MAX_W, (height - 12f) / MAX_H));
         int vw = Math.round(width / ui), vh = Math.round(height / ui);
         winW = MAX_W;
         winH = MAX_H;
         x0 = (vw - winW) / 2;
         y0 = (vh - winH) / 2;
-        box = new EditBox(font, 0, 0, 150, 14, Component.literal("nom"));
+        box = new EditBox(font, 0, 0, 150, 14, Component.literal("name"));
         box.setMaxLength(24);
         box.setVisible(false);
         addRenderableWidget(box);
@@ -86,7 +79,7 @@ public class HubScreen extends Screen {
         send("open", "", "");
     }
 
-    // ------------------------------------------------------------------ utilitaires JSON
+    // ------------------------------------------------------------------ JSON helpers
     private static JsonObject obj(JsonObject o, String k) {
         JsonElement e = o.get(k);
         return e != null && e.isJsonObject() ? e.getAsJsonObject() : null;
@@ -152,7 +145,6 @@ public class HubScreen extends Screen {
         for (int t = 1; t < 10; t++) g.fill(x + w * t / 10, y + 1, x + w * t / 10 + 1, y + h - 1, 0x30000000);
     }
 
-    /** Titre de section : majuscules espacées crème doré, petit filet dessous. */
     private void section(GuiGraphics g, String label, int x, int y) {
         UiSkin.spaced(g, font, label, x, y, UiSkin.SUB);
         int w = 0;
@@ -162,7 +154,7 @@ public class HubScreen extends Screen {
 
     private boolean button(GuiGraphics g, int x, int y, int w, int h, String label, boolean enabled, Runnable run) {
         boolean hover = enabled && mx >= x && mx < x + w && my >= y && my < y + h;
-        // bouton : contour noir, bord ambré (or clair au survol), fond en dégradé sombre
+
         g.fill(x - 1, y - 1, x + w + 1, y + h + 1, UiSkin.OUTLINE);
         g.fill(x, y, x + w, y + h, !enabled ? UiSkin.DISABLED : hover ? UiSkin.GOLD : UiSkin.BORDER_DIM);
         g.fillGradient(x + 1, y + 1, x + w - 1, y + h - 1, hover ? UiSkin.HOVER_TOP : UiSkin.BUTTON_TOP, hover ? UiSkin.HOVER_BOTTOM : UiSkin.BUTTON_BOTTOM);
@@ -180,7 +172,7 @@ public class HubScreen extends Screen {
         g.pose().pushPose();
         g.pose().scale(ui, ui, 1f);
         renderHub(g, (int) (mouseX / ui), (int) (mouseY / ui), partial);
-        super.render(g, (int) (mouseX / ui), (int) (mouseY / ui), partial); // champs de saisie, à la même échelle
+        super.render(g, (int) (mouseX / ui), (int) (mouseY / ui), partial);
         g.pose().popPose();
         if (!tooltip.isEmpty()) {
             List<Component> lines = new ArrayList<>();
@@ -198,7 +190,6 @@ public class HubScreen extends Screen {
         hexBox.setVisible(false);
         JsonObject st = ClientHub.get();
 
-        // fenêtre : contour, bord doré à coins lumineux, ciel étoilé assombri
         g.fill(x0 - 2, y0 - 2, x0 + winW + 2, y0 + winH + 2, UiSkin.OUTLINE);
         g.fill(x0 - 1, y0 - 1, x0 + winW + 1, y0 + winH + 1, UiSkin.BORDER);
         UiSkin.stars(g, x0, y0, winW, winH);
@@ -207,7 +198,7 @@ public class HubScreen extends Screen {
         g.fill(x0 + winW - 2, y0 - 1, x0 + winW + 1, y0 + 2, UiSkin.GOLD);
         g.fill(x0 - 1, y0 + winH - 2, x0 + 2, y0 + winH + 1, UiSkin.GOLD);
         g.fill(x0 + winW - 2, y0 + winH - 2, x0 + winW + 1, y0 + winH + 1, UiSkin.GOLD);
-        g.fill(x0 + 4, y0 + 21, x0 + winW - 4, y0 + 22, UiSkin.WAVE); // filet sous l'en-tête
+        g.fill(x0 + 4, y0 + 21, x0 + winW - 4, y0 + 22, UiSkin.WAVE);
 
         cx = x0 + 8 + DOCK_W + 10;
         cy = y0 + 28;
@@ -228,12 +219,11 @@ public class HubScreen extends Screen {
             dy += DOCK_H + DOCK_GAP;
         }
 
-        // en-tête
         UiSkin.spaced(g, font, TABS[tab], cx, y0 + 8, UiSkin.HEAD);
-        String hint = "Échap : fermer  .  1-8 : onglets";
+        String hint = "Esc: close  .  1–8: tabs";
         text(g, hint, x0 + winW - 8 - font.width(hint), y0 + winH - 11, UiSkin.MUTED);
         if (!bool(st, "profile")) {
-            wrap(g, "Pas de personnage. Ferme ce menu et utilise /unrp menu.", cx, cy, cw, DIM);
+            wrap(g, "No character. Close this menu and use /unrp menu.", cx, cy, cw, DIM);
             return;
         }
         JsonObject me = obj(st, "me");
@@ -250,15 +240,15 @@ public class HubScreen extends Screen {
         if (bh) tooltip.add("Notifications");
 
         int top = cy;
-        // offres reçues
+
         JsonArray offers = arr(st, "offers");
         for (int i = 0; i < Math.min(2, offers.size()); i++) {
             JsonObject of = offers.get(i).getAsJsonObject();
             panel(g, cx, top, cw, 18);
             text(g, font.plainSubstrByWidth(str(of, "text"), cw - 120), cx + 5, top + 5, ACCENT & 0xFFFFFF);
             final String id = str(of, "id");
-            button(g, cx + cw - 112, top + 2, 52, 14, "Accepter", true, () -> send("offer_accept", id, ""));
-            button(g, cx + cw - 56, top + 2, 52, 14, "Refuser", true, () -> send("offer_decline", id, ""));
+            button(g, cx + cw - 112, top + 2, 52, 14, "Accept", true, () -> send("offer_accept", id, ""));
+            button(g, cx + cw - 56, top + 2, 52, 14, "Decline", true, () -> send("offer_decline", id, ""));
             top += 22;
         }
         cy = top;
@@ -297,7 +287,7 @@ public class HubScreen extends Screen {
         JsonObject me = obj(st, "me"), pw = obj(st, "power");
         int leftW = cw / 2 - 10, rightX = cx + leftW + 18, rightW = cw - leftW - 18;
         int y = cy;
-        section(g, "NIVEAU DE POUVOIR", cx, y);
+        section(g, "POWER LEVEL", cx, y);
         g.pose().pushPose();
         g.pose().translate(cx, y + 16, 0);
         g.pose().scale(1.7f, 1.7f, 1);
@@ -306,13 +296,13 @@ public class HubScreen extends Screen {
         g.pose().popPose();
         int mastery = num(pw, "mastery");
         if (pw.has("mastery") && mastery >= 0) {
-            text(g, "Maîtrise", cx, y + 40, DIM);
+            text(g, "Mastery", cx, y + 40, DIM);
             text(g, mastery + " / 100", cx + leftW - font.width(mastery + " / 100"), y + 40, TXT);
             bar(g, cx, y + 51, leftW, 5, mastery / 100.0, ACCENT);
-        } else text(g, "Level de fiche fixe", cx, y + 42, DIM);
+        } else text(g, "Fixed character level", cx, y + 42, DIM);
         String school = str(me, "school_name"), rank = str(me, "rank");
         if (!school.isEmpty()) text(g, font.plainSubstrByWidth(school + (rank.isEmpty() ? "" : " · " + rankFr(rank)), leftW), cx, y + 62, DIM);
-        section(g, "STATISTIQUES", cx, y + 77);
+        section(g, "STATS", cx, y + 77);
         JsonArray stats = arr(pw, "stats");
         for (int i = 0; i < 5; i++) {
             int value = i < stats.size() ? stats.get(i).getAsInt() : 0;
@@ -321,25 +311,25 @@ public class HubScreen extends Screen {
             bar(g, cx + 80, rowY, leftW - 103, 6, value / 10.0, UiSkin.GOLD);
             text(g, String.valueOf(value), cx + leftW - 15, rowY, ACCENT);
         }
-        section(g, "RÉPUTATION", cx, y + 157);
+        section(g, "REPUTATION", cx, y + 157);
         boundedWrap(g, str(pw, "standing"), cx, y + 172, leftW, y + 199, TXT);
-        section(g, "TA BARRE D'AURA", cx, y + 202);
+        section(g, "YOUR AURA BAR", cx, y + 202);
         if (bool(pw, "has_ability")) {
             int aura = num(pw, "aura"), max = Math.max(1, num(pw, "max_aura"));
             bar(g, cx, y + 217, leftW, 7, aura / (double) max,
                     UnrpClientConfig.COLOR_VALUES[UnrpClientConfig.AURA_COLOR.get()]);
             text(g, aura + " / " + max + "  (+" + num(pw, "regen") + "/s)", cx, y + 229, DIM);
-        } else text(g, "Pas de capacité : pas d'aura utilisable.", cx, y + 217, DIM);
+        } else text(g, "No ability: no usable aura.", cx, y + 217, DIM);
 
-        section(g, "TON POUVOIR", rightX, y);
+        section(g, "YOUR POWER", rightX, y);
         powerIcon(g, str(pw, "icon"), rightX, y + 17, 20);
-        text(g, font.plainSubstrByWidth(bool(pw, "has_ability") ? str(pw, "ability") : "Sans capacité", rightW - 28), rightX + 27, y + 23, UiSkin.HEAD);
+        text(g, font.plainSubstrByWidth(bool(pw, "has_ability") ? str(pw, "ability") : "No ability", rightW - 28), rightX + 27, y + 23, UiSkin.HEAD);
         radar(g, stats, rightX + rightW / 2, y + 108, 51);
         int descriptionY = y + 181;
         int descriptionH = Math.max(28, y0 + winH - 22 - descriptionY);
         panel(g, rightX, descriptionY, rightW, descriptionH);
         String description = str(pw, "desc");
-        boundedWrap(g, description.isEmpty() ? "Aucune description de pouvoir." : description,
+        boundedWrap(g, description.isEmpty() ? "No power description." : description,
                 rightX + 7, descriptionY + 7, rightW - 14, descriptionY + descriptionH - 4, TXT);
     }
 
@@ -435,26 +425,26 @@ public class HubScreen extends Screen {
 
     private static String rankFr(String r) {
         return switch (r) {
-            case "king" -> "Roi";
-            case "queen" -> "Reine";
-            case "jack" -> "Valet";
+            case "king" -> "King";
+            case "queen" -> "Queen";
+            case "jack" -> "Jack";
             default -> r;
         };
     }
 
     private static String kindFr(String k) {
         return switch (k) {
-            case "strike" -> "Coup au corps à corps";
-            case "beam" -> "Rayon";
-            case "blast" -> "Onde autour de soi";
-            case "buff" -> "Renforcement";
-            case "dash" -> "Élan";
-            case "teleport" -> "Téléportation";
-            case "heal" -> "Soin";
-            case "debuff" -> "Affaiblissement ciblé";
-            case "pulse" -> "Zone";
-            case "scan" -> "Détection";
-            case "dispel" -> "Dissipation";
+            case "strike" -> "Melee strike";
+            case "beam" -> "Beam";
+            case "blast" -> "Area blast";
+            case "buff" -> "Buff";
+            case "dash" -> "Dash";
+            case "teleport" -> "Teleport";
+            case "heal" -> "Heal";
+            case "debuff" -> "Targeted debuff";
+            case "pulse" -> "Area pulse";
+            case "scan" -> "Detection";
+            case "dispel" -> "Dispel";
             default -> k;
         };
     }
@@ -462,7 +452,7 @@ public class HubScreen extends Screen {
     private void abilities(GuiGraphics g, JsonObject st) {
         JsonObject pw = obj(st, "power");
         if (!bool(pw, "has_ability")) {
-            wrap(g, "Ce personnage n'a pas de capacité.", cx, cy, cw, DIM);
+            wrap(g, "This character has no ability.", cx, cy, cw, DIM);
             return;
         }
         var ps = ClientState.get();
@@ -475,7 +465,7 @@ public class HubScreen extends Screen {
         treePanX = 0; treeZoom = 1; treeDragging = false;
         }
         text(g, font.plainSubstrByWidth(identity, cw - 185), cx, cy + 2, UiSkin.HEAD);
-        text(g, "PA " + ps.abilityPts + "   PS " + num(obj(st, "train"), "points"), cx + cw - 98, cy + 2, ACCENT);
+        text(g, "AP " + ps.abilityPts + "   SP " + num(obj(st, "train"), "points"), cx + cw - 98, cy + 2, ACCENT);
         int top = cy + 19, bottom = y0 + winH - 43;
         int treeW = cw * 55 / 100, detailX = cx + treeW + 9, detailW = cw - treeW - 9;
         int height = bottom - top;
@@ -539,7 +529,7 @@ public class HubScreen extends Screen {
             g.fill(cx + treeW - 5, top + 20, cx + treeW - 3, bottom - 8, UiSkin.BORDER_DIM);
             g.fill(cx + treeW - 5, thumbY, cx + treeW - 3, thumbY + thumb, UiSkin.GOLD);
         }
-        if (moves.isEmpty()) boundedWrap(g, "Aucun mouvement défini pour ce pouvoir.", cx + 12, top + 20, treeW - 24, top + 70, DIM);
+        if (moves.isEmpty()) boundedWrap(g, "No moves defined for this power.", cx + 12, top + 20, treeW - 24, top + 70, DIM);
         abilityDetails(g, moves, pw, detailX, top, detailW, height);
 
         int buttonW = (cw - 12) / 3;
@@ -547,7 +537,7 @@ public class HubScreen extends Screen {
             final int unlockRank = rank;
             boolean owned = (ps.unlockMask & (1 << rank)) != 0;
             button(g, cx + (rank - 2) * (buttonW + 6), bottom + 7, buttonW, 15,
-                    owned ? "Rank " + rank + " : acquis" : "Rank " + rank + " : " + (rank - 1) + " AP",
+                    owned ? "Rank " + rank + ": learned" : "Rank " + rank + " : " + (rank - 1) + " AP",
                     !owned && ps.abilityPts >= rank - 1, () -> send("unlock", String.valueOf(unlockRank), ""));
         }
     }
@@ -559,12 +549,12 @@ public class HubScreen extends Screen {
         String name = move == null ? str(pw, "ability") : str(move, "name");
         text(g, font.plainSubstrByWidth(name, width - 46), x + 38, y + 10, UiSkin.HEAD);
         boolean locked = bool(move, "locked");
-        text(g, locked ? "VERROUILLÉ" : "APPRIS", x + 38, y + 23, locked ? UiSkin.SUB : GOOD);
+        text(g, locked ? "LOCKED" : "LEARNED", x + 38, y + 23, locked ? UiSkin.SUB : GOOD);
         g.fill(x + 7, y + 39, x + width - 7, y + 40, UiSkin.WAVE);
 
         int descriptionTop = y + 47, descriptionH = Math.max(22, height - 133);
         String description = move == null ? str(pw, "desc") : str(move, "desc");
-        if (description.isEmpty()) description = "Aucune description disponible.";
+        if (description.isEmpty()) description = "No description available.";
         List<FormattedCharSequence> lines = font.split(Component.literal(description), width - 18);
         detailScrollMax = Math.max(0, lines.size() * 11 - descriptionH);
         detailScroll = Math.max(0, Math.min(detailScroll, detailScrollMax));
@@ -617,15 +607,15 @@ public class HubScreen extends Screen {
         JsonObject tr = obj(st, "train"), pw = obj(st, "power");
         int y = cy;
         int points = num(tr, "points"), total = num(tr, "total"), maxSteps = Math.max(1, num(tr, "max_steps"));
-        section(g, "POINTS DE STATS", cx, y);
+        section(g, "STAT POINTS", cx, y);
         y += 15;
         g.pose().pushPose();
         g.pose().translate(cx, y, 0);
         g.pose().scale(2f, 2f, 1f);
         g.drawString(font, String.valueOf(points), 0, 0, (points > 0 ? GOOD : DIM) | 0xFF000000, false);
         g.pose().popPose();
-        text(g, "sur " + total + " gagnés : 1 par niveau (dès le niveau 2 ou après 20 min de jeu).", cx + 50, y + 4, DIM & 0xFFFFFF);
-        text(g, "Un palier monte le potentiel de +0,5 ; il coûte 1, 2, 3 puis 4 points.", cx + 50, y + 16, DIM & 0xFFFFFF);
+        text(g, "of " + total + " earned: one per level, starting at level 2 or after 20 minutes of play.", cx + 50, y + 4, DIM & 0xFFFFFF);
+        text(g, "Each stage adds 0.5 potential and costs 1, 2, 3, then 4 points.", cx + 50, y + 16, DIM & 0xFFFFFF);
         y += 38;
         JsonArray stats = arr(pw, "stats"), steps = arr(tr, "steps"), pots = arr(tr, "pot"), costs = arr(tr, "cost");
         int labelW = 84, barW = Math.min(150, cw - labelW - 230);
@@ -636,15 +626,15 @@ public class HubScreen extends Screen {
             int cost = i < costs.size() ? costs.get(i).getAsInt() : -1;
             text(g, STAT_NAMES[i], cx, y + 3, TXT);
             bar(g, cx + labelW, y + 3, barW, 8, v / 12.0, UiSkin.SUB);
-            text(g, v + "   potentiel " + String.format(Locale.ROOT, "%.1f", pot / 10.0) + "   " + sp + "/" + maxSteps, cx + labelW + barW + 6, y + 3, TXT);
+            text(g, v + "   potential " + String.format(Locale.ROOT, "%.1f", pot / 10.0) + "   " + sp + "/" + maxSteps, cx + labelW + barW + 6, y + 3, TXT);
             final String idx = String.valueOf(i);
             int bx = cx + labelW + barW + 150;
-            button(g, bx, y, 70, 14, cost < 0 ? (sp >= maxSteps ? "Maximum" : "Plafond") : "+0,5 (" + cost + ")", cost >= 0 && points >= cost, () -> send("train", idx, ""));
+            button(g, bx, y, 70, 14, cost < 0 ? (sp >= maxSteps ? "Maximum" : "Cap") : "+0.5 (" + cost + ")", cost >= 0 && points >= cost, () -> send("train", idx, ""));
             button(g, bx + 74, y, 16, 14, "-", sp > 0, () -> send("untrain", idx, ""));
             y += 20;
         }
         y += 6;
-        wrap(g, "Le potentiel ne dépasse jamais 10,0 ; 4 paliers au plus par stat (+2,0). Retirer un palier te rend ses points. La stat actuelle suit le niveau : potentiel x racine(niveau / 10).", cx, y, cw, DIM);
+        wrap(g, "Potential is capped at 10.0, with up to four stages per stat (+2.0). Removing a stage refunds its points. Current stats scale with level: potential × square root of (level / 10).", cx, y, cw, DIM);
     }
 
     // ------------------------------------------------------------------ Style
@@ -700,13 +690,13 @@ public class HubScreen extends Screen {
     private void style(GuiGraphics g) {
         if (draft == null) enterStyle();
         draft.alias = box.getValue().trim();
-        StyleService.CLIENT_CACHE.put(myId(), draft); // aperçu en direct sur ton personnage
+        StyleService.CLIENT_CACHE.put(myId(), draft);
         int x = cx, y = cy;
         int colW = Math.min(300, cw - 150);
 
-        // couleur
-        section(g, "COULEUR DE", x, y);
-        String[] targets = {"Aura", "Yeux", "Rayon"};
+        // Colour controls.
+        section(g, "COLOUR OF", x, y);
+        String[] targets = {"Aura", "Eyes", "Beam"};
         for (int i = 0; i < 3; i++) {
             final int t = i;
             boolean on = colorTarget == i;
@@ -730,62 +720,61 @@ public class HubScreen extends Screen {
             hexBox.setValue("");
         });
         if (colorTarget == 2) {
-            button(g, x + 116, y, 100, 14, "Comme l'aura", draft.beamColor >= 0, () -> draft.beamColor = -1);
+            button(g, x + 116, y, 100, 14, "Match aura", draft.beamColor >= 0, () -> draft.beamColor = -1);
         }
         y += 22;
 
         // yeux
-        section(g, "YEUX", x, y);
-        button(g, x + 84, y - 3, 110, 14, "Style : " + StyleData.EYE_STYLES[draft.eyeStyle], true,
+        section(g, "EYES", x, y);
+        button(g, x + 84, y - 3, 110, 14, "Style: " + StyleData.EYE_STYLES[draft.eyeStyle], true,
                 () -> draft.eyeStyle = (draft.eyeStyle + 1) % StyleData.EYE_STYLES.length);
         y += 16;
-        stepper(g, x, y, "Largeur", draft.eyeW, 1, 4, v -> draft.eyeW = v);
-        stepper(g, x + 140, y, "Hauteur", draft.eyeH, 1, 4, v -> draft.eyeH = v);
+        stepper(g, x, y, "Width", draft.eyeW, 1, 4, v -> draft.eyeW = v);
+        stepper(g, x + 140, y, "Height", draft.eyeH, 1, 4, v -> draft.eyeH = v);
         y += 17;
-        stepper(g, x, y, "Écart", draft.eyeGap, 2, 6, v -> draft.eyeGap = v);
+        stepper(g, x, y, "Spacing", draft.eyeGap, 2, 6, v -> draft.eyeGap = v);
         stepper(g, x + 140, y, "Position", draft.eyeY, 0, 6, v -> draft.eyeY = v);
         y += 22;
 
         // alias
         section(g, "Alias", x, y);
-        text(g, "affiché au-dessus de ta tête et dans le chat", x + 52, y, UiSkin.MUTED);
+        text(g, "displayed above your head and in chat", x + 52, y, UiSkin.MUTED);
         y += 15;
         boxAt(x, y, 170);
         y += 22;
 
         // affichage
-        section(g, "AFFICHAGE", x, y);
+        section(g, "DISPLAY", x, y);
         y += 15;
         int bw = (colW - 6) / 2;
-        button(g, x, y, bw, 14, "HUD : " + (UnrpClientConfig.HUD_VISIBLE.get() ? "affiché" : "masqué"), true, () -> {
+        button(g, x, y, bw, 14, "HUD: " + (UnrpClientConfig.HUD_VISIBLE.get() ? "shown" : "hidden"), true, () -> {
             UnrpClientConfig.HUD_VISIBLE.set(!UnrpClientConfig.HUD_VISIBLE.get());
             UnrpClientConfig.SPEC.save();
         });
-        button(g, x + bw + 6, y, bw, 14, "Taille : " + UnrpClientConfig.SCALES[UnrpClientConfig.HUD_SCALE.get()], true, () -> {
+        button(g, x + bw + 6, y, bw, 14, "Size: " + UnrpClientConfig.SCALES[UnrpClientConfig.HUD_SCALE.get()], true, () -> {
             UnrpClientConfig.HUD_SCALE.set((UnrpClientConfig.HUD_SCALE.get() + 1) % UnrpClientConfig.SCALES.length);
             UnrpClientConfig.SPEC.save();
         });
         y += 17;
-        button(g, x, y, bw, 14, "Coin : " + UnrpClientConfig.CORNERS[UnrpClientConfig.HUD_CORNER.get()], true, () -> {
+        button(g, x, y, bw, 14, "Corner: " + UnrpClientConfig.CORNERS[UnrpClientConfig.HUD_CORNER.get()], true, () -> {
             UnrpClientConfig.HUD_CORNER.set((UnrpClientConfig.HUD_CORNER.get() + 1) % UnrpClientConfig.CORNERS.length);
             UnrpClientConfig.SPEC.save();
         });
-        button(g, x + bw + 6, y, bw, 14, "Sons : " + (UnrpClientConfig.HUB_SOUNDS.get() ? "oui" : "non"), true, () -> {
+        button(g, x + bw + 6, y, bw, 14, "Sounds: " + (UnrpClientConfig.HUB_SOUNDS.get() ? "yes" : "no"), true, () -> {
             UnrpClientConfig.HUB_SOUNDS.set(!UnrpClientConfig.HUB_SOUNDS.get());
             UnrpClientConfig.SPEC.save();
         });
         y += 17;
-        button(g, x, y, colW, 14, "Barre d'aura du HUD : " + UnrpClientConfig.COLOR_NAMES[UnrpClientConfig.AURA_COLOR.get()], true, () -> {
+        button(g, x, y, colW, 14, "HUD aura bar: " + UnrpClientConfig.COLOR_NAMES[UnrpClientConfig.AURA_COLOR.get()], true, () -> {
             UnrpClientConfig.AURA_COLOR.set((UnrpClientConfig.AURA_COLOR.get() + 1) % UnrpClientConfig.COLOR_VALUES.length);
             UnrpClientConfig.SPEC.save();
         });
 
-        // aperçu
         int px = x + colW + 24, pw = cw - colW - 24;
         if (pw > 80) {
             int pcx = px + pw / 2, py = cy + 150;
             panel(g, px, cy, pw, 188);
-            section(g, "APERÇU", px + 6, cy + 5);
+            section(g, "PREVIEW", px + 6, cy + 5);
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null) {
                 InventoryScreen.renderEntityInInventoryFollowsMouse(g, pcx, py, 56, pcx - mx, py - 90 - my, mc.player);
@@ -793,13 +782,13 @@ public class HubScreen extends Screen {
             g.fill(px + 6, cy + 160, px + pw - 6, cy + 166, 0xFF000000 | (draft.auraColor & 0xFFFFFF));
             text(g, "aura", px + 6, cy + 170, DIM & 0xFFFFFF);
             boolean dirty = styleDirty();
-            text(g, dirty ? "Non enregistré" : "Enregistré", px, cy + 194, dirty ? ACCENT & 0xFFFFFF : GOOD & 0xFFFFFF);
-            button(g, px, cy + 206, pw / 2 - 2, 16, "Appliquer", dirty, () -> {
+            text(g, dirty ? "Not saved" : "Saved", px, cy + 194, dirty ? ACCENT & 0xFFFFFF : GOOD & 0xFFFFFF);
+            button(g, px, cy + 206, pw / 2 - 2, 16, "Apply", dirty, () -> {
                 draft.alias = box.getValue().trim();
                 Net.CHANNEL.sendToServer(new StyleSavePacket(draft.copy()));
                 saved = draft.copy();
             });
-            button(g, px + pw / 2 + 2, cy + 206, pw / 2 - 2, 16, "Réinitialiser", dirty, () -> {
+            button(g, px + pw / 2 + 2, cy + 206, pw / 2 - 2, 16, "Reset", dirty, () -> {
                 draft = saved.copy();
                 box.setValue(draft.alias);
             });
@@ -812,8 +801,8 @@ public class HubScreen extends Screen {
         int leftW = Math.min(300, cw * 3 / 5);
         int y = cy;
         if (so == null) {
-            text(g, "PAS INSCRIT", cx, y, BAD & 0xFFFFFF);
-            wrap(g, "Ton personnage n'a pas d'école. Parle à un principal sur un campus pour t'inscrire.", cx, y + 14, leftW, DIM);
+            text(g, "NOT ENROLLED", cx, y, BAD & 0xFFFFFF);
+            wrap(g, "Your character has no school. Speak to a campus principal to enrol.", cx, y + 14, leftW, DIM);
         } else {
             String myRank = str(me, "rank");
             boolean king = "king".equals(myRank);
@@ -827,19 +816,19 @@ public class HubScreen extends Screen {
                 if (bool(r, "online")) g.fill(cx + leftW - 70, y + 9, cx + leftW - 65, y + 14, GOOD);
                 final String rk = str(r, "rank");
                 if (king && bool(r, "granted") && !"king".equals(rk)) {
-                    button(g, cx + leftW - 62, y + 4, 58, 14, "Retirer", true, () -> send("school_revoke", rk, ""));
+                    button(g, cx + leftW - 62, y + 4, 58, 14, "Remove", true, () -> send("school_revoke", rk, ""));
                 }
                 y += 25;
             }
             if (!king) {
                 y += 2;
-                boolean has = !"Trône vide".equals(rankHolder(so, "king"));
-                button(g, cx, y, 150, 16, "Défier le Roi", has, () -> send("duel_formal", "", ""));
-                if (!has) tooltip.add("Cette école n'a pas de Roi pour répondre.");
+                boolean has = !"Empty throne".equals(rankHolder(so, "king"));
+                button(g, cx, y, 150, 16, "Challenge the King", has, () -> send("duel_formal", "", ""));
+                if (!has) tooltip.add("This school has no King to answer.");
                 y += 20;
-                wrap(g, "Pour la couronne, un contre un. Le combat s'arrête à 2 cœurs.", cx, y, leftW, DIM);
+                wrap(g, "A one-on-one fight for the crown. The fight ends at two hearts.", cx, y, leftW, DIM);
             } else {
-                text(g, "ÉLÈVES  (clique pour donner un siège)", cx, y + 2, DIM & 0xFFFFFF);
+                text(g, "STUDENTS  (click to assign a seat)", cx, y + 2, DIM & 0xFFFFFF);
                 y += 14;
                 JsonArray stu = arr(so, "students");
                 int rows = Math.max(1, (cy + (winH - 60) - y) / 13);
@@ -856,22 +845,22 @@ public class HubScreen extends Screen {
                 }
                 y += 4;
                 boolean ok = !selected.isEmpty();
-                button(g, cx, y, 72, 14, "Faire Reine", ok, () -> send("school_promote", selected, "queen"));
-                button(g, cx + 76, y, 72, 14, "Faire Valet", ok, () -> send("school_promote", selected, "jack"));
+                button(g, cx, y, 72, 14, "Appoint Queen", ok, () -> send("school_promote", selected, "queen"));
+                button(g, cx + 76, y, 72, 14, "Appoint Jack", ok, () -> send("school_promote", selected, "jack"));
             }
         }
-        // classement des écoles
+
         int rx = cx + leftW + 12, rw = cw - leftW - 12;
         if (rw > 110) {
             int ry = cy;
-            section(g, "ÉCOLES", rx, ry);
+            section(g, "SCHOOLS", rx, ry);
             ry += 15;
             for (JsonElement el : arr(st, "schools")) {
                 if (ry > y0 + winH - 40) break;
                 JsonObject s = el.getAsJsonObject();
                 panel(g, rx, ry, rw, 34);
                 text(g, font.plainSubstrByWidth(str(s, "name"), rw - 8), rx + 4, ry + 3, TXT);
-                text(g, font.plainSubstrByWidth("Roi : " + str(s, "king"), rw - 8), rx + 4, ry + 14, UiSkin.SUB);
+                text(g, font.plainSubstrByWidth("King: " + str(s, "king"), rw - 8), rx + 4, ry + 14, UiSkin.SUB);
                 text(g, font.plainSubstrByWidth(str(s, "queen") + " / " + str(s, "jack"), rw - 8), rx + 4, ry + 24, DIM & 0xFFFFFF);
                 ry += 37;
             }
@@ -900,49 +889,49 @@ public class HubScreen extends Screen {
             button(g, x + w - 86, y + 2, 82, 14, verb, enabled, () -> act.accept(id));
             y += 21;
         }
-        if (shown == 0) wrap(g, maxDist >= 64 ? "Personne à moins de 64 blocs." : "Personne à moins de " + maxDist + " blocs.", x, y, w, DIM);
+        if (shown == 0) wrap(g, maxDist >= 64 ? "Nobody within 64 blocks." : "Nobody within " + maxDist + " blocks.", x, y, w, DIM);
     }
 
     private void group(GuiGraphics g, JsonObject st) {
         JsonObject gr = obj(st, "group");
         int y = cy, w = Math.min(cw, 380);
         if (gr == null) {
-            section(g, "CRÉER UN GROUPE", cx, y);
+            section(g, "CREATE A GROUP", cx, y);
             y += 14;
             boxAt(cx, y, 170);
             boolean ok = box.getValue().trim().length() >= 2;
-            button(g, cx + 178, y - 1, 70, 16, "Créer", ok, () -> {
+            button(g, cx + 178, y - 1, 70, 16, "Create", ok, () -> {
                 send("group_create", box.getValue().trim(), "");
                 box.setValue("");
             });
             y += 24;
-            wrap(g, "Ce que tu dis dans le chat reste visible de tous ; le groupe sert à s'organiser et à être invité par ses camarades.", cx, y, w, DIM);
+            wrap(g, "Chat remains public. Groups help you organise and invite teammates.", cx, y, w, DIM);
             y += 34;
-            section(g, "À PROXIMITÉ", cx, y);
+            section(g, "NEARBY", cx, y);
             y += 15;
-            wrap(g, "Crée un groupe pour pouvoir inviter.", cx, y, w, DIM);
+            wrap(g, "Create a group before inviting players.", cx, y, w, DIM);
             return;
         }
         boolean owner = bool(gr, "owner");
         text(g, str(gr, "name").toUpperCase(Locale.ROOT), cx, y, TXT);
-        button(g, cx + w - 100, y - 3, 100, 14, owner ? "Dissoudre" : "Quitter", true,
+        button(g, cx + w - 100, y - 3, 100, 14, owner ? "Disband" : "Leave", true,
                 () -> send(owner ? "group_disband" : "group_leave", "", ""));
         y += 16;
-        section(g, "MEMBRES", cx, y);
+        section(g, "MEMBERS", cx, y);
         y += 15;
         for (JsonElement el : arr(gr, "members")) {
             JsonObject m = el.getAsJsonObject();
             panel(g, cx, y, w, 16);
-            text(g, str(m, "name") + (bool(m, "leader") ? "  (chef)" : ""), cx + 5, y + 4, TXT);
+            text(g, str(m, "name") + (bool(m, "leader") ? "  (leader)" : ""), cx + 5, y + 4, TXT);
             if (bool(m, "online")) g.fill(cx + w - 96, y + 5, cx + w - 91, y + 10, GOOD);
             final String id = str(m, "id");
-            if (owner && !bool(m, "leader")) button(g, cx + w - 86, y + 1, 82, 14, "Retirer", true, () -> send("group_kick", id, ""));
+            if (owner && !bool(m, "leader")) button(g, cx + w - 86, y + 1, 82, 14, "Remove", true, () -> send("group_kick", id, ""));
             y += 19;
         }
         y += 6;
-        section(g, "INVITER UN CAMARADE", cx, y);
+        section(g, "INVITE A TEAMMATE", cx, y);
         y += 15;
-        nearList(g, st, cx, y, w, "Inviter", owner, id -> send("group_invite", id, ""), 64);
+        nearList(g, st, cx, y, w, "Invite", owner, id -> send("group_invite", id, ""), 64);
     }
 
     private void boxAt(int x, int y, int w) {
@@ -956,41 +945,41 @@ public class HubScreen extends Screen {
         JsonObject me = obj(st, "me"), here = obj(st, "here");
         boolean king = "king".equals(str(me, "rank"));
         int y = cy, w = Math.min(cw, 420);
-        section(g, "TU ES SUR", cx, y);
+        section(g, "YOU ARE IN", cx, y);
         y += 15;
         if (here != null) {
             panel(g, cx, y, w, 34);
             text(g, str(here, "name"), cx + 6, y + 5, TXT);
-            text(g, "Tenu par : " + str(here, "school"), cx + 6, y + 19, UiSkin.SUB);
+            text(g, "Held by: " + str(here, "school"), cx + 6, y + 19, UiSkin.SUB);
             final String id = str(here, "id");
             boolean can = king && !bool(here, "mine");
-            button(g, cx + w - 130, y + 9, 124, 16, "Déclarer la guerre", can, () -> send("turf_war", id, ""));
-            if (!can && king) tooltip.add("Ton école le tient déjà.");
+            button(g, cx + w - 130, y + 9, 124, 16, "Declare war", can, () -> send("turf_war", id, ""));
+            if (!can && king) tooltip.add("Your school already holds it.");
             y += 40;
             if (!king) {
-                wrap(g, "Seul un Roi peut déclarer une guerre.", cx, y, w, DIM);
+                wrap(g, "Only a King can declare war.", cx, y, w, DIM);
                 y += 14;
             }
         } else {
-            wrap(g, "Aucun territoire ici.", cx, y, w, DIM);
+            wrap(g, "No territory here.", cx, y, w, DIM);
             y += 14;
             if (king) {
                 boxAt(cx, y, 170);
-                button(g, cx + 178, y - 1, 120, 16, "Revendiquer ici", box.getValue().trim().length() >= 2, () -> {
+                button(g, cx + 178, y - 1, 120, 16, "Claim here", box.getValue().trim().length() >= 2, () -> {
                     send("turf_claim", box.getValue().trim(), "");
                     box.setValue("");
                 });
                 y += 22;
             } else {
-                wrap(g, "Seul un Roi peut revendiquer du terrain.", cx, y, w, DIM);
+                wrap(g, "Only a King can claim territory.", cx, y, w, DIM);
                 y += 14;
             }
         }
         y += 6;
-        section(g, "TERRITOIRES", cx, y);
+        section(g, "TERRITORIES", cx, y);
         y += 15;
         JsonArray turfs = arr(st, "turfs");
-        if (turfs.size() == 0) wrap(g, "Aucun territoire n'a encore été revendiqué.", cx, y, w, DIM);
+        if (turfs.size() == 0) wrap(g, "No territories have been claimed yet.", cx, y, w, DIM);
         for (JsonElement el : turfs) {
             if (y > y0 + winH - 34) break;
             JsonObject t = el.getAsJsonObject();
@@ -1006,31 +995,31 @@ public class HubScreen extends Screen {
         JsonObject du = obj(st, "duel"), me = obj(st, "me");
         int y = cy, w = Math.min(cw, 420);
         if (du != null) {
-            section(g, "TON DUEL", cx, y);
+            section(g, "YOUR DUEL", cx, y);
             y += 15;
             panel(g, cx, y, w, 40);
             String kind = switch (str(du, "kind")) {
-                case "formal" -> "Combat pour la couronne";
-                case "turf" -> "Guerre de territoire";
-                default -> "Duel amical";
+                case "formal" -> "Fight for the crown";
+                case "turf" -> "Territory War";
+                default -> "Friendly duel";
             };
             text(g, kind, cx + 6, y + 6, ACCENT & 0xFFFFFF);
-            text(g, "Contre " + str(du, "opp") + " - s'arrête à 2 cœurs", cx + 6, y + 21, TXT);
-            button(g, cx + w - 80, y + 12, 74, 16, "Abandonner", true, () -> send("duel_yield", "", ""));
+            text(g, "Against " + str(du, "opp") + " - ends at two hearts", cx + 6, y + 21, TXT);
+            button(g, cx + w - 80, y + 12, 74, 16, "Forfeit", true, () -> send("duel_yield", "", ""));
             return;
         }
-        section(g, "DUEL AMICAL", cx, y);
+        section(g, "FRIENDLY DUEL", cx, y);
         y += 15;
-        wrap(g, "Un contre un, sans enjeu. Il s'arrête à 2 cœurs.", cx, y, w, DIM);
+        wrap(g, "A friendly one-on-one fight. It ends at two hearts.", cx, y, w, DIM);
         y += 14;
-        nearList(g, st, cx, y, w, "Défier", true, id -> send("duel_friendly", id, ""), 14);
+        nearList(g, st, cx, y, w, "Challenge", true, id -> send("duel_friendly", id, ""), 14);
         y += 6 * 21 + 8;
         if (y > y0 + winH - 60) y = y0 + winH - 60;
-        section(g, "COMBAT FORMEL", cx, y);
+        section(g, "CROWN DUEL", cx, y);
         y += 15;
         boolean enrolled = !str(me, "school").isEmpty() && !"king".equals(str(me, "rank"));
-        button(g, cx, y, 150, 16, "Défier le Roi", enrolled, () -> send("duel_formal", "", ""));
-        wrap(g, enrolled ? "Pour la couronne, un contre un." : "Il faut être élève d'une école, sans en être le Roi.", cx + 158, y + 4, w - 158, DIM);
+        button(g, cx, y, 150, 16, "Challenge the King", enrolled, () -> send("duel_formal", "", ""));
+        wrap(g, enrolled ? "A one-on-one fight for the crown." : "You must be a student who is not already the King.", cx + 158, y + 4, w - 158, DIM);
     }
 
     private void feed(GuiGraphics g, JsonObject st) {
@@ -1038,10 +1027,10 @@ public class HubScreen extends Screen {
         panel(g, x, y, w, h);
         g.fill(x - 1, y - 1, x + w + 1, y, EDGE);
         section(g, "NOTIFICATIONS", x + 6, y + 5);
-        button(g, x + w - 76, y + 2, 72, 12, "Tout lu", true, () -> send("read_all", "", ""));
+        button(g, x + w - 76, y + 2, 72, 12, "Mark all read", true, () -> send("read_all", "", ""));
         int ty = y + 20;
         JsonArray feed = arr(st, "feed");
-        if (feed.size() == 0) text(g, "Rien de nouveau.", x + 6, ty, DIM & 0xFFFFFF);
+        if (feed.size() == 0) text(g, "Nothing new.", x + 6, ty, DIM & 0xFFFFFF);
         for (JsonElement el : feed) {
             if (ty > y + h - 12) break;
             JsonObject n = el.getAsJsonObject();
@@ -1052,7 +1041,6 @@ public class HubScreen extends Screen {
         }
     }
 
-    // ------------------------------------------------------------------ entrées
     @Override
     public boolean mouseClicked(double rawX, double rawY, int button) {
         double mouseX = rawX / ui, mouseY = rawY / ui;

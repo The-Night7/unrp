@@ -10,15 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/** Table de tirage de potentiel (rarity.json) et logique de tirage. Aucune dépendance Minecraft. */
 public class RarityTable {
     private static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
 
-    /** Résultat d'un tirage. */
     public static final class Roll {
         public final RarityTier tier;
-        /** Niveau de potentiel, 1 décimale. */
+
         public final double level;
 
         Roll(RarityTier tier, double level) {
@@ -32,17 +30,17 @@ public class RarityTable {
 
     public RarityTable(List<RarityTier> tiers) {
         if (tiers == null || tiers.isEmpty()) {
-            throw new IllegalArgumentException("rarity.json : aucune rareté définie");
+            throw new IllegalArgumentException("rarity.json: no rarities defined");
         }
         double sum = 0;
         for (RarityTier t : tiers) {
             if (t.weight < 0 || t.levelMax < t.levelMin) {
-                throw new IllegalArgumentException("rarity.json : valeurs invalides pour '" + t.id + "'");
+                throw new IllegalArgumentException("rarity.json: invalid values for '" + t.id + "'");
             }
             sum += t.weight;
         }
         if (sum <= 0) {
-            throw new IllegalArgumentException("rarity.json : la somme des poids doit être > 0");
+            throw new IllegalArgumentException("rarity.json: total weight must be greater than zero");
         }
         this.tiers = List.copyOf(tiers);
         this.totalWeight = sum;
@@ -63,7 +61,6 @@ public class RarityTable {
         return totalWeight;
     }
 
-    /** Probabilité (0..1) d'une rareté. */
     public double probability(RarityTier t) {
         return t.weight / totalWeight;
     }

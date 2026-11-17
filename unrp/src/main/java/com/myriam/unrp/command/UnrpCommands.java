@@ -18,12 +18,6 @@ import net.minecraft.text.Text;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-/**
- * /unrp info [joueur]
- * /unrp power list | set <joueur> <pouvoir> | roll <joueur> | clear <joueur>
- * /unrp aura set|add <joueur> <valeur>
- * /unrp stat set <joueur> <stat> <valeur>
- */
 public final class UnrpCommands {
     private UnrpCommands() {}
 

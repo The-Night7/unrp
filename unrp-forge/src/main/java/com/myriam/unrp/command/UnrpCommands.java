@@ -24,14 +24,6 @@ import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-/**
- * Commandes d'administration (niveau 2) :
- *   /unrp roll                          tire un potentiel pour soi
- *   /unrp rolltest <n>                  simule n tirages et compare aux probabilités attendues
- *   /unrp school list | info <id>
- *   /unrp character list [categorie] | info <id> | claim <id> <joueur> | unclaim <id>
- * Les joueurs choisiront leur personnage via le menu (phase 2), pas par commande.
- */
 public final class UnrpCommands {
     private static final Random RNG = new Random();
     private static final Predicate<CommandSourceStack> ADMIN = s -> s.hasPermission(2);
@@ -67,7 +59,7 @@ public final class UnrpCommands {
                 .then(Commands.literal("undress").executes(ctx -> {
                     var p = ctx.getSource().getPlayerOrException();
                     com.myriam.unrp.item.Cosmetics.clear(p);
-                    ctx.getSource().sendSuccess(() -> Component.literal("Tous tes vêtements cosmétiques sont retirés."), false);
+                    ctx.getSource().sendSuccess(() -> Component.literal("All cosmetic clothing removed."), false);
                     return 1;
                 }))
                 .then(Commands.literal("codex").executes(ctx -> {
@@ -75,7 +67,7 @@ public final class UnrpCommands {
                     return 1;
                 }))
                 .then(Commands.literal("whoami").executes(ctx -> whoami(ctx.getSource())))
-                // ReputationCommands du modèle : /unrp reputation [cibles]
+
                 .then(Commands.literal("reputation").requires(ADMIN)
                         .executes(ctx -> reputation(ctx.getSource(), java.util.List.of(ctx.getSource().getPlayerOrException())))
                         .then(Commands.argument("targets", EntityArgument.players())
@@ -144,15 +136,15 @@ public final class UnrpCommands {
     // ------------------------------------------------------------------ roll
     private static int roll(CommandSourceStack src) {
         RarityTable table = UnodexData.get().rarity;
-        if (table == null) return fail(src, "rarity.json non chargé.");
+        if (table == null) return fail(src, "rarity.json is not loaded.");
         RarityTable.Roll r = table.roll(RNG);
-        return say(src, "Potentiel tiré : " + r.tier.label + " (niveau " + r.level + ")"
-                + (r.tier.lifelong ? " - ne pourra jamais avoir de capacité" : ""));
+        return say(src, "Potential rolled: " + r.tier.label + " (level " + r.level + ")"
+                + (r.tier.lifelong ? " - permanently without an ability" : ""));
     }
 
     private static int rollTest(CommandSourceStack src, int n) {
         RarityTable table = UnodexData.get().rarity;
-        if (table == null) return fail(src, "rarity.json non chargé.");
+        if (table == null) return fail(src, "rarity.json is not loaded.");
         Map<String, Integer> counts = new LinkedHashMap<>();
         table.tiers().forEach(t -> counts.put(t.id, 0));
         for (int i = 0; i < n; i++) counts.merge(table.roll(RNG).tier.id, 1, Integer::sum);
@@ -164,7 +156,6 @@ public final class UnrpCommands {
         return say(src, sb.toString());
     }
 
-    // ---------------------------------------------------------------- écoles
     private static int locateSchool(CommandSourceStack source, String id) {
         com.myriam.unrp.worldgen.SchoolSites.School school;
         try { school = com.myriam.unrp.worldgen.SchoolSites.school(id); }
@@ -178,64 +169,64 @@ public final class UnrpCommands {
 
     private static int schoolList(CommandSourceStack src) {
         UnodexData data = UnodexData.get();
-        if (data.schools.isEmpty()) return fail(src, "Aucune école chargée.");
-        StringBuilder sb = new StringBuilder("Écoles et groupes (" + data.schools.size() + ") :");
+        if (data.schools.isEmpty()) return fail(src, "No schools loaded.");
+        StringBuilder sb = new StringBuilder("Schools and groups (" + data.schools.size() + ") :");
         for (Models.School s : data.schools.values()) {
-            sb.append(String.format("%n  %s - %s [%s] %d membres", s.id, s.name, s.kind, s.memberCount));
+            sb.append(String.format("%n  %s - %s [%s] %d members", s.id, s.name, s.kind, s.memberCount));
         }
         return say(src, sb.toString());
     }
 
     private static int schoolInfo(CommandSourceStack src, String id) {
         Models.School s = UnodexData.get().schools.get(id);
-        if (s == null) return fail(src, "École inconnue : " + id);
+        if (s == null) return fail(src, "Unknown school: " + id);
         String leaders = s.leaders.isEmpty() ? "-"
                 : s.leaders.stream().map(l -> l.characterId + " (" + l.role + ")").collect(Collectors.joining(", "));
-        return say(src, s.name + " (" + s.kind + (s.kindConfirmed ? "" : ", à confirmer") + ")"
+        return say(src, s.name + " (" + s.kind + (s.kindConfirmed ? "" : ", unconfirmed") + ")"
                 + "\n  Dirigeants : " + leaders
-                + "\n  Membres (" + s.memberCount + ") : " + String.join(", ", s.members.stream().limit(15).toList())
+                + "\n  Members (" + s.memberCount + ") : " + String.join(", ", s.members.stream().limit(15).toList())
                 + (s.memberCount > 15 ? ", ..." : ""));
     }
 
-    // ----------------------------------------------------------- personnages
+    // ----------------------------------------------------------- characters
     private static int characterList(CommandSourceStack src, String category) {
         UnodexData data = UnodexData.get();
         ClaimData claims = ClaimData.get(src.getServer());
         var list = data.characters.values().stream()
                 .filter(c -> category == null || category.equals(c.category)).toList();
-        if (list.isEmpty()) return fail(src, "Aucun personnage" + (category == null ? "" : " dans '" + category + "'") + ".");
+        if (list.isEmpty()) return fail(src, "No characters" + (category == null ? "" : " in '" + category + "'") + ".");
         long free = list.stream().filter(c -> !claims.isClaimed(c.id)).count();
         String names = list.stream().limit(40)
                 .map(c -> c.id + (claims.isClaimed(c.id) ? "*" : ""))
                 .collect(Collectors.joining(", "));
-        return say(src, list.size() + " personnages (" + free + " libres, * = pris) : " + names
+        return say(src, list.size() + " characters (" + free + " libres, * = pris) : " + names
                 + (list.size() > 40 ? ", ..." : ""));
     }
 
     private static int characterInfo(CommandSourceStack src, String id) {
         Models.Character c = UnodexData.get().characters.get(id);
-        if (c == null) return fail(src, "Personnage inconnu : " + id);
+        if (c == null) return fail(src, "Unknown character: " + id);
         ClaimData claims = ClaimData.get(src.getServer());
         String owner = claims.ownerOf(id).map(u -> {
             ServerPlayer p = src.getServer().getPlayerList().getPlayer(u);
             return p != null ? p.getGameProfile().getName() : u.toString();
-        }).orElse("libre");
+        }).orElse("available");
         return say(src, c.name + " [" + c.category + "] " + c.tier + " niv. " + c.level
-                + "\n  Capacité : " + (c.abilityId == null ? "aucune" : c.abilityId)
-                + "\n  Écoles : " + c.schools.stream().map(m -> m.school + (m.roles.isEmpty() ? "" : " " + m.roles)).toList()
+                + "\n  Ability: " + (c.abilityId == null ? "none" : c.abilityId)
+                + "\n  Schools: " + c.schools.stream().map(m -> m.school + (m.roles.isEmpty() ? "" : " " + m.roles)).toList()
                 + "\n  Statut : " + owner);
     }
 
     private static int claim(CommandSourceStack src, String id, ServerPlayer player) {
-        if (!UnodexData.get().characters.containsKey(id)) return fail(src, "Personnage inconnu : " + id);
-        if (!ClaimData.get(src.getServer()).forceClaim(id, player.getUUID())) return fail(src, id + " est déjà pris.");
+        if (!UnodexData.get().characters.containsKey(id)) return fail(src, "Unknown character: " + id);
+        if (!ClaimData.get(src.getServer()).forceClaim(id, player.getUUID())) return fail(src, id + " is already claimed.");
         PlayerStateService.send(player);
         return say(src, player.getGameProfile().getName() + " joue maintenant " + id);
     }
 
     private static int unclaim(CommandSourceStack src, String id) {
-        if (!ClaimData.get(src.getServer()).release(id)) return fail(src, id + " n'était pas pris.");
-        return say(src, id + " est de nouveau libre.");
+        if (!ClaimData.get(src.getServer()).release(id)) return fail(src, id + " was not claimed.");
+        return say(src, id + " is available again.");
     }
 
     // ------------------------------------------------------- joueurs
@@ -243,7 +234,7 @@ public final class UnrpCommands {
         for (ServerPlayer player : targets) {
             int value = com.myriam.unrp.social.Reputation.rep(player);
             String standing = com.myriam.unrp.social.Reputation.standingOf(value);
-            String whose = player == src.getEntity() ? "Ta réputation" : "Réputation de " + player.getDisplayName().getString();
+            String whose = player == src.getEntity() ? "Your reputation" : "Reputation of " + player.getDisplayName().getString();
             src.sendSuccess(() -> Component.literal("§7" + whose + " : §f" + standing + " §8(" + value + ")"), false);
         }
         return targets.size();
@@ -252,7 +243,7 @@ public final class UnrpCommands {
     private static int menu(CommandSourceStack src) throws CommandSyntaxException {
         ServerPlayer player = src.getPlayerOrException();
         if (ClaimData.get(src.getServer()).profileOf(player.getUUID()).isPresent()) {
-            return fail(src, "Tu as déjà un personnage (/unrp whoami). Un admin peut le réinitialiser.");
+            return fail(src, "You already have a character (/unrp whoami). An administrator can reset it.");
         }
         MenuService.send(player, true, false, "");
         return 1;
@@ -261,29 +252,29 @@ public final class UnrpCommands {
     private static int whoami(CommandSourceStack src) throws CommandSyntaxException {
         ServerPlayer player = src.getPlayerOrException();
         var profile = ClaimData.get(src.getServer()).profileOf(player.getUUID());
-        if (profile.isEmpty()) return say(src, "Tu n'as pas encore de personnage : /unrp menu");
+        if (profile.isEmpty()) return say(src, "You have no character yet: /unrp menu");
         ClaimData.Profile p = profile.get();
         if (ClaimData.Profile.CHARACTER.equals(p.kind)) {
             Models.Character c = UnodexData.get().characters.get(p.characterId);
-            return say(src, "Tu joues " + (c != null ? c.name : p.characterId) + ".");
+            return say(src, "You play " + (c != null ? c.name : p.characterId) + ".");
         }
-        return say(src, "OC " + p.ocName + " (" + p.ocSchool + ") - potentiel " + p.tier + " niveau " + p.level
-                + (p.lifelong ? " - jamais de capacité" : ""));
+        return say(src, "OC " + p.ocName + " (" + p.ocSchool + ") - potential " + p.tier + " level " + p.level
+                + (p.lifelong ? " - permanently without an ability" : ""));
     }
 
     private static int reset(CommandSourceStack src, ServerPlayer target) {
         if (!ClaimData.get(src.getServer()).reset(target.getUUID())) {
-            return fail(src, target.getGameProfile().getName() + " n'avait pas de personnage.");
+            return fail(src, target.getGameProfile().getName() + " had no character.");
         }
         PlayerStateService.send(target);
-        MenuService.send(target, true, false, "Ton personnage a été réinitialisé : choisis-en un nouveau.");
-        return say(src, target.getGameProfile().getName() + " est réinitialisé.");
+        MenuService.send(target, true, false, "Your character was reset. Choose a new one.");
+        return say(src, target.getGameProfile().getName() + " has been reset.");
     }
 
     private static int unlockAll(CommandSourceStack src, net.minecraft.server.level.ServerPlayer p, boolean on) {
         com.myriam.unrp.ability.Unlocks.setAll(p, on);
         com.myriam.unrp.player.PlayerStateService.send(p);
-        src.sendSuccess(() -> Component.literal((on ? "Tous les rangs débloqués pour " : "Rangs reverrouillés pour ") + p.getName().getString()), true);
+        src.sendSuccess(() -> Component.literal((on ? "All ranks unlocked for " : "Ranks locked again for ") + p.getName().getString()), true);
         return 1;
     }
 
@@ -291,40 +282,39 @@ public final class UnrpCommands {
         ClaimData claims = ClaimData.get(src.getServer());
         ClaimData.Profile pr = claims.profileOf(p.getUUID()).orElse(null);
         if (pr == null || !ClaimData.Profile.OC.equals(pr.kind) || pr.lifelong) {
-            src.sendFailure(Component.literal("Ce joueur n'a pas d'OC pouvant recevoir une capacité."));
+            src.sendFailure(Component.literal("This player has no OC eligible to receive an ability."));
             return 0;
         }
         String id = claims.rollFreeAbility(p.getUUID(), new java.util.Random());
         if (id == null) {
-            src.sendFailure(Component.literal("Aucune capacité libre : elles sont toutes détenues."));
+            src.sendFailure(Component.literal("No free abilities remain. All are held by other players."));
             return 0;
         }
         claims.setOcAbility(p.getUUID(), id);
         com.myriam.unrp.player.PlayerStateService.send(p);
-        src.sendSuccess(() -> Component.literal("Capacité tirée pour " + p.getName().getString() + " : " + id), true);
+        src.sendSuccess(() -> Component.literal("Ability rolled for " + p.getName().getString() + " : " + id), true);
         return 1;
     }
 
-    /** Attribue une capacité précise (y compris les Origin, jamais tirées au roll) à un OC. Une capacité reste unique. */
     private static int giveAbility(CommandSourceStack src, net.minecraft.server.level.ServerPlayer p, String id) {
         ClaimData claims = ClaimData.get(src.getServer());
         ClaimData.Profile pr = claims.profileOf(p.getUUID()).orElse(null);
         if (pr == null || !ClaimData.Profile.OC.equals(pr.kind) || pr.lifelong) {
-            src.sendFailure(Component.literal("Ce joueur n'a pas d'OC pouvant recevoir une capacité."));
+            src.sendFailure(Component.literal("This player has no OC eligible to receive an ability."));
             return 0;
         }
         var data = com.myriam.unrp.data.UnodexData.get();
         if (data.powerFor(id) == null) {
-            src.sendFailure(Component.literal("Pouvoir inconnu ou pas encore jouable : " + id));
+            src.sendFailure(Component.literal("Unknown or unimplemented power: " + id));
             return 0;
         }
         if (claims.heldAbilities(pr).contains(data.canon(id))) {
-            src.sendFailure(Component.literal("Cette capacité est déjà détenue par quelqu'un."));
+            src.sendFailure(Component.literal("That ability is already held by another player."));
             return 0;
         }
         claims.setOcAbility(p.getUUID(), id);
         com.myriam.unrp.player.PlayerStateService.send(p);
-        src.sendSuccess(() -> Component.literal("Capacité attribuée à " + p.getName().getString() + " : " + id), true);
+        src.sendSuccess(() -> Component.literal("Ability assigned to " + p.getName().getString() + " : " + id), true);
         return 1;
     }
 }

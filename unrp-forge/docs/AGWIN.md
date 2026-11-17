@@ -12,7 +12,7 @@ These observations guide the exterior and teaching spaces. They do not establish
 
 ## Implemented layout
 
-The build occupies 97 × 97 blocks. Its main teaching building has five floors, framed light-grey glazing, a pale tiled centre, pastel façade panels, a flat grey roof and a small service penthouse. The entrance rises two blocks above the grounds; stairs at the front and back connect the plinth to the paths.
+The build occupies 97 × 97 blocks. Its main teaching building has five floors, framed light-grey glazing, a pale tiled centre, pastel facade panels, a flat grey roof and a small service penthouse. The entrance rises two blocks above the grounds; stairs at the front and back connect the plinth to the paths.
 
 Inside, side corridors face the exterior windows. Classrooms have glazed partitions, birch doors, rows of desks and chairs, green boards and ceiling lights. Classroom 2-3 is labelled explicitly. A central staircase connects every floor and reaches the roof.
 
@@ -24,9 +24,9 @@ This design does not import Wellston's Safe House, newspaper, named halls or dor
 
 | Element | Treatment |
 | --- | --- |
-| Five-storey façade, projecting centre, side panels, canopy and gate | Based on the Episode 374 establishing view; shapes and proportions are approximated with blocks. |
+| Five-storey facade, projecting centre, side panels, canopy and gate | Based on the Episode 374 establishing view; shapes and proportions are approximated with blocks. |
 | Corridor and classroom 2-3 | Based on the depicted corridor/classroom. Placing 2-3 on the second floor is a layout choice, not proof that the sign denotes a floor. |
-| Building depth, room count, staircase and unseen façades | Adapted for a complete, traversable Minecraft building. |
+| Building depth, room count, staircase and unseen facades | Adapted for a complete, traversable Minecraft building. |
 | Support rooms, garden and accessible roof | Added for playability; not asserted as mapped canonical locations. |
 | Materials | Quartz, pale sandstone, white terracotta, framed glazing and grey concrete approximate the drawing. |
 | School politics and cast | No fixed ranking or character timeline is encoded into the building. |
@@ -45,13 +45,13 @@ No explored buildings are overwritten or rebuilt. Use a fresh world with structu
 
 ## Code and previews
 
-- [AgwinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java): dedicated façade, classrooms, corridors, stairs and grounds.
+- [AgwinBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/AgwinBlueprint.java): dedicated facade, classrooms, corridors, stairs and grounds.
 - [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java): current design selection and saved-version dispatch.
 - [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java): materials, saved version and chunk-clipped block placement.
 - [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java): school metadata and unchanged unique-site algorithm.
 - [AgwinPreview.java](../tools/AgwinPreview.java): north elevation and six floor slices rendered from the actual blueprint.
 
-Tests cover the façade materials, classroom 2-3, stair headroom across all five storeys, routes through the raised entrance to the main rooms and roof, rear-garden access, structure bounds and saved-version compatibility. A live Minecraft terrain-generation and visual check remains necessary.
+Tests cover the facade materials, classroom 2-3, stair headroom across all five storeys, routes through the raised entrance to the main rooms and roof, rear-garden access, structure bounds and saved-version compatibility. A live Minecraft terrain-generation and visual check remains necessary.
 
 ## Layout 6 update
 

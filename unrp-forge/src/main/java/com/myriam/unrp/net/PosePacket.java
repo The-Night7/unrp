@@ -8,7 +8,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/** Serveur -> clients : le joueur "entity" joue la pose "clip" (vide = arrêter). hold > 0 : tenue tant de ticks. */
 public class PosePacket {
     public final int entity;
     public final String clip;

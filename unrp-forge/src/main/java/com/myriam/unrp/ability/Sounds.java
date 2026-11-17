@@ -17,10 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Sons des capacités : chaque pose (le geste) joue une signature sonore, faite de couches de sons Minecraft
- * (data/unrp/unodex/pose_sounds.json). Aucun fichier audio n'est ajouté. Déclenché par Poses.play / Poses.hold.
- */
 public final class Sounds {
     private Sounds() {}
 
@@ -50,24 +46,21 @@ public final class Sounds {
                 if (ls != null) byPose.put(e.getKey(), ls);
             }
         } catch (Exception ex) {
-            // pas de sons si le fichier est illisible
+
         }
         return byPose;
     }
 
-    /** Joue un son du modèle (unrp:<id>, défini par son sounds.json) à la position du joueur. */
     public static void model(ServerPlayer p, String id, float vol) {
         model(p, id, vol, 1.0f);
     }
 
-    /** Son du modèle (« id » dans unrp, ou « espace:id » complet). */
     public static void model(ServerPlayer p, String id, float vol, float pitch) {
         ResourceLocation rl = id.contains(":") ? new ResourceLocation(id) : new ResourceLocation("unrp", id);
         SoundEvent ev = net.minecraft.core.registries.BuiltInRegistries.SOUND_EVENT.getOptional(rl).orElseGet(() -> SoundEvent.createVariableRangeEvent(rl));
         p.serverLevel().playSound(null, p.getX(), p.getY(), p.getZ(), ev, SoundSource.PLAYERS, vol, pitch);
     }
 
-    /** Joue la signature de la pose à la position du joueur (au plus une fois toutes les 6 ticks par joueur). */
     public static void cue(ServerPlayer p, String pose) {
         List<Layer> ls = table().get(pose);
         if (ls == null) return;

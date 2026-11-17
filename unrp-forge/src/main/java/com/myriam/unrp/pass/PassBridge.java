@@ -19,14 +19,9 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Ce que le moteur d'effets « Pass » du modèle lisait ailleurs (Palladium, ses caches client, d'autres pouvoirs),
- * servi par le mod : l'état des pouvoirs vient de {@link PassStatePacket}, la couleur et les yeux de l'onglet Style.
- */
 public final class PassBridge {
     private PassBridge() {}
 
-    /** Pouvoir porté par un joueur, vu du client (remplace IPowerHolder de Palladium). */
     public static final class Holder {
         public final String path;
         final Set<String> on;
@@ -41,9 +36,8 @@ public final class PassBridge {
         }
     }
 
-    /** Pouvoirs détenus par un joueur (chemin -> clés), clés communes, et le reste de PassStatePacket. */
     record State(java.util.LinkedHashMap<String, Set<String>> powers, Set<String> common, boolean am, int locked, boolean transformed) {
-        /** Toutes les clés (tous les pouvoirs + communes). */
+
         Set<String> on() {
             Set<String> all = new java.util.HashSet<>(common);
             for (Set<String> k : powers.values()) all.addAll(k);
@@ -57,7 +51,6 @@ public final class PassBridge {
 
     static final Map<UUID, State> STATES = new ConcurrentHashMap<>();
 
-    /** Lecture pour d'autres paquets : clés allumées (tous pouvoirs), premier pouvoir, et la liste des pouvoirs. */
     public static final java.util.function.Function<UUID, Set<String>> STATE_VIEW = id -> {
         State s = STATES.get(id);
         return s == null ? null : s.on();
@@ -67,19 +60,16 @@ public final class PassBridge {
         return s == null ? "" : s.path();
     };
 
-    /** Clés communes (poses, tags lus par les calques). */
     public static Set<String> common(UUID id) {
         State s = STATES.get(id);
         return s == null ? Set.of() : s.common;
     }
 
-    /** Pouvoirs détenus par ce joueur (chemins). */
     public static java.util.Set<String> paths(UUID id) {
         State s = STATES.get(id);
         return s == null ? Set.of() : s.powers.keySet();
     }
 
-    /** Clés allumées de ce pouvoir (null s'il ne le détient pas), avec les clés communes. */
     public static Set<String> keysOf(UUID id, String path) {
         State s = STATES.get(id);
         if (s == null || !s.powers.containsKey(path)) return null;
@@ -102,7 +92,6 @@ public final class PassBridge {
         STATES.clear();
     }
 
-    /** Le pouvoir du joueur parmi « paths » (lightning, lightning_am...), sinon null. */
     public static Holder holder(AbstractClientPlayer p, String[] paths) {
         if (p == null) return null;
         for (String path : paths) {
@@ -127,33 +116,28 @@ public final class PassBridge {
         return s != null && s.transformed;
     }
 
-    /** Couleur d'aura choisie dans l'onglet Style (-1 = aucune). */
     public static int color(UUID id) {
         StyleData s = StyleService.CLIENT_CACHE.get(id);
         if (s == null || (s.auraColor & 0xFFFFFF) == PassServer.UNSET) return -1;
         return s.auraColor & 0xFFFFFF;
     }
 
-    /** CastFxEvents.sound du modèle. */
     public static SoundEvent sound(String id) {
         ResourceLocation rl = new ResourceLocation(id);
         SoundEvent s = BuiltInRegistries.SOUND_EVENT.get(rl);
         return s != null ? s : SoundEvent.createVariableRangeEvent(rl);
     }
 
-    /** Réglage « effets d'écran » du HUD du modèle (flash, voile gris). */
     public static boolean screenEffects() {
         return com.myriam.unrp.config.UnrpClientConfig.SCREEN_EFFECTS.get();
     }
 
-    /** PowerEyes.passFlare : les yeux s'embrasent un instant (nos yeux de l'onglet Style). */
     public static void passFlare(int entity, double flare, double t) {
         FLARE.put(entity, new double[] {flare, t});
     }
 
     public static final Map<Integer, double[]> FLARE = new ConcurrentHashMap<>();
 
-    /** Centre des yeux sur le visage, en pixels de tête (CustomEyesLayer.centers), d'après l'onglet Style. */
     public static double[][] eyeCenters(AbstractClientPlayer p) {
         StyleData s = StyleService.CLIENT_CACHE.get(p.getUUID());
         if (s == null || s.eyeStyle <= 0) return new double[][] {{-2.0, -3.5}, {2.0, -3.5}};
@@ -161,7 +145,6 @@ public final class PassBridge {
         return new double[][] {{-half, cy}, {half, cy}};
     }
 
-    /** DescentFade.download du modèle : copie une texture déjà chargée. */
     public static NativeImage download(ResourceLocation src) {
         AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(src);
         RenderSystem.bindTexture(tex.getId());
@@ -173,12 +156,10 @@ public final class PassBridge {
         return img;
     }
 
-    /** Penchée de Black Lash (LashLean.world du modèle). */
     public static Quaternionf lean(AbstractClientPlayer p, float yaw, float pt) {
         return com.myriam.unrp.uo.LashLean.world(p, yaw, pt);
     }
 
-    /** ClientSaltSeraph.odd du modèle : créatures sans corps humanoïde exploitable. */
     public static boolean odd(LivingEntity e) {
         ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(e.getType());
         if (key == null) return true;
@@ -188,7 +169,6 @@ public final class PassBridge {
                 || id.equals("minecraft:wither") || id.equals("minecraft:ender_dragon") || id.equals("minecraft:shulker");
     }
 
-    /** ClientSaltSeraph.scaleOf du modèle : échelle de rendu propre à chaque créature. */
     public static float scaleOf(LivingEntity e) {
         return ScaleTable.of(e);
     }

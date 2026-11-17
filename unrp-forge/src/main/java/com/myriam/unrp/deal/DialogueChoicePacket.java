@@ -27,7 +27,7 @@ public class DialogueChoicePacket {
       ((NetworkEvent.Context)ctx.get()).enqueueWork(() -> {
          ServerPlayer player = ((NetworkEvent.Context)ctx.get()).getSender();
          if (player != null) {
-            if (msg.org == 5) DealmakerEvents.onChoice(player, msg.yes, 5); // les autres dialogues du modèle (écoles, quêtes) ne sont pas portés
+            if (msg.org == 5) DealmakerEvents.onChoice(player, msg.yes, 5);
          }
       });
       ((NetworkEvent.Context)ctx.get()).setPacketHandled(true);

@@ -18,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.registries.ForgeRegistries;
 
-/** Dessine les vêtements cosmétiques par-dessus le corps, sans passer par les cases d'armure. */
 public class CosmeticLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     private final HumanoidModel<AbstractClientPlayer> outer, inner;
     private final net.minecraft.client.model.geom.ModelPart skirt, hatBrim;

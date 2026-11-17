@@ -9,7 +9,6 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-/** Les deux paquets du mod : SYNC (serveur -> client) et USE (client -> serveur). */
 public final class Net {
     public static final Identifier SYNC = UnrpMod.id("sync");
     public static final Identifier USE = UnrpMod.id("use");
@@ -21,7 +20,6 @@ public final class Net {
                 server.execute(() -> AbilityUse.use(player)));
     }
 
-    /** Ordre d'écriture : power, aura, maxAura, 5 stats. Le client lit dans le même ordre. */
     public static void sync(ServerPlayerEntity player, PlayerData data) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(data.power);

@@ -13,16 +13,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Stats, aura et état envoyé au client. Toutes les formules sont ICI (équilibrage en un seul endroit).
- *  - personnage de l'Unodex : stats = celles de la fiche (arrondies, minimum 1) ;
- *  - OC : stat = potentiel (10) x racine(niveau / 10), arrondie, minimum 1 : les stats grandissent avec le niveau par ratio ; le niveau évolue jusqu'à 10 (ability/Mastery.java) ;
- *  - aura max = 100 + 10 x (trick + recovery) ; régénération = 1 + recovery / 2 par seconde,
- *    seulement quand rien ne consomme l'aura et hors blocage d'épuisement (voir AbilityEngine).
- */
+/** Calculates effective stats and aura, then synchronizes the resulting player state. */
 public final class PlayerStateService {
-    private static final Map<String, String> ROLE_FR = Map.of(
-            "king", "Roi", "queen", "Reine", "jack", "Valet", "healer", "Soigneur", "alumni", "ancien", "hidden", "caché");
+    private static final Map<String, String> ROLE_LABELS = Map.of(
+            "king", "King", "queen", "Queen", "jack", "Jack", "healer", "Healer", "alumni", "Alumni", "hidden", "hidden");
 
     private PlayerStateService() {}
 
@@ -34,7 +28,6 @@ public final class PlayerStateService {
         return 1 + stats[2] / 2;
     }
 
-    /** Ratio du niveau : racine(niveau / 10). Niveau 2,5 : 0,5 ; niveau 10 : 1 (le niveau maximum). */
     public static double levelRatio(double level) {
         return Math.sqrt(Math.min(10.0, Math.max(0, level)) / 10.0);
     }
@@ -43,7 +36,6 @@ public final class PlayerStateService {
         return v == null ? 1 : Math.max(1, (int) Math.round(v));
     }
 
-    /** Potentiels de départ des 5 stats, en dixièmes : ceux tirés pour un OC, ou la fiche d'un personnage de l'Unodex. */
     public static int[] potentialBase(ClaimData.Profile pr, Models.Character c) {
         if (c != null && c.stats != null) {
             return new int[] {tenths(c.stats.power), tenths(c.stats.defense), tenths(c.stats.recovery), tenths(c.stats.trick), tenths(c.stats.speed)};
@@ -56,7 +48,6 @@ public final class PlayerStateService {
         return v == null ? 10 : (int) Math.round(v * 10);
     }
 
-    /** Stats sans entraînement ni forme. Personnage de l'Unodex : sa fiche. OC : potentiel x ratio du niveau. */
     public static int[] stats(ClaimData.Profile pr, Models.Character c) {
         if (c != null && c.stats != null) {
             return new int[]{stat(c.stats.power), stat(c.stats.defense), stat(c.stats.recovery),
@@ -65,7 +56,6 @@ public final class PlayerStateService {
         return fromPotential(potentialBase(pr, c), new int[5], pr.level);
     }
 
-    /** Stat actuelle d'un OC : (potentiel + entraînement) x racine(niveau / 10), arrondie, minimum 1. */
     public static int[] fromPotential(int[] potTenths, int[] bonusTenths, double level) {
         int[] out = new int[5];
         for (int i = 0; i < 5; i++) {
@@ -74,12 +64,11 @@ public final class PlayerStateService {
         return out;
     }
 
-    /** Stats de base + entraînement (onglet Entraînement) + bonus du mode ou de la forme en cours. */
     public static int[] stats(MinecraftServer server, java.util.UUID id, ClaimData.Profile pr, Models.Character c) {
         int[] bonus = com.myriam.unrp.social.SocialData.get(server).store.soc(id).bonus;
         int[] mode = com.myriam.unrp.ability.AbilityEngine.statDelta(id);
         int[] base;
-        if (c != null && c.stats != null) { // personnage de l'Unodex : fiche + entraînement (+0,5 par palier)
+        if (c != null && c.stats != null) {
             base = stats(pr, c);
             for (int i = 0; i < 5; i++) base[i] = Math.max(1, base[i] + (int) Math.round(bonus[i] / 10.0));
         } else {
@@ -96,7 +85,7 @@ public final class PlayerStateService {
 
     public static void send(ServerPlayer player) {
         PlayerStatePacket pkt = build(player);
-        if (pkt.hasProfile) BodyStats.apply(player, pkt.stats); // un changement de mode agit tout de suite sur le corps
+        if (pkt.hasProfile) BodyStats.apply(player, pkt.stats);
         Net.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), pkt);
     }
 
@@ -147,36 +136,35 @@ public final class PlayerStateService {
             s.schools = c.schools.stream().map(m -> {
                 Models.School sc = data.schools.get(m.school);
                 String n = sc != null ? sc.name : m.school;
-                String roles = m.roles.stream().map(r -> ROLE_FR.getOrDefault(r, r)).collect(Collectors.joining(", "));
+                String roles = m.roles.stream().map(r -> ROLE_LABELS.getOrDefault(r, r)).collect(Collectors.joining(", "));
                 return roles.isEmpty() ? n : n + " (" + roles + ")";
             }).collect(Collectors.joining(", "));
             if (!c.schools.isEmpty()) first = data.schools.get(c.schools.get(0).school);
         } else if (pr.ocSchool != null) {
             first = data.schools.get(pr.ocSchool);
-            s.schools = (first != null ? first.name : pr.ocSchool) + " (élève)";
+            s.schools = (first != null ? first.name : pr.ocSchool) + " (student)";
         }
         if (first != null) {
             s.members = first.memberCount;
             s.leaders = first.leaders.stream().map(l -> {
                 Models.Character lc = data.characters.get(l.characterId);
-                return (lc != null ? lc.name : l.characterId) + " (" + ROLE_FR.getOrDefault(l.role, l.role) + ")";
+                return (lc != null ? lc.name : l.characterId) + " (" + ROLE_LABELS.getOrDefault(l.role, l.role) + ")";
             }).collect(Collectors.joining(", "));
         }
         return s;
     }
 
-    /** Une fois par seconde : régénération de l'aura des joueurs qui ont une capacité. */
     public static void tick(MinecraftServer server) {
         ClaimData claims = ClaimData.get(server);
         for (ServerPlayer p : server.getPlayerList().getPlayers()) {
             ClaimData.Profile pr = claims.profileOf(p.getUUID()).orElse(null);
             if (pr == null) {
-                BodyStats.apply(p, null); // pas de personnage : corps normal
+                BodyStats.apply(p, null); // No profile: use ordinary player attributes.
                 continue;
             }
             Models.Character c = ClaimData.Profile.CHARACTER.equals(pr.kind) ? UnodexData.get().characters.get(pr.characterId) : null;
             int[] st = stats(server, p.getUUID(), pr, c);
-            BodyStats.apply(p, st); // les stats agissent sur le corps
+            BodyStats.apply(p, st);
             long t = server.overworld().getGameTime();
             if (p.getHealth() < p.getMaxHealth() && p.isAlive() && t % BodyStats.regenEvery(st[2]) < 20) p.heal(0.5f);
             if (pr.lifelong || pr.abilityOf(c) == null) continue;

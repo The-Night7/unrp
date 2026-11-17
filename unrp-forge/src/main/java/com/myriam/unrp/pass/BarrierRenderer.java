@@ -4,7 +4,6 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-/** BarrierRenderer du modèle : rien de plus que le rendu de base, la sphère est dessinée par ClientPassBr. */
 public class BarrierRenderer extends EntityRenderer<BarrierEntity> {
     private static final ResourceLocation[] STAGES = {
             new ResourceLocation("unrp", "textures/entity/barrier_0.png"), new ResourceLocation("unrp", "textures/entity/barrier_1.png"),

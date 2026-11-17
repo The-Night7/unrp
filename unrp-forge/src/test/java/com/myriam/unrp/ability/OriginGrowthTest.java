@@ -18,7 +18,7 @@ class OriginGrowthTest {
     @Test
     void limitBreakerLadder() {
         assertEquals(1.0, LimitBreakerForms.powerOverEra(LimitBreakerForms.COLOSSUS), 1e-9);
-        assertEquals(2.0 / 1.5, LimitBreakerForms.powerOverEra(6), 1e-9); // Radiance III sur l'ère de Radiance
+        assertEquals(2.0 / 1.5, LimitBreakerForms.powerOverEra(6), 1e-9);
         assertEquals(1, LimitBreakerForms.firstOfEra(1));
         assertEquals(12, LimitBreakerForms.firstOfEra(4));
     }

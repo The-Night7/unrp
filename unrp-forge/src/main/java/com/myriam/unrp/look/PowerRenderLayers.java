@@ -16,11 +16,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
-/**
- * Les capacités « palladium:render_layer » des pouvoirs du modèle (modèles 3D GeckoLib de assets/unrp/geo,
- * peaux et calques de assets/unrp/palladium/render_layers) : la table unrp_render_layers.json est tirée de
- * data/unrp/palladium/powers, et Palladium dessine lui-même les calques retenus, comme dans le modèle.
- */
 public final class PowerRenderLayers {
     private PowerRenderLayers() {}
 
@@ -67,7 +62,6 @@ public final class PowerRenderLayers {
         return false;
     }
 
-    /** Branché sur PackRenderLayerManager.registerProvider (côté client). */
     public static void register() {
         load();
         net.threetag.palladium.client.renderer.renderlayer.PackRenderLayerManager.registerProvider((entity, out) -> addLayers(entity, out));

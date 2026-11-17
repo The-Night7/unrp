@@ -8,7 +8,6 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-/** Client -> serveur : "voici mon apparence" (bouton Appliquer). Le serveur borne toutes les valeurs. */
 public class StyleSavePacket {
     public final StyleData style;
 

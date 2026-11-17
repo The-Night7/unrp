@@ -33,7 +33,7 @@ Westview’s photo-inspired blocks, glass links, covered paths, gateway and leaf
 
 ## Creating and editing abilities
 
-See [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) for JSON/Java files, client/server execution, new powers, moves, animations, tree prerequisites, effects and in-game checks. The JSON field reference is in [POUVOIRS.md](POUVOIRS.md).
+See [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) for JSON/Java files, client/server execution, new powers, moves, animations, tree prerequisites, effects and in-game checks. The JSON field reference is in [POWERS.md](POWERS.md).
 
 ## Covenant
 

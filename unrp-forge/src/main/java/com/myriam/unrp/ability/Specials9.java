@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.UUID;
 
 /**
- * Esprit et chasse (lot 9) : Hypnosis, Predator. Comportements repris de HypnosisEvents et PredatorEvents. Fiches : docs/fidelite/.
+ * Esprit et chasse (lot 9) : Hypnosis, Predator. Comportements repris de HypnosisEvents et PredatorEvents. Fiches : docs/fidelity/.
  */
 public final class Specials9 {
     private Specials9() {}
@@ -40,12 +40,11 @@ public final class Specials9 {
         return s != null && ALL.contains(s);
     }
 
-    // ------------------------------------------------------------------ états
-    private static final Map<UUID, int[]> CC = new HashMap<>();                 // sous emprise : {type 1 sommeil, 2 regard, 3 profonde ; ticks}
+    private static final Map<UUID, int[]> CC = new HashMap<>();                 // Control state: type (sleep, gaze or deep hold), then remaining ticks.
     private static final Map<UUID, UUID> CHANNEL = new HashMap<>();
     private static final Map<UUID, Integer> FOCUS = new HashMap<>();
     private static final Map<UUID, UUID> LOCK = new HashMap<>();
-    /** moteur d'effets : vision (PD_FOCUS) et transformation (PD_ROAR) déjà annoncées */
+
     private static final java.util.Set<UUID> FOCUS_TOLD = new java.util.HashSet<>(), TRANS_TOLD = new java.util.HashSet<>();
     private static final Map<UUID, UUID> RUSH_TARGET = new HashMap<>();
     private static final Map<UUID, Long> RUSH_ARMED = new HashMap<>();
@@ -68,7 +67,7 @@ public final class Specials9 {
     }
 
     // ------------------------------------------------------------------ outils
-    /** Niveau en dixièmes (le « power_level » du modèle). */
+
     private static int lvl(ServerPlayer p) {
         return (int) Math.round(ClaimData.get(p.server).profileOf(p.getUUID()).map(pr -> pr.level * 10).orElse(11.0));
     }
@@ -106,7 +105,6 @@ public final class Specials9 {
         return best;
     }
 
-    /** La cible visée de plus près, avec une tolérance d'angle (rayEntity de Predator). */
     private static LivingEntity coneTarget(ServerPlayer p, double range) {
         Vec3 eye = p.getEyePosition(), look = p.getViewVector(1f);
         LivingEntity best = null;
@@ -165,7 +163,7 @@ public final class Specials9 {
                     Fx.sprite(lv, "smoke", 0xB27CFF, 1.4f, tgt.getBoundingBox().getCenter(), 16, 0.4, 0.03);
                 }
             }
-            case "hy_deep" -> { // emprise profonde : tu ne peux rien faire d'autre tant que tu tiens
+            case "hy_deep" -> { // Deep hold prevents other actions while maintained.
                 double range = lerp(14f, 22f, t);
                 int windup = (int) lerp(20f, 10f, t);
                 p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 6, 1, false, false));
@@ -174,7 +172,7 @@ public final class Specials9 {
                     CHANNEL.remove(id);
                     FOCUS.put(id, 0);
                 } else if (tgt.getUUID().equals(CHANNEL.get(id))) {
-                    int fc = FOCUS.getOrDefault(id, 0) + 4; // une pulsation toutes les 4 ticks
+                    int fc = FOCUS.getOrDefault(id, 0) + 4;
                     FOCUS.put(id, fc);
                     if (fc >= windup) {
                         addCc(tgt, 3, 8);
@@ -191,11 +189,11 @@ public final class Specials9 {
                 double range = Math.min(60.0, 40.0 + lvl(p) * 0.15 + (AbilityEngine.toggled(p, "predator", 4) ? 5 : 0));
                 LivingEntity hit = coneTarget(p, range);
                 if (hit == null) {
-                    msg(p, "§6[Prédateur] §7Aucune proie en vue.");
+                    msg(p, "§6[Predator] §7No prey in sight.");
                     return false;
                 }
                 LOCK.put(id, hit.getUUID());
-                msg(p, "§6[Prédateur] §fCible verrouillée : " + hit.getName().getString());
+                msg(p, "§6[Predator] §fTarget locked: " + hit.getName().getString());
                 com.myriam.unrp.pass.PredatorPass.lock(p, lv, hit); // PD_LOCK
             }
             case "pd_focus" -> {
@@ -209,7 +207,7 @@ public final class Specials9 {
                     p.setDeltaMovement(dir.x * 1.7, Math.max(0.25, dir.y * 1.2 + 0.15), dir.z * 1.7);
                     RUSH_ARMED.put(id, now + 40);
                     RUSH_TARGET.put(id, target.getUUID());
-                    com.myriam.unrp.pass.PredatorPass.rush(p, lv, dir, true); // PD_RUSH vers la proie
+                    com.myriam.unrp.pass.PredatorPass.rush(p, lv, dir, true);
                 } else {
                     Vec3 look = p.getViewVector(1f);
                     p.setDeltaMovement(look.x * 1.25, 0.4, look.z * 1.25);
@@ -228,7 +226,7 @@ public final class Specials9 {
                 w.dir = flat;
                 w.damage = 5f + lvl(p) * 0.04f;
                 WAVES.add(w);
-                com.myriam.unrp.pass.PredatorPass.breaker(p, lv, w.pos, w.dir); // PD_BREAKER : le moteur dessine la vague de roches
+                com.myriam.unrp.pass.PredatorPass.breaker(p, lv, w.pos, w.dir);
             }
             case "pd_trans" -> { }
             default -> { }
@@ -284,7 +282,7 @@ public final class Specials9 {
             UUID id = p.getUUID();
             ServerLevel lv = p.serverLevel();
             boolean pd = has(p, "predator");
-            if (!pd || !AbilityEngine.isOn(p, "predator")) { // PredatorPass.watch : la vision et la transformation tombent avec le pouvoir
+            if (!pd || !AbilityEngine.isOn(p, "predator")) {
                 if (FOCUS_TOLD.remove(id) | TRANS_TOLD.remove(id)) com.myriam.unrp.pass.PassSync.predator(p, -1, false);
             }
             if (pd && AbilityEngine.isOn(p, "predator")) {
@@ -299,7 +297,7 @@ public final class Specials9 {
                     com.myriam.unrp.pass.PredatorPass.tell(p, lv, com.myriam.unrp.pass.PredatorPass.packet(40, p, 0, 0, 0, p.position(), null, 0.0)); // PD_ROAR
                     Poses.play(p, "pd_roar");
                 } else if (!trans) TRANS_TOLD.remove(id);
-                if (p.tickCount % 40 == 11) com.myriam.unrp.pass.PredatorPass.beat(p, lv, focusing ? 24.0 : 12.0, focusing); // PD_BEAT : le cœur des proies
+                if (p.tickCount % 40 == 11) com.myriam.unrp.pass.PredatorPass.beat(p, lv, focusing ? 24.0 : 12.0, focusing);
                 LivingEntity lk = lockedTarget(p);
                 com.myriam.unrp.pass.PassSync.predator(p, lk == null ? -1 : lk.getId(), trans);
             }
@@ -310,7 +308,7 @@ public final class Specials9 {
                 FOCUSING.remove(id);
                 continue;
             }
-            // ruée armée : frappe en arrivant
+
             Long armed = RUSH_ARMED.get(id);
             UUID rt = RUSH_TARGET.get(id);
             if (armed != null && rt != null) {
@@ -329,13 +327,13 @@ public final class Specials9 {
                     com.myriam.unrp.pass.PredatorPass.rushHit(p, lv, rle); // PD_RUSH_HIT
                 }
             }
-            // marque perdue au-delà de 60 blocs
+
             if (p.tickCount % 20 == 7 && LOCK.containsKey(id)) {
                 LivingEntity lt = lockedTarget(p);
                 if (lt == null) LOCK.remove(id);
                 else if (p.distanceTo(lt) > 60) {
                     LOCK.remove(id);
-                    msg(p, "§7Marque perdue : cible hors de portée");
+                    msg(p, "§7Mark lost: target out of range");
                     lt.addEffect(new MobEffectInstance(MobEffects.GLOWING, 45, 0, false, false));
                 }
             }
@@ -384,9 +382,8 @@ public final class Specials9 {
         }
     }
 
-    // ------------------------------------------------------------------ dégâts
     public static void onAttack(LivingAttackEvent e) {
-        if (e.getSource().getEntity() != null && CC.containsKey(e.getSource().getEntity().getUUID())) e.setCanceled(true); // sous emprise : aucune attaque
+        if (e.getSource().getEntity() != null && CC.containsKey(e.getSource().getEntity().getUUID())) e.setCanceled(true);
     }
 
     public static void onHurt(LivingHurtEvent e) {
@@ -400,7 +397,7 @@ public final class Specials9 {
         }
         if (e.getSource().getEntity() instanceof ServerPlayer a && has(a, "predator")) {
             UUID tid = LOCK.get(a.getUUID());
-            if (tid != null && tid.equals(v.getUUID())) { // proie marquée : coups renforcés
+            if (tid != null && tid.equals(v.getUUID())) {
                 e.setAmount(e.getAmount() * Math.min(1.5f, 1.2f + lvl(a) * 0.002f));
                 Long armed = RUSH_ARMED.remove(a.getUUID());
                 if (armed != null && a.serverLevel().getGameTime() <= armed) {

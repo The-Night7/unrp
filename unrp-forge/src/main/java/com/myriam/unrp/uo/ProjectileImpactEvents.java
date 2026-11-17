@@ -2,7 +2,6 @@ package com.myriam.unrp.uo;
 
 import com.myriam.unrp.pass.PassEvents;
 
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -34,7 +33,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-/** ProjectileImpactEvents du modèle, réduit aux fonctions utilisées. Renvoi d'un projectile par une garde. */
 @EventBusSubscriber(
    modid = "unrp",
    bus = Bus.FORGE

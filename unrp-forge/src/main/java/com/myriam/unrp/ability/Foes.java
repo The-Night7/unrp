@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-/** Cibles « loyales » et coups directs, partagés par plusieurs capacités Origin. */
 public final class Foes {
     private Foes() {}
 

@@ -12,8 +12,8 @@ class SarcophageTest {
         assertEquals(2, SarcophageEvents.tailsFor(8, false));
         assertEquals(3, SarcophageEvents.tailsFor(20, false));
         assertEquals(4, SarcophageEvents.tailsFor(40, false));
-        assertEquals(3, SarcophageEvents.tailsFor(40, true)); // une queue tranchée
-        assertEquals(1, SarcophageEvents.tailsFor(0, true));  // la seule queue ne se tranche pas
+        assertEquals(3, SarcophageEvents.tailsFor(40, true));
+        assertEquals(1, SarcophageEvents.tailsFor(0, true));
     }
 
     @Test

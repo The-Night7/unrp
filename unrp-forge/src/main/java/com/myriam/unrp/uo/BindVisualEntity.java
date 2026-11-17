@@ -2,7 +2,6 @@ package com.myriam.unrp.uo;
 
 import com.myriam.unrp.deal.Fx;
 
-
 import java.util.UUID;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -70,7 +69,7 @@ public class BindVisualEntity extends Entity {
             if (e instanceof LivingEntity) {
                LivingEntity victim = (LivingEntity)e;
                if (victim.isAlive()) {
-                  boolean claimed = this.getMode() == 2 && SarcophageEvents.isCoffined(this.victimUuid); // modes 0/1 : Hydrofreeze du modèle, qui chez nous ne pose pas cette entité
+                  boolean claimed = this.getMode() == 2 && SarcophageEvents.isCoffined(this.victimUuid);
                   if (!claimed) {
                      this.endFx(sl, victim);
                      this.discard();
