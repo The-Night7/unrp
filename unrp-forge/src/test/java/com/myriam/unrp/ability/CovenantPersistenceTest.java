@@ -1,17 +1,21 @@
 package com.myriam.unrp.ability;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.google.gson.JsonParser;
+import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import java.util.UUID;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CovenantPersistenceTest {
     private static final String OWNER = "00000000-0000-0000-0000-000000000001";
     private static final String VICTIM = "00000000-0000-0000-0000-000000000002";
     private static final String COLLATERAL = "00000000-0000-0000-0000-000000000003";
     private static final String COURT = "00000000-0000-0000-0000-000000000004";
-    @AfterEach void clear() { Specials17.restoreJson(""); }
+    @AfterEach
+    void clear() {
+        Specials17.restoreJson("");
+    }
 
     private String fixture(String kind, String key, boolean permanent) {
         String collateral = """
@@ -27,7 +31,8 @@ class CovenantPersistenceTest {
             """.formatted(OWNER, collateral, VICTIM, COURT, OWNER, collateral);
     }
 
-    @Test void permanentSoulsAndConstitutionsSurviveSnapshotRoundTrip() {
+    @Test
+    void permanentSoulsAndConstitutionsSurviveSnapshotRoundTrip() {
         Specials17.restoreJson(fixture("SOUL", "", true));
         String saved = Specials17.snapshotJson();
         Specials17.restoreJson("");
@@ -42,7 +47,8 @@ class CovenantPersistenceTest {
         assertEquals(1, owner.getAsJsonObject("constitution").getAsJsonArray("laws").size());
     }
 
-    @Test void statCollateralIsRestoredAsBothPenaltyAndBenefit() {
+    @Test
+    void statCollateralIsRestoredAsBothPenaltyAndBenefit() {
         Specials17.restoreJson(fixture("STAT", "4", false));
         assertEquals(-2, Specials17.statAdj(UUID.fromString(VICTIM))[4]);
         assertEquals(2, Specials17.statAdj(UUID.fromString(OWNER))[4]);
@@ -52,34 +58,51 @@ class CovenantPersistenceTest {
         assertEquals(2, Specials17.statAdj(UUID.fromString(OWNER))[4]);
     }
 
-    @Test void changingWorldDoesNotLeakCollateralIntoTheNextWorld() {
+    @Test
+    void changingWorldDoesNotLeakCollateralIntoTheNextWorld() {
         Specials17.restoreJson(fixture("STAT", "4", false));
         Specials17.restoreJson("");
         assertArrayEquals(new int[5], Specials17.statAdj(UUID.fromString(VICTIM)));
-        assertTrue(JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject().getAsJsonArray("applied").isEmpty());
+        assertTrue(JsonParser.parseString(Specials17.snapshotJson())
+                .getAsJsonObject()
+                .getAsJsonArray("applied")
+                .isEmpty());
     }
-    @Test void reachingGodTierRemovesEarlierCollateralReturnTimers() {
-        String old = fixture("BRANCH", "", false).replace("\"until\":9223372036854775807", "\"until\":12000").replace("\"tier\":4", "\"tier\":2");
+    @Test
+    void reachingGodTierRemovesEarlierCollateralReturnTimers() {
+        String old = fixture("BRANCH", "", false)
+                         .replace("\"until\":9223372036854775807", "\"until\":12000")
+                         .replace("\"tier\":4", "\"tier\":2");
         Specials17.restoreJson(old);
         Specials17.upgradeCollateral(UUID.fromString(OWNER), 6.0);
-        var collateral = JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject().getAsJsonArray("applied").get(0).getAsJsonObject();
+        var collateral = JsonParser.parseString(Specials17.snapshotJson())
+                             .getAsJsonObject()
+                             .getAsJsonArray("applied")
+                             .get(0)
+                             .getAsJsonObject();
         assertEquals(Long.MAX_VALUE, collateral.get("until").getAsLong());
         assertEquals(4, collateral.get("tier").getAsInt());
     }
-    @Test void specificRulesAndUndeliveredHomeReportsSurviveReload() {
-        String json="""
+    @Test
+    void specificRulesAndUndeliveredHomeReportsSurviveReload() {
+        String json = """
             {"sovereigns":{"%s":{"court":{"owner":"%s","laws":[
                 {"id":8,"text":"Home report","specific":{"kind":"HOME_REPORT","target":"Myriam"},
                  "reports":{"%s":{"player":"Myriam","dimension":"minecraft:overworld","x":123.5,"y":70,"z":-99,"hasHome":true}}}
             ]}}}}
-            """.formatted(OWNER,OWNER,VICTIM);
+            """.formatted(OWNER, OWNER, VICTIM);
         Specials17.restoreJson(json);
-        String saved=Specials17.snapshotJson();Specials17.restoreJson(saved);
-        var root=JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject();
-        var law=root.getAsJsonObject("sovereigns").getAsJsonObject(OWNER).getAsJsonObject("court").getAsJsonArray("laws").get(0).getAsJsonObject();
-        assertEquals("HOME_REPORT",law.getAsJsonObject("specific").get("kind").getAsString());
-        assertEquals(123.5,law.getAsJsonObject("reports").getAsJsonObject(VICTIM).get("x").getAsDouble());
-        assertEquals(9,root.getAsJsonObject("sovereigns").getAsJsonObject(OWNER).get("nextLaw").getAsInt());
+        String saved = Specials17.snapshotJson();
+        Specials17.restoreJson(saved);
+        var root = JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject();
+        var law = root.getAsJsonObject("sovereigns")
+                      .getAsJsonObject(OWNER)
+                      .getAsJsonObject("court")
+                      .getAsJsonArray("laws")
+                      .get(0)
+                      .getAsJsonObject();
+        assertEquals("HOME_REPORT", law.getAsJsonObject("specific").get("kind").getAsString());
+        assertEquals(123.5, law.getAsJsonObject("reports").getAsJsonObject(VICTIM).get("x").getAsDouble());
+        assertEquals(9, root.getAsJsonObject("sovereigns").getAsJsonObject(OWNER).get("nextLaw").getAsInt());
     }
-
 }

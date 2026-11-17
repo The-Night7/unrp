@@ -156,4 +156,4 @@ La capacité la plus vaste : elle regroupe les Dix, les **Titans** (un par élé
 - Ce document décrit le **modèle** ; rien n'a été vérifié en jeu. Les chiffres exacts (dégâts, coûts, recharges) ne sont pas repris ici : ils sont dans les fiches du modèle (`palladium/powers/*.json` et les classes `events/*Events`) et seront relevés au moment de porter chaque capacité.
 
 ## Covenant — Origin VII-I (capacité originale, jouable)
-*Entrer dans sa cour, c'est signer son contrat.* Seule capacité Origin déjà portée : voir `docs/PLAN_COVENANT.md` (conception), `docs/fidelite/covenant.md` (état). Attribution : `/unrp giveability <joueur> covenant`.
+*Stepping into his Court is signing his contract.* The currently implemented Origin ability: see `docs/PLAN_COVENANT.md` for design and `docs/fidelity/covenant.md` for coverage. Assign it with `/unrp giveability <player> covenant`.

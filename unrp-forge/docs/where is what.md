@@ -31,9 +31,9 @@ Westview’s photo-inspired blocks, glass links, covered paths, gateway and leaf
 
 [SchoolSites.java](../src/main/java/com/myriam/unrp/worldgen/SchoolSites.java) decides the one natural site per school. [SchoolBlueprint.java](../src/main/java/com/myriam/unrp/worldgen/SchoolBlueprint.java) selects current/saved layouts. [CampusBuilder.java](../src/main/java/com/myriam/unrp/worldgen/CampusBuilder.java) supplies shared room/stair primitives for the four latest campuses. [SchoolPiece.java](../src/main/java/com/myriam/unrp/worldgen/SchoolPiece.java) chooses block palettes and places them inside chunk bounds. Use `/unrp school locate <id>` to find a reserved Overworld site.
 
-## Créer et modifier des capacités
+## Creating and editing abilities
 
-Voir [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) pour le guide complet : fichiers JSON et Java, chaîne d’exécution client/serveur, ajout d’un pouvoir, mouvements, animations, prérequis de l’arbre, effets visuels et tests en jeu. La référence détaillée des champs JSON reste dans [POUVOIRS.md](POUVOIRS.md).
+See [ABILITY_DEVELOPMENT.md](ABILITY_DEVELOPMENT.md) for JSON/Java files, client/server execution, new powers, moves, animations, tree prerequisites, effects and in-game checks. The JSON field reference is in [POUVOIRS.md](POUVOIRS.md).
 
 ## Covenant
 
@@ -46,97 +46,89 @@ Rule entry: activate Covenant with R, then press Enact (or `/unrp covenant law`)
 - [CovenantClient.java](../src/main/java/com/myriam/unrp/client/CovenantClient.java) and [CovenantSignatureLayer.java](../src/main/java/com/myriam/unrp/client/CovenantSignatureLayer.java): signatures, Constitutions, markers and private parchments.
 - [make_covenant_icons.py](../tools/make_covenant_icons.py): native gold icon generation.
 
-## Ressources et identifiants UNRP
+## UNRP resources and identifiers
 
-Toutes les ressources du mod utilisent le namespace `unrp` :
+All mod resources use the `unrp` namespace.
 
-| Éléments | Emplacement |
+| Resource | Location |
 | --- | --- |
-| Sons et liste des événements sonores | [assets/unrp/sounds/](../src/main/resources/assets/unrp/sounds/) et [sounds.json](../src/main/resources/assets/unrp/sounds.json) |
-| Modèles d’objets et de blocs | [assets/unrp/models/](../src/main/resources/assets/unrp/models/) |
-| États des blocs | [assets/unrp/blockstates/](../src/main/resources/assets/unrp/blockstates/) |
-| Géométries et animations | [assets/unrp/geo/](../src/main/resources/assets/unrp/geo/) et [animations/](../src/main/resources/assets/unrp/animations/) |
-| Calques, textures dynamiques et traînées Palladium | [assets/unrp/palladium/](../src/main/resources/assets/unrp/palladium/) |
+| Sounds and sound events | [assets/unrp/sounds/](../src/main/resources/assets/unrp/sounds/) and [sounds.json](../src/main/resources/assets/unrp/sounds.json) |
+| Item and block models | [assets/unrp/models/](../src/main/resources/assets/unrp/models/) |
+| Block states | [assets/unrp/blockstates/](../src/main/resources/assets/unrp/blockstates/) |
+| Geometry and animations | [assets/unrp/geo/](../src/main/resources/assets/unrp/geo/) and [animations/](../src/main/resources/assets/unrp/animations/) |
+| Palladium layers, dynamic textures and trails | [assets/unrp/palladium/](../src/main/resources/assets/unrp/palladium/) |
 | Shaders | [assets/unrp/shaders/](../src/main/resources/assets/unrp/shaders/) |
-| Traductions | [assets/unrp/lang/](../src/main/resources/assets/unrp/lang/) |
-| Dimensions, dégâts, butin, recettes et données de jeu | [data/unrp/](../src/main/resources/data/unrp/) |
-| Apparence du hub | [client/UiSkin.java](../src/main/java/com/myriam/unrp/client/UiSkin.java) : palette or et ambre, panneaux et bordures ; [HubScreen.java](../src/main/java/com/myriam/unrp/client/HubScreen.java) : disposition et widgets |
+| Translations | [assets/unrp/lang/](../src/main/resources/assets/unrp/lang/) |
+| Dimensions, damage, loot, recipes and game data | [data/unrp/](../src/main/resources/data/unrp/) |
+| Hub appearance | [UiSkin.java](../src/main/java/com/myriam/unrp/client/UiSkin.java) defines the gold/amber palette and panels; [HubScreen.java](../src/main/java/com/myriam/unrp/client/HubScreen.java) defines layout and widgets |
 
-Le radar de l’onglet Pouvoir et l’arbre cliquable de l’onglet Capacités sont dessinés dans `HubScreen.java`, avec la géométrie dans [HubGraphLayout.java](../src/main/java/com/myriam/unrp/client/HubGraphLayout.java). Les branches reprennent les champs `requires` et `unlock` de [ability_powers.json](../src/main/resources/data/unrp/unodex/ability_powers.json), envoyés au client par [SocialService.java](../src/main/java/com/myriam/unrp/social/SocialService.java). Les achats restent contrôlés par le serveur (`Unlocks.buy`).
+`HubScreen.java` draws the Power radar and clickable Abilities tree; [HubGraphLayout.java](../src/main/java/com/myriam/unrp/client/HubGraphLayout.java) provides their geometry. Branches use `requires` and `unlock` from [ability_powers.json](../src/main/resources/data/unrp/unodex/ability_powers.json), sent by [SocialService.java](../src/main/java/com/myriam/unrp/social/SocialService.java). The server validates purchases through `Unlocks.buy`.
 
-Ability-tree controls: drag empty space with the left button, or drag anywhere with the right/middle button, to pan; wheel scrolls vertically and Ctrl + wheel zooms. Covenant’s stance switch is on its second ability-bar page (default list key X), leaving all four main actions reachable. The power toggle also has a dedicated R binding in Controls.
+Ability-tree controls: drag empty space with the left button, or anywhere with right/middle, to pan. The wheel scrolls vertically; Ctrl + wheel zooms. Covenant's stance switch is on its second bar page (default list key X), leaving four main actions accessible. Power activation has a dedicated R binding.
 
-Les tags d’intégration à Minecraft et Forge restent dans `data/minecraft/` et `data/forge/`.
-Les identifiants persistants, objectifs de score et tags du mod utilisent également `unrp`.
-Les sauvegardes créées avant cette unification ne sont pas converties automatiquement.
+Minecraft and Forge integration tags remain in `data/minecraft/` and `data/forge/`. Persistent mod identifiers, scoreboard objectives and tags also use `unrp`. Older saves are not automatically migrated to the unified namespace.
 
-## JAR généré après le build
+## Generated JAR
 
-Le JAR du mod Forge est généré dans [unrp-forge/build/libs/](../build/libs/) (depuis la racine du dépôt).
+The Forge JAR is generated under [unrp-forge/build/libs/](../build/libs/) relative to the repository root. The current file is [unrp-0.1.0.jar](../build/libs/unrp-0.1.0.jar). Its `<mod_id>-<mod_version>.jar` filename is configured in [gradle.properties](../gradle.properties).
 
-Avec la version actuelle : [unrp-0.1.0.jar](../build/libs/unrp-0.1.0.jar).
-Le nom suit le format `<mod_id>-<mod_version>.jar`, défini dans [gradle.properties](../gradle.properties).
-
-Pour le générer, depuis `unrp-forge/` :
+From `unrp-forge/`, run:
 
 ```bash
 ./gradlew build
 ```
 
-## Tirage des capacités et stats d’un OC
+## OC ability and stat rolls
 
-Le serveur tire séparément la rareté et le niveau de départ, puis la capacité, puis les potentiels des cinq stats. La capacité n’est pas filtrée par rareté : un OC Low peut tirer Time Manipulation.
+The server separately rolls starting rarity/level, ability, and five stat potentials. Ability selection is not filtered by rarity: a Low-tier OC can roll Time Manipulation.
 
-| Réglage / logique | Emplacement | À modifier / fonctionnement |
+| Configuration or logic | Location | Behaviour |
 | --- | --- | --- |
-| Chances des raretés et niveaux de départ | [rarity.json](../src/main/resources/data/unrp/unodex/rarity.json) | `weight`, `level_min`, `level_max`, `lifelong`. |
-| Capacités disponibles et poids du tirage | [ability_pool.json](../src/main/resources/data/unrp/unodex/ability_pool.json) | Poids relatif de chaque capacité ; 0 ou absence = exclue. La chance vaut son poids divisé par la somme des poids des capacités encore éligibles. |
-| Plages des potentiels des stats | [stat_ranges.json](../src/main/resources/data/unrp/unodex/stat_ranges.json) | Plages par capacité ; chaque potentiel prend le plus petit de cinq tirages dans sa plage. |
-| Tirage de rareté et de niveau | [RarityTable.java](../src/main/java/com/myriam/unrp/data/RarityTable.java) | `roll()` : rareté pondérée, puis niveau uniforme dans sa plage, arrondi à une décimale. |
-| Tirage de capacité et exclusions | [UnodexData.java](../src/main/java/com/myriam/unrp/data/UnodexData.java) | `rollAbility()`, `NOT_ROLLABLE`, `rollPotentials()` ; une capacité doit avoir une implémentation jouable. |
-| Unicité des capacités et sauvegarde des potentiels | [ClaimData.java](../src/main/java/com/myriam/unrp/data/ClaimData.java) | `heldAbilities()`, `rollFreeAbility()`, `setOcAbility()` ; les capacités détenues par d’autres joueurs sont exclues. |
-| Déclenchement à la création de l’OC | [MenuService.java](../src/main/java/com/myriam/unrp/menu/MenuService.java) | Les deux types de Cripple commencent sans capacité. |
-| Commande admin de nouveau tirage | [UnrpCommands.java](../src/main/java/com/myriam/unrp/command/UnrpCommands.java) | `/unrp rollability <player>` : retire une capacité au hasard pour un OC, sauf Cripple à vie, et recalcule ses potentiels. |
+| Rarity weights and starting levels | [rarity.json](../src/main/resources/data/unrp/unodex/rarity.json) | `weight`, `level_min`, `level_max`, `lifelong`. |
+| Ability pool and weights | [ability_pool.json](../src/main/resources/data/unrp/unodex/ability_pool.json) | Relative weights; zero or absent entries are excluded. Probability is weight divided by the sum of eligible weights. |
+| Stat-potential ranges | [stat_ranges.json](../src/main/resources/data/unrp/unodex/stat_ranges.json) | Each potential takes the lowest of five samples within its range. |
+| Rarity and level rolls | [RarityTable.java](../src/main/java/com/myriam/unrp/data/RarityTable.java) | `roll()` selects a weighted rarity, then a uniform level rounded to one decimal. |
+| Ability rolls and exclusions | [UnodexData.java](../src/main/java/com/myriam/unrp/data/UnodexData.java) | `rollAbility()`, `NOT_ROLLABLE`, `rollPotentials()`; an ability needs a playable implementation. |
+| Ability uniqueness and saved potentials | [ClaimData.java](../src/main/java/com/myriam/unrp/data/ClaimData.java) | `heldAbilities()`, `rollFreeAbility()`, `setOcAbility()` exclude abilities held by others. |
+| OC creation | [MenuService.java](../src/main/java/com/myriam/unrp/menu/MenuService.java) | Both Cripple variants start without an ability. |
+| Administrative reroll | [UnrpCommands.java](../src/main/java/com/myriam/unrp/command/UnrpCommands.java) | `/unrp rollability <player>` rerolls an eligible OC's ability and recalculates potentials; lifelong Cripples are excluded. |
 
-| Rareté | Chance | Niveau de départ |
+| Rarity | Chance | Starting level |
 | --- | --- | --- |
-| Cripple à vie | 2,36 % | 1,0 |
-| Cripple | 3,54 % | 1,0 |
-| Low | 25 % | 1,0–1,9 |
-| Mid | 54,99 % | 2,0–3,4 |
-| Elite | 12 % | 3,5–4,9 |
-| High | 2 % | 5,0–5,9 |
-| God | 0,1 % | 6,0–7,4 |
-| Exo-god | 0,01 % | 7,5–10,0 |
+| Lifelong Cripple | 2.36% | 1.0 |
+| Cripple | 3.54% | 1.0 |
+| Low | 25% | 1.0–1.9 |
+| Mid | 54.99% | 2.0–3.4 |
+| Elite | 12% | 3.5–4.9 |
+| High | 2% | 5.0–5.9 |
+| God | 0.1% | 6.0–7.4 |
+| Exo-god | 0.01% | 7.5–10.0 |
 
-Exemples de poids de capacité : Regeneration 100, Aura Manipulation 13, Time Manipulation 8. Les capacités spéciales de `NOT_ROLLABLE` (dont Limit Breaker, Sarcophage et Covenant) nécessitent une attribution, même avec un poids positif dans le pool.
+Example weights: Regeneration 100, Aura Manipulation 13, Time Manipulation 8. Abilities in `NOT_ROLLABLE`, including Limit Breaker, Sarcophage and Covenant, require assignment even if given a positive pool weight.
 
-Les stats suivent la formule `stat = (potentiel + entraînement) × √(niveau / 10)`, avec arrondi et minimum 1. Détails sur la progression et l’entraînement : [ROLL.md](ROLL.md).
+Stats follow `stat = (potential + training) × √(level / 10)`, rounded with a minimum of 1. See [ROLL.md](ROLL.md) for progression and training.
 
-## Textures des pouvoirs et des menus
+## Ability and menu textures
 
-Les ressources graphiques du mod Forge se trouvent dans `unrp-forge/src/main/resources/assets/` (depuis la racine du dépôt).
+Forge graphics live under `unrp-forge/src/main/resources/assets/`. All textures, including imported ones, are grouped in [unrp/textures/](../src/main/resources/assets/unrp/textures/). References use `unrp:textures/...`, or `unrp:item/...` and `unrp:block/...` in models. Imported `aura_mote_0.png` through `aura_mote_2.png` remain distinct from UNRP's `mote_0.png` through `mote_2.png`.
 
-Toutes les textures sont regroupées dans [unrp/textures/](../src/main/resources/assets/unrp/textures/), y compris celles importées du modèle. Leurs références utilisent `unrp:textures/...` (ou `unrp:item/...`, `unrp:block/...` dans les modèles).
-Les particules importées `aura_mote_0.png` à `aura_mote_2.png` conservent un nom distinct des particules UNRP `mote_0.png` à `mote_2.png`.
-
-| Éléments | Emplacement | Exemples / contenu |
+| Resource | Location | Contents |
 | --- | --- | --- |
-| Menus et HUD | [unrp/textures/gui/](../src/main/resources/assets/unrp/textures/gui/) | `power_background.png` : fond des pouvoirs ; `ability_bars/` : barres des pouvoirs ; `hud/` : jauges d’aura ; `lb_forms/` : sigils. |
-| Icônes des pouvoirs | [unrp/textures/icons/](../src/main/resources/assets/unrp/textures/icons/) | Images des icônes. |
-| Effets visuels des pouvoirs | [unrp/textures/fx/](../src/main/resources/assets/unrp/textures/fx/) | Textures des effets. |
-| Particules des pouvoirs | [unrp/textures/particle/](../src/main/resources/assets/unrp/textures/particle/) | Flammes, éclats, arcs, glyphes et autres particules. |
-| Éléments d’interface UNRP | [unrp/textures/gui/](../src/main/resources/assets/unrp/textures/gui/) | `aura_back.png`, `aura_front.png`, `stars.png`. |
+| Menus and HUD | [unrp/textures/gui/](../src/main/resources/assets/unrp/textures/gui/) | `power_background.png`, `ability_bars/`, `hud/` and `lb_forms/`. |
+| Ability icons | [unrp/textures/icons/](../src/main/resources/assets/unrp/textures/icons/) | Icon artwork. |
+| Ability effects | [unrp/textures/fx/](../src/main/resources/assets/unrp/textures/fx/) | Effect textures. |
+| Ability particles | [unrp/textures/particle/](../src/main/resources/assets/unrp/textures/particle/) | Flames, sparks, arcs and glyphs. |
+| Shared UNRP interface | [unrp/textures/gui/](../src/main/resources/assets/unrp/textures/gui/) | `aura_back.png`, `aura_front.png`, `stars.png`. |
 
-## Scripts de génération des textures
+## Texture generators
 
-Dans [tools/](../tools/) :
+In [tools/](../tools/):
 
-- [make_gui_textures.py](../tools/make_gui_textures.py) : génère les textures d’interface et applique la palette or aux PNG importés.
-- [recolor_gui_gold.py](../tools/recolor_gui_gold.py) : convertit les teintes violettes des PNG de `assets/unrp/textures/gui/` en or, en conservant leurs dimensions, leur transparence et leurs coordonnées d’atlas. Relance après un import forcé : `python3 tools/recolor_gui_gold.py`.
-- [make_particle_textures.py](../tools/make_particle_textures.py) : textures de particules.
-- [make_item_textures.py](../tools/make_item_textures.py) : textures d’objets.
-- [import_model_assets.py](../tools/import_model_assets.py) : import des ressources d’un dossier `assets/<namespace>` dans `unrp`, avec adaptation des références. Usage : `python3 tools/import_model_assets.py /chemin/vers/assets/<namespace>` ; les fichiers UNRP existants sont conservés par défaut.
+- [make_gui_textures.py](../tools/make_gui_textures.py) generates interface textures and applies the gold palette to imported PNGs.
+- [recolor_gui_gold.py](../tools/recolor_gui_gold.py) recolours purple GUI pixels to gold while preserving dimensions, transparency and atlas coordinates. Run after a forced import: `python3 tools/recolor_gui_gold.py`.
+- [make_particle_textures.py](../tools/make_particle_textures.py) generates particles.
+- [make_item_textures.py](../tools/make_item_textures.py) generates item textures.
+- [import_model_assets.py](../tools/import_model_assets.py) imports `assets/<namespace>` into `unrp` and rewrites references. Run `python3 tools/import_model_assets.py /path/to/assets/<namespace>`; existing UNRP files are preserved by default.
 
 Covenant's other writing forms are in `src/main/java/com/myriam/unrp/client/CovenantWritingScreen.java`: entry conditions, local/remote Pact proposals, tribute, jurisdiction and hand messages. `CovenantLawScreen.java` also handles Constitution, Retroactive Law and Total Forfeit. `Specials17.writingPrompt` supplies online names and registered territories; `submitWriting` validates commands and preserves the aimed recipient of local Pacts. Advanced input supports offline recipients and existing law numbers. See `COVENANT.md` for controls.
 
@@ -144,7 +136,7 @@ Myriam is a playable RP character at level 10.0 with Covenant (God tier). Her de
 
 [Recovery Bed](RECOVERY_BED.md): a two-block, usable medical bed with a real lying pose and progressive disabled-ability recovery. `/give @s unrp:recovery_bed`. Gameplay: `item/RecoveryBedBlock.java`; rate: `item/RecoveryTreatment.java`; sleep handling: `mixin/RecoveryRestMixin.java` and `RecoverySleepStatusMixin.java`; actual block and item geometry: `tools/design_recovery_bed.py`. Reuses Recovery Machine textures; the original machine remains available.
 
-Recovery Bed ownership, source ability and owner-selected rates: `item/RecoveryBeds.java`, persisted as `<world>/data/unrp_recovery_beds.dat`. Owner controls: sneak-right-click for presets, or `/unrp recoverybed rate <percent per second>` while looking at the bed. Treatment continues even when the owner's source ability is inactive, allowing self-recovery. At 100%, the patient's timed ability disable is lifted via AbilityEngine.recoverDisabledAbility. Only the owner can remove the bed after its source ability is inactive.
+Recovery Bed ownership, source ability and owner-selected rates: `item/RecoveryBeds.java`, persisted as `<world>/data/unrp_recovery_beds.dat`. Owner controls: sneak-right-click for presets, or `/unrp recoverybed rate <percent per second>` while looking at the bed. Treatment continues even when the owner's source ability is inactive, allowing self-recovery. At the owner-selected ceiling, the timed disable is lifted via AbilityEngine.recoverDisabledAbility with partial strength preserved. Only the owner can remove the bed after its source ability is inactive.
 
 Covenant specific rules: **Enact → Specific rules…**, available at Elite 3.5+. Signed-contract collection and targeted home-report books use `ability/CovenantSpecificRules.java` (parser), `CovenantSpecificEffects.java` (items/books), `Specials17.java` (enforcement/persistence) and `client/CovenantSpecificScreen.java` (form). See `COVENANT.md`. The player's actual home is stored by `home/HomeCommands.java`: `/sethome`, `/home`, and unambiguous aliases `/unrp sethome`, `/unrp home`.
 

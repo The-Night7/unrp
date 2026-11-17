@@ -5,7 +5,7 @@ Authoritative design: [COVENANT_SPEC.md](../COVENANT_SPEC.md). Controls, code an
 | Requirement | Implementation |
 | --- | --- |
 | Tier progression and Court range | Standard Low/Mid/Elite/High/God boundaries, 10/30/75/150/500 m. |
-| Enact, Terms, Fine Print, Foreclosure, Exile | Structured FR/EN chat laws; entry confiscation; one hidden law; unpaid collateral plus 25%; exile after three breaches. |
+| Enact, Terms, Fine Print, Foreclosure, Exile | Structured English chat laws; entry confiscation; one hidden law; unpaid collateral plus 25%; exile after three breaches. |
 | Pact, Endowment, Proxy, Appropriation | Persistent accepted transfers; revocable loans; wound forwarding; indexed branch access using the source's recorded stats, without unrelated power passives. |
 | Sovereign Immunity, Indemnity, Escrow, Arbitration | Voluntary self-binding; six-second Indemnity below 5.0 and untimed coverage from 5.0; protected stat/branch; debt-linked suspension. |
 | Level-five passive and souls | Private signature/debt markers and registry; permanent Pact souls and cross-dimension summoning of their online owners. |

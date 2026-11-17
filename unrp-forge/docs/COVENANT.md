@@ -226,4 +226,4 @@ Advanced equivalents:
 /unrp covenant law When PlayerName enters the Court, record their home in a book for the Sovereign.
 ```
 
-Implementation: `CovenantSpecificRules.java` parses typed rules, `CovenantSpecificEffects.java` handles inventory transactions and written books, `Specials17.java` integrates laws and persistence, and `CovenantSpecificScreen.java` provides the form. `home/HomeCommands.java` owns the saved home record.
+Implementation: `CovenantSpecificRules.java` parses typed rules, `CovenantSpecificEffects.java` handles inventory transactions and written books, `Specials17.java` handles rule registration, enforcement, delivery and persistence, and `CovenantSpecificScreen.java` provides the form. `home/HomeCommands.java` owns the saved home record.

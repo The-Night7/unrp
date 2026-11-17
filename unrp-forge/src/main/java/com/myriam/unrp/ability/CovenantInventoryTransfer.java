@@ -2,26 +2,43 @@ package com.myriam.unrp.ability;
 
 import java.util.List;
 
-/** Lossless insertion independent of player game mode; no creative-mode deletion of leftovers. */
 final class CovenantInventoryTransfer {
-    interface Stacks<T> {
+    // Keeps the insertion logic testable without starting Forge.
+    interface StackAccess<T> {
         int count(T stack);
         int limit(T stack);
-        boolean matches(T first,T second);
+        boolean canMerge(T first, T second);
         T copy(T stack);
-        void change(T stack,int amount);
+        void adjustCount(T stack, int amount);
     }
-    static <T> void insert(List<T> slots,T incoming,Stacks<T> stacks) {
-        for(var slot:slots) {
-            if(stacks.count(incoming)<=0)return;
-            if(stacks.count(slot)<=0||!stacks.matches(slot,incoming))continue;
-            int room=Math.min(64,stacks.limit(slot))-stacks.count(slot);
-            int count=Math.min(Math.max(0,room),stacks.count(incoming));
-            stacks.change(slot,count);stacks.change(incoming,-count);
+
+    private CovenantInventoryTransfer() {}
+
+    static <T> void insert(List<T> slots, T incoming, StackAccess<T> access) {
+        for (T slot : slots) {
+            if (access.count(incoming) == 0) {
+                return;
+            }
+            if (access.count(slot) == 0 || !access.canMerge(slot, incoming)) {
+                continue;
+            }
+
+            int space = Math.max(0, Math.min(64, access.limit(slot)) - access.count(slot));
+            int transferred = Math.min(space, access.count(incoming));
+            access.adjustCount(slot, transferred);
+            access.adjustCount(incoming, -transferred);
         }
-        for(int i=0;i<slots.size()&&stacks.count(incoming)>0;i++)if(stacks.count(slots.get(i))<=0) {
-            int count=Math.min(stacks.count(incoming),Math.min(64,stacks.limit(incoming)));
-            T placed=stacks.copy(incoming);stacks.change(placed,count-stacks.count(placed));slots.set(i,placed);stacks.change(incoming,-count);
+
+        for (int slot = 0; slot < slots.size() && access.count(incoming) > 0; slot++) {
+            if (access.count(slots.get(slot)) > 0) {
+                continue;
+            }
+
+            int transferred = Math.min(access.count(incoming), Math.min(64, access.limit(incoming)));
+            T placed = access.copy(incoming);
+            access.adjustCount(placed, transferred - access.count(placed));
+            slots.set(slot, placed);
+            access.adjustCount(incoming, -transferred);
         }
     }
 }
