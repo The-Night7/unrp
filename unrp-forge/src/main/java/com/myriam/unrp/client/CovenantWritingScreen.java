@@ -22,6 +22,7 @@ public final class CovenantWritingScreen extends Screen {
     private boolean submitted;
     public CovenantWritingScreen(String action, double level, JsonObject data) {
         super(Component.literal("Covenant — " + switch (action) {
+            case "claim" -> "Claim Territory";
             case "terms" -> "Terms of Entry";
             case "pact", "sovereign_pact" -> "Pact";
             case "tribute" -> "Sovereign's Due";
@@ -88,6 +89,14 @@ public final class CovenantWritingScreen extends Screen {
                     take = (take + 1) % penalties.size();
                     init();
                 });
+            case "claim" -> {
+                EditBox input = new EditBox(font, x + 10, y + 45, w - 20, 20, Component.literal("Territory name"));
+                input.setMaxLength(48);
+                input.setValue(message);
+                input.setResponder(value -> message = value);
+                addRenderableWidget(input);
+                setInitialFocus(input);
+            }
             case "jurisdiction" ->
                 button("Court: " + territories.get(territory), 0, () -> {
                     territory = (territory + 1) % territories.size();
@@ -123,6 +132,7 @@ public final class CovenantWritingScreen extends Screen {
     }
     private void submit() {
         String text = switch (action) {
+            case "claim" -> message.trim();
             case "terms" -> {
                 var selected = new ArrayList<String>();
                 for (int i = 0; i < terms.length; i++)
@@ -165,6 +175,7 @@ public final class CovenantWritingScreen extends Screen {
         String hint = switch (action) {
             case "pact", "sovereign_pact" ->
                 "Click to cycle. The recipient must accept. You must hold the collateral you offer.";
+            case "claim" -> "Name the area around you. The claim is permanent until you release it; your current personal laws are copied into it.";
             case "terms" -> "Select what is collected when someone enters.";
             case "message" -> "Choose a signer, then write your message.";
             default -> "Click to cycle through available choices.";

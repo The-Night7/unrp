@@ -141,3 +141,7 @@ Recovery Bed ownership, source ability and owner-selected rates: `item/RecoveryB
 Covenant specific rules: **Enact → Specific rules…**, available at Elite 3.5+. Signed-contract collection and targeted home-report books use `ability/CovenantSpecificRules.java` (parser), `CovenantSpecificEffects.java` (items/books), `Specials17.java` (enforcement/persistence) and `client/CovenantSpecificScreen.java` (form). See `COVENANT.md`. The player's actual home is stored by `home/HomeCommands.java`: `/sethome`, `/home`, and unambiguous aliases `/unrp sethome`, `/unrp home`.
 
 Recovery Bed has separate **ceiling** and **speed** controls: `/unrp recoverybed cap <percent>` and `/unrp recoverybed rate <percent per second>`, while looking at the bed, owner-only. Sneak-right-click now cycles ceiling presets. New and migrated beds default to a 50% ceiling. Partial restoration is persisted with the patient and applied by `AbilityEngine.restoredPercent`, `PlayerStateService`, `Specials17.levelOf` and `ModelEnv.powerLevel`; treatment does not force full recovery at completion.
+
+## Covenant territory claims
+
+`Specials17.claimTerritory`, `selectTerritory` and `releaseTerritory` manage permanent named Courts. `CovenantTerritory.java` validates names and horizontal overlap; `UnrpCommands.java` exposes the commands. The Enact screen links to the claim form in `CovenantWritingScreen`. Claims are saved with the existing Covenant Court ledger in `unrp_covenant.dat`. See [Covenant](COVENANT.md#claiming-territory) for controls and boundaries.

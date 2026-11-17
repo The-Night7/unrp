@@ -40,6 +40,20 @@ public final class UnrpCommands {
                             ctx.getSource().getPlayerOrException(), action, StringArgumentType.getString(ctx, "text")) ? 1 : 0));
             root.then(entry);
         }
+        root.then(Commands.literal("claim")
+                .executes(ctx -> com.myriam.unrp.ability.Specials17.openTerritoryEditor(ctx.getSource().getPlayerOrException()) ? 1 : 0)
+                .then(Commands.argument("name", StringArgumentType.greedyString())
+                        .executes(ctx -> com.myriam.unrp.ability.Specials17.claimTerritory(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "name")) ? 1 : 0)));
+        root.then(Commands.literal("territory").then(Commands.argument("name", StringArgumentType.greedyString())
+                .executes(ctx -> com.myriam.unrp.ability.Specials17.selectTerritory(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "name")) ? 1 : 0)));
+        root.then(Commands.literal("unclaim").then(Commands.argument("name", StringArgumentType.greedyString())
+                .executes(ctx -> com.myriam.unrp.ability.Specials17.releaseTerritory(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "name")) ? 1 : 0)));
+        root.then(Commands.literal("territories").executes(ctx -> {
+            com.myriam.unrp.ability.Specials17.listTerritories(ctx.getSource().getPlayerOrException()); return 1;
+        }));
+        root.then(Commands.literal("personal").executes(ctx -> {
+            com.myriam.unrp.ability.Specials17.selectPersonalCourt(ctx.getSource().getPlayerOrException()); return 1;
+        }));
         root.then(Commands.literal("cancel").executes(ctx -> {
             com.myriam.unrp.ability.Specials17.cancelWriting(ctx.getSource().getPlayerOrException()); return 1;
         }));

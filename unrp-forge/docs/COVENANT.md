@@ -24,6 +24,23 @@ Durations use server ticks at 20 ticks/second: one hour = 72,000 ticks, one day 
 
 ![Law submission, validation, triggers and effect handling.](covenant-law-flow.svg)
 
+## Claiming territory
+
+At effective level **5.0+**, the Sovereign can claim a fixed area as a permanent Court. Activate Covenant, open Enact and click **Claim...**, or use `/unrp covenant claim Myriam Court` while standing at its centre. The command without a name opens the naming form.
+
+The claim covers a horizontal radius of 150 blocks at High tier or 500 at God tier, across all heights in that dimension. Its boundary stays fixed after claiming. The personal Court's current laws and entry conditions are copied into it; later edits are independent. New laws target the claimed territory immediately after claiming it.
+
+| Command | Use |
+| --- | --- |
+| `/unrp covenant territories` | List your claims, dimensions, centres and radii |
+| `/unrp covenant territory Myriam Court` | Select your named territory for law editing |
+| `/unrp covenant personal` | Return to editing your moving Court |
+| `/unrp covenant unclaim Myriam Court` | Close and release your named territory |
+
+Names are unique across Covenant claims. Claims cannot overlap another Covenant claim, including your own. Only their Sovereign can select or release them. Release remains available without activating the power. The territory and its laws survive saves, disconnects and closing the moving Court; they have no 24-hour expiry. Court closure rules handle Collateral when a claim is released.
+
+These are ability territories, separate from school/King turf ownership. They enforce Covenant laws; they do not provide general block protection. God-tier **Jurisdiction** remains a separate, temporary 24-hour Court.
+
 ## Stances and controls
 
 Assign the ability to an eligible OC with `/unrp giveability <player> covenant`. It remains assignment-only, excluded from the normal ability roll. Activate it with the configured power toggle. The main bar page contains the power toggle and four stance actions. Use the configured ability-list key (default X) to reach the second page, then press its Change Stance action. It has its own bar slot and does not replace Enact. Each stance has four actions.

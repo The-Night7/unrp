@@ -78,6 +78,7 @@ public final class Specials17 {
         Vec3 center;
         double radius;
         boolean follow = true, constitutional, district;
+        boolean claimed;
         String name = "Court";
         long expires = Long.MAX_VALUE;
         final List<Act> history = new ArrayList<>();
@@ -706,6 +707,113 @@ public final class Specials17 {
                 what, player.server.overworld().getGameTime(), what == Await.PACT ? previous.target : null),
             text);
         return true;
+    }
+
+    public static boolean openTerritoryEditor(ServerPlayer player) {
+        if (!mayClaim(player)) return false;
+        cancelWriting(player);
+        writingPrompt(player, "claim");
+        return true;
+    }
+
+    private static boolean mayClaim(ServerPlayer player) {
+        if (!on(player) || AbilityEngine.disabled(player) || levelOf(player) < CovenantRules.HIGH) {
+            bar(player, "§7Claiming territory requires active Covenant at level 5.0 or higher.");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean claimTerritory(ServerPlayer player, String text) {
+        if (!mayClaim(player)) return false;
+        String name = text.trim();
+        if (!CovenantTerritory.validName(name)) {
+            bar(player, "§7Use a territory name of 1–48 characters: letters, numbers, spaces, - or _.");
+            return false;
+        }
+        String dimension = player.serverLevel().dimension().location().toString();
+        double radius = CovenantRules.radius(levelOf(player));
+        for (Court existing : allCourts()) {
+            if (!existing.claimed) continue;
+            if (existing.name.equalsIgnoreCase(name)) {
+                bar(player, "§7That Covenant territory name is already taken.");
+                return false;
+            }
+            if (existing.dim.equals(dimension) && CovenantTerritory.overlaps(
+                    player.getX(), player.getZ(), radius, existing.center.x, existing.center.z, existing.radius)) {
+                bar(player, "§7This claim overlaps Covenant territory: " + existing.name);
+                return false;
+            }
+        }
+        cancelWriting(player);
+        Court source = open(player);
+        Court claim = new Court();
+        claim.owner = player.getUUID();
+        claim.dim = dimension;
+        claim.center = player.position();
+        claim.radius = radius;
+        claim.follow = false;
+        claim.district = true;
+        claim.claimed = true;
+        claim.name = name;
+        claim.ownerLevel = levelOf(player);
+        claim.tier = tierOf(claim.ownerLevel);
+        for (LawRec law : source.laws) claim.laws.add(copyLaw(law));
+        claim.terms.addAll(source.terms);
+        claim.next = source.next;
+        Sov state = sov(player.getUUID());
+        state.jurisdictions.add(claim);
+        state.selectedCourt = state.jurisdictions.size() - 1;
+        rebuildParchments(player, claim);
+        saveState(player.server);
+        player.sendSystemMessage(Component.literal("§6Territory claimed: " + name + " (radius "
+                + (int) radius + " m). New laws now apply to this territory. Use /unrp covenant personal to edit your moving Court."));
+        return true;
+    }
+
+    public static boolean selectTerritory(ServerPlayer player, String name) {
+        Sov state = sov(player.getUUID());
+        for (int i = 0; i < state.jurisdictions.size(); i++) {
+            Court court = state.jurisdictions.get(i);
+            if (court.claimed && court.name.equalsIgnoreCase(name.trim())) {
+                state.selectedCourt = i;
+                saveState(player.server);
+                bar(player, "§6Editing territory: " + court.name);
+                return true;
+            }
+        }
+        bar(player, "§7You do not own a territory with that name.");
+        return false;
+    }
+
+    public static boolean releaseTerritory(ServerPlayer player, String name) {
+        Sov state = sov(player.getUUID());
+        Court claim = state.jurisdictions.stream()
+                .filter(c -> c.claimed && c.name.equalsIgnoreCase(name.trim())).findFirst().orElse(null);
+        if (claim == null) {
+            bar(player, "§7You do not own a territory with that name.");
+            return false;
+        }
+        closeCourt(player.server, claim, state);
+        state.jurisdictions.remove(claim);
+        state.selectedCourt = -1;
+        saveState(player.server);
+        bar(player, "§6Territory released: " + claim.name);
+        return true;
+    }
+
+    public static void listTerritories(ServerPlayer player) {
+        player.sendSystemMessage(Component.literal("§6Your Covenant territories:"));
+        var claims = sov(player.getUUID()).jurisdictions.stream().filter(c -> c.claimed).toList();
+        if (claims.isEmpty()) player.sendSystemMessage(Component.literal("§7None. Use /unrp covenant claim."));
+        for (Court c : claims) player.sendSystemMessage(Component.literal("§e" + c.name + "§7 — " + c.dim
+                + " at " + (int)c.center.x + ", " + (int)c.center.z + ", radius " + (int)c.radius + " m"));
+    }
+
+    public static void selectPersonalCourt(ServerPlayer player) {
+        sov(player.getUUID()).selectedCourt = -1;
+        saveState(player.server);
+        bar(player, "§6Editing your personal Court.");
     }
 
     public static boolean openLawEditor(ServerPlayer player) {
@@ -2476,9 +2584,11 @@ public final class Specials17 {
         }
         for (Sov state : new ArrayList<>(SOV.values())) {
             state.signatures.entrySet().removeIf(e -> e.getValue() <= now);
+            Court selected = state.selectedCourt >= 0 ? editingCourt(state) : null;
             for (Court expired : state.jurisdictions.stream().filter(c -> c.expires <= now).toList())
                 closeCourt(server, expired, state);
             state.jurisdictions.removeIf(c -> c.expires <= now);
+            if (state.selectedCourt >= 0) state.selectedCourt = state.jurisdictions.indexOf(selected);
         }
         for (Court court : allCourts()) tickCourt(server, court, now);
         if (now % 20 == 0)

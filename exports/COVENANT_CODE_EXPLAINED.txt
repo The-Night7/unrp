@@ -18,6 +18,9 @@ ability/CovenantRules.java
   Tier thresholds and limits. The Court radii and law-count limits also appear
   in Specials17's RADIUS and LAW_CAP arrays; keep them in sync.
 
+ability/CovenantTerritory.java
+  Validates claim names and checks whether horizontal territory boundaries overlap.
+
 ability/CovenantParse.java
   Turns supported English text into an action and a penalty. It recognises a
   fixed grammar, not arbitrary instructions.
@@ -48,6 +51,16 @@ From a button to an effect
 The server validates every request. The forms only collect input.
 CovenantWritingScreen handles the other writing actions: Pacts, entry conditions,
 tribute, jurisdiction and hand messages.
+
+Territory claims
+----------------
+claimTerritory creates a fixed district Court at the player's position from
+level 5. It copies personal laws and entry terms, then selects the new Court.
+CovenantTerritory validates names and horizontal overlap. A claimed flag marks
+permanent territories in the existing jurisdictions list; old records default
+to false. Their expiry stays Long.MAX_VALUE. Selection and release check the
+calling player's own ledger. releaseTerritory uses closeCourt for cleanup.
+These claims do not change school turf ownership or protect blocks.
 
 State and saves
 ---------------
