@@ -44,3 +44,11 @@ The HUD preview combines those layers with sample fills. The portrait is left em
 ## Old assets
 
 `unrp_status_frame.png` is unused. The sheets under `art/pixel-pack/` are historical references and are not inputs to the current generators. Runtime assets belong under `src/main/resources/assets/unrp/`.
+
+## Ability visual coverage
+
+The [non-Origin visual audit](generated/ABILITY_VISUALS.md) covers animation lookup, icons, particle sprites and literal renderer resources. Its [per-move checklist](generated/ability-visual-checklist.csv) separates source checks from in-game review. Shared poses and effect glyphs are identified explicitly; their presence does not mean each ability has bespoke artwork.
+
+Run `python3 tools/check_ability_visuals.py` from `unrp-forge/`. The same check runs during `./gradlew build`. Use `--write-report` to refresh the report after changes. `python3 tools/test_ability_visuals.py` checks that missing animations, missing icons and damaged PNGs cause failures.
+
+Legacy poses are in `assets/unrp/poses.json`; indexed clips and network IDs are in `anim/MoveClips.java` and `anim/MoveClipIds.java`. Empty action poses now use existing gestures selected for their movement. Missing legacy names resolve to compatible shared clips. Generic power and move icons reuse existing effect glyphs, listed in `tools/overrides/shared_visual_icons.json`. No dedicated textures or animations are claimed for those shared entries.

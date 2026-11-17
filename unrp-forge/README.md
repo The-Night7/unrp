@@ -48,6 +48,8 @@ School generation is implemented, with one natural site per campus. Individual s
 python tools/check_english.py
 python tools/test_english_import.py
 python tools/test_equipment_assets.py
+python tools/check_ability_visuals.py
+python tools/test_ability_visuals.py
 ```
 
 The asset checks require Pillow. Vanilla texture previews use the Minecraft 1.20.1 client JAR from the Forge cache, or `MINECRAFT_CLIENT_JAR` if supplied. `tools/update_power_reference.py` refreshes the move-reference tables from runtime JSON.

@@ -12,10 +12,12 @@
  },
  "powers": {
   "non_specifiee": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Unspecified",
      "input": "charge",
      "cost": 15,
@@ -30,6 +32,7 @@
      "pose": "og_touch"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 8,
@@ -53,10 +56,12 @@
    "activate_pose": "md_rise"
   },
   "aura_deity": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Aura Deity",
      "input": "action",
      "cost": 15,
@@ -81,10 +86,12 @@
    "activate_pose": "og_temple"
   },
   "blade": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Blade",
      "input": "charge",
      "cost": 15,
@@ -101,6 +108,7 @@
      "pose": "og_slash"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 8,
@@ -126,10 +134,12 @@
    "activate_pose": "md_harden"
   },
   "claws": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Claws",
      "input": "charge",
      "cost": 15,
@@ -146,6 +156,7 @@
      "pose": "og_claw"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 8,
@@ -191,7 +202,7 @@
      "special": "il_light",
      "min_aura": 1,
      "drain_every": 102,
-     "pose": "",
+     "pose": "og_summon",
      "hold_tag": "unrp.illumination_hand_light_drain",
      "icon": "unrp:textures/icons/illumination_hand_light_icon.png",
      "bar_color": "yellow",
@@ -205,7 +216,7 @@
      "cooldown": 80,
      "special": "il_flash",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/illumination_flash_burst_icon.png",
      "bar_color": "yellow",
      "bar_slot": 2
@@ -219,7 +230,7 @@
      "special": "il_beacon",
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "og_summon",
      "icon": "unrp:textures/icons/illumination_beacon_light_icon.png",
      "bar_color": "yellow",
      "bar_slot": 3
@@ -233,7 +244,7 @@
      "special": "il_pulse",
      "unlock": 4,
      "requires": 0,
-     "pose": "",
+     "pose": "cast_pulse",
      "icon": "unrp:textures/icons/illumination_dazzling_pulse_icon.png",
      "bar_color": "yellow",
      "bar_slot": 4
@@ -249,10 +260,12 @@
    "bar_color": "yellow"
   },
   "knuckles": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Knuckles",
      "input": "charge",
      "cost": 15,
@@ -276,6 +289,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 8,
@@ -320,7 +334,7 @@
      "cost": 3,
      "cooldown": 12,
      "special": "nd_shot",
-     "pose": "",
+     "pose": "og_point",
      "icon": "unrp:textures/icons/needles_needle_shot_icon.png",
      "bar_color": "gray",
      "bar_slot": 1
@@ -333,7 +347,7 @@
      "cooldown": 60,
      "special": "nd_barrage",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_toss",
      "icon": "unrp:textures/icons/needles_needle_barrage_icon.png",
      "bar_color": "gray",
      "bar_slot": 2
@@ -350,7 +364,7 @@
      "drain_every": 99999,
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "og_point",
      "icon": "unrp:textures/icons/needles_focused_volley_icon.png",
      "bar_color": "gray",
      "bar_slot": 3
@@ -366,10 +380,12 @@
    "bar_color": "gray"
   },
   "scanner": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Scanner",
      "input": "action",
      "cost": 15,
@@ -394,10 +410,12 @@
    "activate_pose": "og_temple"
   },
   "tir_concentre": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Focused Shot",
      "input": "charge",
      "cost": 15,
@@ -413,6 +431,7 @@
      "pose": "og_point"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 8,
@@ -437,10 +456,12 @@
    "activate_pose": "md_rise"
   },
   "troll": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Troll",
      "input": "action",
      "cost": 15,
@@ -481,10 +502,12 @@
    "activate_pose": "og_temple"
   },
   "unknown_augmentation_ability": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Unknown Augmentation Ability",
      "input": "charge",
      "cost": 20,
@@ -501,6 +524,7 @@
      "pose": "og_touch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 10,
@@ -538,7 +562,7 @@
      "cost": 1,
      "cooldown": 10,
      "special": "gauge_touch",
-     "pose": "",
+     "pose": "gauge_touch",
      "icon": "unrp:textures/icons/ability_gauging_touch_scan.png",
      "bar_color": "cyan",
      "bar_slot": 1
@@ -551,7 +575,7 @@
      "drain_every": 150,
      "special": "gauge_scope",
      "unlock": 2,
-     "pose": "",
+     "pose": "gauge_scope",
      "hold_tag": "unrp.ability_gauging_scope_drain",
      "icon": "unrp:textures/icons/ability_gauging_aura_scope.png",
      "bar_color": "cyan",
@@ -595,7 +619,7 @@
      "cooldown": 160,
      "special": "arcane_volley",
      "unlock": 2,
-     "pose": "",
+     "pose": "arc_volley",
      "icon": "unrp:textures/icons/arcane_shot_volley_icon.png",
      "bar_color": "magenta",
      "bar_slot": 2
@@ -611,10 +635,12 @@
    "bar_color": "magenta"
   },
   "archer": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Archer",
      "input": "charge",
      "cost": 20,
@@ -629,6 +655,7 @@
      "pose": "og_bow"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 10,
@@ -652,10 +679,12 @@
    "activate_pose": "md_rise"
   },
   "barrage": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "charge",
      "cost": 20,
@@ -672,6 +701,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 10,
@@ -722,7 +752,7 @@
      "cooldown": 140,
      "special": "cr_clean",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/catalyst_ray_clean_slate.png",
      "bar_color": "lime",
      "bar_slot": 2
@@ -736,7 +766,7 @@
      "special": "cr_stasis",
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "cast_mind",
      "icon": "unrp:textures/icons/catalyst_ray_genetic_stasis.png",
      "bar_color": "lime",
      "bar_slot": 3
@@ -750,7 +780,7 @@
      "special": "cr_imbue",
      "unlock": 4,
      "requires": 0,
-     "pose": "",
+     "pose": "og_touch",
      "icon": "unrp:textures/icons/catalyst_ray_mutation_imbuement.png",
      "bar_color": "lime",
      "bar_slot": 4
@@ -766,10 +796,12 @@
    "bar_color": "lime"
   },
   "catch_up": {
+   "icon": "unrp:textures/icons/speed_activation.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/speed_activation.png",
      "name": "Catch Up",
      "input": "action",
      "cost": 20,
@@ -793,10 +825,12 @@
    "activate_pose": "og_dash"
   },
   "charge": {
+   "icon": "unrp:textures/icons/speed_activation.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/speed_activation.png",
      "name": "Charge",
      "input": "action",
      "cost": 20,
@@ -826,10 +860,12 @@
    "activate_pose": "og_dash"
   },
   "charge_shot": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Charge Shot",
      "input": "charge",
      "cost": 20,
@@ -844,6 +880,7 @@
      "pose": "og_point"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 10,
@@ -867,10 +904,12 @@
    "activate_pose": "md_rise"
   },
   "clairvoyance": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Clairvoyance",
      "input": "action",
      "cost": 20,
@@ -901,10 +940,12 @@
    "activate_pose": "og_temple"
   },
   "clobber": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Clobber",
      "input": "charge",
      "cost": 20,
@@ -921,6 +962,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 10,
@@ -964,7 +1006,7 @@
      "cost": 14,
      "cooldown": 140,
      "special": "cs_grip",
-     "pose": "",
+     "pose": "og_claw",
      "icon": "unrp:textures/icons/contact_shred_shred_grip_icon.png",
      "bar_color": "red",
      "bar_slot": 1
@@ -994,10 +1036,12 @@
    "bar_color": "red"
   },
   "detection_de_mensonge": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Falsehood Detection",
      "input": "action",
      "cost": 20,
@@ -1060,7 +1104,7 @@
      "cooldown": 240,
      "special": "dz_weave",
      "unlock": 3,
-     "pose": "",
+     "pose": "og_guard",
      "icon": "unrp:textures/icons/dizzy_punch_weave.png",
      "bar_color": "orange",
      "bar_slot": 3
@@ -1076,6 +1120,7 @@
    "bar_color": "orange"
   },
   "flash_forward": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 2.5,
    "passive": [
     {
@@ -1091,6 +1136,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 20,
@@ -1123,6 +1169,7 @@
    "activate_pose": "og_temple"
   },
   "fortify": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 2.5,
    "passive": [
     {
@@ -1143,6 +1190,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 20,
@@ -1180,10 +1228,12 @@
    "activate_pose": "og_surge"
   },
   "ground_pound": {
+   "icon": "unrp:textures/icons/explosion_detonate_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Ground Pound",
      "input": "charge",
      "cost": 20,
@@ -1200,6 +1250,7 @@
      "pose": "og_slam"
     },
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Onde soutenue",
      "input": "held",
      "cost": 10,
@@ -1225,10 +1276,12 @@
    "activate_pose": "md_harden"
   },
   "hair_growth": {
+   "icon": "unrp:textures/icons/speed_activation.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/speed_activation.png",
      "name": "Hair Growth",
      "input": "action",
      "cost": 20,
@@ -1347,7 +1400,7 @@
      "min_aura": 1,
      "drain_every": 27,
      "unlock": 2,
-     "pose": "",
+     "pose": "hp_palm",
      "hold_tag": "unrp.heat_palm_smelt_drain",
      "icon": "unrp:textures/icons/heat_palm_smelting_palm_icon.png",
      "bar_color": "orange",
@@ -1364,10 +1417,12 @@
    "bar_color": "orange"
   },
   "heavy_hitter": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Heavy-Hitter",
      "input": "charge",
      "cost": 20,
@@ -1384,6 +1439,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 10,
@@ -1409,10 +1465,12 @@
    "activate_pose": "og_surge"
   },
   "impact": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Impact",
      "input": "charge",
      "cost": 20,
@@ -1429,6 +1487,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 10,
@@ -1454,10 +1513,12 @@
    "activate_pose": "og_surge"
   },
   "lazor": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Lazor",
      "input": "charge",
      "cost": 20,
@@ -1472,6 +1533,7 @@
      "pose": "og_beam"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 10,
@@ -1495,10 +1557,12 @@
    "activate_pose": "md_flare"
   },
   "lie_detection": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Lie Detection",
      "input": "action",
      "cost": 20,
@@ -1567,7 +1631,7 @@
      "min_aura": 10,
      "drain_every": 99999,
      "unlock": 3,
-     "pose": "",
+     "pose": "og_command",
      "hold_tag": "unrp.ms_barrage_on",
      "icon": "unrp:textures/icons/missiles_barrage_icon.png",
      "bar_color": "red",
@@ -1707,7 +1771,7 @@
      "k": 1.0,
      "min_aura": 8,
      "drain_every": 10,
-     "pose": "",
+     "pose": "cast_blast",
      "icon": "unrp:textures/icons/phantom_push_push_icon.png",
      "bar_color": "light_blue",
      "bar_slot": 1
@@ -1720,7 +1784,7 @@
      "cooldown": 130,
      "special": "pp_volley",
      "unlock": 2,
-     "pose": "",
+     "pose": "cast_blast",
      "icon": "unrp:textures/icons/phantom_push_volley_icon.png",
      "bar_color": "light_blue",
      "bar_slot": 2
@@ -1746,7 +1810,7 @@
      "cooldown": 140,
      "special": "pp_wave",
      "unlock": 4,
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/phantom_push_wave_icon.png",
      "bar_color": "light_blue",
      "bar_slot": 4
@@ -1762,10 +1826,12 @@
    "bar_color": "light_blue"
   },
   "possession": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Possession",
      "input": "action",
      "cost": 20,
@@ -1837,7 +1903,7 @@
      "cooldown": 2200,
      "special": "qs_stance",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_guard",
      "icon": "unrp:textures/icons/quick_strike_assault_stance_icon.png",
      "bar_color": "white",
      "bar_slot": 2
@@ -1895,7 +1961,7 @@
      "cost": 20,
      "cooldown": 400,
      "special": "regen_adrenaline",
-     "pose": "",
+     "pose": "regen_adrenaline",
      "icon": "unrp:textures/icons/regeneration_adrenaline.png",
      "bar_color": "pink",
      "bar_slot": 1
@@ -1908,7 +1974,7 @@
      "special": "martyr",
      "unlock": 2,
      "requires": 0,
-     "pose": "",
+     "pose": "regen_exhale",
      "icon": "unrp:textures/icons/regeneration_martyr.png",
      "bar_color": "pink",
      "bar_slot": 2
@@ -1924,10 +1990,12 @@
    "bar_color": "pink"
   },
   "repulsion": {
+   "icon": "unrp:textures/icons/explosion_detonate_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Repulsion",
      "input": "charge",
      "cost": 20,
@@ -1944,6 +2012,7 @@
      "pose": "og_wave"
     },
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Onde soutenue",
      "input": "held",
      "cost": 10,
@@ -2019,7 +2088,7 @@
       }
      ],
      "unlock": 2,
-     "pose": "",
+     "pose": "og_guard",
      "hold_tag": "unrp.rock_arm_guard_drain",
      "icon": "unrp:textures/icons/rock_arm_guarded_stance_icon.png",
      "bar_color": "brown",
@@ -2036,10 +2105,12 @@
    "bar_color": "brown"
   },
   "sanity_control_bal": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Sanity Control (Bal)",
      "input": "action",
      "cost": 20,
@@ -2075,10 +2146,12 @@
    "activate_pose": "og_temple"
   },
   "sanity_control_heal": {
+   "icon": "unrp:textures/icons/healing_activation.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/healing_activation.png",
      "name": "Sanity Control (Heal)",
      "input": "action",
      "cost": 20,
@@ -2100,6 +2173,7 @@
      "pose": "og_heal"
     },
     {
+     "icon": "unrp:textures/icons/healing_activation.png",
      "name": "Healing Flow",
      "input": "held",
      "cost": 10,
@@ -2131,10 +2205,12 @@
    "activate_pose": "og_heal"
   },
   "sanity_control_hurt": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Sanity Control (Hurt)",
      "input": "action",
      "cost": 20,
@@ -2170,10 +2246,12 @@
    "activate_pose": "og_temple"
   },
   "shockwave": {
+   "icon": "unrp:textures/icons/explosion_detonate_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Shockwave",
      "input": "charge",
      "cost": 20,
@@ -2190,6 +2268,7 @@
      "pose": "og_slam"
     },
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Onde soutenue",
      "input": "held",
      "cost": 10,
@@ -2256,7 +2335,7 @@
       "particle": "cloud"
      },
      "unlock": 2,
-     "pose": "",
+     "pose": "spd_dash",
      "icon": "unrp:textures/icons/speed_blitz_dash_icon.png",
      "bar_color": "white",
      "bar_slot": 2
@@ -2300,7 +2379,7 @@
      "cost": 12,
      "cooldown": 240,
      "special": "st_harden",
-     "pose": "",
+     "pose": "cast_buff",
      "flash_tag": "unrp.stone_harden",
      "icon": "unrp:textures/icons/stone_skin_harden.png",
      "bar_color": "brown",
@@ -2324,7 +2403,7 @@
      ],
      "unlock": 2,
      "requires": 0,
-     "pose": "",
+     "pose": "og_guard",
      "hold_tag": "unrp.stone_immovable",
      "icon": "unrp:textures/icons/stone_skin_immovable.png",
      "bar_color": "brown",
@@ -2341,6 +2420,7 @@
    "bar_color": "brown"
   },
   "strength": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 2.5,
    "passive": [
     {
@@ -2351,6 +2431,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 20,
@@ -2581,6 +2662,7 @@
    "bar_color": "brown"
   },
   "vigor": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 2.5,
    "passive": [
     {
@@ -2596,6 +2678,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 20,
@@ -2628,6 +2711,7 @@
    "activate_pose": "og_surge"
   },
   "ghost": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.1,
    "passive": [
     {
@@ -2648,6 +2732,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 25,
@@ -2700,7 +2785,7 @@
      "drain_every": 10,
      "heal_every": 20,
      "heal_amount": 2,
-     "pose": "",
+     "pose": "heal_self",
      "hold_tag": "unrp.self_heal_active",
      "icon": "unrp:textures/icons/healing_self_active.png",
      "bar_color": "pink",
@@ -2714,7 +2799,7 @@
      "cooldown": 40,
      "special": "heal_mark",
      "unlock": 2,
-     "pose": "",
+     "pose": "heal_mark",
      "icon": "unrp:textures/icons/healing_mark.png",
      "bar_color": "pink",
      "bar_slot": 2
@@ -2728,7 +2813,7 @@
      "special": "heal_external",
      "k": 1.0,
      "unlock": 3,
-     "pose": "",
+     "pose": "heal_other",
      "hold_tag": "unrp.external_heal_active",
      "icon": "unrp:textures/icons/healing_external.png",
      "bar_color": "pink",
@@ -2743,7 +2828,7 @@
      "special": "heal_triage",
      "unlock": 4,
      "requires": 1,
-     "pose": "",
+     "pose": "heal_triage",
      "icon": "unrp:textures/icons/healing_triage_surge.png",
      "bar_color": "pink",
      "bar_slot": 4
@@ -2900,10 +2985,12 @@
    "bar_color": "yellow"
   },
   "telepathy": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Telepathy",
      "input": "action",
      "cost": 25,
@@ -2973,7 +3060,7 @@
      "cooldown": 20,
      "special": "ar_guard",
      "unlock": 2,
-     "pose": "",
+     "pose": "ar_guard",
      "flash_tag": "unrp.key.legs_guard",
      "flash_ticks": 120,
      "icon": "unrp:textures/icons/arachnid_guard_icon.png",
@@ -3072,7 +3159,7 @@
      "cooldown": 120,
      "special": "suit_crash",
      "unlock": 2,
-     "pose": "",
+     "pose": "cast_dash",
      "icon": "unrp:textures/icons/armor_suit_crash_icon.png",
      "bar_color": "gray",
      "bar_slot": 2
@@ -3085,7 +3172,7 @@
      "cooldown": 400,
      "special": "suit_shed",
      "unlock": 3,
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/armor_suit_shed_icon.png",
      "bar_color": "gray",
      "bar_slot": 3
@@ -3140,7 +3227,7 @@
        "operation": 2
       }
      ],
-     "pose": "",
+     "pose": "og_guard",
      "hold_tag": "unrp.conjure_disks_shield",
      "pass": "orbit_shield",
      "icon": "unrp:textures/icons/conjure_disks_orbit_shield_icon.png",
@@ -3178,7 +3265,7 @@
      ],
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "og_summon",
      "hold_tag": "unrp.conjure_disks_hover",
      "icon": "unrp:textures/icons/conjure_disks_hoverboard_icon.png",
      "bar_color": "cyan",
@@ -3224,7 +3311,7 @@
      "cooldown": 80,
      "special": "cs_twin",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_slash",
      "icon": "unrp:textures/icons/crescent_slash_twin_icon.png",
      "bar_color": "cyan",
      "bar_slot": 2
@@ -3237,7 +3324,7 @@
      "cooldown": 140,
      "special": "cs_volley",
      "unlock": 3,
-     "pose": "",
+     "pose": "og_slash",
      "icon": "unrp:textures/icons/crescent_slash_volley_icon.png",
      "bar_color": "cyan",
      "bar_slot": 3
@@ -3269,10 +3356,12 @@
    "bar_color": "cyan"
   },
   "crimson_thread": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Crimson Thread",
      "input": "charge",
      "cost": 25,
@@ -3289,6 +3378,7 @@
      "pose": "og_slash"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 12,
@@ -3314,10 +3404,12 @@
    "activate_pose": "og_summon"
   },
   "demon_blade": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Demon Blade",
      "input": "charge",
      "cost": 25,
@@ -3334,6 +3426,7 @@
      "pose": "og_slash"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 12,
@@ -3400,7 +3493,7 @@
      "min_aura": 1,
      "drain_every": 8,
      "unlock": 4,
-     "pose": "",
+     "pose": "og_claw",
      "hold_tag": "unrp.demon_claw_focus_drain",
      "icon": "unrp:textures/icons/demon_claw_feral_focus_icon.png",
      "bar_color": "red",
@@ -3417,10 +3510,12 @@
    "bar_color": "red"
   },
   "energy_beam": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Energy Beam",
      "input": "charge",
      "cost": 25,
@@ -3435,6 +3530,7 @@
      "pose": "og_beam"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 12,
@@ -3486,7 +3582,7 @@
      "cooldown": 140,
      "special": "ex_shock",
      "unlock": 2,
-     "pose": "",
+     "pose": "cast_blast",
      "icon": "unrp:textures/icons/explosion_shock_icon.png",
      "bar_color": "red",
      "bar_slot": 2
@@ -3519,10 +3615,12 @@
    "bar_color": "red"
   },
   "fleetstep": {
+   "icon": "unrp:textures/icons/speed_activation.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/speed_activation.png",
      "name": "Fleetstep",
      "input": "action",
      "cost": 25,
@@ -3552,10 +3650,12 @@
    "activate_pose": "og_dash"
   },
   "graviton": {
+   "icon": "unrp:textures/icons/explosion_detonate_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Graviton",
      "input": "charge",
      "cost": 25,
@@ -3579,6 +3679,7 @@
      "pose": "og_wave"
     },
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Onde soutenue",
      "input": "held",
      "cost": 12,
@@ -3611,10 +3712,12 @@
    "activate_pose": "og_wave"
   },
   "grenadier": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Grenadier",
      "input": "charge",
      "cost": 25,
@@ -3630,6 +3733,7 @@
      "pose": "og_toss"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 12,
@@ -3654,10 +3758,12 @@
    "activate_pose": "md_rise"
   },
   "heal_link": {
+   "icon": "unrp:textures/icons/healing_activation.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/healing_activation.png",
      "name": "Heal Link",
      "input": "action",
      "cost": 25,
@@ -3679,6 +3785,7 @@
      "pose": "og_heal"
     },
     {
+     "icon": "unrp:textures/icons/healing_activation.png",
      "name": "Healing Flow",
      "input": "held",
      "cost": 12,
@@ -3710,10 +3817,12 @@
    "activate_pose": "og_heal"
   },
   "hunter": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Hunter",
      "input": "action",
      "cost": 25,
@@ -3781,7 +3890,7 @@
       }
      ],
      "cloak": true,
-     "pose": "",
+     "pose": "inv_cloak",
      "hold_tag": "unrp.invis_cloaked",
      "icon": "unrp:textures/icons/invis_cloak.png",
      "bar_color": "light_gray",
@@ -3802,7 +3911,7 @@
      },
      "unlock": 2,
      "requires": 0,
-     "pose": "",
+     "pose": "inv_share",
      "icon": "unrp:textures/icons/invis_shared.png",
      "bar_color": "light_gray",
      "bar_slot": 2
@@ -3812,10 +3921,12 @@
    "bar_color": "light_gray"
   },
   "iron_knuckle": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Iron Knuckle",
      "input": "charge",
      "cost": 25,
@@ -3839,6 +3950,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 12,
@@ -3871,10 +3983,12 @@
    "activate_pose": "md_harden"
   },
   "liquids_manipulation": {
+   "icon": "unrp:textures/icons/explosion_detonate_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Liquids Manipulation",
      "input": "charge",
      "cost": 25,
@@ -3898,6 +4012,7 @@
      "pose": "og_wave"
     },
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Onde soutenue",
      "input": "held",
      "cost": 12,
@@ -3942,7 +4057,7 @@
      "min_aura": 1,
      "drain_every": 8,
      "special": "nm_field",
-     "pose": "",
+     "pose": "nm_field",
      "icon": "unrp:textures/icons/nightmare_terror_field_icon.png",
      "bar_color": "purple",
      "bar_slot": 1
@@ -3985,6 +4100,7 @@
    "bar_color": "purple"
   },
   "pride": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.1,
    "passive": [
     {
@@ -4005,6 +4121,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 25,
@@ -4042,6 +4159,7 @@
    "activate_pose": "md_flare"
   },
   "royal_guard": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.1,
    "passive": [
     {
@@ -4057,6 +4175,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 25,
@@ -4089,6 +4208,7 @@
    "activate_pose": "md_harden"
   },
   "shadow_eclipse": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.1,
    "passive": [
     {
@@ -4109,6 +4229,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 25,
@@ -4190,10 +4311,12 @@
    "bar_color": "purple"
   },
   "super_strength": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Super Strength",
      "input": "charge",
      "cost": 25,
@@ -4210,6 +4333,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 12,
@@ -4235,6 +4359,7 @@
    "activate_pose": "og_surge"
   },
   "superhuman": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.1,
    "passive": [
     {
@@ -4260,6 +4385,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 25,
@@ -4302,10 +4428,12 @@
    "activate_pose": "og_surge"
   },
   "teleportation": {
+   "icon": "unrp:textures/icons/phase_shift_speed.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/phase_shift_speed.png",
      "name": "Teleportation",
      "input": "action",
      "cost": 25,
@@ -4339,7 +4467,7 @@
      "cost": 18,
      "cooldown": 80,
      "special": "ww_blast",
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/whirlwind_air_blast_icon.png",
      "bar_color": "white",
      "bar_slot": 1
@@ -4352,7 +4480,7 @@
      "cooldown": 140,
      "special": "ww_cyclone",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_surge",
      "icon": "unrp:textures/icons/whirlwind_cyclone_pull_icon.png",
      "bar_color": "white",
      "bar_slot": 2
@@ -4368,7 +4496,7 @@
      "drain_every": 5,
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "og_summon",
      "icon": "unrp:textures/icons/whirlwind_flight_icon.png",
      "bar_color": "white",
      "bar_slot": 3
@@ -4385,7 +4513,7 @@
      "drain_every": 5,
      "unlock": 4,
      "requires": 0,
-     "pose": "",
+     "pose": "og_guard",
      "hold_tag": "unrp.whirlwind_shield_drain",
      "icon": "unrp:textures/icons/whirlwind_wind_shield_icon.png",
      "bar_color": "white",
@@ -4402,6 +4530,7 @@
    "bar_color": "white"
   },
   "alchimie": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.8,
    "passive": [
     {
@@ -4417,6 +4546,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 30,
@@ -4449,10 +4579,12 @@
    "activate_pose": "md_harden"
   },
   "cancellation": {
+   "icon": "unrp:textures/icons/aura_manipulation_expel.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/aura_manipulation_expel.png",
      "name": "Cancellation",
      "input": "action",
      "cost": 30,
@@ -4504,7 +4636,7 @@
      "min_aura": 1,
      "drain_every": 4,
      "special": "storm_field",
-     "pose": "",
+     "pose": "as_vortex",
      "hold_tag": "unrp.as_storm_on",
      "icon": "unrp:textures/icons/azure_storm_storm_icon.png",
      "bar_color": "blue",
@@ -4518,7 +4650,7 @@
      "cooldown": 140,
      "special": "storm_guard",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_guard",
      "icon": "unrp:textures/icons/azure_storm_guard_icon.png",
      "bar_color": "blue",
      "bar_slot": 2
@@ -4531,7 +4663,7 @@
      "drain_every": 6,
      "special": "storm_flight",
      "unlock": 3,
-     "pose": "",
+     "pose": "og_summon",
      "icon": "unrp:textures/icons/azure_storm_climber_icon.png",
      "bar_color": "blue",
      "bar_slot": 3
@@ -4544,7 +4676,7 @@
      "cooldown": 150,
      "special": "storm_lance",
      "unlock": 4,
-     "pose": "",
+     "pose": "og_beam",
      "icon": "unrp:textures/icons/azure_storm_lance_icon.png",
      "bar_color": "blue",
      "bar_slot": 4
@@ -4560,6 +4692,7 @@
    "bar_color": "blue"
   },
   "bodybuilder": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.8,
    "passive": [
     {
@@ -4575,6 +4708,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 30,
@@ -4622,7 +4756,7 @@
      "k": 1.0,
      "min_aura": 4,
      "drain_every": 99999,
-     "pose": "",
+     "pose": "og_claw",
      "icon": "unrp:textures/icons/conjure_vines_vine_lash_icon.png",
      "bar_color": "green",
      "bar_slot": 1
@@ -4664,7 +4798,7 @@
      "min_aura": 6,
      "drain_every": 99999,
      "unlock": 4,
-     "pose": "",
+     "pose": "og_touch",
      "icon": "unrp:textures/icons/conjure_vines_grasping_growth_icon.png",
      "bar_color": "green",
      "bar_slot": 4
@@ -4680,10 +4814,12 @@
    "bar_color": "green"
   },
   "dark_blades": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Dark Blades",
      "input": "charge",
      "cost": 30,
@@ -4700,6 +4836,7 @@
      "pose": "og_slash"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 15,
@@ -4725,10 +4862,12 @@
    "activate_pose": "og_summon"
   },
   "demolition": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Demolition",
      "input": "charge",
      "cost": 30,
@@ -4744,6 +4883,7 @@
      "pose": "og_slam"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 15,
@@ -4768,6 +4908,7 @@
    "activate_pose": "md_harden"
   },
   "duplication": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.8,
    "passive": [
     {
@@ -4783,6 +4924,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 30,
@@ -4827,7 +4969,7 @@
      "cost": 8,
      "cooldown": 30,
      "special": "ec_lasso",
-     "pose": "",
+     "pose": "og_point",
      "icon": "unrp:textures/icons/energy_conduit_lasso_icon.png",
      "bar_color": "lime",
      "bar_slot": 1
@@ -4843,7 +4985,7 @@
      "min_aura": 4,
      "drain_every": 10,
      "unlock": 2,
-     "pose": "",
+     "pose": "og_touch",
      "hold_tag": "unrp.ec_transfer_on",
      "icon": "unrp:textures/icons/energy_conduit_transfer_icon.png",
      "bar_color": "lime",
@@ -4860,7 +5002,7 @@
      "min_aura": 4,
      "drain_every": 10,
      "unlock": 3,
-     "pose": "",
+     "pose": "heal_other",
      "hold_tag": "unrp.ec_restore_on",
      "icon": "unrp:textures/icons/energy_conduit_restore_icon.png",
      "bar_color": "lime",
@@ -4877,7 +5019,7 @@
      "min_aura": 6,
      "drain_every": 99999,
      "unlock": 4,
-     "pose": "",
+     "pose": "og_command",
      "icon": "unrp:textures/icons/energy_conduit_control_icon.png",
      "bar_color": "lime",
      "bar_slot": 4
@@ -4969,10 +5111,12 @@
    "bar_color": "yellow"
   },
   "faucheuse_fantome": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Phantom Reaper",
      "input": "charge",
      "cost": 30,
@@ -4994,6 +5138,7 @@
      "pose": "og_slash"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 15,
@@ -5024,10 +5169,12 @@
    "activate_pose": "og_summon"
   },
   "god_s_mind": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "God's Mind",
      "input": "action",
      "cost": 30,
@@ -5068,10 +5215,12 @@
    "activate_pose": "og_temple"
   },
   "icicle": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Icicle",
      "input": "charge",
      "cost": 30,
@@ -5093,6 +5242,7 @@
      "pose": "og_point"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 15,
@@ -5123,10 +5273,12 @@
    "activate_pose": "og_wave"
   },
   "imprison": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Imprison",
      "input": "action",
      "cost": 30,
@@ -5151,10 +5303,12 @@
    "activate_pose": "og_guard"
   },
   "memory_recall": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Memory Recall",
      "input": "action",
      "cost": 30,
@@ -5190,10 +5344,12 @@
    "activate_pose": "og_temple"
   },
   "portals": {
+   "icon": "unrp:textures/icons/phase_shift_speed.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/phase_shift_speed.png",
      "name": "Portals",
      "input": "action",
      "cost": 30,
@@ -5265,7 +5421,7 @@
      "drain_every": 8,
      "unlock": 2,
      "pass": "sense_focus",
-     "pose": "",
+     "pose": "og_scan",
      "icon": "unrp:textures/icons/predator_focus_icon.png",
      "bar_color": "red",
      "bar_slot": 2
@@ -5325,7 +5481,7 @@
       }
      ],
      "unlock": 4,
-     "pose": "",
+     "pose": "pd_roar",
      "bar_slot": 4,
      "icon": "unrp:textures/icons/predator_trans_icon.png",
      "bar_color": "red"
@@ -5342,6 +5498,7 @@
    "bar_color": "red"
   },
   "protector": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 3.8,
    "passive": [
     {
@@ -5357,6 +5514,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 30,
@@ -5389,10 +5547,12 @@
    "activate_pose": "og_guard"
   },
   "psy_blast": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Psy-Blast",
      "input": "charge",
      "cost": 30,
@@ -5414,6 +5574,7 @@
      "pose": "og_point"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 15,
@@ -5444,10 +5605,12 @@
    "activate_pose": "og_temple"
   },
   "psychopomp": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Psychopomp",
      "input": "charge",
      "cost": 30,
@@ -5469,6 +5632,7 @@
      "pose": "og_temple"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 15,
@@ -5597,10 +5761,12 @@
    "bar_color": "black"
   },
   "wrist_spike": {
+   "icon": "unrp:textures/icons/strong_punch_haymaker.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Wrist Spike",
      "input": "charge",
      "cost": 30,
@@ -5617,6 +5783,7 @@
      "pose": "og_slash"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Barrage",
      "input": "held",
      "cost": 15,
@@ -5666,7 +5833,7 @@
      "cost": 15,
      "cooldown": 40,
      "trigger_tag": "unrp.barrier_deploy_trigger",
-     "pose": "",
+     "pose": "br_ward",
      "icon": "unrp:textures/icons/barrier_deploy.png",
      "bar_color": "light_blue",
      "bar_slot": 1
@@ -5680,7 +5847,7 @@
      "unlock": 2,
      "requires": 0,
      "trigger_tag": "unrp.barrier_growth_trigger",
-     "pose": "",
+     "pose": "br_grow",
      "icon": "unrp:textures/icons/barrier_growth.png",
      "bar_color": "light_blue",
      "bar_slot": 2
@@ -5694,7 +5861,7 @@
      "unlock": 3,
      "requires": 0,
      "trigger_tag": "unrp.barrier_ram_trigger",
-     "pose": "",
+     "pose": "br_ram",
      "icon": "unrp:textures/icons/barrier_ram.png",
      "bar_color": "light_blue",
      "bar_slot": 3
@@ -5740,7 +5907,7 @@
      "drain_every": 8,
      "special": "tm_flow",
      "unlock": 2,
-     "pose": "",
+     "pose": "tm_wind",
      "icon": "unrp:textures/icons/time_manipulation_flow.png",
      "bar_color": "cyan",
      "bar_slot": 2
@@ -5755,7 +5922,7 @@
      "special": "tm_rewind",
      "unlock": 3,
      "requires": 1,
-     "pose": "",
+     "pose": "tm_rewind",
      "bar_slot": 3,
      "icon": "unrp:textures/icons/time_manipulation_rewind.png",
      "bar_color": "cyan"
@@ -5770,7 +5937,7 @@
      "special": "tm_shift",
      "unlock": 4,
      "requires": 2,
-     "pose": "",
+     "pose": "tm_blink",
      "bar_slot": 4,
      "icon": "unrp:textures/icons/time_manipulation_shift.png",
      "bar_color": "cyan"
@@ -5784,7 +5951,7 @@
      "cooldown": 400,
      "special": "tm_freeze",
      "unlock": 2,
-     "pose": "",
+     "pose": "tm_freeze",
      "icon": "unrp:textures/icons/time_manipulation_freeze.png",
      "bar_color": "cyan",
      "bar_slot": 2
@@ -5799,7 +5966,7 @@
      "special": "tm_strike",
      "unlock": 3,
      "requires": 4,
-     "pose": "",
+     "pose": "tm_strike",
      "icon": "unrp:textures/icons/time_manipulation_fracture_strike.png",
      "bar_color": "cyan",
      "bar_slot": 3
@@ -5832,10 +5999,12 @@
    "bar_color": "cyan"
   },
   "botanist": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Botanist+",
      "input": "action",
      "cost": 35,
@@ -5860,10 +6029,12 @@
    "activate_pose": "og_summon"
   },
   "channel_master": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Channel Master",
      "input": "action",
      "cost": 35,
@@ -5888,6 +6059,7 @@
    "activate_pose": "og_temple"
   },
   "debt": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "drain": 4.4,
    "passive": [
     {
@@ -5903,6 +6075,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Surcharge",
      "input": "action",
      "cost": 35,
@@ -5953,7 +6126,7 @@
      "cost": 16,
      "cooldown": 180,
      "special": "hy_sleep",
-     "pose": "",
+     "pose": "cast_mind",
      "icon": "unrp:textures/icons/hypnosis_sleep_pulse_icon.png",
      "bar_color": "magenta",
      "bar_slot": 1
@@ -5966,7 +6139,7 @@
      "cooldown": 240,
      "special": "hy_gaze",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_temple",
      "icon": "unrp:textures/icons/hypnosis_command_gaze_icon.png",
      "bar_color": "magenta",
      "bar_slot": 2
@@ -5983,7 +6156,7 @@
      "drain_every": 8,
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "cast_mind",
      "hold_tag": "unrp.hypnosis_deep_drain",
      "icon": "unrp:textures/icons/hypnosis_deep_hypnosis_icon.png",
      "bar_color": "magenta",
@@ -5998,7 +6171,7 @@
      "special": "hy_wipe",
      "unlock": 4,
      "requires": 0,
-     "pose": "",
+     "pose": "cast_mind",
      "icon": "unrp:textures/icons/hypnosis_memory_wipe_icon.png",
      "bar_color": "magenta",
      "bar_slot": 4
@@ -6014,10 +6187,12 @@
    "bar_color": "magenta"
   },
   "life_steal": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Life Steal",
      "input": "charge",
      "cost": 35,
@@ -6033,6 +6208,7 @@
      "pose": "og_beam"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 18,
@@ -6069,7 +6245,7 @@
      "cost": 25,
      "cooldown": 10,
      "special": "am_copy",
-     "pose": "",
+     "pose": "am_take",
      "icon": "unrp:textures/icons/aura_manipulation_copy.png",
      "bar_color": "white",
      "bar_slot": 1
@@ -6082,7 +6258,7 @@
      "cooldown": 40,
      "special": "am_expel",
      "unlock": 2,
-     "pose": "",
+     "pose": "am_castoff",
      "icon": "unrp:textures/icons/aura_manipulation_expel.png",
      "bar_color": "purple",
      "bar_slot": 2
@@ -6139,7 +6315,7 @@
      "cost": 6,
      "cooldown": 20,
      "special": "bm_blade",
-     "pose": "",
+     "pose": "bm_draw",
      "icon": "unrp:textures/icons/bm_blade.png",
      "bar_color": "gray",
      "bar_slot": 1
@@ -6153,7 +6329,7 @@
      "special": "bm_ranged",
      "unlock": 2,
      "requires": 0,
-     "pose": "",
+     "pose": "og_slash",
      "icon": "unrp:textures/icons/bm_ranged.png",
      "bar_color": "gray",
      "bar_slot": 2
@@ -6167,7 +6343,7 @@
      "special": "bm_arc",
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "og_slash",
      "icon": "unrp:textures/icons/bm_crescent.png",
      "bar_color": "gray",
      "bar_slot": 3
@@ -6181,7 +6357,7 @@
      "special": "bm_manifest",
      "unlock": 4,
      "requires": 1,
-     "pose": "",
+     "pose": "bm_great",
      "icon": "unrp:textures/icons/bm_manifest.png",
      "bar_color": "gray",
      "bar_slot": 4
@@ -6195,7 +6371,7 @@
      "special": "bm_domain",
      "requires": 3,
      "mastery": true,
-     "pose": "",
+     "pose": "og_command",
      "icon": "unrp:textures/icons/bm_domain.png",
      "bar_color": "gray",
      "bar_slot": 5
@@ -6211,10 +6387,12 @@
    "bar_color": "gray"
   },
   "command": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Command",
      "input": "action",
      "cost": 35,
@@ -6250,10 +6428,12 @@
    "activate_pose": "og_temple"
   },
   "death_fire": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Death Fire",
      "input": "charge",
      "cost": 35,
@@ -6269,6 +6449,7 @@
      "pose": "og_beam"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 18,
@@ -6293,10 +6474,12 @@
    "activate_pose": "md_flare"
   },
   "digital_hive": {
+   "icon": "unrp:textures/icons/illumination_dazzling_pulse_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/illumination_dazzling_pulse_icon.png",
      "name": "Digital Hive",
      "input": "charge",
      "cost": 35,
@@ -6380,7 +6563,7 @@
       }
      ],
      "unlock": 2,
-     "pose": "",
+     "pose": "hy_switch",
      "icon": "unrp:textures/icons/hydrofreeze_water_form_icon.png",
      "bar_color": "blue",
      "bar_slot": 2,
@@ -6396,7 +6579,7 @@
      "k": 1.0,
      "unlock": 3,
      "requires": 1,
-     "pose": "",
+     "pose": "hy_envelop",
      "hold_tag": "unrp.water_envelop_active",
      "bar_slot": 3,
      "icon": "unrp:textures/icons/hydrofreeze_envelop_icon.png",
@@ -6418,7 +6601,7 @@
      },
      "unlock": 4,
      "requires": 2,
-     "pose": "",
+     "pose": "hy_lance",
      "bar_slot": 4,
      "icon": "unrp:textures/icons/hydrofreeze_surge_icon.png",
      "bar_color": "blue"
@@ -6445,7 +6628,7 @@
       }
      ],
      "unlock": 2,
-     "pose": "",
+     "pose": "hy_bind",
      "icon": "unrp:textures/icons/hydrofreeze_blades_icon.png",
      "bar_color": "white",
      "bar_slot": 2,
@@ -6473,7 +6656,7 @@
      },
      "unlock": 4,
      "requires": 6,
-     "pose": "",
+     "pose": "hy_blades",
      "bar_slot": 4,
      "icon": "unrp:textures/icons/hydrofreeze_lance_icon.png",
      "bar_color": "white"
@@ -6488,7 +6671,7 @@
      "special": "hydro_freeze",
      "unlock": 3,
      "requires": 4,
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/hydrofreeze_bind_icon.png",
      "bar_color": "white",
      "bar_slot": 3
@@ -6504,10 +6687,12 @@
    "bar_color": "blue"
   },
   "minefield": {
+   "icon": "unrp:textures/icons/explosion_detonate_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Minefield",
      "input": "charge",
      "cost": 35,
@@ -6525,6 +6710,7 @@
      "pose": "og_toss"
     },
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Onde soutenue",
      "input": "held",
      "cost": 18,
@@ -6551,10 +6737,12 @@
    "activate_pose": "md_harden"
   },
   "mistdream": {
+   "icon": "unrp:textures/icons/illumination_dazzling_pulse_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/illumination_dazzling_pulse_icon.png",
      "name": "Mistdream",
      "input": "charge",
      "cost": 35,
@@ -6596,10 +6784,12 @@
    "activate_pose": "md_spin"
   },
   "paralysis": {
+   "icon": "unrp:textures/icons/illumination_dazzling_pulse_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/illumination_dazzling_pulse_icon.png",
      "name": "Paralysis",
      "input": "charge",
      "cost": 35,
@@ -6647,7 +6837,7 @@
      "input": "action",
      "cost": 0,
      "cooldown": 10,
-     "pose": "",
+     "pose": "og_summon",
      "icon": "unrp:textures/icons/particles_guardian_icon.png",
      "bar_color": "pink",
      "bar_slot": 1,
@@ -6661,7 +6851,7 @@
      "cost": 0,
      "cooldown": 60,
      "unlock": 2,
-     "pose": "",
+     "pose": "og_point",
      "icon": "unrp:textures/icons/particles_condense_icon.png",
      "bar_color": "pink",
      "bar_slot": 2,
@@ -6676,7 +6866,7 @@
      "cost": 0,
      "cooldown": 0,
      "unlock": 2,
-     "pose": "",
+     "pose": "og_point",
      "icon": "unrp:textures/icons/particles_weave_icon.png",
      "bar_color": "pink",
      "bar_slot": 2,
@@ -6692,7 +6882,7 @@
      "cost": 0,
      "cooldown": 40,
      "unlock": 3,
-     "pose": "",
+     "pose": "og_toss",
      "icon": "unrp:textures/icons/particles_construct_icon.png",
      "bar_color": "pink",
      "bar_slot": 3,
@@ -6706,7 +6896,7 @@
      "cost": 0,
      "cooldown": 100,
      "unlock": 4,
-     "pose": "",
+     "pose": "og_summon",
      "bar_slot": 4,
      "icon": "unrp:textures/icons/particles_fist_icon.png",
      "bar_color": "pink",
@@ -6725,10 +6915,12 @@
    "active_tag": "unrp.active.particles"
   },
   "sensory_control": {
+   "icon": "unrp:textures/icons/hypnosis_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/hypnosis_icon.png",
      "name": "Sensory Control",
      "input": "action",
      "cost": 35,
@@ -6787,7 +6979,7 @@
      "cost": 2,
      "special": "tk_pressure",
      "k": 1.0,
-     "pose": "",
+     "pose": "tk_crush",
      "hold_tag": "unrp.tk_pressure_active",
      "icon": "unrp:textures/icons/tk_pressure.png",
      "bar_color": "magenta",
@@ -6802,7 +6994,7 @@
      "special": "tk_force",
      "unlock": 2,
      "requires": 0,
-     "pose": "",
+     "pose": "tk_lift",
      "icon": "unrp:textures/icons/tk_force.png",
      "bar_color": "magenta",
      "bar_slot": 2
@@ -6816,7 +7008,7 @@
      "special": "tk_orbit",
      "unlock": 3,
      "requires": 0,
-     "pose": "",
+     "pose": "tk_orbit",
      "flash_tag": "unrp.tk_orbit_active",
      "icon": "unrp:textures/icons/tk_orbit.png",
      "bar_color": "magenta",
@@ -6831,7 +7023,7 @@
      "special": "tk_dominion",
      "unlock": 4,
      "requires": 1,
-     "pose": "",
+     "pose": "tk_dominion_up",
      "icon": "unrp:textures/icons/tk_dominion.png",
      "bar_color": "magenta",
      "bar_slot": 4
@@ -6848,10 +7040,12 @@
    "bar_color": "magenta"
   },
   "vitalize": {
+   "icon": "unrp:textures/icons/healing_activation.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/healing_activation.png",
      "name": "Vitalize",
      "input": "action",
      "cost": 35,
@@ -6873,6 +7067,7 @@
      "pose": "og_heal"
     },
     {
+     "icon": "unrp:textures/icons/healing_activation.png",
      "name": "Healing Flow",
      "input": "held",
      "cost": 18,
@@ -6904,10 +7099,12 @@
    "activate_pose": "og_heal"
   },
   "white_hole": {
+   "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "White Hole",
      "input": "charge",
      "cost": 35,
@@ -6924,6 +7121,7 @@
      "pose": "og_wave"
     },
     {
+     "icon": "unrp:textures/icons/energy_discharge_long_beam.png",
      "name": "Flux continu",
      "input": "held",
      "cost": 18,
@@ -6949,10 +7147,12 @@
    "activate_pose": "og_wave"
   },
   "medium": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Medium",
      "input": "action",
      "cost": 40,
@@ -6977,10 +7177,12 @@
    "activate_pose": "og_temple"
   },
   "unknown": {
+   "icon": "unrp:textures/icons/ability_gauging_icon.png",
    "drain": 0.0,
    "passive": [],
    "moves": [
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Unknown",
      "input": "action",
      "cost": 40,
@@ -7005,6 +7207,7 @@
    "activate_pose": "md_rise"
   },
   "modes": {
+   "icon": "unrp:textures/icons/stone_skin_icon.png",
    "passive": [],
    "modes": [
     {
@@ -7082,6 +7285,7 @@
    ],
    "moves": [
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Changer de mode",
      "desc": "Balanced → Offensive → Defensive → Destroyer → Velocity. Each mode changes stats and moves.",
      "input": "action",
@@ -7091,6 +7295,7 @@
      "pose": "og_touch"
     },
     {
+     "icon": "unrp:textures/icons/ability_gauging_icon.png",
      "name": "Scanner",
      "desc": "Detect nearby characters.",
      "input": "action",
@@ -7105,6 +7310,7 @@
      "pose": "og_scan"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Frappe du mode",
      "mode": 0,
      "desc": "Balanced: charged strike.",
@@ -7121,6 +7327,7 @@
      "pose": "og_punch"
     },
     {
+     "icon": "unrp:textures/icons/strong_punch_haymaker.png",
      "name": "Assaut",
      "mode": 1,
      "desc": "Offensive: rapid strikes against the nearest target.",
@@ -7138,6 +7345,7 @@
      "pose": "og_slash"
     },
     {
+     "icon": "unrp:textures/icons/stone_skin_icon.png",
      "name": "Guard",
      "mode": 2,
      "desc": "Defensive: toggle +3 Defense and knockback immunity.",
@@ -7161,6 +7369,7 @@
      "pose": "ps_bulwark"
     },
     {
+     "icon": "unrp:textures/icons/explosion_detonate_icon.png",
      "name": "Frappe destructrice",
      "mode": 3,
      "desc": "Destroyer: charged wave that devastates the surrounding area.",
@@ -7178,6 +7387,7 @@
      "pose": "og_slam"
     },
     {
+     "icon": "unrp:textures/icons/speed_activation.png",
      "name": "Dash",
      "mode": 4,
      "desc": "Velocity: a lightning-fast leap.",
@@ -7241,7 +7451,7 @@
       0,
       -2
      ],
-     "pose": "",
+     "pose": "ps_bulwark",
      "hold_tag": "unrp.phase_defense_active",
      "icon": "unrp:textures/icons/phase_shift_defense.png",
      "bar_color": "light_gray",
@@ -7280,7 +7490,7 @@
       2
      ],
      "unlock": 2,
-     "pose": "",
+     "pose": "ps_streamline",
      "hold_tag": "unrp.phase_speed_active",
      "icon": "unrp:textures/icons/phase_shift_speed.png",
      "bar_color": "light_gray",
@@ -7326,7 +7536,7 @@
      "min_aura": 1,
      "drain_every": 8,
      "unlock": 3,
-     "pose": "",
+     "pose": "og_claw",
      "hold_tag": "unrp.flame_claw_surge_drain",
      "icon": "unrp:textures/icons/flame_claw_flame_surge_icon.png",
      "bar_color": "orange",
@@ -7369,7 +7579,7 @@
      "cost": 8,
      "cooldown": 35,
      "special": "sk2_shot",
-     "pose": "",
+     "pose": "og_point",
      "icon": "unrp:textures/icons/spikes_spike_shot_icon.png",
      "bar_color": "gray",
      "bar_slot": 1
@@ -7382,7 +7592,7 @@
      "cooldown": 100,
      "special": "sk2_volley",
      "unlock": 2,
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/spikes_spike_volley_icon.png",
      "bar_color": "gray",
      "bar_slot": 2
@@ -7395,7 +7605,7 @@
      "cooldown": 140,
      "special": "sk2_redirect",
      "unlock": 3,
-     "pose": "",
+     "pose": "og_command",
      "icon": "unrp:textures/icons/spikes_redirected_spikes_icon.png",
      "bar_color": "gray",
      "bar_slot": 3
@@ -8762,7 +8972,7 @@
      "cost": 0,
      "cooldown": 10,
      "trigger_tag": "unrp.sb1_trigger",
-     "pose": "",
+     "pose": "og_touch",
      "icon": "unrp:textures/icons/soul_bound_soul.png",
      "bar_color": "yellow",
      "bar_slot": 1
@@ -8774,7 +8984,7 @@
      "cost": 0,
      "cooldown": 40,
      "trigger_tag": "unrp.sb2_trigger",
-     "pose": "",
+     "pose": "og_summon",
      "icon": "unrp:textures/icons/soul_bound_sanctuary.png",
      "bar_color": "yellow",
      "bar_slot": 2
@@ -8786,7 +8996,7 @@
      "cost": 0,
      "cooldown": 200,
      "trigger_tag": "unrp.sb3_trigger",
-     "pose": "",
+     "pose": "og_command",
      "icon": "unrp:textures/icons/soul_bound_borrow.png",
      "bar_color": "yellow",
      "bar_slot": 3
@@ -8798,7 +9008,7 @@
      "cost": 0,
      "cooldown": 10,
      "trigger_tag": "unrp.sb4_trigger",
-     "pose": "",
+     "pose": "og_wave",
      "icon": "unrp:textures/icons/soul_bound_sword.png",
      "bar_color": "yellow",
      "bar_slot": 4
@@ -8819,7 +9029,7 @@
      "cost": 0,
      "cooldown": 10,
      "trigger_tag": "unrp.dg_end_trigger",
-     "pose": "",
+     "pose": "cast_buff",
      "icon": "unrp:textures/icons/disguise_icon.png",
      "bar_color": "purple",
      "bar_slot": 1

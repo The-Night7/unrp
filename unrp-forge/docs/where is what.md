@@ -149,3 +149,7 @@ Recovery Bed has separate **ceiling** and **speed** controls: `/unrp recoverybed
 ## Covenant law registry
 
 `client/CovenantRegistryScreen.java` displays laws by Court, the editor, visibility controls and private proposals. `Specials17.openLawRegistry`, `manageLaw` and `lawProposal` supply and validate that state; `UnrpCommands` registers `/unrp covenant laws`. Proposals are saved in the Sovereign ledger, separately from active laws. Ordinary registry edits use `CovenantLawChoices.supportedLaw` to reject unsupported text.
+
+## Non-Origin animation and texture audit
+
+`tools/check_ability_visuals.py` checks animation IDs, legacy pose keys, player-model hooks, icons and renderer resources. The build runs it through `verifyAbilityVisuals`. [The report](generated/ABILITY_VISUALS.md) and [move checklist](generated/ability-visual-checklist.csv) show coverage and explicitly leave in-game review pending. Shared icon assignments are recorded in `tools/overrides/shared_visual_icons.json`.

@@ -115,6 +115,10 @@ tasks.register('verifyEnglish', Exec) {
     workingDir projectDir
     commandLine providers.gradleProperty('pythonExecutable').getOrElse('python3'), 'tools/check_english.py'
 }
+tasks.register('verifyAbilityVisuals', Exec) {
+    workingDir projectDir
+    commandLine providers.gradleProperty('pythonExecutable').getOrElse('python3'), 'tools/check_ability_visuals.py'
+}
 tasks.named('check') {
-    dependsOn tasks.named('verifyEnglish')
+    dependsOn tasks.named('verifyEnglish'), tasks.named('verifyAbilityVisuals')
 }

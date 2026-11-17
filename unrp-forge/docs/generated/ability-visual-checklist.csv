@@ -1,0 +1,321 @@
+ability,move,name,animation,icon,shared_icon,effect_path,in_game_review
+non_specifiee,1,Unspecified,pose:og_touch,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+non_specifiee,2,Flux continu,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+aura_deity,1,Aura Deity,pose:og_summon,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+blade,1,Blade,pose:og_slash,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+blade,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+claws,1,Claws,pose:og_claw,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+claws,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+illumination,1,Carried Light,pose:og_summon,unrp:textures/icons/illumination_hand_light_icon.png,False,il_light,Not checked
+illumination,2,Blinding Flash,pose:og_wave,unrp:textures/icons/illumination_flash_burst_icon.png,False,il_flash,Not checked
+illumination,3,Phare,pose:og_summon,unrp:textures/icons/illumination_beacon_light_icon.png,False,il_beacon,Not checked
+illumination,4,Dazzling Pulse,pose:cast_pulse,unrp:textures/icons/illumination_dazzling_pulse_icon.png,False,il_pulse,Not checked
+knuckles,1,Knuckles,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+knuckles,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+needles,1,Aiguille,pose:og_point,unrp:textures/icons/needles_needle_shot_icon.png,False,nd_shot,Not checked
+needles,2,Fan,pose:og_toss,unrp:textures/icons/needles_needle_barrage_icon.png,False,nd_barrage,Not checked
+needles,3,Targeted Volley,pose:og_point,unrp:textures/icons/needles_focused_volley_icon.png,False,nd_volley,Not checked
+scanner,1,Scanner,pose:og_scan,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+tir_concentre,1,Focused Shot,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+tir_concentre,2,Flux continu,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+troll,1,Troll,pose:og_summon,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+unknown_augmentation_ability,1,Unknown Augmentation Ability,pose:og_touch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+unknown_augmentation_ability,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+ability_gauging,1,Analyse au toucher,pose:gauge_touch,unrp:textures/icons/ability_gauging_touch_scan.png,False,gauge_touch,Not checked
+ability_gauging,2,Lunette d'aura,pose:gauge_scope,unrp:textures/icons/ability_gauging_aura_scope.png,False,gauge_scope,Not checked
+arcane_shot,1,Tir arcanique,pose:arc_aim,unrp:textures/icons/arcane_shot_shot_icon.png,False,arcane_charge,Not checked
+arcane_shot,2,Salve arcanique,pose:arc_volley,unrp:textures/icons/arcane_shot_volley_icon.png,False,arcane_volley,Not checked
+archer,1,Archer,pose:og_bow,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+archer,2,Flux continu,pose:og_bow,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+barrage,1,Barrage,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+barrage,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+catalyst_ray,1,Catalyse,pose:cr_ray,unrp:textures/icons/catalyst_ray_catalyze.png,False,cr_catalyze,Not checked
+catalyst_ray,2,Table rase,pose:og_wave,unrp:textures/icons/catalyst_ray_clean_slate.png,False,cr_clean,Not checked
+catalyst_ray,3,Genetic Stasis,pose:cast_mind,unrp:textures/icons/catalyst_ray_genetic_stasis.png,False,cr_stasis,Not checked
+catalyst_ray,4,Infusion,pose:og_touch,unrp:textures/icons/catalyst_ray_mutation_imbuement.png,False,cr_imbue,Not checked
+catch_up,1,Catch Up,pose:og_dash,unrp:textures/icons/speed_activation.png,True,dash,Not checked
+charge,1,Charge,pose:og_dash,unrp:textures/icons/speed_activation.png,True,dash,Not checked
+charge_shot,1,Charge Shot,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+charge_shot,2,Flux continu,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+clairvoyance,1,Clairvoyance,pose:og_temple,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+clobber,1,Clobber,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+clobber,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+contact_shred,1,Lacerating Embrace,pose:og_claw,unrp:textures/icons/contact_shred_shred_grip_icon.png,False,cs_grip,Not checked
+contact_shred,2,Toucher griffu,pose:cs_rake_up,unrp:textures/icons/contact_shred_raking_touch_icon.png,False,cs_rake,Not checked
+detection_de_mensonge,1,Falsehood Detection,pose:og_scan,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+dizzy_punch,1,Haymaker tournoyant,pose:dz_spin,unrp:textures/icons/dizzy_punch_haymaker_spin.png,False,dz_spin,Not checked
+dizzy_punch,2,Low Blow,keyframed:dz_sucker,unrp:textures/icons/dizzy_punch_sucker_swing.png,False,dz_sucker,Not checked
+dizzy_punch,3,Tissage,pose:og_guard,unrp:textures/icons/dizzy_punch_weave.png,False,dz_weave,Not checked
+flash_forward,1,Surcharge,pose:og_dash,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+fortify,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+ground_pound,1,Ground Pound,pose:og_slam,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+ground_pound,2,Onde soutenue,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+hair_growth,1,Hair Growth,pose:og_summon,unrp:textures/icons/speed_activation.png,True,dash,Not checked
+hand_blade,1,Fente,keyframed:hb_thrust,unrp:textures/icons/hand_blade_piercing_thrust_icon.png,False,hb_thrust,Not checked
+hand_blade,2,Croissant,keyframed:hb_release,unrp:textures/icons/hand_blade_energy_release_icon.png,False,hb_release,Not checked
+heat_palm,1,Frappe de paume,keyframed:hp_palm,unrp:textures/icons/heat_palm_palm_strike_icon.png,False,hp_palm,Not checked
+heat_palm,2,Paume de fonte,keyframed:hp_palm,unrp:textures/icons/heat_palm_smelting_palm_icon.png,False,hp_smelt,Not checked
+heavy_hitter,1,Heavy-Hitter,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+heavy_hitter,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+impact,1,Impact,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+impact,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+lazor,1,Lazor,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+lazor,2,Flux continu,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+lie_detection,1,Lie Detection,pose:og_scan,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+missiles,1,Missile,pose:ms_aim,unrp:textures/icons/missiles_missile_icon.png,False,ms_missile,Not checked
+missiles,2,Jumeaux,pose:ms_aim,unrp:textures/icons/missiles_twin_icon.png,False,ms_twin,Not checked
+missiles,3,Barrage,pose:og_command,unrp:textures/icons/missiles_barrage_icon.png,False,ms_barrage,Not checked
+missiles,4,Ogive,pose:ms_aim,unrp:textures/icons/missiles_heavy_icon.png,False,ms_heavy,Not checked
+phantom_fist,1,Giant Fist,keyframed:pf_punch,unrp:textures/icons/phantom_fist_fist_icon.png,False,pf_fist,Not checked
+phantom_fist,2,Un-deux,keyframed:pf_double,unrp:textures/icons/phantom_fist_double_icon.png,False,pf_double,Not checked
+phantom_fist,3,Meteor,keyframed:pf_meteor,unrp:textures/icons/phantom_fist_meteor_icon.png,False,pf_meteor,Not checked
+phantom_fist,4,Rafale de coups,keyframed:pf_barrage,unrp:textures/icons/phantom_fist_barrage_icon.png,False,pf_barrage,Not checked
+phantom_push,1,Push,pose:cast_blast,unrp:textures/icons/phantom_push_push_icon.png,False,pp_push,Not checked
+phantom_push,2,Volley,pose:cast_blast,unrp:textures/icons/phantom_push_volley_icon.png,False,pp_volley,Not checked
+phantom_push,3,Paume,pose:pp_palm,unrp:textures/icons/phantom_push_palm_icon.png,False,pp_palm,Not checked
+phantom_push,4,Onde,pose:og_wave,unrp:textures/icons/phantom_push_wave_icon.png,False,pp_wave,Not checked
+possession,1,Possession,pose:og_temple,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+quick_strike,1,Fente,keyframed:qs_blitz,unrp:textures/icons/quick_strike_blitz_punch_icon.png,False,qs_blitz,Not checked
+quick_strike,2,Posture d'assaut,pose:og_guard,unrp:textures/icons/quick_strike_assault_stance_icon.png,False,qs_stance,Not checked
+quick_strike,3,Combo,keyframed:qs_jab,unrp:textures/icons/quick_strike_combo_rush_icon.png,False,qs_combo,Not checked
+quick_strike,4,Poursuite,keyframed:qs_pursuit,unrp:textures/icons/quick_strike_pursuit_dash_icon.png,False,qs_pursuit,Not checked
+regeneration,1,Adrenaline,pose:regen_adrenaline,unrp:textures/icons/regeneration_adrenaline.png,False,regen_adrenaline,Not checked
+regeneration,2,Martyr,pose:regen_exhale,unrp:textures/icons/regeneration_martyr.png,False,martyr,Not checked
+repulsion,1,Repulsion,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+repulsion,2,Onde soutenue,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+rock_arm,1,Frappe de pierre,keyframed:ra_smash,unrp:textures/icons/rock_arm_rock_smash_icon.png,False,ra_smash,Not checked
+rock_arm,2,Garde de pierre,pose:og_guard,unrp:textures/icons/rock_arm_guarded_stance_icon.png,False,ra_guard,Not checked
+sanity_control_bal,1,Sanity Control (Bal),pose:og_temple,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+sanity_control_heal,1,Sanity Control (Heal),pose:og_heal,unrp:textures/icons/healing_activation.png,True,heal,Not checked
+sanity_control_heal,2,Healing Flow,pose:og_heal,unrp:textures/icons/healing_activation.png,True,heal,Not checked
+sanity_control_hurt,1,Sanity Control (Hurt),pose:og_temple,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+shockwave,1,Shockwave,pose:og_slam,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+shockwave,2,Onde soutenue,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+speed,1,Rush,keyframed:spd_rush,unrp:textures/icons/speed_speed_rush_icon.png,False,buff,Not checked
+speed,2,Flash Dash,pose:spd_dash,unrp:textures/icons/speed_blitz_dash_icon.png,False,dash,Not checked
+stone_skin,1,Durcir,pose:cast_buff,unrp:textures/icons/stone_skin_harden.png,False,st_harden,Not checked
+stone_skin,2,Immobile,pose:og_guard,unrp:textures/icons/stone_skin_immovable.png,False,st_immovable,Not checked
+strength,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+strong_kick,1,Axe Kick,keyframed:sk_axe,unrp:textures/icons/strong_kick_axe_kick.png,False,sk_axe,Not checked
+strong_kick,2,Balayage,keyframed:sk_sweep,unrp:textures/icons/strong_kick_sweep.png,False,sk_sweep,Not checked
+strong_kick,3,Frappe au sol,keyframed:sk_kick,unrp:textures/icons/strong_kick_ground_smash.png,False,sk_smash,Not checked
+strong_punch,1,Haymaker,keyframed:sp_haymaker,unrp:textures/icons/strong_punch_haymaker.png,False,sp_haymaker,Not checked
+strong_punch,2,Bris de garde,keyframed:sp_break,unrp:textures/icons/strong_punch_guard_break.png,False,sp_break,Not checked
+strong_punch,3,Frappe au sol,keyframed:smash_up,unrp:textures/icons/strong_punch_ground_smash.png,False,sp_smash,Not checked
+tremor,1,Earthquake,keyframed:tm_quake,unrp:textures/icons/tremor_quake_icon.png,False,tm_quake,Not checked
+tremor,2,Faille,keyframed:tm_fault,unrp:textures/icons/tremor_fault_icon.png,False,tm_fault,Not checked
+tremor,3,Magnitude,keyframed:tm_mag_on,unrp:textures/icons/tremor_mag_icon.png,False,tm_mag,Not checked
+tremor,4,Seismic Shard,keyframed:tm_burst,unrp:textures/icons/tremor_burst_icon.png,False,tm_burst,Not checked
+vigor,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+ghost,1,Surcharge,pose:og_summon,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+healing,1,Self-Heal,pose:heal_self,unrp:textures/icons/healing_self_active.png,False,tags / attributes / passive,Not checked
+healing,2,Marquer,pose:heal_mark,unrp:textures/icons/healing_mark.png,False,heal_mark,Not checked
+healing,3,Ranged Heal,pose:heal_other,unrp:textures/icons/healing_external.png,False,heal_external,Not checked
+healing,4,Emergency Heal,pose:heal_triage,unrp:textures/icons/healing_triage_surge.png,False,heal_triage,Not checked
+lightning,1,Lightning,keyframed:lt_cast,unrp:textures/icons/lightning_lightning_bolt_icon.png,False,bolt,Not checked
+lightning,2,Electric Touch,keyframed:lt_touch,unrp:textures/icons/lightning_shock_touch_icon.png,False,strike,Not checked
+lightning,3,Course foudroyante,keyframed:lt_surge,unrp:textures/icons/lightning_surge_run_icon.png,False,buff,Not checked
+lightning,4,Rayon foudroyant,keyframed:lt_beam,unrp:textures/icons/lightning_lightning_beam_icon.png,False,beam,Not checked
+telepathy,1,Telepathy,pose:og_temple,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+arachnid,1,Assaut arachnide,keyframed:ar_assault,unrp:textures/icons/arachnid_assault_icon.png,False,ar_assault,Not checked
+arachnid,2,Pattes gardiennes,pose:ar_guard,unrp:textures/icons/arachnid_guard_icon.png,False,ar_guard,Not checked
+arachnid,3,Bond arachnide,keyframed:ar_leap,unrp:textures/icons/arachnid_leap_icon.png,False,ar_leap,Not checked
+arachnid,4,Charge empalante,keyframed:ar_rush,unrp:textures/icons/arachnid_rush_icon.png,False,ar_rush,Not checked
+armor_suit,1,Arc-boutant,pose:as_brace,unrp:textures/icons/armor_suit_brace_icon.png,False,suit_brace,Not checked
+armor_suit,2,Charge de garde,pose:cast_dash,unrp:textures/icons/armor_suit_crash_icon.png,False,suit_crash,Not checked
+armor_suit,3,Plate Shedding,pose:og_wave,unrp:textures/icons/armor_suit_shed_icon.png,False,suit_shed,Not checked
+armor_suit,4,Salve de plaques,pose:as_fan,unrp:textures/icons/armor_suit_volley_icon.png,False,suit_volley,Not checked
+conjure_disks,1,Disques en orbite,pose:og_guard,unrp:textures/icons/conjure_disks_orbit_shield_icon.png,False,cd_shield,Not checked
+conjure_disks,2,Lancer un disque,pose:dl_snap,unrp:textures/icons/conjure_disks_disk_launch_icon.png,False,cd_launch,Not checked
+conjure_disks,3,Hover Disc,pose:og_summon,unrp:textures/icons/conjure_disks_hoverboard_icon.png,False,cd_hover,Not checked
+crescent_slash,1,Croissant,pose:cres_charge,unrp:textures/icons/crescent_slash_slash_icon.png,False,cs_slash,Not checked
+crescent_slash,2,Jumeaux,pose:og_slash,unrp:textures/icons/crescent_slash_twin_icon.png,False,cs_twin,Not checked
+crescent_slash,3,Fan,pose:og_slash,unrp:textures/icons/crescent_slash_volley_icon.png,False,cs_volley,Not checked
+crescent_slash,4,Grand croissant,pose:cres_charge,unrp:textures/icons/crescent_slash_grand_icon.png,False,cs_grand,Not checked
+crimson_thread,1,Crimson Thread,pose:og_slash,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+crimson_thread,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+demon_blade,1,Demon Blade,pose:og_slash,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+demon_blade,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+demon_claw,1,Demonic Leap,keyframed:dc_lunge,unrp:textures/icons/demon_claw_demon_lunge_icon.png,False,dc_lunge,Not checked
+demon_claw,2,Eviscerating Slash,keyframed:dc_ripper,unrp:textures/icons/demon_claw_ripper_slash_icon.png,False,dc_ripper,Not checked
+demon_claw,3,Feral Focus,pose:og_claw,unrp:textures/icons/demon_claw_feral_focus_icon.png,False,dc_feral,Not checked
+energy_beam,1,Energy Beam,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+energy_beam,2,Flux continu,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+explosion,1,Detonation,pose:ex_prime,unrp:textures/icons/explosion_detonate_icon.png,False,ex_detonate,Not checked
+explosion,2,Onde explosive,pose:cast_blast,unrp:textures/icons/explosion_shock_icon.png,False,ex_shock,Not checked
+explosion,3,Cluster Detonation,pose:ex_prime,unrp:textures/icons/explosion_cluster_icon.png,False,ex_cluster,Not checked
+fleetstep,1,Fleetstep,pose:og_dash,unrp:textures/icons/speed_activation.png,True,dash,Not checked
+graviton,1,Graviton,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+graviton,2,Onde soutenue,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+grenadier,1,Grenadier,pose:og_toss,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+grenadier,2,Flux continu,pose:og_toss,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+heal_link,1,Heal Link,pose:og_heal,unrp:textures/icons/healing_activation.png,True,heal,Not checked
+heal_link,2,Healing Flow,pose:og_heal,unrp:textures/icons/healing_activation.png,True,heal,Not checked
+hunter,1,Hunter,pose:og_scan,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+invisibility,1,Cape optique,pose:inv_cloak,unrp:textures/icons/invis_cloak.png,False,tags / attributes / passive,Not checked
+invisibility,2,Shared Cloak,pose:inv_share,unrp:textures/icons/invis_shared.png,False,share,Not checked
+iron_knuckle,1,Iron Knuckle,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+iron_knuckle,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+liquids_manipulation,1,Liquids Manipulation,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+liquids_manipulation,2,Onde soutenue,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+nightmare,1,Champ de terreur,pose:nm_field,unrp:textures/icons/nightmare_terror_field_icon.png,False,nm_field,Not checked
+nightmare,2,Hallucination,pose:nm_reach,unrp:textures/icons/nightmare_hallucination_icon.png,False,nm_hallucinate,Not checked
+nightmare,3,Pic de panique,pose:np_clutch,unrp:textures/icons/nightmare_panic_spike_icon.png,False,nm_panic,Not checked
+pride,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+royal_guard,1,Surcharge,pose:og_guard,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+shadow_eclipse,1,Surcharge,pose:og_summon,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+shadow_flame,1,Boule de flamme,pose:sf_cast,unrp:textures/icons/shadow_flame_flame_bolt_icon.png,False,sf_bolt,Not checked
+shadow_flame,2,Triple Volley,pose:sf_cast,unrp:textures/icons/shadow_flame_dual_volley_icon.png,False,sf_volley,Not checked
+super_strength,1,Super Strength,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+super_strength,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+superhuman,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+teleportation,1,Teleportation,pose:og_dash,unrp:textures/icons/phase_shift_speed.png,True,teleport,Not checked
+whirlwind,1,Barrage,pose:og_wave,unrp:textures/icons/whirlwind_air_blast_icon.png,False,ww_blast,Not checked
+whirlwind,2,Cyclone,pose:og_surge,unrp:textures/icons/whirlwind_cyclone_pull_icon.png,False,ww_cyclone,Not checked
+whirlwind,3,Vol,pose:og_summon,unrp:textures/icons/whirlwind_flight_icon.png,False,ww_flight,Not checked
+whirlwind,4,Bouclier de vent,pose:og_guard,unrp:textures/icons/whirlwind_wind_shield_icon.png,False,ww_shield,Not checked
+alchimie,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+cancellation,1,Cancellation,pose:og_guard,unrp:textures/icons/aura_manipulation_expel.png,True,dispel,Not checked
+azure_storm,1,Azure Storm,pose:as_vortex,unrp:textures/icons/azure_storm_storm_icon.png,False,storm_field,Not checked
+azure_storm,2,Garde du vent,pose:og_guard,unrp:textures/icons/azure_storm_guard_icon.png,False,storm_guard,Not checked
+azure_storm,3,Storm Flight,pose:og_summon,unrp:textures/icons/azure_storm_climber_icon.png,False,storm_flight,Not checked
+azure_storm,4,Lance cyclone,pose:og_beam,unrp:textures/icons/azure_storm_lance_icon.png,False,storm_lance,Not checked
+bodybuilder,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+conjure_vines,1,Fouet de lianes,pose:og_claw,unrp:textures/icons/conjure_vines_vine_lash_icon.png,False,cv_lash,Not checked
+conjure_vines,2,Entrave,keyframed:cv_entangle,unrp:textures/icons/conjure_vines_entanglement_icon.png,False,cv_entangle,Not checked
+conjure_vines,3,Thorns,keyframed:cv_spikes,unrp:textures/icons/conjure_vines_vine_spikes_icon.png,False,cv_spikes,Not checked
+conjure_vines,4,Embrace,pose:og_touch,unrp:textures/icons/conjure_vines_grasping_growth_icon.png,False,cv_grasp,Not checked
+dark_blades,1,Dark Blades,pose:og_slash,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+dark_blades,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+demolition,1,Demolition,pose:og_slam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+demolition,2,Flux continu,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+duplication,1,Surcharge,pose:og_summon,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+energy_conduit,1,Lasso d'aura,pose:og_point,unrp:textures/icons/energy_conduit_lasso_icon.png,False,ec_lasso,Not checked
+energy_conduit,2,Transfert,pose:og_touch,unrp:textures/icons/energy_conduit_transfer_icon.png,False,ec_transfer,Not checked
+energy_conduit,3,Restauration,pose:heal_other,unrp:textures/icons/energy_conduit_restore_icon.png,False,ec_restore,Not checked
+energy_conduit,4,Control,pose:og_command,unrp:textures/icons/energy_conduit_control_icon.png,False,ec_control,Not checked
+energy_discharge,1,Rayon,keyframed:ed_beam,unrp:textures/icons/energy_discharge_long_beam.png,False,ed_beam,Not checked
+energy_discharge,2,Energy Sphere,keyframed:ed_hurl,unrp:textures/icons/energy_discharge_sphere.png,False,ed_sphere,Not checked
+energy_discharge,3,Shockwave,keyframed:ed_tuck,unrp:textures/icons/energy_discharge_burst.png,False,ed_burst,Not checked
+energy_discharge,4,Propulsion,keyframed:ed_propel,unrp:textures/icons/energy_discharge_propulsion.png,False,ed_propel,Not checked
+faucheuse_fantome,1,Phantom Reaper,pose:og_slash,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+faucheuse_fantome,2,Flux continu,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+god_s_mind,1,God's Mind,pose:og_temple,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+icicle,1,Icicle,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+icicle,2,Flux continu,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+imprison,1,Imprison,pose:og_command,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+memory_recall,1,Memory Recall,pose:og_temple,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+portals,1,Portals,pose:og_summon,unrp:textures/icons/phase_shift_speed.png,True,teleport,Not checked
+predator,1,Verrouillage,keyframed:pd_lock,unrp:textures/icons/predator_lock_icon.png,False,pd_lock,Not checked
+predator,2,Heightened Senses,pose:og_scan,unrp:textures/icons/predator_focus_icon.png,False,pd_focus,Not checked
+predator,3,Predator Rush,keyframed:pd_rush,unrp:textures/icons/predator_rush_icon.png,False,pd_rush,Not checked
+predator,4,Brise-sol,keyframed:pd_breaker2,unrp:textures/icons/predator_breaker_icon.png,False,pd_breaker,Not checked
+predator,5,Transformation,keyframed:pd_roar,unrp:textures/icons/predator_trans_icon.png,False,pd_trans,Not checked
+protector,1,Surcharge,pose:og_guard,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+psy_blast,1,Psy-Blast,pose:og_point,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+psy_blast,2,Flux continu,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+psychopomp,1,Psychopomp,pose:og_temple,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+psychopomp,2,Flux continu,pose:og_temple,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+spectral_claw,1,Prise,pose:sc_grip,unrp:textures/icons/spectral_claw_grip_icon.png,False,sc_grip,Not checked
+spectral_claw,2,Lancer,pose:sc_throw,unrp:textures/icons/spectral_claw_throw_icon.png,False,sc_throw,Not checked
+umbral_shift,1,Dive,keyframed:us_dive,unrp:textures/icons/umbral_shift_dive_icon.png,False,us_dive,Not checked
+umbral_shift,2,Assaut d'ombre,keyframed:us_burst,unrp:textures/icons/umbral_shift_assault_icon.png,False,us_assault,Not checked
+wrist_spike,1,Wrist Spike,pose:og_slash,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+wrist_spike,2,Barrage,pose:og_flurry,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+barrier,1,Raise Barrier,keyframed:br_ward,unrp:textures/icons/barrier_deploy.png,False,tags / attributes / passive,Not checked
+barrier,2,Expand Barriers,keyframed:br_grow,unrp:textures/icons/barrier_growth.png,False,tags / attributes / passive,Not checked
+barrier,3,Ram,keyframed:br_ram,unrp:textures/icons/barrier_ram.png,False,tags / attributes / passive,Not checked
+time_manipulation,1,Changer de posture,control only,unrp:textures/icons/time_manipulation_stance.png,False,stance_next,Not checked
+time_manipulation,2,Flux du temps,keyframed:tm_wind,unrp:textures/icons/time_manipulation_flow.png,False,tm_flow,Not checked
+time_manipulation,3,Rewind,keyframed:tm_rewind,unrp:textures/icons/time_manipulation_rewind.png,False,tm_rewind,Not checked
+time_manipulation,4,Time Shift,keyframed:tm_blink,unrp:textures/icons/time_manipulation_shift.png,False,tm_shift,Not checked
+time_manipulation,5,Time Freeze,keyframed:tm_freeze,unrp:textures/icons/time_manipulation_freeze.png,False,tm_freeze,Not checked
+time_manipulation,6,Frappe temporelle,keyframed:tm_strike,unrp:textures/icons/time_manipulation_fracture_strike.png,False,tm_strike,Not checked
+time_manipulation,7,Delayed Strike,keyframed:tm_mark,unrp:textures/icons/time_manipulation_fracture_delayed.png,False,tm_delayed,Not checked
+botanist,1,Botanist+,pose:og_summon,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+channel_master,1,Channel Master,pose:og_summon,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+debt,1,Surcharge,pose:og_surge,unrp:textures/icons/stone_skin_icon.png,True,buff,Not checked
+hypnosis,1,Pulsion de sommeil,pose:cast_mind,unrp:textures/icons/hypnosis_sleep_pulse_icon.png,False,hy_sleep,Not checked
+hypnosis,2,Imperious Gaze,pose:og_temple,unrp:textures/icons/hypnosis_command_gaze_icon.png,False,hy_gaze,Not checked
+hypnosis,3,Hypnose profonde,pose:cast_mind,unrp:textures/icons/hypnosis_deep_hypnosis_icon.png,False,hy_deep,Not checked
+hypnosis,4,Memory Erasure,pose:cast_mind,unrp:textures/icons/hypnosis_memory_wipe_icon.png,False,hy_wipe,Not checked
+life_steal,1,Life Steal,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+life_steal,2,Flux continu,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+aura_manipulation,1,Copier,keyframed:am_take,unrp:textures/icons/aura_manipulation_copy.png,False,am_copy,Not checked
+aura_manipulation,2,Expulser,keyframed:am_castoff,unrp:textures/icons/aura_manipulation_expel.png,False,am_expel,Not checked
+blademaster,1,Energy Blade,pose:bm_draw,unrp:textures/icons/bm_blade.png,False,bm_blade,Not checked
+blademaster,2,Aura Blades,pose:og_slash,unrp:textures/icons/bm_ranged.png,False,bm_ranged,Not checked
+blademaster,3,Arc d'aura,pose:og_slash,unrp:textures/icons/bm_crescent.png,False,bm_arc,Not checked
+blademaster,4,Manifestation,pose:bm_great,unrp:textures/icons/bm_manifest.png,False,bm_manifest,Not checked
+blademaster,5,Domain of a Thousand Blades,pose:og_command,unrp:textures/icons/bm_domain.png,False,bm_domain,Not checked
+command,1,Command,pose:og_command,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+death_fire,1,Death Fire,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+death_fire,2,Flux continu,pose:og_beam,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+digital_hive,1,Digital Hive,pose:og_summon,unrp:textures/icons/illumination_dazzling_pulse_icon.png,True,pulse,Not checked
+hydrofreeze,1,Changer de posture,control only,unrp:textures/icons/hydrofreeze_stance_icon.png,False,stance_next,Not checked
+hydrofreeze,2,Forme liquide,pose:hy_switch,unrp:textures/icons/hydrofreeze_water_form_icon.png,False,water_form,Not checked
+hydrofreeze,3,Enveloppement,pose:hy_envelop,unrp:textures/icons/hydrofreeze_envelop_icon.png,False,hydro_envelop,Not checked
+hydrofreeze,4,Vague,pose:hy_lance,unrp:textures/icons/hydrofreeze_surge_icon.png,False,beam,Not checked
+hydrofreeze,5,Ice Blades,pose:hy_bind,unrp:textures/icons/hydrofreeze_blades_icon.png,False,tags / attributes / passive,Not checked
+hydrofreeze,6,Lance de glace,pose:hy_blades,unrp:textures/icons/hydrofreeze_lance_icon.png,False,bolt,Not checked
+hydrofreeze,7,Prison de glace,pose:og_wave,unrp:textures/icons/hydrofreeze_bind_icon.png,False,hydro_freeze,Not checked
+minefield,1,Minefield,pose:og_toss,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+minefield,2,Onde soutenue,pose:og_wave,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+mistdream,1,Mistdream,pose:og_temple,unrp:textures/icons/illumination_dazzling_pulse_icon.png,True,pulse,Not checked
+paralysis,1,Paralysis,pose:og_point,unrp:textures/icons/illumination_dazzling_pulse_icon.png,True,pulse,Not checked
+particles,1,Changer de motif,pose:og_summon,unrp:textures/icons/particles_guardian_icon.png,False,tags / attributes / passive,Not checked
+particles,2,Condensation,pose:og_point,unrp:textures/icons/particles_condense_icon.png,False,tags / attributes / passive,Not checked
+particles,3,Tissage,pose:og_point,unrp:textures/icons/particles_weave_icon.png,False,tags / attributes / passive,Not checked
+particles,4,Construction,pose:og_toss,unrp:textures/icons/particles_construct_icon.png,False,tags / attributes / passive,Not checked
+particles,5,Poing,pose:og_summon,unrp:textures/icons/particles_fist_icon.png,False,tags / attributes / passive,Not checked
+sensory_control,1,Sensory Control,pose:og_temple,unrp:textures/icons/hypnosis_icon.png,True,debuff,Not checked
+telekinesis,1,Pression,pose:tk_crush,unrp:textures/icons/tk_pressure.png,False,tk_pressure,Not checked
+telekinesis,2,Manipulation,pose:tk_lift,unrp:textures/icons/tk_force.png,False,tk_force,Not checked
+telekinesis,3,Orbite,pose:tk_orbit,unrp:textures/icons/tk_orbit.png,False,tk_orbit,Not checked
+telekinesis,4,Domination absolue,pose:tk_dominion_up,unrp:textures/icons/tk_dominion.png,False,tk_dominion,Not checked
+vitalize,1,Vitalize,pose:og_heal,unrp:textures/icons/healing_activation.png,True,heal,Not checked
+vitalize,2,Healing Flow,pose:og_heal,unrp:textures/icons/healing_activation.png,True,heal,Not checked
+white_hole,1,White Hole,pose:og_wave,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+white_hole,2,Flux continu,pose:og_wave,unrp:textures/icons/energy_discharge_long_beam.png,True,beam,Not checked
+medium,1,Medium,pose:og_summon,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+unknown,1,Unknown,pose:og_touch,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+modes,1,Changer de mode,pose:og_touch,unrp:textures/icons/stone_skin_icon.png,True,mode_next,Not checked
+modes,2,Scanner,pose:og_scan,unrp:textures/icons/ability_gauging_icon.png,True,scan,Not checked
+modes,3,Frappe du mode,pose:og_punch,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+modes,4,Assaut,pose:og_slash,unrp:textures/icons/strong_punch_haymaker.png,True,strike,Not checked
+modes,5,Guard,pose:ps_bulwark,unrp:textures/icons/stone_skin_icon.png,True,tags / attributes / passive,Not checked
+modes,6,Frappe destructrice,pose:og_slam,unrp:textures/icons/explosion_detonate_icon.png,True,blast,Not checked
+modes,7,Dash,pose:spd_dash,unrp:textures/icons/speed_activation.png,True,dash,Not checked
+phase_shift,1,Defensive Form,pose:ps_bulwark,unrp:textures/icons/phase_shift_defense.png,False,tags / attributes / passive,Not checked
+phase_shift,2,Offensive Form,pose:ps_streamline,unrp:textures/icons/phase_shift_speed.png,False,tags / attributes / passive,Not checked
+flame_claw,1,Anneau de feu,keyframed:fc_ring,unrp:textures/icons/flame_claw_fire_ring_icon.png,False,fc_ring,Not checked
+flame_claw,2,Surchauffe,pose:og_claw,unrp:textures/icons/flame_claw_flame_surge_icon.png,False,fc_surge,Not checked
+flame_claw,3,Blazing Rush,keyframed:fc_rush,unrp:textures/icons/flame_claw_blazing_rush_icon.png,False,fc_rush,Not checked
+spikes,1,Spike Row,pose:og_point,unrp:textures/icons/spikes_spike_shot_icon.png,False,sk2_shot,Not checked
+spikes,2,Spike Volley,pose:og_wave,unrp:textures/icons/spikes_spike_volley_icon.png,False,sk2_volley,Not checked
+spikes,3,Guided Spikes,pose:og_command,unrp:textures/icons/spikes_redirected_spikes_icon.png,False,sk2_redirect,Not checked
+spikes,4,Champ de pointes,pose:spk_field,unrp:textures/icons/spikes_spike_field_icon.png,False,sk2_field,Not checked
+aura_transference,1,Accorder,keyframed:at_siphon,unrp:textures/icons/aura_transference_attune_icon.png,False,tags / attributes / passive,Not checked
+aura_transference,2,Weave into Weapon,keyframed:at_weave,unrp:textures/icons/aura_transference_imbue_weapon_icon.png,False,tags / attributes / passive,Not checked
+aura_transference,3,Weave into Person,keyframed:at_bestow,unrp:textures/icons/aura_transference_imbue_player_icon.png,False,tags / attributes / passive,Not checked
+armament_dominion,1,Forger,keyframed:ad_forge,unrp:textures/icons/armament_dominion_forge_icon.png,False,tags / attributes / passive,Not checked
+armament_dominion,2,Saisir,keyframed:ad_recall,unrp:textures/icons/armament_dominion_recall_icon.png,False,tags / attributes / passive,Not checked
+armament_dominion,3,Balle d'armement,keyframed:ad_aim,unrp:textures/icons/armament_dominion_shot_icon.png,False,tags / attributes / passive,Not checked
+armament_dominion,4,Arsenal complet,keyframed:ad_command,unrp:textures/icons/armament_dominion_full_icon.png,False,tags / attributes / passive,Not checked
+daystar,1,Hache solaire,keyframed:ds_draw,unrp:textures/icons/daystar_axe_icon.png,False,tags / attributes / passive,Not checked
+daystar,2,Soleil,keyframed:ds_charge,unrp:textures/icons/daystar_sun_icon.png,False,tags / attributes / passive,Not checked
+daystar,3,Sunder,keyframed:ds_sunder,unrp:textures/icons/daystar_sunder_icon.png,False,tags / attributes / passive,Not checked
+daystar,4,High Noon,keyframed:ds_noon,unrp:textures/icons/daystar_noon_icon.png,False,tags / attributes / passive,Not checked
+salt_seraph,1,Lance de sel,keyframed:ss_lance,unrp:textures/icons/salt_seraph_lance_icon.png,False,tags / attributes / passive,Not checked
+salt_seraph,2,Mur de sel,keyframed:ss_wall,unrp:textures/icons/salt_seraph_wall_icon.png,False,tags / attributes / passive,Not checked
+salt_seraph,3,Salt Arrows,keyframed:ss_spires,unrp:textures/icons/salt_seraph_spires_icon.png,False,tags / attributes / passive,Not checked
+salt_seraph,4,Seraph Awakening,keyframed:ss_wake,unrp:textures/icons/salt_seraph_wake_icon.png,False,tags / attributes / passive,Not checked
+black_lash,1,Agrippement,keyframed:bl_snatch,unrp:textures/icons/black_lash_snatch_icon.png,False,tags / attributes / passive,Not checked
+black_lash,2,Entrave,keyframed:bl_bind,unrp:textures/icons/black_lash_bind_icon.png,False,tags / attributes / passive,Not checked
+black_lash,3,Fouet,keyframed:bl_whip,unrp:textures/icons/black_lash_whip_icon.png,False,tags / attributes / passive,Not checked
+black_lash,4,Storm,keyframed:bl_storm,unrp:textures/icons/black_lash_storm_icon.png,False,tags / attributes / passive,Not checked
+soul_bound,1,Soul Creation,pose:og_touch,unrp:textures/icons/soul_bound_soul.png,False,tags / attributes / passive,Not checked
+soul_bound,2,Soul Sanctuary,pose:og_summon,unrp:textures/icons/soul_bound_sanctuary.png,False,tags / attributes / passive,Not checked
+soul_bound,3,Soul Borrowing,pose:og_command,unrp:textures/icons/soul_bound_borrow.png,False,tags / attributes / passive,Not checked
+soul_bound,4,Soul Sword,pose:og_wave,unrp:textures/icons/soul_bound_sword.png,False,tags / attributes / passive,Not checked
+disguise,1,End Disguise,pose:cast_buff,unrp:textures/icons/disguise_icon.png,False,tags / attributes / passive,Not checked
