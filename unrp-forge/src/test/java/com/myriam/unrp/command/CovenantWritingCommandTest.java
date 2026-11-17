@@ -15,6 +15,8 @@ class CovenantWritingCommandTest {
         dispatcher.register((LiteralArgumentBuilder<CommandSourceStack>) factory.invoke(null));
         for (String[] example : new String[][] {
                 {"law", "No one may run. Penalty: their Speed"},
+                {"law", "Transfer signed contracts to the Sovereign."},
+                {"law", "When Myriam enters the Court, record their home in a book for the Sovereign."},
                 {"terms", "Whoever enters gives up their weapons"},
                 {"constitution", "No attacking. Penalty: whole ability"},
                 {"sovereign_pact", "PlayerName | nothing for your branch"},

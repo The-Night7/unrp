@@ -66,4 +66,20 @@ class CovenantPersistenceTest {
         assertEquals(Long.MAX_VALUE, collateral.get("until").getAsLong());
         assertEquals(4, collateral.get("tier").getAsInt());
     }
+    @Test void specificRulesAndUndeliveredHomeReportsSurviveReload() {
+        String json="""
+            {"sovereigns":{"%s":{"court":{"owner":"%s","laws":[
+                {"id":8,"text":"Home report","specific":{"kind":"HOME_REPORT","target":"Myriam"},
+                 "reports":{"%s":{"player":"Myriam","dimension":"minecraft:overworld","x":123.5,"y":70,"z":-99,"hasHome":true}}}
+            ]}}}}
+            """.formatted(OWNER,OWNER,VICTIM);
+        Specials17.restoreJson(json);
+        String saved=Specials17.snapshotJson();Specials17.restoreJson(saved);
+        var root=JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject();
+        var law=root.getAsJsonObject("sovereigns").getAsJsonObject(OWNER).getAsJsonObject("court").getAsJsonArray("laws").get(0).getAsJsonObject();
+        assertEquals("HOME_REPORT",law.getAsJsonObject("specific").get("kind").getAsString());
+        assertEquals(123.5,law.getAsJsonObject("reports").getAsJsonObject(VICTIM).get("x").getAsDouble());
+        assertEquals(9,root.getAsJsonObject("sovereigns").getAsJsonObject(OWNER).get("nextLaw").getAsInt());
+    }
+
 }

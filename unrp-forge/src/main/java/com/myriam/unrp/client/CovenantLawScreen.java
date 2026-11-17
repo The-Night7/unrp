@@ -44,6 +44,10 @@ public final class CovenantLawScreen extends Screen {
         }
         if(pages>1) addRenderableWidget(Button.builder(Component.literal((page+1)+" / "+pages+" >"),b->{page=(page+1)%pages;init();})
                 .bounds(left+w-74,top+25,64,16).build());
+        if(command.equals("law")) {
+            var special=Button.builder(Component.literal("Specific rules..."),b->minecraft.setScreen(new CovenantSpecificScreen(this)))
+                    .bounds(left+w-122,top+7,112,16).build();special.active=level>=3.5;addRenderableWidget(special);
+        }
         int footer=(w-28)/3;
         addRenderableWidget(Button.builder(Component.literal("Confirm").withStyle(ChatFormatting.GOLD),b->submit())
                 .bounds(left+10,top+h-27,footer,20).build());

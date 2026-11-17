@@ -99,6 +99,8 @@ public final class Specials17 {
         int id;
         String text;
         Law law;
+        CovenantSpecificRules.Rule specific;
+        final Map<UUID,CovenantSpecificEffects.Report> reports=new HashMap<>();
         boolean hidden;
         long activeAt;
         final Map<UUID, Long> grace = new HashMap<>();
@@ -463,7 +465,7 @@ public final class Specials17 {
             for (LawRec law : new ArrayList<>(c.laws)) {
                 boolean self = c.owner.equals(v.getUUID());
                 if (self && (so == null || !so.bound) && (so == null || so.dailyLaw == null || so.dailyLaw.id != law.id || c.tier >= 4)) continue;
-                if (law.law.viol() != viol || now < law.activeAt || now < law.grace.getOrDefault(v.getUUID(), 0L)) continue;
+                if (law.law == null || law.law.viol() != viol || now < law.activeAt || now < law.grace.getOrDefault(v.getUUID(), 0L)) continue;
                 String key = c.owner + ":" + v.getUUID() + "#" + law.id;
                 if (now < COLLECTION_GATE.getOrDefault(key, 0L)) continue;
                 COLLECTION_GATE.put(key, now + 20);
@@ -622,6 +624,17 @@ public final class Specials17 {
         Court court = editingCourt(state);
         if (court == null) { bar(p, "§7The Court is closed."); return; }
         long now = p.server.overworld().getGameTime();
+        if(pending.what==Await.LAW) {
+            var specific=CovenantSpecificRules.parse(text);
+            if(specific!=null) {
+                if(court.tier<2){bar(p,"§7Specific Court rules unlock at Elite tier (3.5).");return;}
+                if(court.laws.size()>=LAW_CAP[court.tier]){bar(p,"§7Law limit reached.");return;}
+                if(court.laws.stream().anyMatch(law->specific.equals(law.specific))){bar(p,"§7This specific rule is already enacted.");return;}
+                if(!pay(p,10))return;
+                var record=new LawRec();record.id=state.nextLaw++;record.text=specific.text();record.specific=specific;record.activeAt=now;
+                court.laws.add(record);announce(p,court,"§6Law #"+record.id+" : §f"+record.text);rebuildParchments(p,court);saveState(p.server);return;
+            }
+        }
         switch (pending.what) {
             case LAW, RETROACTIVE, FORFEIT -> {
                 Law law = CovenantParse.law(text);
@@ -675,6 +688,7 @@ public final class Specials17 {
                     int id = Integer.parseInt(number);
                     LawRec existing = court.laws.stream().filter(l -> l.id == id).findFirst().orElse(null);
                     if (existing == null) { bar(p, "§7Unknown law."); return; }
+                    if(existing.specific!=null){bar(p,"§7Specific rules apply inside a Court and cannot become Constitutions.");return;}
                     record = copyLaw(existing); court.laws.remove(existing); record.hidden = false;
                 } else {
                     Law law = CovenantParse.law(text);
@@ -1540,7 +1554,7 @@ public final class Specials17 {
 
     private static LawRec copyLaw(LawRec law) {
         LawRec copy = new LawRec(); copy.id = law.id; copy.text = law.text; copy.law = law.law;
-        copy.hidden = law.hidden; copy.activeAt = law.activeAt;
+        copy.hidden = law.hidden; copy.activeAt = law.activeAt; copy.specific=law.specific;
         return copy;
     }
 
@@ -1944,6 +1958,13 @@ public final class Specials17 {
             } else if (!in && was) {
                 c.inside.remove(v.getUUID());
             }
+            if(physical&&!c.exiled.contains(v.getUUID()))for(LawRec law:c.laws) {
+                if(law.specific==null||now<law.activeAt||now<law.grace.getOrDefault(v.getUUID(),0L))continue;
+                if(law.specific.kind()==CovenantSpecificRules.Kind.HOME_REPORT&&entered&&law.specific.matches(v.getGameProfile().getName()))
+                    law.reports.putIfAbsent(v.getUUID(),CovenantSpecificEffects.snapshot(v));
+                if(law.specific.kind()==CovenantSpecificRules.Kind.SIGNED_CONTRACTS&&now%20==0&&owner!=null)
+                    CovenantSpecificEffects.transferContracts(v,owner);
+            }
             if (in) {
                 if (now % 20 == 0) remember(c, v);
                 if (c.exiled.contains(v.getUUID()) && physical) { expel(c, v); continue; }
@@ -1951,6 +1972,13 @@ public final class Specials17 {
                 if (v.isShiftKeyDown()) breach(v, Viol.SNEAK);
                 if (v.isFallFlying() || v.getAbilities().flying || Pal.soaring(v)) breach(v, Viol.FLY);
                 if (now % 10 == 0 && v.serverLevel() == lv) Vfx.glow(lv, Vfx.SPARKS, 0xF2C94C, v.position().add(0, 0.9, 0), new Vec3(0.15, 0.1, 0.15), 1, 0.01); // signature sur la main
+            }
+        }
+        if(owner!=null&&now%20==0)for(LawRec law:c.laws) {
+            var pending=law.reports.entrySet().iterator();
+            while(pending.hasNext()) {
+                if(!CovenantSpecificEffects.deliver(pending.next().getValue(),owner))break;
+                pending.remove();
             }
         }
         // Debt can be paid in stationary/constitutional Courts even when the caster is absent.

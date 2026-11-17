@@ -209,3 +209,21 @@ Constitution and Retroactive Law use the action/penalty form. Total Forfeit fixe
 ### Court visual effects
 
 The ground seal has a fine segmented gold inlay and twelve registration marks. The actual Court boundary uses short gold strokes with signature markers; breached Courts switch to amber. Indemnity glyphs orbit the Sovereign. Law parchments float gently and fade between 18 and 24 blocks. Disable screen effects to stop the pulsing, orbit and floating animation. Delivered parchment overlays include a wax seal and a remaining display-time indicator. All effects use native textures and geometry; hidden laws remain filtered by the server.
+
+### Specific Court rules (Elite 3.5+)
+
+Open **Enact → Specific rules…** to choose a complete rule. They occupy normal law slots, appear on the Court's parchments and ledger, and support Fine Print, repeal, sealed Courts and Jurisdiction copies. They apply physically inside the Court, including when a God-tier signature remains valid elsewhere. They cannot become remote Constitutions or retroactive laws.
+
+- **Transfer signed contracts**: every second, original `unrp:contract` items with a signed entry in the Pact Ledger are moved from visitors' carried inventory into the Sovereign's inventory. Unsigned pages and copies are excluded. Stack data and signatures remain intact; moving the paper does not rewrite its Pact's parties or ownership. If the Sovereign is offline or has no space, the contracts stay with the visitor and collection retries while they remain inside. Transferred papers are retained after the Court closes.
+- **Report a visitor's home**: choose a Minecraft player name, or `*` for any visitor. Each physical entry after enactment creates a written book containing that player's name, home dimension and coordinates as recorded at that moment. Without a saved home, the book explicitly says none was set. A book waits when the Sovereign is offline or full; one pending report per player per law is retained in the Court ledger until delivery. Reports are delivered even if that visitor has since left, while the Court remains active. Pending reports do not multiply while waiting. Closing/repealing the rule ends its pending deliveries.
+
+The mod now provides a persistent single home with `/sethome` and `/home`. Namespaced equivalents `/unrp sethome` and `/unrp home` always address this mod's home data. Global aliases are registered only if absent when these commands register. Homes managed by another mod are separate and are not guessed or replaced with spawn coordinates.
+
+Advanced equivalents:
+
+```mcfunction
+/unrp covenant law Transfer signed contracts to the Sovereign.
+/unrp covenant law When PlayerName enters the Court, record their home in a book for the Sovereign.
+```
+
+Implementation: `CovenantSpecificRules.java` parses typed rules, `CovenantSpecificEffects.java` handles inventory transactions and written books, `Specials17.java` integrates laws and persistence, and `CovenantSpecificScreen.java` provides the form. `home/HomeCommands.java` owns the saved home record.
