@@ -36,6 +36,13 @@ public final class CovenantLawChoices {
     public static List<Penalty> available(double level) {
         return PENALTIES.stream().filter(p -> CovenantRules.allowed(level, p.kind())).toList();
     }
+    public static CovenantParse.Law supportedLaw(String text) {
+        for (Action action : ACTIONS)
+            for (Penalty penalty : PENALTIES)
+                if (text(action, penalty).equalsIgnoreCase(text.trim()))
+                    return CovenantParse.law(text(action, penalty));
+        return null;
+    }
     public static String text(Action action, Penalty penalty) {
         return action.sentence() + ". Penalty: " + penalty.clause();
     }

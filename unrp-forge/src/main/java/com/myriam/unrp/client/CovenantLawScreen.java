@@ -111,6 +111,12 @@ public final class CovenantLawScreen extends Screen {
             claim.active = level >= 5;
             addRenderableWidget(claim);
         }
+        if (command.equals("law")) addRenderableWidget(Button.builder(Component.literal("Laws..."), b -> {
+            if (minecraft.player != null) {
+                submitted = true;
+                minecraft.player.connection.sendCommand("unrp covenant laws");
+            }
+        }).bounds(left + 10, top + h - 49, 72, 18).build());
         int footer = (w - 28) / 3;
         addRenderableWidget(
             Button.builder(Component.literal("Confirm").withStyle(ChatFormatting.GOLD), b -> submit())

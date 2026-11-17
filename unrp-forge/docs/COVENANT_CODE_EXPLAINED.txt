@@ -52,6 +52,18 @@ The server validates every request. The forms only collect input.
 CovenantWritingScreen handles the other writing actions: Pacts, entry conditions,
 tribute, jurisdiction and hand messages.
 
+Law registry
+------------
+CovenantRegistryScreen reads an owner-only snapshot sent by openLawRegistry.
+Each mutation includes the Court UUID and law number; manageLaw resolves both
+against the caller's own ledger. Editing costs 10 aura and checks current tier,
+activation and supported grammar. Deletion affects only that Court's copy.
+Constitutions cannot be hidden; ordinary Fine Print requires level 2.
+CovenantLawChoices.supportedLaw accepts the canonical action/penalty sentences
+used by the selectors, avoiding the loose keyword parser for registry edits.
+Supported specific rules keep their dedicated parser and tier checks.
+Proposals are a separate saved list of private notes with no gameplay effect.
+
 Territory claims
 ----------------
 claimTerritory creates a fixed district Court at the player's position from

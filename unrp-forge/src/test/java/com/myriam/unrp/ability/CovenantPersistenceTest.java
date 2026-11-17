@@ -142,4 +142,16 @@ class CovenantPersistenceTest {
         assertEquals(123.5, law.getAsJsonObject("reports").getAsJsonObject(VICTIM).get("x").getAsDouble());
         assertEquals(9, root.getAsJsonObject("sovereigns").getAsJsonObject(OWNER).get("nextLaw").getAsInt());
     }
+    @Test
+    void proposalsSurviveReloadWithoutBecomingActiveLaws() {
+        Specials17.restoreJson("""
+                {"sovereigns":{"%s":{"proposals":["Visitors must pay diamonds"],"jurisdictions":[]}}}
+                """.formatted(OWNER));
+        Specials17.restoreJson(Specials17.snapshotJson());
+        var owner = JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject()
+                .getAsJsonObject("sovereigns").getAsJsonObject(OWNER);
+        assertEquals("Visitors must pay diamonds", owner.getAsJsonArray("proposals").get(0).getAsString());
+        assertTrue(owner.getAsJsonArray("jurisdictions").isEmpty());
+        assertFalse(owner.has("court"));
+    }
 }

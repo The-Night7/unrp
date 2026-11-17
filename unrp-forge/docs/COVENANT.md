@@ -24,6 +24,22 @@ Durations use server ticks at 20 ticks/second: one hour = 72,000 ticks, one day 
 
 ![Law submission, validation, triggers and effect handling.](covenant-law-flow.svg)
 
+## Law registry
+
+Open **Ledger** on the ability bar, **Laws...** in Enact, or `/unrp covenant laws`. The registry shows the personal Court, sealed Court, claimed territories, temporary Jurisdictions and Constitutions separately. Click the Court selector to cycle through them and the page button to see more laws. Each row includes the law number, visibility and text; select it to load its full text into the editor.
+
+- **Save edit (10 aura)** replaces the selected law in that Court. Use the action and penalty choices for ordinary laws. Supported specific-rule sentences can also be edited in the text field. Covenant must be active, and the server checks the current effective level before accepting a change.
+- **Hide / Reveal** controls Fine Print visibility from level 2, with one hidden law per Court. Constitutions remain public.
+- **Delete...** asks for confirmation and removes only this Court's entry. Copies in other Courts remain unchanged. Existing Collateral is not refunded by editing or deleting a law.
+
+Edits retain the law number, clear pending home reports and restart the low-tier reading grace where required. The server owns the registry and validates the Court owner on every change. Reading or deleting your own entries does not require an active power. The older `cv laws` / `cv ledger` chat commands still print the text ledger; `cv repeal N` now targets the selected Court only. Use the registry to remove a Constitution or a specific copy without changing the current Court selection.
+
+### Ideas that need new code
+
+Write the idea in the text field and click **Save proposal**. The **Proposals (not enforced)** tab holds up to 32 private notes of 512 characters, saved in the Sovereign's ledger. Select a note to read it or delete it. A proposal never binds a visitor, creates debt or collects a penalty.
+
+The mod does not interpret arbitrary English as new gameplay. To implement a proposal, add its trigger and effect in Java, define its tier restrictions, expose it in the relevant form and test it. See [Ability development](ABILITY_DEVELOPMENT.md) and the [code guide](COVENANT_CODE_EXPLAINED.txt). Registry edits reject unsupported ordinary sentences rather than guessing from a word they contain. Saving a proposal does not automatically notify a developer or enable the rule later.
+
 ## Claiming territory
 
 At effective level **5.0+**, the Sovereign can claim a fixed area as a permanent Court. Activate Covenant, open Enact and click **Claim...**, or use `/unrp covenant claim Myriam Court` while standing at its centre. The command without a name opens the naming form.

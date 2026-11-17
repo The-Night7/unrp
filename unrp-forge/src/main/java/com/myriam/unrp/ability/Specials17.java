@@ -146,6 +146,7 @@ public final class Specials17 {
         int selectedCourt = -1;
         Court constitution;
         final List<Court> jurisdictions = new ArrayList<>();
+        final List<String> proposals = new ArrayList<>();
         final Map<UUID, Long> signatures = new HashMap<>();
         final Map<UUID, Subject> subjects = new HashMap<>();
         final Map<UUID, List<String>> handMail = new HashMap<>();
@@ -706,6 +707,137 @@ public final class Specials17 {
             new Pending(
                 what, player.server.overworld().getGameTime(), what == Await.PACT ? previous.target : null),
             text);
+        return true;
+    }
+
+    public static boolean openLawRegistry(ServerPlayer player) {
+        Sov state = SOV.get(player.getUUID());
+        if (state == null) {
+            bar(player, "§7No Covenant ledger is available yet. Activate Covenant first.");
+            return false;
+        }
+        cancelWriting(player);
+        var payload = new com.google.gson.JsonObject();
+        payload.addProperty("registry", true);
+        payload.addProperty("level", levelOf(player));
+        var courts = new com.google.gson.JsonArray();
+        for (Court court : allCourts()) {
+            if (!player.getUUID().equals(court.owner)) continue;
+            var entry = new com.google.gson.JsonObject();
+            entry.addProperty("id", court.id.toString());
+            entry.addProperty("name", court == state.court ? "Personal Court"
+                    : court == state.sealed ? "Sealed Court"
+                    : court.constitutional ? "Constitutions" : court.name);
+            entry.addProperty("constitution", court.constitutional);
+            var laws = new com.google.gson.JsonArray();
+            for (LawRec law : court.laws) {
+                var row = new com.google.gson.JsonObject();
+                row.addProperty("id", law.id);
+                row.addProperty("text", law.text);
+                row.addProperty("hidden", law.hidden);
+                row.addProperty("specific", law.specific != null);
+                laws.add(row);
+            }
+            entry.add("laws", laws);
+            courts.add(entry);
+        }
+        payload.add("courts", courts);
+        var proposals = new com.google.gson.JsonArray();
+        state.proposals.forEach(proposals::add);
+        payload.add("proposals", proposals);
+        com.myriam.unrp.net.Net.CHANNEL.send(
+                net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> player),
+                new com.myriam.unrp.net.CovenantPacket(payload.toString()));
+        return true;
+    }
+
+    public static boolean manageLaw(ServerPlayer player, String request) {
+        Sov state = SOV.get(player.getUUID());
+        if (state == null || request.length() > 640) return false;
+        String[] parts = request.split(" ", 4);
+        if (parts.length < 3) return false;
+        Court court;
+        int id;
+        try {
+            UUID courtId = UUID.fromString(parts[0]);
+            id = Integer.parseInt(parts[1]);
+            court = allCourts().stream().filter(c -> c.id.equals(courtId)
+                    && player.getUUID().equals(c.owner)).findFirst().orElse(null);
+        } catch (IllegalArgumentException exception) {
+            return false;
+        }
+        if (court == null) return false;
+        LawRec law = court.laws.stream().filter(l -> l.id == id).findFirst().orElse(null);
+        if (law == null) return false;
+        switch (parts[2]) {
+            case "delete" -> court.laws.remove(law);
+            case "visibility" -> {
+                if (court.constitutional || !on(player) || AbilityEngine.disabled(player)
+                        || levelOf(player) < CovenantRules.MID) return false;
+                if (!law.hidden && court.laws.stream().anyMatch(other -> other.hidden)) {
+                    bar(player, "§7Only one hidden law at a time; reveal it first.");
+                    return false;
+                }
+                law.hidden = !law.hidden;
+            }
+            case "edit" -> {
+                if (parts.length < 4 || parts[3].isBlank() || parts[3].length() > 512
+                        || !on(player) || AbilityEngine.disabled(player)) return false;
+                double level = levelOf(player);
+                if (court.constitutional && level < CovenantRules.GOD) return false;
+                Law parsed = CovenantLawChoices.supportedLaw(parts[3]);
+                var specific = CovenantSpecificRules.parse(parts[3]);
+                if ((parsed == null || !CovenantRules.allowed(level, parsed.pen().kind()))
+                        && (specific == null || level < CovenantRules.ELITE || court.constitutional)) {
+                    bar(player, "§7Unsupported rule. Use the law choices or save it as a proposal.");
+                    return false;
+                }
+                if (specific != null && court.laws.stream().anyMatch(other -> other != law && specific.equals(other.specific))) {
+                    bar(player, "§7This specific rule is already enacted in this Court.");
+                    return false;
+                }
+                if (!pay(player, 10)) return false;
+                law.text = parts[3];
+                law.specific = specific;
+                law.law = specific == null ? parsed : null;
+                law.reports.clear();
+                law.grace.clear();
+                law.activeAt = player.server.overworld().getGameTime();
+                if (level < CovenantRules.MID) {
+                    law.hidden = false;
+                    for (ServerPlayer person : player.server.getPlayerList().getPlayers())
+                        if (insideOf(court, person)) law.grace.put(person.getUUID(), law.activeAt + 60);
+                    announce(player, court, "§6Law #" + law.id + " amended: " + law.text);
+                }
+            }
+            default -> { return false; }
+        }
+        rebuildParchments(player, court);
+        saveState(player.server);
+        openLawRegistry(player);
+        return true;
+    }
+
+    public static boolean lawProposal(ServerPlayer player, boolean remove, String text) {
+        Sov state = SOV.get(player.getUUID());
+        if (state == null) return false;
+        if (remove) {
+            try {
+                int index = Integer.parseInt(text);
+                if (index < 0 || index >= state.proposals.size()) return false;
+                state.proposals.remove(index);
+            } catch (NumberFormatException exception) { return false; }
+        } else {
+            text = text.trim();
+            if (text.isEmpty() || text.length() > 512 || state.proposals.size() >= 32) {
+                bar(player, "§7Proposals need 1–512 characters; keep at most 32.");
+                return false;
+            }
+            state.proposals.add(text);
+            player.sendSystemMessage(Component.literal("§6Proposal saved. It is not an active law and has no automatic effect."));
+        }
+        saveState(player.server);
+        openLawRegistry(player);
         return true;
     }
 
@@ -1625,7 +1757,7 @@ public final class Specials17 {
                 return count > 0;
             }
             case "cv_ledger" -> {
-                ledger(p);
+                openLawRegistry(p);
                 return false;
             }
             case "cv_return", "cv_spend" -> {
@@ -2069,10 +2201,11 @@ public final class Specials17 {
             case "repeal" -> {
                 try {
                     int id = Integer.parseInt(words[2]);
-                    for (Court court : allCourts())
-                        if (court.owner.equals(player.getUUID()))
-                            court.laws.removeIf(l -> l.id == id);
-                    bar(player, "§6Law / Constitution #" + id + " repealed.");
+                    Court court = editingCourt(state);
+                    if (court != null && court.laws.removeIf(l -> l.id == id)) {
+                        rebuildParchments(player, court);
+                        bar(player, "§6Law #" + id + " repealed in the selected Court.");
+                    } else bar(player, "§7That law is not in the selected Court. Use /unrp covenant laws.");
                 } catch (RuntimeException e) {
                     bar(player, "§7cv repeal <law number>");
                 }

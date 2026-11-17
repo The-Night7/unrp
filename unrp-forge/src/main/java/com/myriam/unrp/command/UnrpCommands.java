@@ -54,6 +54,13 @@ public final class UnrpCommands {
         root.then(Commands.literal("personal").executes(ctx -> {
             com.myriam.unrp.ability.Specials17.selectPersonalCourt(ctx.getSource().getPlayerOrException()); return 1;
         }));
+        root.then(Commands.literal("laws").executes(ctx ->
+                com.myriam.unrp.ability.Specials17.openLawRegistry(ctx.getSource().getPlayerOrException()) ? 1 : 0));
+        root.then(Commands.literal("lawbook").then(Commands.argument("request", StringArgumentType.greedyString())
+                .executes(ctx -> com.myriam.unrp.ability.Specials17.manageLaw(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "request")) ? 1 : 0)));
+        for (String action : java.util.List.of("proposal", "discard_proposal"))
+            root.then(Commands.literal(action).then(Commands.argument("text", StringArgumentType.greedyString())
+                    .executes(ctx -> com.myriam.unrp.ability.Specials17.lawProposal(ctx.getSource().getPlayerOrException(), action.equals("discard_proposal"), StringArgumentType.getString(ctx, "text")) ? 1 : 0)));
         root.then(Commands.literal("cancel").executes(ctx -> {
             com.myriam.unrp.ability.Specials17.cancelWriting(ctx.getSource().getPlayerOrException()); return 1;
         }));

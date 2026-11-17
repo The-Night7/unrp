@@ -145,3 +145,7 @@ Recovery Bed has separate **ceiling** and **speed** controls: `/unrp recoverybed
 ## Covenant territory claims
 
 `Specials17.claimTerritory`, `selectTerritory` and `releaseTerritory` manage permanent named Courts. `CovenantTerritory.java` validates names and horizontal overlap; `UnrpCommands.java` exposes the commands. The Enact screen links to the claim form in `CovenantWritingScreen`. Claims are saved with the existing Covenant Court ledger in `unrp_covenant.dat`. See [Covenant](COVENANT.md#claiming-territory) for controls and boundaries.
+
+## Covenant law registry
+
+`client/CovenantRegistryScreen.java` displays laws by Court, the editor, visibility controls and private proposals. `Specials17.openLawRegistry`, `manageLaw` and `lawProposal` supply and validate that state; `UnrpCommands` registers `/unrp covenant laws`. Proposals are saved in the Sovereign ledger, separately from active laws. Ordinary registry edits use `CovenantLawChoices.supportedLaw` to reject unsupported text.
