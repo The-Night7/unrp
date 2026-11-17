@@ -28,6 +28,7 @@ In game, **H** opens the hub and **R** toggles your power. Open Controls to chec
 | Covenant | [COVENANT.md](docs/COVENANT.md) |
 | Recovery Bed and owner controls | [RECOVERY_BED.md](docs/RECOVERY_BED.md) |
 | Runtime move reference | [fidelity](docs/fidelity/README.md) |
+| Maintain gameplay, saves and assets | [MAINTENANCE.md](docs/MAINTENANCE.md) |
 | Code structure | [ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 
 ## Repository layout

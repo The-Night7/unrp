@@ -22,6 +22,8 @@ God-tier restrictions that still apply: five Constitutions, a one-hour retroacti
 
 Durations use server ticks at 20 ticks/second: one hour = 72,000 ticks, one day = 24 hours, one week = seven days. These clocks persist through saves and advance while the server world runs; they are not Minecraft daylight cycles and do not advance while the server is stopped.
 
+![Law submission, validation, triggers and effect handling.](covenant-law-flow.svg)
+
 ## Stances and controls
 
 Assign the ability to an eligible OC with `/unrp giveability <player> covenant`. It remains assignment-only, excluded from the normal ability roll. Activate it with the configured power toggle. The main bar page contains the power toggle and four stance actions. Use the configured ability-list key (default X) to reach the second page, then press its Change Stance action. It has its own bar slot and does not replace Enact. Each stance has four actions.

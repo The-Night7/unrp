@@ -2,6 +2,8 @@
 
 `unrp:recovery_bed` is a two-block machine for restoring a disabled ability. Right-click either half to lie down using Minecraft's synchronized sleeping pose. It does not provide bonus health healing or aura regeneration.
 
+![Treatment speed, recovery ceiling and effective level.](recovery-flow.svg)
+
 The placing player owns the bed. Only that owner can change its two independent settings:
 
 - **Ceiling**: the fraction of the original ability restored. Default: **50%**. Sneak-right-click with an empty hand cycles 25%, 50%, 75%, 100%. While looking at the bed, `/unrp recoverybed cap 30` sets an exact ceiling between 1% and 100%.

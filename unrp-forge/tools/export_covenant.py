@@ -33,7 +33,7 @@ def export():
         add(assets / relative)
     for path in (PROJECT / 'docs').glob('*COVENANT*'):
         add(path)
-    for relative in ('docs/fidelity/covenant.md', 'docs/covenant-visuals.png',
+    for relative in ('docs/fidelity/covenant.md', 'docs/covenant-visuals.png', 'docs/covenant-law-flow.svg',
                      'tools/design_covenant.py', 'tools/make_covenant_icons.py', 'tools/export_covenant.py'):
         add(PROJECT / relative)
     payload = {path.relative_to(ROOT).as_posix(): path.read_bytes() for path in sorted(selected)}

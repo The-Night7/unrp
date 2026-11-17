@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="820" viewBox="0 0 1120 820" role="img" aria-labelledby="title description">
+  <title id="title">Recovery Bed: percentage and effective level</title>
+  <desc id="description">Example: a level 10 patient, a 30% ceiling and a speed of 1 percentage point per second. Owner configures the bed: Ceiling: /unrp recoverybed cap 30 Speed: /unrp recoverybed rate 1 Patient lies down: RecoveryBedBlock starts medical rest. The server checks whether treatment is needed. Advance treatment: Add 1 percentage point each treatment second. Leaving the bed pauses this course. Reach the ceiling: At 30%, lift the timed ability disable. The ability is usable at the recovered fraction. Use the effective level: 10 × 30 / 100 = level 3 Keep the original level 10 in the saved profile. Continue recovery later: A higher ceiling allows further treatment. At 100%, effective level returns to 10.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#ad8845"/></marker>
+  </defs>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, sans-serif; fill: #e6e8eb; }
+    .heading { font-size: 28px; font-weight: 650; }
+    .label { font-size: 19px; font-weight: 600; }
+    .body { font-size: 16px; fill: #bec5ce; }
+    .number { font-size: 16px; fill: #e4be74; }
+    .link { fill: none; stroke: #ad8845; stroke-width: 2; marker-end: url(#arrow); }
+  </style>
+  <rect width="1120" height="820" rx="12" fill="#171c23"/>
+  <text x="40" y="54" class="heading">Recovery Bed: percentage and effective level</text>
+  <text x="40" y="87" class="body">Example: a level 10 patient, a 30% ceiling and a speed of 1 percentage point per second.</text>
+  <rect x="40" y="120" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="149" class="number">01</text>
+  <text x="98" y="149" class="label">Owner configures the bed</text>
+  <text x="60" y="181" class="body">Ceiling: /unrp recoverybed cap 30</text>
+  <text x="60" y="205" class="body">Speed: /unrp recoverybed rate 1</text>
+  <path d="M540 186 H574" class="link"/>
+  <rect x="580" y="120" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="149" class="number">02</text>
+  <text x="638" y="149" class="label">Patient lies down</text>
+  <text x="600" y="181" class="body">RecoveryBedBlock starts medical rest.</text>
+  <text x="600" y="205" class="body">The server checks whether treatment is needed.</text>
+  <path d="M830 252 V267 H290 V276" class="link"/>
+  <rect x="40" y="282" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="311" class="number">03</text>
+  <text x="98" y="311" class="label">Advance treatment</text>
+  <text x="60" y="343" class="body">Add 1 percentage point each treatment second.</text>
+  <text x="60" y="367" class="body">Leaving the bed pauses this course.</text>
+  <path d="M540 348 H574" class="link"/>
+  <rect x="580" y="282" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="311" class="number">04</text>
+  <text x="638" y="311" class="label">Reach the ceiling</text>
+  <text x="600" y="343" class="body">At 30%, lift the timed ability disable.</text>
+  <text x="600" y="367" class="body">The ability is usable at the recovered fraction.</text>
+  <path d="M830 414 V429 H290 V438" class="link"/>
+  <rect x="40" y="444" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="473" class="number">05</text>
+  <text x="98" y="473" class="label">Use the effective level</text>
+  <text x="60" y="505" class="body">10 × 30 / 100 = level 3</text>
+  <text x="60" y="529" class="body">Keep the original level 10 in the saved profile.</text>
+  <path d="M540 510 H574" class="link"/>
+  <rect x="580" y="444" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="473" class="number">06</text>
+  <text x="638" y="473" class="label">Continue recovery later</text>
+  <text x="600" y="505" class="body">A higher ceiling allows further treatment.</text>
+  <text x="600" y="529" class="body">At 100%, effective level returns to 10.</text>
+  <path d="M40 632 H1080" stroke="#46505e"/>
+  <text x="40" y="667" class="body">The recovered fraction persists after leaving, reconnecting and the old disable deadline.</text>
+  <text x="40" y="695" class="body">Speed controls treatment time. Ceiling controls how much ability is restored.</text>
+  <text x="40" y="723" class="body">Controls, ownership and exceptions: RECOVERY_BED.md</text>
+</svg>

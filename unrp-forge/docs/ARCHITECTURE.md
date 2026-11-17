@@ -17,6 +17,8 @@ UNRP separates data, server gameplay and client presentation. The server owns ch
 
 Paths are under `src/main/java/com/myriam/unrp/`.
 
+![Move execution from input to server effects and client rendering.](ability-flow.svg)
+
 ## Ability execution
 
 `AbilityEngine` resolves the player's power, checks input and resource requirements, then applies a generic effect or dispatches a special handler. `AbilityEvents` and the `uo/` event classes connect Forge events to that state. Some powers use tags consumed by their event handlers rather than a generic `fx`.

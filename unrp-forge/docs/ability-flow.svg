@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="820" viewBox="0 0 1120 820" role="img" aria-labelledby="title description">
+  <title id="title">How a move reaches the world</title>
+  <desc id="description">The client requests a move. The server decides whether it runs. Load definitions: UnodexLoader reads the ability JSON. UnodexData holds definitions and aliases. Send input: AbilityBar reads the configured key. UseAbilityPacket carries the input to the server. Check the request: AbilityEngine resolves the current power. State, aura, cooldowns and unlocks are checked. Run the move: Generic effects run in AbilityEngine. Specials and event handlers cover custom behavior. Apply gameplay: The server changes damage, inventory or state. Effective level includes partial recovery. Show the result: State and effect packets reach the clients. Screens, layers and particles render the result.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#ad8845"/></marker>
+  </defs>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, sans-serif; fill: #e6e8eb; }
+    .heading { font-size: 28px; font-weight: 650; }
+    .label { font-size: 19px; font-weight: 600; }
+    .body { font-size: 16px; fill: #bec5ce; }
+    .number { font-size: 16px; fill: #e4be74; }
+    .link { fill: none; stroke: #ad8845; stroke-width: 2; marker-end: url(#arrow); }
+  </style>
+  <rect width="1120" height="820" rx="12" fill="#171c23"/>
+  <text x="40" y="54" class="heading">How a move reaches the world</text>
+  <text x="40" y="87" class="body">The client requests a move. The server decides whether it runs.</text>
+  <rect x="40" y="120" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="149" class="number">01</text>
+  <text x="98" y="149" class="label">Load definitions</text>
+  <text x="60" y="181" class="body">UnodexLoader reads the ability JSON.</text>
+  <text x="60" y="205" class="body">UnodexData holds definitions and aliases.</text>
+  <path d="M540 186 H574" class="link"/>
+  <rect x="580" y="120" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="149" class="number">02</text>
+  <text x="638" y="149" class="label">Send input</text>
+  <text x="600" y="181" class="body">AbilityBar reads the configured key.</text>
+  <text x="600" y="205" class="body">UseAbilityPacket carries the input to the server.</text>
+  <path d="M830 252 V267 H290 V276" class="link"/>
+  <rect x="40" y="282" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="311" class="number">03</text>
+  <text x="98" y="311" class="label">Check the request</text>
+  <text x="60" y="343" class="body">AbilityEngine resolves the current power.</text>
+  <text x="60" y="367" class="body">State, aura, cooldowns and unlocks are checked.</text>
+  <path d="M540 348 H574" class="link"/>
+  <rect x="580" y="282" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="311" class="number">04</text>
+  <text x="638" y="311" class="label">Run the move</text>
+  <text x="600" y="343" class="body">Generic effects run in AbilityEngine.</text>
+  <text x="600" y="367" class="body">Specials and event handlers cover custom behavior.</text>
+  <path d="M830 414 V429 H290 V438" class="link"/>
+  <rect x="40" y="444" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="473" class="number">05</text>
+  <text x="98" y="473" class="label">Apply gameplay</text>
+  <text x="60" y="505" class="body">The server changes damage, inventory or state.</text>
+  <text x="60" y="529" class="body">Effective level includes partial recovery.</text>
+  <path d="M540 510 H574" class="link"/>
+  <rect x="580" y="444" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="473" class="number">06</text>
+  <text x="638" y="473" class="label">Show the result</text>
+  <text x="600" y="505" class="body">State and effect packets reach the clients.</text>
+  <text x="600" y="529" class="body">Screens, layers and particles render the result.</text>
+  <path d="M40 632 H1080" stroke="#46505e"/>
+  <text x="40" y="667" class="body">Keep costs and cooldowns in JSON; add Java when the move needs new behavior.</text>
+  <text x="40" y="695" class="body">Client screens collect input. Server handlers enforce ownership and permissions.</text>
+  <text x="40" y="723" class="body">Code map: ARCHITECTURE.md · Adding a move: ABILITY_DEVELOPMENT.md</text>
+</svg>
