@@ -32,6 +32,43 @@ class CovenantPersistenceTest {
     }
 
     @Test
+    void claimedTerritoryRetainsBoundariesLawsAndSelectionAfterReload() {
+        String json = """
+            {"sovereigns":{"%s":{"selectedCourt":0,"jurisdictions":[{
+              "owner":"%s","name":"Myriam Court","claimed":true,"district":true,"follow":false,
+              "dim":"minecraft:overworld","center":{"x":120,"y":64,"z":-30},"radius":150,
+              "laws":[{"id":7,"text":"No running. Penalty: Speed",
+                "law":{"viol":"SPRINT","pen":{"kind":"STAT","key":"4"}}}]
+            }]}}}
+            """.formatted(OWNER, OWNER);
+        Specials17.restoreJson(json);
+        Specials17.restoreJson(Specials17.snapshotJson());
+        var owner = JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject()
+                .getAsJsonObject("sovereigns").getAsJsonObject(OWNER);
+        var claim = owner.getAsJsonArray("jurisdictions").get(0).getAsJsonObject();
+        assertTrue(claim.get("claimed").getAsBoolean());
+        assertFalse(claim.get("follow").getAsBoolean());
+        assertEquals("Myriam Court", claim.get("name").getAsString());
+        assertEquals(150, claim.get("radius").getAsDouble());
+        assertEquals(-30, claim.getAsJsonObject("center").get("z").getAsDouble());
+        assertEquals(Long.MAX_VALUE, claim.get("expires").getAsLong());
+        assertEquals(1, claim.getAsJsonArray("laws").size());
+        assertEquals(0, owner.get("selectedCourt").getAsInt());
+    }
+
+    @Test
+    void oldJurisdictionsAreNotConvertedIntoPermanentClaims() {
+        Specials17.restoreJson("""
+            {"sovereigns":{"%s":{"jurisdictions":[{"owner":"%s","expires":1728000}]}}}
+            """.formatted(OWNER, OWNER));
+        var court = JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject()
+                .getAsJsonObject("sovereigns").getAsJsonObject(OWNER)
+                .getAsJsonArray("jurisdictions").get(0).getAsJsonObject();
+        assertFalse(court.get("claimed").getAsBoolean());
+        assertEquals(1728000, court.get("expires").getAsLong());
+    }
+
+    @Test
     void permanentSoulsAndConstitutionsSurviveSnapshotRoundTrip() {
         Specials17.restoreJson(fixture("SOUL", "", true));
         String saved = Specials17.snapshotJson();
@@ -104,5 +141,17 @@ class CovenantPersistenceTest {
         assertEquals("HOME_REPORT", law.getAsJsonObject("specific").get("kind").getAsString());
         assertEquals(123.5, law.getAsJsonObject("reports").getAsJsonObject(VICTIM).get("x").getAsDouble());
         assertEquals(9, root.getAsJsonObject("sovereigns").getAsJsonObject(OWNER).get("nextLaw").getAsInt());
+    }
+    @Test
+    void proposalsSurviveReloadWithoutBecomingActiveLaws() {
+        Specials17.restoreJson("""
+                {"sovereigns":{"%s":{"proposals":["Visitors must pay diamonds"],"jurisdictions":[]}}}
+                """.formatted(OWNER));
+        Specials17.restoreJson(Specials17.snapshotJson());
+        var owner = JsonParser.parseString(Specials17.snapshotJson()).getAsJsonObject()
+                .getAsJsonObject("sovereigns").getAsJsonObject(OWNER);
+        assertEquals("Visitors must pay diamonds", owner.getAsJsonArray("proposals").get(0).getAsString());
+        assertTrue(owner.getAsJsonArray("jurisdictions").isEmpty());
+        assertFalse(owner.has("court"));
     }
 }

@@ -101,7 +101,22 @@ public final class CovenantLawScreen extends Screen {
                               .build();
             special.active = level >= 3.5;
             addRenderableWidget(special);
+            var claim = Button.builder(Component.literal("Claim..."), b -> {
+                if (minecraft.player != null) {
+                    submitted = true;
+                    minecraft.setScreen(null);
+                    minecraft.player.connection.sendCommand("unrp covenant claim");
+                }
+            }).bounds(left + w - 194, top + 7, 68, 16).build();
+            claim.active = level >= 5;
+            addRenderableWidget(claim);
         }
+        if (command.equals("law")) addRenderableWidget(Button.builder(Component.literal("Laws..."), b -> {
+            if (minecraft.player != null) {
+                submitted = true;
+                minecraft.player.connection.sendCommand("unrp covenant laws");
+            }
+        }).bounds(left + 10, top + h - 49, 72, 18).build());
         int footer = (w - 28) / 3;
         addRenderableWidget(
             Button.builder(Component.literal("Confirm").withStyle(ChatFormatting.GOLD), b -> submit())

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="820" viewBox="0 0 1120 820" role="img" aria-labelledby="title description">
+  <title id="title">Covenant: from a law to its effect</title>
+  <desc id="description">Rules use supported triggers and penalties; the text is not a scripting language. Choose a rule: CovenantLawScreen builds an ordinary law. CovenantSpecificScreen builds an automatic rule. Submit the text: /unrp covenant law sends the request. UnrpCommands calls Specials17.submitWriting. Enact on the server: Check the Court, tier, aura and law limit. Store the accepted law as a LawRec. Watch the Court: Events and tickCourt detect actions and entry. Membership and grace determine who is bound. Apply the matching effect: breach collects ordinary penalties. enforceSpecificRules runs inventory/home rules. Keep the ledger: CovenantStateData saves the Court state. Pending home books are retried on delivery.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="#ad8845"/></marker>
+  </defs>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, sans-serif; fill: #e6e8eb; }
+    .heading { font-size: 28px; font-weight: 650; }
+    .label { font-size: 19px; font-weight: 600; }
+    .body { font-size: 16px; fill: #bec5ce; }
+    .number { font-size: 16px; fill: #e4be74; }
+    .link { fill: none; stroke: #ad8845; stroke-width: 2; marker-end: url(#arrow); }
+  </style>
+  <rect width="1120" height="820" rx="12" fill="#171c23"/>
+  <text x="40" y="54" class="heading">Covenant: from a law to its effect</text>
+  <text x="40" y="87" class="body">Rules use supported triggers and penalties; the text is not a scripting language.</text>
+  <rect x="40" y="120" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="149" class="number">01</text>
+  <text x="98" y="149" class="label">Choose a rule</text>
+  <text x="60" y="181" class="body">CovenantLawScreen builds an ordinary law.</text>
+  <text x="60" y="205" class="body">CovenantSpecificScreen builds an automatic rule.</text>
+  <path d="M540 186 H574" class="link"/>
+  <rect x="580" y="120" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="149" class="number">02</text>
+  <text x="638" y="149" class="label">Submit the text</text>
+  <text x="600" y="181" class="body">/unrp covenant law sends the request.</text>
+  <text x="600" y="205" class="body">UnrpCommands calls Specials17.submitWriting.</text>
+  <path d="M830 252 V267 H290 V276" class="link"/>
+  <rect x="40" y="282" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="311" class="number">03</text>
+  <text x="98" y="311" class="label">Enact on the server</text>
+  <text x="60" y="343" class="body">Check the Court, tier, aura and law limit.</text>
+  <text x="60" y="367" class="body">Store the accepted law as a LawRec.</text>
+  <path d="M540 348 H574" class="link"/>
+  <rect x="580" y="282" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="311" class="number">04</text>
+  <text x="638" y="311" class="label">Watch the Court</text>
+  <text x="600" y="343" class="body">Events and tickCourt detect actions and entry.</text>
+  <text x="600" y="367" class="body">Membership and grace determine who is bound.</text>
+  <path d="M830 414 V429 H290 V438" class="link"/>
+  <rect x="40" y="444" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="60" y="473" class="number">05</text>
+  <text x="98" y="473" class="label">Apply the matching effect</text>
+  <text x="60" y="505" class="body">breach collects ordinary penalties.</text>
+  <text x="60" y="529" class="body">enforceSpecificRules runs inventory/home rules.</text>
+  <path d="M540 510 H574" class="link"/>
+  <rect x="580" y="444" width="500" height="132" rx="6" fill="#222a35" stroke="#46505e"/>
+  <text x="600" y="473" class="number">06</text>
+  <text x="638" y="473" class="label">Keep the ledger</text>
+  <text x="600" y="505" class="body">CovenantStateData saves the Court state.</text>
+  <text x="600" y="529" class="body">Pending home books are retried on delivery.</text>
+  <path d="M40 632 H1080" stroke="#46505e"/>
+  <text x="40" y="667" class="body">Ordinary law: prohibited action → breach → penalty collected as Collateral.</text>
+  <text x="40" y="695" class="body">Specific rule: its supported trigger runs an action, such as delivering a home book.</text>
+  <text x="40" y="723" class="body">Gameplay: COVENANT.md · Code and saved records: COVENANT_CODE_EXPLAINED.txt</text>
+</svg>

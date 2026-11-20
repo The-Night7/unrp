@@ -1,0 +1,27 @@
+{
+  "_export_note": "Covenant-only reference excerpts. Merge into the full project definitions; do not replace shared files with these subsets.",
+  "ranges": {
+    "covenant": [
+      [
+        6.0,
+        7.0
+      ],
+      [
+        6.6,
+        7.6
+      ],
+      [
+        7.0,
+        8.0
+      ],
+      [
+        9.4,
+        9.9
+      ],
+      [
+        5.5,
+        6.5
+      ]
+    ]
+  }
+}

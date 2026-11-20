@@ -1,22 +1,22 @@
 {
   "scope": "English Covenant-specific sources, native assets, tests, definition excerpts and a shared-system integration map; not a standalone mod",
-  "git_head_for_reference": "4d92f3f02bbaa5977f3f1345778d21d327b18ec9",
-  "source": "Unpacked working copy; hashes reflect its current files. The maintained source export is ../covenant-code.zip.",
+  "git_head_for_reference": "54d21dcc1520dccacf0dbc3d6b567e09c4edf7c8",
+  "source": "Current workspace sources. Definition excerpts and integration notes are explicitly generated reference material.",
   "files": [
     {
       "path": "COVENANT_CODE_EXPLAINED.txt",
-      "bytes": 6151,
-      "sha256": "615f52cc909e876e62f4fd773fb706584749f73bc0880100050cb42b1c00af50"
+      "bytes": 7544,
+      "sha256": "3597963a429e015f3583848dbb300ba72e6212291fb8f383405fd59c6751d259"
     },
     {
       "path": "DEFINITIONS_COVENANT.json",
-      "bytes": 14250,
-      "sha256": "f437a01492478f838f97106118ab60dcce07135d577be201f3f66f9825bf7281"
+      "bytes": 14253,
+      "sha256": "180526b78e7191c64d8ef897aa6ccc5fcd366805520fa5d9d25759d68234b6b2"
     },
     {
       "path": "INTEGRATION_POINTS.txt",
-      "bytes": 6001,
-      "sha256": "8d557d83c3187fdb0fbb8a48d0a45ab5c528e00348b80f17a25133b3bfddcb2c"
+      "bytes": 7373,
+      "sha256": "53cbe8f82a3922740b2f8b87847acc20155f4ff7cd9e70fe779da7660f6ba2ca"
     },
     {
       "path": "definitions/abilities.covenant.json",
@@ -30,8 +30,8 @@
     },
     {
       "path": "definitions/ability_powers.covenant.json",
-      "bytes": 13095,
-      "sha256": "068c32566f12432fb7ac49128d4543942786995a6cf8c91177f15534d69ec8d8"
+      "bytes": 13098,
+      "sha256": "bd058c4b0356e3be8b86434c3ae92ceb94d8b497629290ded7e23218b01e9d7d"
     },
     {
       "path": "definitions/characters.covenant.json",
@@ -45,13 +45,13 @@
     },
     {
       "path": "unrp-forge/docs/COVENANT.md",
-      "bytes": 23940,
-      "sha256": "202a7d933be2584deb462fa94825293bda2442562f9b664e2656d02f17cafdd5"
+      "bytes": 27938,
+      "sha256": "7d3b38463c11c89ca2a1762855b2183d0f61468a3eb7a4fe0e78c66bc295299c"
     },
     {
       "path": "unrp-forge/docs/COVENANT_CODE_EXPLAINED.txt",
-      "bytes": 6151,
-      "sha256": "615f52cc909e876e62f4fd773fb706584749f73bc0880100050cb42b1c00af50"
+      "bytes": 7544,
+      "sha256": "3597963a429e015f3583848dbb300ba72e6212291fb8f383405fd59c6751d259"
     },
     {
       "path": "unrp-forge/docs/COVENANT_SPEC.md",
@@ -62,6 +62,11 @@
       "path": "unrp-forge/docs/PLAN_COVENANT.md",
       "bytes": 734,
       "sha256": "a76906bdd32f2539fd2b349208ef67807c470904b52e20b6da83fe1b7ff415ff"
+    },
+    {
+      "path": "unrp-forge/docs/covenant-law-flow.svg",
+      "bytes": 4631,
+      "sha256": "237ef08043cf85a826367d1998fd472a0a0ead9f804f3d83e94882e91fd394f1"
     },
     {
       "path": "unrp-forge/docs/covenant-visuals.png",
@@ -80,8 +85,8 @@
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/ability/CovenantLawChoices.java",
-      "bytes": 2542,
-      "sha256": "2821fd27dee6ab2c925cda212b7b85c7b27fcf04be497afc2c00b01ece2bb7ce"
+      "bytes": 2859,
+      "sha256": "67dc572205aad6c7d9f15ad3a1dd01eca993e1b9c5ff57d115c4262c7c95b830"
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/ability/CovenantParse.java",
@@ -114,14 +119,19 @@
       "sha256": "7e63ee4ad9824288c0b5c40514ead0c8d8ce3467e76ef713d77925082573c471"
     },
     {
+      "path": "unrp-forge/src/main/java/com/myriam/unrp/ability/CovenantTerritory.java",
+      "bytes": 556,
+      "sha256": "851ef6a0b00fce33610bc55cdc0a9abb731f193317cb7e4228367ef449a2ec14"
+    },
+    {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/ability/Specials17.java",
-      "bytes": 130438,
-      "sha256": "3ad71d810fbea50bcba5081bcf75448feaab1ccfd61996ea9efea5398b740343"
+      "bytes": 141718,
+      "sha256": "b70212cdad6b2a34c0a3282aec80d103c4c173ac770630564a55d48e7881d293"
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/client/CovenantClient.java",
-      "bytes": 8865,
-      "sha256": "deaadeec1c08fad1f56ba74f293ca86af0b181f4e9aa001f4f27471a803d3e3a"
+      "bytes": 9207,
+      "sha256": "b05f5dfc7e326f298dd6cb2216412b9b341ae019abb592a79ef5766e6434033e"
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/client/CovenantEffects.java",
@@ -130,8 +140,13 @@
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/client/CovenantLawScreen.java",
-      "bytes": 7039,
-      "sha256": "6938a644bb019db43fb4279fffce892ddf7bccce4a7fe30fb1c7d51cd1826512"
+      "bytes": 7833,
+      "sha256": "674c6c0187a6d9f2dd378f00e9d65d88b3954e1ba2a78049f79b52b3efa370d4"
+    },
+    {
+      "path": "unrp-forge/src/main/java/com/myriam/unrp/client/CovenantRegistryScreen.java",
+      "bytes": 8695,
+      "sha256": "a93dcf8ce50f22611490f56cbcab9b1d5f4da7d92a560ed6f94b34bc6ea7f1cb"
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/client/CovenantSignatureLayer.java",
@@ -145,13 +160,13 @@
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/client/CovenantWritingScreen.java",
-      "bytes": 7556,
-      "sha256": "2884bd674d76c4fb4771a12007a78d93163feb6bc5b8bf9338642e6e586f3c51"
+      "bytes": 8183,
+      "sha256": "a5f5a5e43e4947892f37fc5374bc19f78f8d990cf52363a29507fdabebb06e5b"
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/client/UiSkin.java",
-      "bytes": 5509,
-      "sha256": "d4f6a41aa3269ffdf0e2164fac492c325656b20c0111b71a31d4305ec4800950"
+      "bytes": 5463,
+      "sha256": "21040d50877ec9dff32ad9598b9cb15377a5f8d6ef008226264a731dc7d1fd2e"
     },
     {
       "path": "unrp-forge/src/main/java/com/myriam/unrp/home/HomeCommands.java",
@@ -355,8 +370,8 @@
     },
     {
       "path": "unrp-forge/src/test/java/com/myriam/unrp/ability/CovenantLawChoicesTest.java",
-      "bytes": 1890,
-      "sha256": "a8ad4ab71db657df06bc59a60e0c68b06d21d93f468db2fe2ef0699a6478de2f"
+      "bytes": 2224,
+      "sha256": "4dccf140fd0327ba1114ea2093f2286834622c151e4fd6b4d929e4977b52abc4"
     },
     {
       "path": "unrp-forge/src/test/java/com/myriam/unrp/ability/CovenantParseTest.java",
@@ -365,8 +380,8 @@
     },
     {
       "path": "unrp-forge/src/test/java/com/myriam/unrp/ability/CovenantPersistenceTest.java",
-      "bytes": 5562,
-      "sha256": "ebf83b8fe25c5b82f5781c18a12cc54f6c73f824a328c1fa7c8b653cabfb660e"
+      "bytes": 8293,
+      "sha256": "fa440d991e34ca1b06e57547895c6cd86ff463648d9b31aec3d5bd761584ae42"
     },
     {
       "path": "unrp-forge/src/test/java/com/myriam/unrp/ability/CovenantPresentationTest.java",
@@ -382,6 +397,11 @@
       "path": "unrp-forge/src/test/java/com/myriam/unrp/ability/CovenantSpecificRulesTest.java",
       "bytes": 1566,
       "sha256": "d53682c183e16470cd275b057993c69b998de1063b6c472e759b6be14bcd94dc"
+    },
+    {
+      "path": "unrp-forge/src/test/java/com/myriam/unrp/ability/CovenantTerritoryTest.java",
+      "bytes": 884,
+      "sha256": "0bd1f9b2e60c64792bd021746dca2465f31990ef5c96bd9834157c3e08289993"
     },
     {
       "path": "unrp-forge/src/test/java/com/myriam/unrp/command/CovenantWritingCommandTest.java",
@@ -400,8 +420,8 @@
     },
     {
       "path": "unrp-forge/tools/export_covenant.py",
-      "bytes": 7892,
-      "sha256": "a96d44ed6985fc7f4c65d28d69b955c427e17b4201e1fba827881e40fff0d565"
+      "bytes": 7922,
+      "sha256": "a5b7be9df98089c5b8b120131f4fdc88de5bb3d8f59f636ff062a200f38c81a5"
     },
     {
       "path": "unrp-forge/tools/make_covenant_icons.py",

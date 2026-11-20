@@ -7,69 +7,78 @@ the module. The archive contains the complete Covenant-specific Java files.
 
 UnrpMod.java
   Registers common events and server/client components.
-  Line 64: com.myriam.unrp.ability.Specials17.onLogin(player);
+  Line 62: com.myriam.unrp.ability.Specials17.onLogin(player);
 
 ability/AbilityEngine.java
   Input, aura, effective stats, movement permissions and borrowed-power integration.
-  Line 348: power = Specials17.borrowedView(p, id, power);
-  Line 349: int[] st = Specials17.borrowedStats(p, id, PlayerStateService.stats(p.server, p.getUUID(), pr, c));
-  Line 372: power = Specials17.borrowedView(p, st != null && st.copyId != null ? st.copyId : basePowerId(p), power);
-  Line 390: s.moveLocked[k] = Specials17.moveLevel(p, st != null && st.copyId != null ? st.copyId : basePowerId(p), i) < m.minLevel || (!copiedNow && Unlocks.locked(s.unlockMask, power, i, Unlocks.mastered(p.server, p)))
-  Line 391: || !Specials17.borrowedMoveAllowed(p, st != null && st.copyId != null ? st.copyId : AbilityEngine.basePowerId(p), i);
-  Line 449: block.add(!vis.contains(i) || Specials17.moveLevel(p, su.powerId, i) < m.minLevel || !Specials17.borrowedMoveAllowed(p, su.powerId, i)
-  Line 450: || Specials17.branchBlocked(p, su.powerId, i) || (!borrowed && Unlocks.locked(mask, power, i, Unlocks.mastered(p.server, p))));
-  Line 468: private static double levelOf(ServerPlayer player) { return Specials17.levelOf(player); }
-  Line 565: if (Specials17.moveLevel(p, su.powerId, slot) < m.minLevel) {
-  Line 578: if ((Specials17.branchBlocked(p, su.powerId, slot) || !Specials17.borrowedMoveAllowed(p, su.powerId, slot))) {
-  Line 761: int[] originalStrength = Specials17.borrowedMoveStats(p, su.powerId, su.power.moves.indexOf(m), su.st);
-  Line 763: if (!"stance_next".equals(m.special) && !"mode_next".equals(m.special)) Specials17.onCast(p);
-  Line 764: if (!st.on || Specials17.powerBlocked(p) || (su.power.branchSource != null && !Specials17.hasLease(p, su.powerId))) return false;
-  Line 842: if (Specials17.powerBlocked(p)) { allOff(p); continue; }
-  Line 881: if (st.toggled[i] && m.special != null) Specials.whileOn(p, su.power, m, Specials17.borrowedMoveStats(p, su.powerId, i, su.st), su.power.branchSource != null && m.stance >= 0 ? m.stance : st.stance, now);
-  Line 1156: add(d, Specials17.statAdj(id));
-  Line 1231: if (Specials17.hasLease(p, id)) return;
-  Line 1266: st.reserve.removeIf(idToRemove -> !Specials17.hasLease(p, idToRemove));
-  Line 1384: return Specials17.powerBlocked(p) || (st != null && st.disabledUntil > p.serverLevel().getGameTime());
-  Line 1465: if ((borrowed || (stanceOk && modeOk && tagOk)) && (!borrowed || p == null || Specials17.borrowedMoveAllowed(p, power.branchSource, i))) out.add(i);
-  Line 1502: Specials17.onAttackAttempt(p);
+  Line 318: power = Specials17.borrowedView(p, id, power);
+  Line 319: int[] st = Specials17.borrowedStats(p, id, PlayerStateService.stats(p.server, p.getUUID(), pr, c));
+  Line 341: power = Specials17.borrowedView(p, st != null && st.copyId != null ? st.copyId : basePowerId(p), power);
+  Line 359: s.moveLocked[k] = Specials17.moveLevel(p, st != null && st.copyId != null ? st.copyId : basePowerId(p), i) < m.minLevel || (!copiedNow && Unlocks.locked(s.unlockMask, power, i, Unlocks.mastered(p.server, p)))
+  Line 360: || !Specials17.borrowedMoveAllowed(p, st != null && st.copyId != null ? st.copyId : AbilityEngine.basePowerId(p), i);
+  Line 414: block.add(!vis.contains(i) || Specials17.moveLevel(p, su.powerId, i) < m.minLevel || !Specials17.borrowedMoveAllowed(p, su.powerId, i)
+  Line 415: || Specials17.branchBlocked(p, su.powerId, i) || (!borrowed && Unlocks.locked(mask, power, i, Unlocks.mastered(p.server, p))));
+  Line 433: private static double levelOf(ServerPlayer player) { return Specials17.levelOf(player); }
+  Line 527: if (Specials17.moveLevel(p, su.powerId, slot) < m.minLevel) {
+  Line 540: if ((Specials17.branchBlocked(p, su.powerId, slot) || !Specials17.borrowedMoveAllowed(p, su.powerId, slot))) {
+  Line 719: int[] originalStrength = Specials17.borrowedMoveStats(p, su.powerId, su.power.moves.indexOf(m), su.st);
+  Line 721: if (!"stance_next".equals(m.special) && !"mode_next".equals(m.special)) Specials17.onCast(p);
+  Line 722: if (!st.on || Specials17.powerBlocked(p) || (su.power.branchSource != null && !Specials17.hasLease(p, su.powerId))) return false;
+  Line 798: if (Specials17.powerBlocked(p)) { allOff(p); continue; }
+  Line 836: if (st.toggled[i] && m.special != null) Specials.whileOn(p, su.power, m, Specials17.borrowedMoveStats(p, su.powerId, i, su.st), su.power.branchSource != null && m.stance >= 0 ? m.stance : st.stance, now);
+  Line 1101: add(d, Specials17.statAdj(id));
+  Line 1171: if (Specials17.hasLease(p, id)) return;
+  Line 1203: st.reserve.removeIf(idToRemove -> !Specials17.hasLease(p, idToRemove));
+  Line 1311: return Specials17.powerBlocked(p) || (st != null && st.disabledUntil > p.serverLevel().getGameTime());
+  Line 1387: if ((borrowed || (stanceOk && modeOk && tagOk)) && (!borrowed || p == null || Specials17.borrowedMoveAllowed(p, power.branchSource, i))) out.add(i);
+  Line 1422: Specials17.onAttackAttempt(p);
 
 ability/AbilityEvents.java
   Forge events, server startup and shutdown.
-  Line 10: public void onServerStart(net.minecraftforge.event.server.ServerStartedEvent event) { Specials17.start(event.getServer()); }
-  Line 13: public void onServerStopping(net.minecraftforge.event.server.ServerStoppingEvent event) { Specials17.shutdown(event.getServer()); }
-  Line 39: if (e.getEntity() instanceof net.minecraft.server.level.ServerPlayer player) Specials17.onAttackAttempt(player);
-  Line 46: Specials17.onJump(p);
-  Line 53: if (e.getPlayer() instanceof net.minecraft.server.level.ServerPlayer p) Specials17.onBreak(p);
-  Line 58: if (e.getEntity() instanceof net.minecraft.server.level.ServerPlayer p) Specials17.onPlace(p);
-  Line 79: Specials17.onChat(e);
+  Line 9: public void onServerStart(net.minecraftforge.event.server.ServerStartedEvent event) { Specials17.start(event.getServer()); }
+  Line 12: public void onServerStopping(net.minecraftforge.event.server.ServerStoppingEvent event) { Specials17.shutdown(event.getServer()); }
+  Line 35: if (e.getEntity() instanceof net.minecraft.server.level.ServerPlayer player) Specials17.onAttackAttempt(player);
+  Line 41: Specials17.onJump(p);
+  Line 48: if (e.getPlayer() instanceof net.minecraft.server.level.ServerPlayer p) Specials17.onBreak(p);
+  Line 53: if (e.getEntity() instanceof net.minecraft.server.level.ServerPlayer p) Specials17.onPlace(p);
+  Line 70: Specials17.onChat(e);
 
 ability/Specials.java
   Special-move routing and server tick.
-  Line 54: return ALL.contains(special) || Specials2.handles(special) || Specials3.handles(special) || Specials4.handles(special) || Specials5.handles(special) || Specials6.handles(special) || Specials7.handles(special) || Specials8.handles(special) || Specials9.handles(special) || Specials10.handles(special) || Specials17.handles(special);
-  Line 158: Specials17.onLogout(id);
-  Line 187: Specials17.stop(p, special);
-  Line 215: if (Specials17.handles(m.special)) return Specials17.run(p, power, m);
-  Line 659: Specials17.tick(server);
-  Line 760: Specials17.onHurt(e);
+  Line 48: return ALL.contains(special) || Specials2.handles(special) || Specials3.handles(special) || Specials4.handles(special) || Specials5.handles(special) || Specials6.handles(special) || Specials7.handles(special) || Specials8.handles(special) || Specials9.handles(special) || Specials10.handles(special) || Specials17.handles(special);
+  Line 148: Specials17.onLogout(id);
+  Line 176: Specials17.stop(p, special);
+  Line 202: if (Specials17.handles(m.special)) return Specials17.run(p, power, m);
+  Line 644: Specials17.tick(server);
+  Line 744: Specials17.onHurt(e);
 
 ability/Superpowers.java
   Power ownership and held-ability integration.
-  Line 60: if (id.equals(AbilityEngine.basePowerId(p)) && Specials17.branchEscrowed(p)) return;
-  Line 79: if (Specials17.powerBlocked(p)) return Set.of();
+  Line 54: if (id.equals(AbilityEngine.basePowerId(p)) && Specials17.branchEscrowed(p)) return;
+  Line 72: if (Specials17.powerBlocked(p)) return Set.of();
 
 command/UnrpCommands.java
   Registers covenantWritingCommands and routes validated writing actions.
-  Line 45: if(action.equals("law"))entry.executes(ctx->com.myriam.unrp.ability.Specials17.openLawEditor(ctx.getSource().getPlayerOrException())?1:0);
-  Line 47: .executes(ctx -> com.myriam.unrp.ability.Specials17.submitWriting(
-  Line 52: com.myriam.unrp.ability.Specials17.cancelWriting(ctx.getSource().getPlayerOrException()); return 1;
+  Line 37: if(action.equals("law"))entry.executes(ctx->com.myriam.unrp.ability.Specials17.openLawEditor(ctx.getSource().getPlayerOrException())?1:0);
+  Line 39: .executes(ctx -> com.myriam.unrp.ability.Specials17.submitWriting(
+  Line 44: .executes(ctx -> com.myriam.unrp.ability.Specials17.openTerritoryEditor(ctx.getSource().getPlayerOrException()) ? 1 : 0)
+  Line 46: .executes(ctx -> com.myriam.unrp.ability.Specials17.claimTerritory(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "name")) ? 1 : 0)));
+  Line 48: .executes(ctx -> com.myriam.unrp.ability.Specials17.selectTerritory(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "name")) ? 1 : 0)));
+  Line 50: .executes(ctx -> com.myriam.unrp.ability.Specials17.releaseTerritory(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "name")) ? 1 : 0)));
+  Line 52: com.myriam.unrp.ability.Specials17.listTerritories(ctx.getSource().getPlayerOrException()); return 1;
+  Line 55: com.myriam.unrp.ability.Specials17.selectPersonalCourt(ctx.getSource().getPlayerOrException()); return 1;
+  Line 58: com.myriam.unrp.ability.Specials17.openLawRegistry(ctx.getSource().getPlayerOrException()) ? 1 : 0));
+  Line 60: .executes(ctx -> com.myriam.unrp.ability.Specials17.manageLaw(ctx.getSource().getPlayerOrException(), StringArgumentType.getString(ctx, "request")) ? 1 : 0)));
+  Line 63: .executes(ctx -> com.myriam.unrp.ability.Specials17.lawProposal(ctx.getSource().getPlayerOrException(), action.equals("discard_proposal"), StringArgumentType.getString(ctx, "text")) ? 1 : 0)));
+  Line 65: com.myriam.unrp.ability.Specials17.cancelWriting(ctx.getSource().getPlayerOrException()); return 1;
 
 net/Net.java
   Registers CovenantPacket on the mod channel.
-  Line 33: CHANNEL.registerMessage(id++, CovenantPacket.class, CovenantPacket::encode, CovenantPacket::decode, CovenantPacket::handle);
+  Line 32: CHANNEL.registerMessage(id++, CovenantPacket.class, CovenantPacket::encode, CovenantPacket::decode, CovenantPacket::handle);
 
 client/ClientEvents.java
   Adds CovenantSignatureLayer to player rendering.
-  Line 60: pr.addLayer(new CovenantSignatureLayer(pr));
+  Line 59: pr.addLayer(new CovenantSignatureLayer(pr));
 
 look/AbilityBar.java
   Common ability bar and Covenant stance display.

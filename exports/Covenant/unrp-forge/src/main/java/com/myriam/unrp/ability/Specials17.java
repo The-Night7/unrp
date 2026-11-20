@@ -78,6 +78,7 @@ public final class Specials17 {
         Vec3 center;
         double radius;
         boolean follow = true, constitutional, district;
+        boolean claimed;
         String name = "Court";
         long expires = Long.MAX_VALUE;
         final List<Act> history = new ArrayList<>();
@@ -145,6 +146,7 @@ public final class Specials17 {
         int selectedCourt = -1;
         Court constitution;
         final List<Court> jurisdictions = new ArrayList<>();
+        final List<String> proposals = new ArrayList<>();
         final Map<UUID, Long> signatures = new HashMap<>();
         final Map<UUID, Subject> subjects = new HashMap<>();
         final Map<UUID, List<String>> handMail = new HashMap<>();
@@ -241,14 +243,7 @@ public final class Specials17 {
 
     // ------------------------------------------------------------------ level
     static double levelOf(ServerPlayer p) {
-        var pr = ClaimData.get(p.server).profileOf(p.getUUID()).orElse(null);
-        if (pr == null)
-            return 1;
-        if (ClaimData.Profile.CHARACTER.equals(pr.kind)) {
-            var c = UnodexData.get().characters.get(pr.characterId);
-            return (c != null && c.level != null ? c.level : 10) * AbilityEngine.restoredPercent(p) / 100;
-        }
-        return pr.level * AbilityEngine.restoredPercent(p) / 100;
+        return com.myriam.unrp.player.PlayerStateService.effectiveLevel(p);
     }
 
     private static double courtLevelOf(ServerPlayer player) {
@@ -713,6 +708,244 @@ public final class Specials17 {
                 what, player.server.overworld().getGameTime(), what == Await.PACT ? previous.target : null),
             text);
         return true;
+    }
+
+    public static boolean openLawRegistry(ServerPlayer player) {
+        Sov state = SOV.get(player.getUUID());
+        if (state == null) {
+            bar(player, "§7No Covenant ledger is available yet. Activate Covenant first.");
+            return false;
+        }
+        cancelWriting(player);
+        var payload = new com.google.gson.JsonObject();
+        payload.addProperty("registry", true);
+        payload.addProperty("level", levelOf(player));
+        var courts = new com.google.gson.JsonArray();
+        for (Court court : allCourts()) {
+            if (!player.getUUID().equals(court.owner)) continue;
+            var entry = new com.google.gson.JsonObject();
+            entry.addProperty("id", court.id.toString());
+            entry.addProperty("name", court == state.court ? "Personal Court"
+                    : court == state.sealed ? "Sealed Court"
+                    : court.constitutional ? "Constitutions" : court.name);
+            entry.addProperty("constitution", court.constitutional);
+            var laws = new com.google.gson.JsonArray();
+            for (LawRec law : court.laws) {
+                var row = new com.google.gson.JsonObject();
+                row.addProperty("id", law.id);
+                row.addProperty("text", law.text);
+                row.addProperty("hidden", law.hidden);
+                row.addProperty("specific", law.specific != null);
+                laws.add(row);
+            }
+            entry.add("laws", laws);
+            courts.add(entry);
+        }
+        payload.add("courts", courts);
+        var proposals = new com.google.gson.JsonArray();
+        state.proposals.forEach(proposals::add);
+        payload.add("proposals", proposals);
+        com.myriam.unrp.net.Net.CHANNEL.send(
+                net.minecraftforge.network.PacketDistributor.PLAYER.with(() -> player),
+                new com.myriam.unrp.net.CovenantPacket(payload.toString()));
+        return true;
+    }
+
+    public static boolean manageLaw(ServerPlayer player, String request) {
+        Sov state = SOV.get(player.getUUID());
+        if (state == null || request.length() > 640) return false;
+        String[] parts = request.split(" ", 4);
+        if (parts.length < 3) return false;
+        Court court;
+        int id;
+        try {
+            UUID courtId = UUID.fromString(parts[0]);
+            id = Integer.parseInt(parts[1]);
+            court = allCourts().stream().filter(c -> c.id.equals(courtId)
+                    && player.getUUID().equals(c.owner)).findFirst().orElse(null);
+        } catch (IllegalArgumentException exception) {
+            return false;
+        }
+        if (court == null) return false;
+        LawRec law = court.laws.stream().filter(l -> l.id == id).findFirst().orElse(null);
+        if (law == null) return false;
+        switch (parts[2]) {
+            case "delete" -> court.laws.remove(law);
+            case "visibility" -> {
+                if (court.constitutional || !on(player) || AbilityEngine.disabled(player)
+                        || levelOf(player) < CovenantRules.MID) return false;
+                if (!law.hidden && court.laws.stream().anyMatch(other -> other.hidden)) {
+                    bar(player, "§7Only one hidden law at a time; reveal it first.");
+                    return false;
+                }
+                law.hidden = !law.hidden;
+            }
+            case "edit" -> {
+                if (parts.length < 4 || parts[3].isBlank() || parts[3].length() > 512
+                        || !on(player) || AbilityEngine.disabled(player)) return false;
+                double level = levelOf(player);
+                if (court.constitutional && level < CovenantRules.GOD) return false;
+                Law parsed = CovenantLawChoices.supportedLaw(parts[3]);
+                var specific = CovenantSpecificRules.parse(parts[3]);
+                if ((parsed == null || !CovenantRules.allowed(level, parsed.pen().kind()))
+                        && (specific == null || level < CovenantRules.ELITE || court.constitutional)) {
+                    bar(player, "§7Unsupported rule. Use the law choices or save it as a proposal.");
+                    return false;
+                }
+                if (specific != null && court.laws.stream().anyMatch(other -> other != law && specific.equals(other.specific))) {
+                    bar(player, "§7This specific rule is already enacted in this Court.");
+                    return false;
+                }
+                if (!pay(player, 10)) return false;
+                law.text = parts[3];
+                law.specific = specific;
+                law.law = specific == null ? parsed : null;
+                law.reports.clear();
+                law.grace.clear();
+                law.activeAt = player.server.overworld().getGameTime();
+                if (level < CovenantRules.MID) {
+                    law.hidden = false;
+                    for (ServerPlayer person : player.server.getPlayerList().getPlayers())
+                        if (insideOf(court, person)) law.grace.put(person.getUUID(), law.activeAt + 60);
+                    announce(player, court, "§6Law #" + law.id + " amended: " + law.text);
+                }
+            }
+            default -> { return false; }
+        }
+        rebuildParchments(player, court);
+        saveState(player.server);
+        openLawRegistry(player);
+        return true;
+    }
+
+    public static boolean lawProposal(ServerPlayer player, boolean remove, String text) {
+        Sov state = SOV.get(player.getUUID());
+        if (state == null) return false;
+        if (remove) {
+            try {
+                int index = Integer.parseInt(text);
+                if (index < 0 || index >= state.proposals.size()) return false;
+                state.proposals.remove(index);
+            } catch (NumberFormatException exception) { return false; }
+        } else {
+            text = text.trim();
+            if (text.isEmpty() || text.length() > 512 || state.proposals.size() >= 32) {
+                bar(player, "§7Proposals need 1–512 characters; keep at most 32.");
+                return false;
+            }
+            state.proposals.add(text);
+            player.sendSystemMessage(Component.literal("§6Proposal saved. It is not an active law and has no automatic effect."));
+        }
+        saveState(player.server);
+        openLawRegistry(player);
+        return true;
+    }
+
+    public static boolean openTerritoryEditor(ServerPlayer player) {
+        if (!mayClaim(player)) return false;
+        cancelWriting(player);
+        writingPrompt(player, "claim");
+        return true;
+    }
+
+    private static boolean mayClaim(ServerPlayer player) {
+        if (!on(player) || AbilityEngine.disabled(player) || levelOf(player) < CovenantRules.HIGH) {
+            bar(player, "§7Claiming territory requires active Covenant at level 5.0 or higher.");
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean claimTerritory(ServerPlayer player, String text) {
+        if (!mayClaim(player)) return false;
+        String name = text.trim();
+        if (!CovenantTerritory.validName(name)) {
+            bar(player, "§7Use a territory name of 1–48 characters: letters, numbers, spaces, - or _.");
+            return false;
+        }
+        String dimension = player.serverLevel().dimension().location().toString();
+        double radius = CovenantRules.radius(levelOf(player));
+        for (Court existing : allCourts()) {
+            if (!existing.claimed) continue;
+            if (existing.name.equalsIgnoreCase(name)) {
+                bar(player, "§7That Covenant territory name is already taken.");
+                return false;
+            }
+            if (existing.dim.equals(dimension) && CovenantTerritory.overlaps(
+                    player.getX(), player.getZ(), radius, existing.center.x, existing.center.z, existing.radius)) {
+                bar(player, "§7This claim overlaps Covenant territory: " + existing.name);
+                return false;
+            }
+        }
+        cancelWriting(player);
+        Court source = open(player);
+        Court claim = new Court();
+        claim.owner = player.getUUID();
+        claim.dim = dimension;
+        claim.center = player.position();
+        claim.radius = radius;
+        claim.follow = false;
+        claim.district = true;
+        claim.claimed = true;
+        claim.name = name;
+        claim.ownerLevel = levelOf(player);
+        claim.tier = tierOf(claim.ownerLevel);
+        for (LawRec law : source.laws) claim.laws.add(copyLaw(law));
+        claim.terms.addAll(source.terms);
+        claim.next = source.next;
+        Sov state = sov(player.getUUID());
+        state.jurisdictions.add(claim);
+        state.selectedCourt = state.jurisdictions.size() - 1;
+        rebuildParchments(player, claim);
+        saveState(player.server);
+        player.sendSystemMessage(Component.literal("§6Territory claimed: " + name + " (radius "
+                + (int) radius + " m). New laws now apply to this territory. Use /unrp covenant personal to edit your moving Court."));
+        return true;
+    }
+
+    public static boolean selectTerritory(ServerPlayer player, String name) {
+        Sov state = sov(player.getUUID());
+        for (int i = 0; i < state.jurisdictions.size(); i++) {
+            Court court = state.jurisdictions.get(i);
+            if (court.claimed && court.name.equalsIgnoreCase(name.trim())) {
+                state.selectedCourt = i;
+                saveState(player.server);
+                bar(player, "§6Editing territory: " + court.name);
+                return true;
+            }
+        }
+        bar(player, "§7You do not own a territory with that name.");
+        return false;
+    }
+
+    public static boolean releaseTerritory(ServerPlayer player, String name) {
+        Sov state = sov(player.getUUID());
+        Court claim = state.jurisdictions.stream()
+                .filter(c -> c.claimed && c.name.equalsIgnoreCase(name.trim())).findFirst().orElse(null);
+        if (claim == null) {
+            bar(player, "§7You do not own a territory with that name.");
+            return false;
+        }
+        closeCourt(player.server, claim, state);
+        state.jurisdictions.remove(claim);
+        state.selectedCourt = -1;
+        saveState(player.server);
+        bar(player, "§6Territory released: " + claim.name);
+        return true;
+    }
+
+    public static void listTerritories(ServerPlayer player) {
+        player.sendSystemMessage(Component.literal("§6Your Covenant territories:"));
+        var claims = sov(player.getUUID()).jurisdictions.stream().filter(c -> c.claimed).toList();
+        if (claims.isEmpty()) player.sendSystemMessage(Component.literal("§7None. Use /unrp covenant claim."));
+        for (Court c : claims) player.sendSystemMessage(Component.literal("§e" + c.name + "§7 — " + c.dim
+                + " at " + (int)c.center.x + ", " + (int)c.center.z + ", radius " + (int)c.radius + " m"));
+    }
+
+    public static void selectPersonalCourt(ServerPlayer player) {
+        sov(player.getUUID()).selectedCourt = -1;
+        saveState(player.server);
+        bar(player, "§6Editing your personal Court.");
     }
 
     public static boolean openLawEditor(ServerPlayer player) {
@@ -1524,7 +1757,7 @@ public final class Specials17 {
                 return count > 0;
             }
             case "cv_ledger" -> {
-                ledger(p);
+                openLawRegistry(p);
                 return false;
             }
             case "cv_return", "cv_spend" -> {
@@ -1968,10 +2201,11 @@ public final class Specials17 {
             case "repeal" -> {
                 try {
                     int id = Integer.parseInt(words[2]);
-                    for (Court court : allCourts())
-                        if (court.owner.equals(player.getUUID()))
-                            court.laws.removeIf(l -> l.id == id);
-                    bar(player, "§6Law / Constitution #" + id + " repealed.");
+                    Court court = editingCourt(state);
+                    if (court != null && court.laws.removeIf(l -> l.id == id)) {
+                        rebuildParchments(player, court);
+                        bar(player, "§6Law #" + id + " repealed in the selected Court.");
+                    } else bar(player, "§7That law is not in the selected Court. Use /unrp covenant laws.");
                 } catch (RuntimeException e) {
                     bar(player, "§7cv repeal <law number>");
                 }
@@ -2483,9 +2717,11 @@ public final class Specials17 {
         }
         for (Sov state : new ArrayList<>(SOV.values())) {
             state.signatures.entrySet().removeIf(e -> e.getValue() <= now);
+            Court selected = state.selectedCourt >= 0 ? editingCourt(state) : null;
             for (Court expired : state.jurisdictions.stream().filter(c -> c.expires <= now).toList())
                 closeCourt(server, expired, state);
             state.jurisdictions.removeIf(c -> c.expires <= now);
+            if (state.selectedCourt >= 0) state.selectedCourt = state.jurisdictions.indexOf(selected);
         }
         for (Court court : allCourts()) tickCourt(server, court, now);
         if (now % 20 == 0)

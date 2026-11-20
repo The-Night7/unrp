@@ -1,0 +1,150 @@
+COVENANT CODE GUIDE
+==================
+
+Covenant lives in the UNRP Forge mod for Minecraft 1.20.1. This ZIP contains its
+sources, textures, definitions and tests. It needs the full UNRP project to build;
+INTEGRATION_POINTS.txt lists the shared systems it calls.
+
+Start with these files
+----------------------
+Java paths are relative to src/main/java/com/myriam/unrp/.
+
+ability/Specials17.java
+  Owns the gameplay state and handles moves, Court membership, breaches, Pact
+  offers, Collateral, expiry and saving. The class predates the smaller helpers
+  and still contains most of the ability.
+
+ability/CovenantRules.java
+  Tier thresholds and limits. The Court radii and law-count limits also appear
+  in Specials17's RADIUS and LAW_CAP arrays; keep them in sync.
+
+ability/CovenantTerritory.java
+  Validates claim names and checks whether horizontal territory boundaries overlap.
+
+ability/CovenantParse.java
+  Turns supported English text into an action and a penalty. It recognises a
+  fixed grammar, not arbitrary instructions.
+
+ability/CovenantSpecificRules.java
+  Defines signed-contract collection and home-report rules. These trigger actions
+  directly rather than collecting a penalty for a prohibited action.
+
+ability/CovenantSpecificEffects.java
+  Reads signed contracts from PactLedger, transfers their items and creates home
+  books. HomeReport stores the visitor's home as it was when they entered.
+
+ability/CovenantInventoryTransfer.java
+  Fills existing stacks, then empty slots, leaving anything that does not fit.
+  We avoid Inventory.add because it can discard leftovers in creative mode.
+  StackAccess lets its tests run without booting Forge.
+
+From a button to an effect
+--------------------------
+1. CovenantLawScreen or CovenantSpecificScreen builds a supported rule sentence.
+2. The client sends /unrp covenant law followed by that sentence.
+3. UnrpCommands calls Specials17.submitWriting.
+4. finish checks the Court, tier, cost and limits, then stores a LawRec.
+5. AbilityEvents and tickCourt detect the action or entry.
+6. breach collects ordinary penalties. enforceSpecificRules handles the two
+   automatic rules. deliverPendingReports retries books that could not be sent.
+
+The server validates every request. The forms only collect input.
+CovenantWritingScreen handles the other writing actions: Pacts, entry conditions,
+tribute, jurisdiction and hand messages.
+
+Law registry
+------------
+CovenantRegistryScreen reads an owner-only snapshot sent by openLawRegistry.
+Each mutation includes the Court UUID and law number; manageLaw resolves both
+against the caller's own ledger. Editing costs 10 aura and checks current tier,
+activation and supported grammar. Deletion affects only that Court's copy.
+Constitutions cannot be hidden; ordinary Fine Print requires level 2.
+CovenantLawChoices.supportedLaw accepts the canonical action/penalty sentences
+used by the selectors, avoiding the loose keyword parser for registry edits.
+Supported specific rules keep their dedicated parser and tier checks.
+Proposals are a separate saved list of private notes with no gameplay effect.
+
+Territory claims
+----------------
+claimTerritory creates a fixed district Court at the player's position from
+level 5. It copies personal laws and entry terms, then selects the new Court.
+CovenantTerritory validates names and horizontal overlap. A claimed flag marks
+permanent territories in the existing jurisdictions list; old records default
+to false. Their expiry stays Long.MAX_VALUE. Selection and release check the
+calling player's own ledger. releaseTerritory uses closeCourt for cleanup.
+These claims do not change school turf ownership or protect blocks.
+
+State and saves
+---------------
+Specials17 uses these internal types:
+  Sov      A Sovereign's Courts, signatures, Pacts, Collateral and selections.
+  Court    Position, dimension, radius, laws, presence, exiles, debt and history.
+  LawRec   Text, trigger/penalty or specific rule, visibility, grace and reports.
+  Coll     A collected penalty, its source, beneficiary and return deadline.
+  Offer    A Pact waiting for acceptance.
+  Lease    Access to a borrowed branch or ability at its recorded strength.
+
+Physical presence and a remote God-tier signature are tracked separately.
+The specific inventory/home rules require physical presence.
+
+CovenantStateData saves the ledger in <world>/data/unrp_covenant.dat.
+start loads it, snapshotJson/restoreJson convert it, and shutdown saves it.
+The regular tick also saves periodically. restoreJson reconnects shared
+Collateral references so a stock entry and its applied penalty remain one unit.
+Keep the saved field names compatible when refactoring these types.
+
+Contracts and home reports
+--------------------------
+Contract collection checks the actual PactLedger entry. It skips unsigned pages
+and copies, preserves NBT, and removes only the quantity the Sovereign received.
+Moving a document does not change the Pact's parties or ownership. Full inventory
+or an offline Sovereign means the paper stays with its current holder.
+
+A matching entry captures the player's saved home. Each law keeps one pending
+report per visitor while delivery is blocked. After delivery, another physical
+entry can produce another book. No saved home means the book says so.
+
+home/HomeCommands.java stores the mod's home in persistent player NBT under
+unrp_home. Commands are /sethome, /home and their /unrp aliases. Homes from other
+mods need a separate integration; this code does not read them.
+
+Rendering
+---------
+CovenantPacket carries server state to CovenantClient.
+CovenantEffects draws the seal, boundary, floating laws and Indemnity glyphs.
+CovenantSignatureLayer draws hand and body marks. CovenantPresentation filters
+hidden laws and selects the visible page before sending it to clients.
+
+The real PNGs are under assets/unrp/textures/covenant/ and icons/covenant_*.png.
+design_covenant.py and make_covenant_icons.py regenerate them with Python/Pillow.
+The Court is rendered geometry, not placed blocks. covenant-visuals.png is a
+texture sheet, not an in-game screenshot.
+
+Definitions and changes
+-----------------------
+In the complete project, data/unrp/unodex/ability_powers.json -> powers.covenant
+contains the moves, stances, levels, aura costs, icons and cv_ identifiers.
+abilities.json contains the description. stat_ranges.json and ability_pool.json
+supply potentials and roll settings. Myriam is in characters/custom.json.
+The definitions/ files in this ZIP are labelled excerpts: merge them into the
+full files rather than replacing those files with Covenant-only data.
+
+To add an ordinary prohibition, add its trigger to CovenantParse, detect it in
+AbilityEvents or tickCourt, call breach, and add its CovenantLawChoices button.
+For an automatic rule, add a Kind/parser case, implement its effect, connect its
+entry/presence trigger, and add the CovenantSpecificScreen choice.
+For a new bar move, add its JSON entry and cv_ handler in Specials17, with level
+and aura checks. Include its icon and any required form.
+
+Tests and build
+---------------
+From unrp-forge in the full project:
+  ./gradlew test --tests '*Covenant*'
+  ./gradlew build
+
+Tests cover grammar, tiers, borrowed branches, persistence, hidden-law paging,
+command input and full/partial inventory transfers. Multiplayer timing and visuals
+still need in-game checks. COVENANT.md has the full player controls and limits.
+
+Run tools/export_covenant.py to regenerate this ZIP. MANIFEST.json contains file
+hashes; player worlds, caches and logs are excluded.

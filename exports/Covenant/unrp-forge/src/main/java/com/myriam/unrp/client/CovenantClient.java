@@ -31,6 +31,12 @@ public final class CovenantClient {
     }
     public static void receive(String json) {
         var root = JsonParser.parseString(json).getAsJsonObject();
+        if (root.has("registry")) {
+            Minecraft minecraft = Minecraft.getInstance();
+            CovenantRegistryScreen registry = new CovenantRegistryScreen(root);
+            if (minecraft.screen instanceof CovenantRegistryScreen previous) registry.restoreSelection(previous);
+            minecraft.setScreen(registry);
+        }
         if (root.has("writing")) {
             Minecraft mc = Minecraft.getInstance();
             if (mc.player != null && mc.screen == null) {

@@ -37,4 +37,11 @@ class CovenantLawChoicesTest {
             for (var penalty : CovenantLawChoices.available(level))
                 assertTrue(CovenantRules.allowed(level, penalty.kind()));
     }
+    @Test
+    void registryDoesNotTreatArbitraryTextAsAnImplementedLaw() {
+        assertNull(CovenantLawChoices.supportedLaw(
+                "No running unless you give me your home and all your weapons. Penalty: Speed"));
+        assertNotNull(CovenantLawChoices.supportedLaw(
+                "No running. Penalty: Speed"));
+    }
 }
